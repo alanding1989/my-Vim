@@ -1,0 +1,165 @@
+
+{
+  "suggest.enablePreview"                     : false,
+  "suggest.noselect"                          : false,
+  "suggest.acceptSuggestionOnCommitCharacter" : true ,
+  "suggest.preferCompleteThanJumpPlaceholder" : false,
+  "suggest.echodocSupport"                    : true ,
+  "suggest.snippetIndicator"                  : "~►"   ,
+
+  "coc.preferences.colorSupport"              : true ,
+  "coc.preferences.rootPatterns": [
+    ".root","*.sbt",".vim",".git",".hg",".projections.json"
+  ],
+
+  // snippets
+  "snippets.shortcut": "Snip",
+  "snippets.ultisnips.directories": [
+    "~/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/",
+    "~/.cache/vimfiles/repos/github.com/alanding1989/my-neosnippet-snippets/"
+  ],
+//  "snippets.textmateSnippetsRoots": ["~/.SpaceVim.d/vscode"],
+  "snippets.extends" : {
+    "ipynb"      : ["python"],
+    "sbt"        : ["scala"],
+    "cpp"        : ["c"],
+    "typescript" : ["javascript"]
+  },
+  "emmet.showSuggestionsAsSnippets" : true ,
+
+  // languageserver
+  // MPLS microsoft
+  "python.autoComplete.addBrackets"             : true,
+  "python.jediEnabled"                          : false,
+  "python.condaPath"                            : "/home/alanding/software/anaconda3/etc/profile.d/conda.sh",
+  "python.pythonPath"                           : "/home/alanding/software/anaconda3/envs/py36/bin/python3.6",
+  "python.jediPath"                             : "/home/alanding/software/anaconda3/envs/py36/lib/python3.6/site-packages/jedi",
+  "python.linting.enabled"                      : false,
+  "python.linting.pylintEnabled"                : true,
+  "python.linting.pylintPath"                   : "/home/alanding/software/anaconda3/envs/py36/bin/pylint",
+  "python.linting.flake8Enabled"                : true,
+  "python.linting.flake8Path"                   : "/home/alanding/software/anaconda3/envs/py36/bin/flake8",
+//  "python.linting.pydocstyleEnabled"            : true,
+//  "python.linting.pydocstylePath"               : "/home/alanding/software/anaconda3/envs/py36/bin/pydocstyle",
+  "python.sortImports.path"                     : "/home/alanding/software/anaconda3/envs/py36/bin/isort",
+  "python.formatting.provider"                  : "yapf",
+  "python.formatting.yapfPath"                  : "/home/alanding/software/anaconda3/envs/py36/bin/yapf",
+  "python.workspaceSymbols.ctagsPath"           : "/opt/vim/universal-ctags/bin/ctags",
+  "python.workspaceSymbols.tagFilePath"         : "~/.cache/tags",
+
+
+// "pyls.enable"                              : true,
+// "pyls.plugins.preload.enabled"             : true,
+// "pyls.plugins.rope_completion.enabled"     : true,
+// "pyls.plugins.jedi_completion.enabled"     : true,
+// "pyls.plugins.jedi_hover.enabled"          : true,
+// "pyls.plugins.jedi_symbols.enabled"        : true,
+// "pyls.plugins.jedi_references.enabled"     : true,
+// "pyls.plugins.jedi_signature_help.enabled" : true,
+// "pyls.plugins.pyflakes.enabled"            : true,
+// "pyls.plugins.mccabe.enabled"              : true,
+// "pyls.plugins.pycodestyle.enabled"         : true,
+// "pyls.plugins.pydocstyle.enabled"          : true,
+// "pyls.plugins.yapf.enabled"                : true,
+// "pyls.configurationSources"                : ["pycodestyle"],
+// "pyls.commandPath"                         : "/home/alanding/software/anaconda3/envs/py36/bin/pyls",
+
+  "java.home"                                : "/opt/lang-tools/java/jdk1.8.0_191/bin",
+  "java.completion.enabled"                  : true,
+  "java.format.enabled"                      : true,
+  "java.signatureHelp.enabled"               : true,
+  "java.referencesCodeLens.enabled"          : false,
+  "java.import.maven.enabled"                : true,
+  "java.format.comments.enabled"             : true,
+
+  "tsserver.enable"                          : true,
+  "tsserver.trace.server"                    : "verbose",
+  "javascript.suggest.enabled"               : true,
+  "javascript.suggest.names"                 : true,
+  "javascript.validate.enable"               : true,
+  "javascript.suggest.autoImports"           : true,
+  "javascript.suggestionActions.enabled"     : true,
+
+  "html.enable"                              : true,
+  "html.filetypes"                           : ["html", "handlebars", "razor"],
+  "html.format.enable"                       : true,
+  "html.validate.scripts"                    : true,
+  "html.validate.styles"                     : true,
+
+  "diagnostic.enable"                        : true,
+  "diagnostic.virtualText"                   : true,
+  "diagnostic.virtualTextPrefix"             : "->>",
+
+
+  "languageserver": {
+    "pyls" : {
+      "command": "pyls",
+      "args": [],
+      "filetypes": ["python", "ipynb"]
+    },
+    "bash" : {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
+    },
+//    "efm" : {
+//      "command": "efm-langserver",
+//      "args": ["-c", "$HOME/.config/efm-langserver/config.yaml"],
+//      "filetypes": ["vim", "markdown"]
+//    },
+      "golang" : {
+        "command": "go-langserver",
+        "filetypes": ["go"],
+        "initializationOptions": {
+          "gocodeCompletionEnabled": true,
+          "diagnosisEnabled":true,
+          "lintTool":"golint"}
+      },
+      "javascript" : {
+        "command": "javascript-typescript-stdio",
+        "args": [],
+        "filetypes": ["javascript"]
+      },
+      "scala" : {
+        "command": "metals-vim",
+        "args": [],
+        "filetypes": ["scala", "sbt"]
+      },
+      "dls"  : {
+        "command": "diagnostic-languageserver",
+        "args": ["--stdio"],
+        "filetypes": [ "sh" ],
+        "initializationOptions": {
+          "linters": {
+            "shellcheck": {
+              "command": "shellcheck",
+              "debounce": 100,
+              "args": [ "--format=gcc", "-"],
+              "offsetLine": 0,
+              "offsetColumn": 0,
+              "sourceName": "shellcheck",
+              "formatLines": 1,
+              "formatPattern": [
+                "^[^:]+:(\\d+):(\\d+):\\s+([^:]+):\\s+(.*)$",
+                {
+                  "line": 1,
+                  "column": 2,
+                  "message": 4,
+                  "security": 3
+                }
+              ],
+              "securities": {
+                "error": "error",
+                "warning": "warning",
+                "note": "info"
+              }
+            }
+          },
+          "filetypes": {
+            "sh": "shellcheck"
+          }
+        }
+      }
+  }
+}
