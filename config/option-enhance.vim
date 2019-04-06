@@ -70,15 +70,15 @@ call s:key_escape('<S-F11>', '[23;2~')
 call s:key_escape('<S-F12>', '[24;2~')
 
 
-"----------------------------------------------------------------------
-" 防止tmux下vim的背景色显示异常
-" Refer: http://sunaku.github.io/vim-256color-bce.html
-"----------------------------------------------------------------------
-if &term =~# '256color' && $TMUX !=# ''
-  " disable Background Color Erase (BCE) so that color schemes
-  " render properly when inside 256-color tmux and GNU screen.
-  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
-  set t_ut=
+"--------------------------------------------------------------------------------
+" 防止tmux下vim的注释背景色显示异常
+" Refer: https://github.com/tmux/tmux/issues/1246
+"--------------------------------------------------------------------------------
+" Enable true color 启用终端24位色
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
 endif
 
 

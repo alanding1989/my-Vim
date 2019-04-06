@@ -8,14 +8,16 @@ scriptencoding utf-8
 
 
 
-let g:VM_leader_mappings = 0
+let g:VM_maps               = {}
+let g:VM_maps['Select All'] = ''
+let g:VM_maps['Visual All'] = ''
 
 nmap <silent> <M-k>  <Plug>(VM-Add-Cursor-Up)
 nmap <silent> <M-j>  <Plug>(VM-Add-Cursor-Down)
 nmap <silent> <M-a>  <Plug>(VM-Select-All)
 
 
-
+" mappings {{{
 " "o
 " let mapsf["Select Operator"][0]         = 'gs'
 " let maps["Add Cursor At Pos"][0]        = 'g<space>'
@@ -114,3 +116,4 @@ nmap <silent> <M-a>  <Plug>(VM-Select-All)
 "       \"Shrink":                  ["z-",        'n', 1, 1],
 "       \"Enlarge":                 ["z+",        'n', 1, 1],
 "       \})
+" }}}
