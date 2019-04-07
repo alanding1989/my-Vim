@@ -62,7 +62,7 @@ function! mapping#basic#load() abort
   cnoremap <c-e>        <end>
   cnoremap <c-d>        <del>
   cnoremap <c-_>        <c-k>
-  cnoremap <c-v>        <c-r>=expand('%:p:h').'/' <CR>
+  cnoremap <c-v>        <c-r>=expand('%:p:h') <CR>
 
   " terminal mode
   tnoremap <esc>        <C-\><C-n>

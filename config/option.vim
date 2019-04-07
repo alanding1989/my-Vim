@@ -143,22 +143,22 @@ endif
 if !g:is_spacevim
   set noswapfile
   set nowritebackup
-  if empty(glob('$HOME/.cache/Vim/undofile'))
-    silent !mkdir -p $HOME/.cache/Vim/undofile
+  if empty(glob(util#path('~/.cache/Vim/undofile')))
+    silent !mkdir -p util#path('~/.cache/Vim/undofile')
   endif
-  if empty(glob('$HOME/.cache/Vim/backup'))
-    silent !mkdir -p $HOME/.cache/Vim/backup
+  if empty(glob(util#path('~/.cache/Vim/backup')))
+    silent !mkdir -p util#path('~/.cache/Vim/backup')
   endif
-  if empty(glob('$HOME/.cache/Vim/swap'))
-    silent !mkdir -p $HOME/.cache/Vim/swap
+  if empty(glob(util#path('~/.cache/Vim/swap')))
+    silent !mkdir -p util#path('~/.cache/Vim/swap')
   endif
   set backup
   set undofile
   set undolevels=1000
   set history=1000
-  set undodir=$HOME/.cache/Vim/undofile
-  set backupdir=$HOME/.cache/Vim/backup
-  set directory=$HOME/.cache/Vim/swap
+  set undodir=util#path('~/.cache/Vim/undofile')
+  set backupdir=util#path('~/.cache/Vim/backup')
+  set directory=util#path('~/.cache/Vim/swap')
 endif
 "}}}
 

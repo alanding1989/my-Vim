@@ -19,17 +19,27 @@ let g:has_timer           = has('timers')
 let g:has_display         = empty($DISPLAY)
 let g:has_terminal        = g:is_nvim || (has('patch-8.0.1108') && has('terminal'))
 
-let g:home                = g:is_win ? $VIM.'/vimfiles' : g:home
-let g:vim_plugindir       = g:home.'config/Vim/plugins/'
 let g:project_root_marker = ['.root', '.project', '.idea', '.vscode',
       \ '.svn', '.git', '.hg', '.bzr', '_darcs']
 
 
-" neovim only
-let g:ruby_host_prog      = exepath('neovim-ruby-host')
-let g:node_host_prog      = exepath('neovim-node-host')
-let g:python_host_prog    = '/home/alanding/software/anaconda3/envs/py27/bin/python2.7'
-let g:python3_host_prog   = '/home/alanding/software/anaconda3/envs/py36/bin/python3.6'
+if g:is_unix || g:is_mac
+  let g:vim_plugindir       = g:home.'config/Vim/plugins/'
+  " neovim only
+  let g:ruby_host_prog      = exepath('neovim-ruby-host')
+  let g:node_host_prog      = exepath('neovim-node-host')
+  let g:python_host_prog    = '/home/alanding/software/anaconda3/envs/py27/bin/python2.7'
+  let g:python3_host_prog   = '/home/alanding/software/anaconda3/envs/py36/bin/python3.6'
+else
+  let g:home                = $HOME.'\\vimfiles\\'
+  let g:vim_plugindir       = g:home.'config\\Vim\\plugins\\'
+  " neovim only
+  let g:ruby_host_prog      = exepath('neovim-ruby-host')
+  let g:node_host_prog      = exepath('neovim-node-host')
+  "let g:python_host_prog    = exepath('python2')
+  let g:python3_host_prog   = 'D:\\devtools\\Anaconda3\\python'
+endif
+
 " vim only
 if !g:is_nvim && has('pythonx')
   set pyxversion=3

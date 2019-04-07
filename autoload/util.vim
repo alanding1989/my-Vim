@@ -44,17 +44,31 @@ endfunc "}}}
 
 
 " source config/*.vim files {{{
-function! util#so_file(path, ...) abort
-  if a:1 ==# 'g' && s:filereadable(g:home.'config/'.a:path)
-    exec 'so '.g:home.'config/'.a:path
-  elseif a:1 ==# 'SPC' && s:filereadable(g:home.'config/SpaceVim/'.a:path)
-    exec 'so '.g:home.'config/SpaceVim/'.a:path
-  elseif a:1 ==# 'Vim' && s:filereadable(g:home.'config/Vim/'.a:path)
-    exec 'so '.g:home.'config/Vim/'.a:path
-  elseif s:filereadable(g:home.a:path)
-    exec 'so '.g:home . a:path
-  endif
-endfunc
+if has('win16') || has('win32') || has('win64')
+  function! util#so_file(path, ...) abort
+    if a:1 ==# 'g' && s:filereadable(g:home.'config\\'.a:path)
+      exec 'so '.g:home.'config/'.a:path
+    elseif a:1 ==# 'SPC' && s:filereadable(g:home.'config\\SpaceVim\\'.a:path)
+      exec 'so '.g:home.'config/SpaceVim/'.a:path
+    elseif a:1 ==# 'Vim' && s:filereadable(g:home.'config\\Vim\\'.a:path)
+      exec 'so '.g:home.'config\\Vim\\'.a:path
+    elseif s:filereadable(g:home.a:path)
+      exec 'so '.g:home . a:path
+    endif
+  endfunc
+else
+  function! util#so_file(path, ...) abort
+    if a:1 ==# 'g' && s:filereadable(g:home.'config/'.a:path)
+      exec 'so '.g:home.'config/'.a:path
+    elseif a:1 ==# 'SPC' && s:filereadable(g:home.'config/SpaceVim/'.a:path)
+      exec 'so '.g:home.'config/SpaceVim/'.a:path
+    elseif a:1 ==# 'Vim' && s:filereadable(g:home.'config/Vim/'.a:path)
+      exec 'so '.g:home.'config/Vim/'.a:path
+    elseif s:filereadable(g:home.a:path)
+      exec 'so '.g:home . a:path
+    endif
+  endfunc
+endif
 function! s:filereadable(path) abort
   if filereadable(a:path)
     return 1
@@ -113,6 +127,15 @@ function! util#hlight_wrapper(mode) abort
   endif
 endfunction " }}}
 
+
+function! util#path(path) abort
+  let path = resolve(expand(a:path))
+  if has('win16') || has('win32') || has('win64')
+    let path = substitute(path, '/', '\\', 'g')
+  endif
+  return path
+endfunction
+    
 
 " SpaceVim test mode {{{
 function! util#test_SPC(...) abort
