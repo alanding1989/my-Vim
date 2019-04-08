@@ -9,7 +9,7 @@ scriptencoding utf-8
 
 function! My_SpaceVim#bootstrap#before() abort
   " vim home path
-  let g:home = util#path('~/.SpaceVim.d')
+  let g:home = util#path('~/.SpaceVim.d/')
   call default#load()
 endfunction
 

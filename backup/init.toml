@@ -115,7 +115,7 @@ name = 'incsearch'
 
 [[layers]]
 name = 'VersionControl'
-enable_gtm_status = 1
+enable_gtm_status = 0
 
 [[layers]]
 name = 'denite'

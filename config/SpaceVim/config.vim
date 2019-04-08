@@ -23,10 +23,10 @@ let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 
 " ================================================================================
 " Preferences
-let g:spacevim_autocomplete_method           = get(['coc'       , 'deoplete' , 'ncm2'], 0)
+let g:spacevim_autocomplete_method           = get(['coc'       , 'deoplete' , 'ncm2'], 1)
 let g:spacevim_snippet_engine                = get(['neosnippet', 'ultisnips', 'coc' ], 2)
 let g:spacevim_fuzzyfinder                   = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
-let g:spacevim_filemanager                   = get(['vimfiler'  , 'nerdtree' , 'defx'], 2)
+let g:spacevim_filemanager                   = get(['vimfiler'  , 'nerdtree' , 'defx'], 0)
 let g:spacevim_statusline                    = get(['airline'   , 'lightline', ''    ], 0)
 let g:spacevim_enable_ale                    = 1
 let g:spacevim_lint_on_the_fly               = 1
@@ -77,10 +77,6 @@ let g:spacevim_project_rooter_patterns       =
 let g:_checkers_var = {
       \ 'show_cursor_error' : 1,
       \ }
-let g:_lsp_var = {'filetypes' : [
-      \ 'python', 'sh',
-      \ 'javascript',
-      \ ]}
 let g:_lang#markdown_var = {
       \ 'enableWcwidth'  : 1,
       \ 'listItemIndent' : 1,
@@ -90,8 +86,15 @@ let g:_shell_var = {
       \ 'default_height'   : 30     ,
       \ }
 let g:_VersionControl_var = {
-      \ 'enable_gtm_status' : 1,
+      \ 'enable_gtm_status' : 0,
       \ }
+let g:_lsp_var = {'filetypes' : [
+      \ 'python',
+      \ ]}
+      " \ 'javascript',
+if g:is_unix
+  call add(g:_lsp_var['filetypes'], 'sh')
+endif
 " }}}
 
 

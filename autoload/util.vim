@@ -46,12 +46,12 @@ endfunc "}}}
 " source config/*.vim files {{{
 if has('win16') || has('win32') || has('win64')
   function! util#so_file(path, ...) abort
-    if a:1 ==# 'g' && s:filereadable(g:home.'config\\'.a:path)
-      exec 'so '.g:home.'config/'.a:path
-    elseif a:1 ==# 'SPC' && s:filereadable(g:home.'config\\SpaceVim\\'.a:path)
-      exec 'so '.g:home.'config/SpaceVim/'.a:path
-    elseif a:1 ==# 'Vim' && s:filereadable(g:home.'config\\Vim\\'.a:path)
-      exec 'so '.g:home.'config\\Vim\\'.a:path
+    if a:1 ==# 'g' && s:filereadable(g:home.'config\'.a:path)
+      exec 'so '.g:home.'config\'.a:path
+    elseif a:1 ==# 'SPC' && s:filereadable(g:home.'config\SpaceVim\'.a:path)
+      exec 'so '.g:home.'config\SpaceVim\'.a:path
+    elseif a:1 ==# 'Vim' && s:filereadable(g:home.'config\Vim\'.a:path)
+      exec 'so '.g:home.'config\Vim\'.a:path
     elseif s:filereadable(g:home.a:path)
       exec 'so '.g:home . a:path
     endif
@@ -135,7 +135,7 @@ function! util#path(path) abort
   endif
   return path
 endfunction
-    
+
 
 " SpaceVim test mode {{{
 function! util#test_SPC(...) abort
