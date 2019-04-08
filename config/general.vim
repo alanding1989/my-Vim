@@ -31,12 +31,12 @@ if g:is_unix || g:is_mac
   let g:python_host_prog    = '/home/alanding/software/anaconda3/envs/py27/bin/python2.7'
   let g:python3_host_prog   = '/home/alanding/software/anaconda3/envs/py36/bin/python3.6'
 else
-  " windows
-  " let g:home                = $HOME.'\vimfiles\'
+" windows
   let g:vim_plugindir       = g:home.'config\Vim\plugins\'
   let g:ruby_host_prog      = exepath('neovim-ruby-host')
   let g:node_host_prog      = exepath('neovim-node-host')
   let g:python_host_prog    = exepath('python2')
+  let g:python_host_prog    = 'D:\devtools\Anaconda3\envs\py27\python'
   let g:python3_host_prog   = 'D:\devtools\Anaconda3\python'
 endif
 

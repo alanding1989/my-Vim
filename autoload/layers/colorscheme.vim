@@ -72,22 +72,22 @@ function! layers#colorscheme#my_cs() abort "{{{
     " let g:gruvbox_contrast_dark        = 'soft'
     let g:gruvbox_italic               = 1
     let g:gruvbox_italicize_strings    = 1
-    " let g:gruvbox_invert_signs         = 1
+    let g:gruvbox_invert_signs         = 1
     let g:gruvbox_invert_indent_guides = 1
-    let g:gruvbox_invert_tabline = 1
-    let g:gruvbox_improved_strings = 1
-    let g:gruvbox_improved_warnings = 1
+    let g:gruvbox_invert_tabline       = 1
+    let g:gruvbox_improved_strings     = 1
+    let g:gruvbox_improved_warnings    = 1
   endif
 
   if cs ==# 'NeoSolarized'
-    let g:neosolarized_italic = 1
+    let g:neosolarized_italic   = 1
     let g:neosolarized_contrast = 'medium'
     let bg = 'dark'
   endif
 
   if cs ==# 'neodark'
     let g:neodark#terminal_transparent = 1
-    let g:neodark#italics = 1
+    let g:neodark#italics              = 1
     let bg = 'dark'
   endif
 
@@ -98,7 +98,7 @@ function! layers#colorscheme#my_cs() abort "{{{
 
   if cs ==# 'OceanicNext'
     let g:oceanic_next_terminal_italic = 1
-    let g:oceanic_next_terminal_bold = 1
+    let g:oceanic_next_terminal_bold   = 1
     let bg = 'dark'
   endif
 
@@ -109,6 +109,16 @@ function! layers#colorscheme#my_cs() abort "{{{
 
   if cs ==# 'dracula' || cs ==# 'paradox' || cs ==# 'nord'
     let bg = 'dark'
+  endif
+
+  if g:is_win && !g:is_gui
+    let g:gruvbox_italic               = 0
+    let g:gruvbox_italicize_strings    = 0
+    let g:neodark#italics              = 0
+    let g:onedark_terminal_italics     = 0
+    let g:oceanic_next_terminal_italic = 0
+    let g:palenight_terminal_italics   = 0
+    let g:nord_italic                  = 0
   endif
 
   if exists('g:spacevim_colorscheme')

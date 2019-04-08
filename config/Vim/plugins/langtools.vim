@@ -9,7 +9,7 @@ scriptencoding utf-8
 "================================================================================
 " NOTE: when debug set below value to 1
 " let g:codi#raw = 1
-let g:codi#log = $HOME.'/.cache/Vim/codi_log/'
+let g:codi#log = expand($HOME.'/.cache/Vim/codi_log/')
 
 " interpreter settings
 let g:codi#interpreters = {
@@ -25,6 +25,8 @@ let g:codi#interpreters = {
       \ }
 let g:codi#aliases = {
       \ 'javascript.jsx': 'javascript',
+      \ 'ipynb'         : 'python',
+      \ 'sbt'           : 'scala',
       \ }
 
 
@@ -33,7 +35,14 @@ let g:codi#aliases = {
 " far
 "================================================================================
 let g:far#source = 'rgnvim'
-let g:far#file_mask_favorites = [
-      \ '%', '**/*.*', '**/*.py', '**/*.scala', '**/*.sh',
-      \ '**/*.vim', '**/*.html', '**/*.js', '**/*.css'
-      \ ]
+if g:is_win
+  let g:far#file_mask_favorites = [
+        \ '%', '**\*.*', '**\*.py', '**\*.scala', '**\*.sh',
+        \ '**\*.vim', '**\*.html', '**\*.js', '**\*.css'
+        \ ]
+else
+  let g:far#file_mask_favorites = [
+        \ '%', '**/*.*', '**/*.py', '**/*.scala', '**/*.sh',
+        \ '**/*.vim', '**/*.html', '**/*.js', '**/*.css'
+        \ ]
+endif

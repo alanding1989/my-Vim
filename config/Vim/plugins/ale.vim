@@ -23,6 +23,7 @@ if get(g:, 'spacevim_lint_on_the_fly', get(g:, 'lint_on_the_fly', 0))
 else
   let g:ale_lint_on_text_changed     = 'never'
 endif
+ " 在 linux/mac 下降低语法检查程序的进程优先级（不要卡到前台进程）
 if !g:is_win
   let g:ale_command_wrapper          = 'nice -n5'
 endif
@@ -52,7 +53,7 @@ let g:ale_linters.text   = ['textlint', 'write-good', 'languagetool']
 " access pylint, flake8 config file
 function s:lintcfg(name)
   let confp = g:home . 'extools/conf/'
-  let path1 = confp . a:name
+  let path1 = expand(confp . a:name)
   let path2 = expand('~/.vim/linter/'. a:name)
   if filereadable(path2)
     return path2

@@ -127,8 +127,8 @@ call deoplete#custom#var('omni', 'input_patterns', {
 " python
 call deoplete#custom#option('ignore_sources', {'python': ['omni']})
 call deoplete#custom#source('python', 'mark', 'py')
-let g:deoplete#sources#jedi#python_path = '/home/alanding/software/anaconda3/envs/py36/bin/python3.6'
-let g:deoplete#sources#jedi#extra_path  = ''
+let g:deoplete#sources#jedi#python_path = g:python3_host_prog
+let g:deoplete#sources#jedi#extra_path  = g:python_host_prog
 
 
 " public settings

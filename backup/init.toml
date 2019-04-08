@@ -8,11 +8,11 @@
 
 [options]
 # Theme list
-    # '0 gruvbox'     
-    # '1 neodark'     
+    # '0 gruvbox'
+    # '1 neodark'
     # '2 NeoSolarized'
-    # '3 onedark'     
-    # '4 OceanicNext' 
+    # '3 onedark'
+    # '4 OceanicNext'
     colorscheme         = 'onedark'
     colorscheme_bg      = 'dark'
     colorscheme_default = 'NeoSolarized'
@@ -51,7 +51,7 @@
     autocomplete_method          = 'deoplete'
     snippet_engine               = 'neosnippet'
     filemanager                  = 'defx'
-    enable_ale                   = 0
+    enable_ale                   = 1
     lint_on_the_fly              = 1
     bootstrap_before             = 'My_SpaceVim#bootstrap#before'
     bootstrap_after              = 'My_SpaceVim#bootstrap#after'

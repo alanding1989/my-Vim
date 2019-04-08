@@ -12,10 +12,7 @@
 " let g:LanguageClient_loggingFile = '/tmp/lc.log'
 " let g:LanguageClient_loggingLevel = 'DEBUG'
 
-let g:LanguageClient_settingsPath = $WORKSPACE_DIR . '/.vim/settings.json'
+let g:LanguageClient_settingsPath = expand($WORKSPACE_DIR . '/.vim/settings.json')
 let g:LanguageClient_completionPreferTextEdit = 1
 " the suddennly popup of diagnostics sign is kind of annoying
 let g:LanguageClient_diagnosticsSignsMax = 0
-
-autocmd BufNewFile,BufRead *.vue set filetype=vue
-autocmd filetype vue LanguageClientStart

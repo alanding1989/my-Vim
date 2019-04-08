@@ -7,33 +7,33 @@ scriptencoding utf-8
 
 function! Insert_headbox() abort " {{{
   if &ft ==# 'vim'
-    call setline(line('.')  , '"'.repeat('=', 80))
-    call append(line('.')   , '"')
-    call append(line('.')+1 , '"')
-    call append(line('.')+2 , '"'.repeat('=', 80))
-    call append(line('.')+3 , '')
+    call setline(line('.')   , '"'.repeat('=', 80))
+    call  append(line('.')   , '"')
+    call  append(line('.')+1 , '"')
+    call  append(line('.')+2 , '"'.repeat('=', 80))
+    call  append(line('.')+3 , '')
   elseif &ft ==# 'sh' || &ft ==# 'python'
-    call setline(line('.')  , '# '.repeat('=', 80))
-    call append(line('.')   , '#')
-    call append(line('.')+1 , '#')
-    call append(line('.')+2 , '# '.repeat('=', 80))
-    call append(line('.')+3 , '')
+    call setline(line('.')   , '# '.repeat('=', 80))
+    call  append(line('.')   , '# ')
+    call  append(line('.')+1 , '# ')
+    call  append(line('.')+2 , '# '.repeat('=', 80))
+    call  append(line('.')+3 , '')
   endif
   silent exec 'normal! 03j'
 endfunc
 function! Insert_emptybox() abort
   if &ft ==# 'vim'
-    call setline(line('.')  , '"'.repeat('-', 80))
-    call append(line('.')   , '"')
-    call append(line('.')+1 , '"')
-    call append(line('.')+2 , '"'.repeat('-', 80))
-    call append(line('.')+3 , '')
+    call setline(line('.')   , '"'.repeat('-', 80))
+    call  append(line('.')   , '"')
+    call  append(line('.')+1 , '"')
+    call  append(line('.')+2 , '"'.repeat('-', 80))
+    call  append(line('.')+3 , '')
   elseif &ft ==# 'sh' || &ft ==# 'python'
-    call setline(line('.')  , '# '.repeat('-', 80))
-    call append(line('.')   , '#')
-    call append(line('.')+1 , '#')
-    call append(line('.')+2 , '# '.repeat('-', 80))
-    call append(line('.')+3 , '')
+    call setline(line('.')   , '# '.repeat('-', 80))
+    call  append(line('.')   , '# ')
+    call  append(line('.')+1 , '# ')
+    call  append(line('.')+2 , '# '.repeat('-', 80))
+    call  append(line('.')+3 , '')
   endif
   silent exec 'normal! 03j'
 endfunc
@@ -97,7 +97,7 @@ endfunc "}}}
 
 
 function! Foldtext() abort " {{{
-  "get first non-blank line
+  " get first non-blank line
   let fs = v:foldstart
   while getline(fs) =~# '^\s*$' | let fs = nextnonblank(fs + 1)
   endwhile

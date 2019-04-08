@@ -55,7 +55,7 @@ augroup END
 function! s:python_source() abort
   " python
   let g:ncm2_jedi#python_version = 3
-  let g:ncm2_jedi#environment = '/home/alanding/software/anaconda3/envs/py36/bin/python3.6'
+  let g:ncm2_jedi#environment = g:python3_host_prog
   let g:ncm2_jedi#settings = {
         \ 'case_insensitive_completion'      : 'True',
         \ 'add_bracket_after_function'       : 'True',

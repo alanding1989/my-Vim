@@ -13,6 +13,7 @@ call default#load()
 if g:is_spacevim
   " SpaceVim for nvim
   call My_SpaceVim#Main#init()
+" elseif !g:is_win
 else
   " My Vim
   call My_Vim#Main#init()

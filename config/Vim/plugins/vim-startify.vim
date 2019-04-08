@@ -5,7 +5,7 @@ scriptencoding  utf-8
 
 
 
-let g:startify_session_dir  = $HOME.'/.cache/'.'startify/'.( has('nvim') ? 'nvim' : 'vim' ).'/session'
+let g:startify_session_dir  = expand($HOME.'/.cache/'.'startify/'.( has('nvim') ? 'nvim' : 'vim' ).'/session')
 let g:startify_files_number = 6
 let g:startify_list_order   = [
       \ ['    My most recently used files in the current directory:'],
@@ -18,7 +18,7 @@ let g:startify_list_order   = [
       \ 'bookmarks',
       \ ]
 
-let g:startify_bookmarks              = [ {'z': '~/.zshrc'} ]
+let g:startify_bookmarks              = [ {'z': (!g:is_win ? expand('~/.zshrc') : '')} ]
 let g:startify_update_oldfiles        = 1
 let g:startify_disable_at_vimenter    = 0
 let g:startify_session_autoload       = 1

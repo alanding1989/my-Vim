@@ -25,9 +25,10 @@ augroup my_coc_settings
   autocmd CursorHoldI,CursorMovedI * silent call CocActionAsync('showSignatureHelp')
   autocmd CursorHold               * silent call CocActionAsync('highlight')
   autocmd User CocDiagnosticChange AirlineRefresh
-  if findfile($HOME.'/.SpaceVim/coc-settings.json') ==# ''
+  if findfile(expand($HOME.'/.SpaceVim/coc-settings.json')) ==# ''
     autocmd VimEnter *
-          \!ln -s $HOME/.vim/coc-settings.json $HOME/.SpaceVim/coc-settings.json
+          \exec '!ln -s "'.expand($HOME/.vim/coc-settings.json)
+          \ .'" "'.expand($HOME/.SpaceVim/coc-settings.json).'"'
   endif
 augroup END
 

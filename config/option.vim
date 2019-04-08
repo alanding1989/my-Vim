@@ -24,7 +24,12 @@ augroup my_fold
 augroup END
 
 set backspace=indent,eol,start
-set listchars=tab:→\ ,eol:↵,trail:·,extends:↷,precedes:↶
+if g:is_nvim
+  set listchars=tab:→\ ,eol:↵,trail:·,extends:↷,precedes:↶
+elseif !g:is_nvim && !g:is_win
+  set listchars=tab:\|\ ,trail:·,extends:>,precedes:<
+endif
+
 set fillchars=vert:!,fold:·
 
 set scrolloff=2 sidescrolloff=5
@@ -61,7 +66,7 @@ set tags=./.tags;,.tags
 "}}}
 
 " encoding {{{
-set ffs=unix,dos,mac
+set fileformats=unix,dos,mac
 if has('multi_byte')
   " inside
   set encoding=utf-8
@@ -105,7 +110,7 @@ hi! Pmenu    guibg=gray guifg=black ctermbg=gray  ctermfg=black
 hi! PmenuSel guibg=gray guifg=brown ctermbg=brown ctermfg=gray
 "}}}
 
-" gui setting {{{
+" gui setting for vim {{{
 if has('gui_running')
   hi! SpellBad  gui=undercurl guisp=red
   hi! SpellCap  gui=undercurl guisp=blue
@@ -129,7 +134,6 @@ if has('gui_running')
   set guioptions-=e " Hide tab
 
   if g:is_win
-    " install the font in 'Dotfiles\font'
     set guifont=DejaVu_Sans_Mono_for_Powerline:h11:cANSI:qDRAFT
   elseif g:is_unix
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h11
@@ -141,24 +145,24 @@ endif
 
 " backup {{{
 if !g:is_spacevim
-  set noswapfile
-  set nowritebackup
-  if empty(glob(util#path('~/.cache/Vim/undofile')))
-    silent !mkdir -p util#path('~/.cache/Vim/undofile')
+  " set noswapfile
+  " set nowritebackup
+  if glob('~/.cache/Vim/undofile') ==# ''
+    call mkdir(expand('~/.cache/Vim/undofile'), 'p', 0700)
   endif
-  if empty(glob(util#path('~/.cache/Vim/backup')))
-    silent !mkdir -p util#path('~/.cache/Vim/backup')
+  if glob('~/.cache/Vim/backup') ==# ''
+    call mkdir(expand('~/.cache/Vim/backup'), 'p', 0700)
   endif
-  if empty(glob(util#path('~/.cache/Vim/swap')))
-    silent !mkdir -p util#path('~/.cache/Vim/swap')
+  if glob('~/.cache/Vim/swap') ==# ''
+    call mkdir(expand('~/.cache/Vim/swap'), 'p', 0700)
   endif
   set backup
   set undofile
   set undolevels=1000
   set history=1000
-  set undodir=util#path('~/.cache/Vim/undofile')
-  set backupdir=util#path('~/.cache/Vim/backup')
-  set directory=util#path('~/.cache/Vim/swap')
+  set undodir=$HOME/.cache/Vim/undofile
+  set backupdir=$HOME/.cache/Vim/backup
+  set directory=$HOME/.cache/Vim/swap
 endif
 "}}}
 

@@ -44,31 +44,22 @@ endfunc "}}}
 
 
 " source config/*.vim files {{{
-if has('win16') || has('win32') || has('win64')
-  function! util#so_file(path, ...) abort
-    if a:1 ==# 'g' && s:filereadable(g:home.'config\'.a:path)
-      exec 'so '.g:home.'config\'.a:path
-    elseif a:1 ==# 'SPC' && s:filereadable(g:home.'config\SpaceVim\'.a:path)
-      exec 'so '.g:home.'config\SpaceVim\'.a:path
-    elseif a:1 ==# 'Vim' && s:filereadable(g:home.'config\Vim\'.a:path)
-      exec 'so '.g:home.'config\Vim\'.a:path
-    elseif s:filereadable(g:home.a:path)
-      exec 'so '.g:home . a:path
-    endif
-  endfunc
-else
-  function! util#so_file(path, ...) abort
-    if a:1 ==# 'g' && s:filereadable(g:home.'config/'.a:path)
-      exec 'so '.g:home.'config/'.a:path
-    elseif a:1 ==# 'SPC' && s:filereadable(g:home.'config/SpaceVim/'.a:path)
-      exec 'so '.g:home.'config/SpaceVim/'.a:path
-    elseif a:1 ==# 'Vim' && s:filereadable(g:home.'config/Vim/'.a:path)
-      exec 'so '.g:home.'config/Vim/'.a:path
-    elseif s:filereadable(g:home.a:path)
-      exec 'so '.g:home . a:path
-    endif
-  endfunc
-endif
+function! util#so_file(path, ...) abort
+  let gen_p  = glob(g:home.'config/'.a:path)
+  let SPC_p  = glob(g:home.'config/SpaceVim/'.a:path)
+  let Vim_p  = glob(g:home.'config/Vim/'.a:path)
+  let arbi_p = glob(g:home.a:path)
+  let g:home = glob(g:home)
+  if a:1 ==# 'g' && s:filereadable(gen_p)
+    exec 'so ' gen_p
+  elseif a:1 ==# 'SPC' && s:filereadable(SPC_p)
+    exec 'so ' SPC_p
+  elseif a:1 ==# 'Vim' && s:filereadable(Vim_p)
+    exec 'so ' Vim_p
+  elseif s:filereadable(arbi_p)
+    exec 'so ' arbi_p
+  endif
+endfunc
 function! s:filereadable(path) abort
   if filereadable(a:path)
     return 1
@@ -80,6 +71,12 @@ function! s:filereadable(path) abort
   endif
 endfunction
 "}}}
+
+
+function! util#path(path) abort
+  " return resolve(expand(a:path))
+  return glob(a:path)
+endfunction
 
 
 " help wrapper {{{
@@ -128,15 +125,6 @@ function! util#hlight_wrapper(mode) abort
 endfunction " }}}
 
 
-function! util#path(path) abort
-  let path = resolve(expand(a:path))
-  if has('win16') || has('win32') || has('win64')
-    let path = substitute(path, '/', '\\', 'g')
-  endif
-  return path
-endfunction
-
-
 " SpaceVim test mode {{{
 function! util#test_SPC(...) abort
   if empty(glob(g:home.'init.toml'))
@@ -153,7 +141,7 @@ function! util#test_SPC(...) abort
 endfunction "}}}
 
 
-" function() wrapper "{{{
+" function() wrapper for memo "{{{
 " change relative s: to abs <SNR>
 if v:version > 703 || v:version == 703 && has('patch1170')
   function! s:_function(fstr) abort

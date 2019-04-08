@@ -10,8 +10,10 @@ function! layers#autocomplete#plugins() abort
   let plugins = [
         \ ['alanding1989/my-vim-snippets',        {'merged': 0}],
         \ ['alanding1989/my-neosnippet-snippets', {'merged': 0}],
-        \ ['wellle/tmux-complete.vim',            {'on_event' : 'InsertEnter'}],
         \ ]
+  if $TMUX !=# ''
+    call add(plugins, ['wellle/tmux-complete.vim', {'on_event' : 'InsertEnter'}])
+  endif
   if get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method', 'deoplete')) ==# 'coc'
     call add(plugins, ['jsfaint/coc-neoinclude', {'on_event': 'InsertEnter'}])
     " if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'coc'

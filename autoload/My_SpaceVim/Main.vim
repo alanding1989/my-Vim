@@ -137,8 +137,9 @@ endfunction
 function! s:VimEnter_layers_GlobalVar_load() abort
   for elem in g:enabled_layers
     let elem = substitute(elem, '#', '_', 'g')
-    if filereadable(g:home.'config/SpaceVim/plugins_before/'.elem.'.vim')
-      exec 'so '.g:home.'config/SpaceVim/plugins_before/'.elem.'.vim'
+    let p = util#path(g:home.'config/SpaceVim/plugins_before/'.elem.'.vim')
+    if filereadable(p)
+      exec 'so ' p
     endif
   endfor
 endfunction

@@ -47,7 +47,7 @@ let g:tmuxcomplete#asyncomplete_source_options = {
       \     'scrollback'      : 0,
       \     'truncate'        : 0
       \     }
-      \ }
+    \ }
 
 
 " ================================================================================
@@ -60,7 +60,7 @@ let g:echodoc#enable_at_startup = 1
 " neopairs.vim
 "--------------------------------------------------------------------------------
 if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) ==# 'neosnippet'
-  let g:neopairs#enable = g:neosnippet#enable_complete_done ? 0 : 1
+  let g:neopairs#enable = get(g:, 'neosnippet#enable_complete_done', 0) ? 0 : 1
   " let g:neopairs#enable = 0
 else
   let g:neopairs#enable = 1

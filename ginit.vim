@@ -1,16 +1,15 @@
 "=============================================================================
-" ginit.vim --- Entry file for neovim-qt
-" Copyright (c) 2016-2017 Wang Shidong & Contributors
-" Author: Wang Shidong < wsdjeg at 163.com >
-" URL: https://spacevim.org
-" License: GPLv3
+" ginit.vim --- for neovim-qt
 "=============================================================================
+if g:is_spacevim
+  finish
+endif
 
 if exists('g:GuiLoaded')
-  if empty(g:spacevim_guifont)
+  if empty(g:guifont)
     exe 'Guifont! SauceCodePro Nerd Font Mono:h11:cANSI:qDRAFT'
   else
-    exe 'Guifont! ' . g:spacevim_guifont
+    exe 'Guifont! ' . g:guifont
   endif
   " As using neovim-qt by default
 
@@ -23,17 +22,26 @@ if exists('g:GuiLoaded')
   if exists(':GuiTabline') == 2
     GuiTabline 0
   endif
-  if g:spacevim_colorscheme !=# '' "{{{
+
+  " colorscheme {{{
+  if g:my_cs !=# ''
     try
-      exec 'set background=' . g:spacevim_colorscheme_bg
-      exec 'colorscheme ' . g:spacevim_colorscheme
+      exec 'set background=' . g:my_bg
+      exec 'colorscheme ' . g:my_cs
     catch
-      exec 'colorscheme '. g:spacevim_colorscheme_default
+      exec 'colorscheme '. g:my_cs
     endtry
   else
-    exec 'colorscheme '. g:spacevim_colorscheme_default
+    exec 'colorscheme '. g:my_cs
   endif
+  auto ColorScheme *
+        \ hi! clear SpellBad                     |
+        \ hi! clear SpellCap                     |
+        \ hi! clear SpellRare                    |
+        \ hi! SpellBad  gui=undercurl guisp=red  |
+        \ hi! SpellCap  gui=undercurl guisp=blue |
+        \ hi! SpellRare gui=undercurl guisp=magenta
 endif
 
-" vim:set et sw=2:
 
+" vim:set et sw=2:

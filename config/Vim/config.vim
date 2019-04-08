@@ -21,12 +21,12 @@ let g:my_bg = 1 ? 'dark' : 'light'
 
 " ================================================================================
 " Preferences
-let g:autocomplete_method           = get(['coc'       , 'deoplete' , 'ncm2'], 0)
+let g:autocomplete_method           = get(['coc'       , 'deoplete' , 'ncm2'], 1)
 let g:snippet_engine                = get(['neosnippet', 'ultisnips', 'coc' ], 0)
 let g:fuzzyfinder                   = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
-let g:filemanager                   = get(['vimfiler'  , 'nerdtree' , 'defx'], 2)
-let g:plugmanager                   = 0 ? 'dein'    : 'vim-plug'
-let g:checker                       = 0 ? 'ale'     : 'neomake'
+let g:filemanager                   = get(['vimfiler'  , 'nerdtree' , 'defx'], 0)
+let g:plugmanager                   = 1 ? 'dein'    : 'vim-plug'
+let g:checker                       = 1 ? 'ale'     : 'neomake'
 let g:statusline                    = 1 ? 'airline' : 'lightline'
 let g:lint_on_the_fly               = 1
 let g:enable_deotabline             = 0
@@ -46,7 +46,9 @@ let g:linter_warning_symbol         = '⚠️ '
 let g:enable_checkinstall         = 1
 let g:github_username             = 'alanding1989'
 let g:guifont                     = 'SauceCodePro Nerd Font Mono:h11'
-let g:layer_lang_scala_formatter  = '/opt/vim/scalariform.jar'  "}}}
+let g:layer_lang_scala_formatter  = '/opt/vim/scalariform.jar'
+let g:spacevim_debug_level        = 1
+"}}}
 
 " ================================================================================
 " Layers en/disable
@@ -100,6 +102,6 @@ endif
 " Disabled plugins
 " ============================================================================== {{{
 "let g:disabled_plugins = [
-      "\ '',
-      "\ ]
+    "\ '',
+    "\ ]
 "}}}
