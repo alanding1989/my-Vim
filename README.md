@@ -1,2 +1,8 @@
 # alan-vim
-my vimrc
+
+-- my vimrc
+
+### 1.Env :       
+
+    linux   (neovim/vim)
+    windows (neovim)
