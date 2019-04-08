@@ -73,12 +73,12 @@ function! s:vim_preview() abort
   augroup layer_tags
     auto FileType qf nnoremap <silent><buffer> p   :PreviewQuickfix<cr>
     auto FileType qf nnoremap <silent><buffer> pq  :PreviewClose<cr>
-    auto VimEnter *  nnoremap <F11> :PreviewSignature!<cr>
-    auto VimEnter *  inoremap <F11> <c-\><c-o>:PreviewSignature!<cr>
+    " auto VimEnter *  nnoremap <F11> :PreviewSignature!<cr>
+    " auto VimEnter *  inoremap <F11> <c-\><c-o>:PreviewSignature!<cr>
   augroup end
 
   nnoremap  vk  :PreviewScroll -1<cr>
   nnoremap  vj  :PreviewScroll +1<cr>
-  inoremap  vk  <c-\><c-o>:PreviewScroll -1<cr>
-  inoremap  vj  <c-\><c-o>:PreviewScroll +1<cr>k
+  " inoremap  vk  <c-\><c-o>:PreviewScroll -1<cr>
+  " inoremap  vj  <c-\><c-o>:PreviewScroll +1<cr>k
 endfunction
