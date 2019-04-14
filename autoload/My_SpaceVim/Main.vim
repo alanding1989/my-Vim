@@ -43,12 +43,12 @@ function! My_SpaceVim#Main#init() abort
   " NOTE: the order shouldn`t be changed
   call s:SpaceVim_config_load()
   call s:SpaceVim_load_layers()
-  " try
+  try
     call s:Mainbegin()
-  " catch
-    " call s:Mainfallback()
-    " let g:fallback = 1
-  " endtry
+  catch
+    call s:Mainfallback()
+    let g:fallback = 1
+  endtry
 endfunction
 
 

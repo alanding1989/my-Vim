@@ -5,7 +5,8 @@
 
 " vim home path
 let g:home = fnamemodify(resolve(expand('<sfile>:p')), ':h').'/'
-
+let g:alan = fnamemodify(resolve(expand('<sfile>:p')), ':h').'/'
+let g:rlan = fnamemodify(resolve(expand('<sfile>:p')), ':h').'/'
 
 
 call default#load()

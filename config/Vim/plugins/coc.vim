@@ -15,7 +15,7 @@ let g:coc_snippet_prev        = '<c-o>'
 let g:vim_node_rpc_folder     = exepath('vim-node-rpc')
 let g:coc_filetype_map        = {
       \ 'html.swig': 'html',
-      \ 'wxss'     : 'css',
+    \ 'wxss'     : 'css',
       \ 'ipynb'    : 'python',
       \ }
 
@@ -26,9 +26,15 @@ augroup my_coc_settings
   autocmd CursorHold               * silent call CocActionAsync('highlight')
   autocmd User CocDiagnosticChange AirlineRefresh
   if findfile(expand($HOME.'/.SpaceVim/coc-settings.json')) ==# ''
-    autocmd VimEnter *
-          \exec '!ln -s "'.expand($HOME/.vim/coc-settings.json)
-          \ .'" "'.expand($HOME/.SpaceVim/coc-settings.json).'"'
+    if g:is_unix
+      autocmd User CocNvimInit
+            \ exec '!ln -s "'.expand($HOME.'/.vim/coc-settings.json')
+            \ .'" "'.expand($HOME.'/.SpaceVim/coc-settings.json').'"'
+    elseif g:is_win
+      autocmd User CocNvimInit
+            \ exec '!mklink /h "'.expand($HOME.'/.SpaceVim/coc-settings.json')
+            \ .'" "'.expand($HOME.'/vimfiles/coc-settings.json').'"'
+    endif
   endif
 augroup END
 

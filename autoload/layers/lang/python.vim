@@ -15,8 +15,12 @@
 function! layers#lang#python#plugins() abort
   let plugins = [
         \ ['bps/vim-textobj-python', {'on_ft': ['python', 'ipynb'], 'for': ['python', 'ipynb']}],
-        \ ['vim-python/python-syntax', {'on_ft': ['python', 'ipynb'], 'for': ['python', 'ipynb']}],
         \ ]
+  if g:is_nvim 
+    call add(plugins, ['numirias/semshi', {'on_ft': ['python', 'ipynb'], 'for': ['python', 'ipynb']}])
+  else
+    call add(plugins, ['vim-python/python-syntax', {'on_ft': ['python', 'ipynb'], 'for': ['python', 'ipynb']}])
+  endif
   if !g:is_spacevim
     if g:My_Vim_layers['lsp'] != 1
       if has('nvim')
@@ -37,6 +41,7 @@ function! layers#lang#python#plugins() abort
 endfunction
 
 function! layers#lang#python#config() abort
+  let g:blan = 1
   " heavenshell/vim-pydocstring {{{
 
   " If you execute :Pydocstring at no `def`, `class` line.

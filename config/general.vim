@@ -35,9 +35,8 @@ else
   let g:vim_plugindir       = g:home.'config\Vim\plugins\'
   let g:ruby_host_prog      = exepath('neovim-ruby-host')
   let g:node_host_prog      = exepath('neovim-node-host')
-  let g:python_host_prog    = exepath('python2')
-  let g:python_host_prog    = 'D:\devtools\Anaconda3\envs\py27\python'
-  let g:python3_host_prog   = 'D:\devtools\Anaconda3\python'
+  let g:python_host_prog    = 'D:\devtools\python\Anaconda3\envs\py27\python'
+  let g:python3_host_prog   = 'D:\devtools\python\Anaconda3\envs\py36\python'
 endif
 
 " vim only
