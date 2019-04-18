@@ -44,12 +44,12 @@ endif
 " vim only
 if !g:is_nvim
   set pyxversion=3
-  " set pythonthreedll=python36.dll
-  " if g:is_unix || g:is_mac
-  "   " linux
-  "   set pythonthreehome=/home/alanding/software/anaconda3/envs/py36/bin
-  " else
-  "   " windows
-  "   set pythonthreehome=D:\devtools\python\Anaconda3\envs\py36
-  " endif
+  set pythonthreedll=python36.dll
+  if g:is_unix || g:is_mac
+    " linux
+    set pythonthreehome=/home/alanding/software/anaconda3/envs/py36/bin
+  else
+    " windows
+    set pythonthreehome=D:\devtools\python\Anaconda3\envs\py36
+  endif
 endif

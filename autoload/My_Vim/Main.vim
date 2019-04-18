@@ -9,16 +9,11 @@ scriptencoding utf-8
 " init
 function! My_Vim#Main#init() abort
   call util#so_file('config.vim', 'Vim')
-  if g:tiny
-    call s:Mainfallback()
-    return
-  endif
   try
     call s:Mainbegin()
   catch
     call s:Mainfallback()
   endtry
-  call util#so_file('keymap.vim', 'Vim')
 endfunction
 
 

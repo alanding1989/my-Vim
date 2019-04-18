@@ -17,8 +17,8 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
   let g:neosnippet#enable_completed_snippet = 1
   let g:neosnippet#enable_complete_done     = get(g:, 'neosnippet#enable_complete_done')
   let g:neosnippet#snippets_directory       = [
-        \ '~/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/snippets',
-        \ '~/.cache/vimfiles/repos/github.com/alanding1989/my-neosnippet-snippets/neosnippets',
+        \ expand($HOME.'/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/snippets'),
+        \ expand($HOME.'/.cache/vimfiles/repos/github.com/alanding1989/my-neosnippet-snippets/neosnippets'),
         \ ]
   let g:neosnippet#scope_aliases            = {
         \ 'ipynb' : 'python',
@@ -39,9 +39,9 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
   let g:UltiSnipsJumpBackwardTrigger             = '<Plug>(ultisnips_prev)'
   let g:UltiSnipsEditSplit                       = 'vertical'
   let g:UltiSnipsSnippetsDir                     =
-        \ '~/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/UltiSnips'
+        \ expand($HOME.'/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/UltiSnips')
   let g:UltiSnipsSnippetDirectories              = [
-        \ '~/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/'
+        \ expand($HOME.'/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets')
         \ ]
   let g:UltiSnipsUsePythonVersion                = 3
   let g:complete_parameter_use_ultisnips_mapping = 1

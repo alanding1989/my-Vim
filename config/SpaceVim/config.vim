@@ -6,6 +6,10 @@ scriptencoding utf-8
 
 
 
+" choose minimal setting
+let g:pure_viml = 1
+
+
 " Themes list " {{{
 let g:spacevim_colorscheme = split([
       \ '0 gruvbox'     ,
@@ -91,7 +95,7 @@ let g:_VersionControl_var = {
 let g:_lsp_var = {'filetypes' : [
       \ 'python',
       \ ]}
-      " \ 'javascript',
+" \ 'javascript',
 if g:is_unix
   call add(g:_lsp_var['filetypes'], 'sh')
 endif
@@ -150,6 +154,36 @@ elseif g:spacevim_fuzzyfinder ==# 'fzf'
   let g:my_layers['denite']  = 0
   let g:my_layers['leaderf'] = 0
 endif
+
+if g:pure_viml " {{{
+  let g:spacevim_autocomplete_method = 'asyncomplete'
+  let g:spacevim_snippet_engine      = 'neosnippet'
+  let g:spacevim_filemanager         = 'nerdtree'
+  let g:enable_smart_clock           = 0
+  let g:my_layers = {
+        \ 'checkers'         : 1,
+        \ 'chinese'          : 1,
+        \ 'colorscheme'      : 1,
+        \ 'debug'            : 1,
+        \ 'git'              : 1,
+        \ 'github'           : 1,
+        \ 'lsp'              : 1,
+        \ 'lang#java'        : 0,
+        \ 'lang#javascript'  : 0,
+        \ 'lang#latex'       : 0,
+        \ 'lang#markdown'    : 1,
+        \ 'lang#scala'       : 1,
+        \ 'lang#vim'         : 1,
+        \ 'lang#sh'          : 1,
+        \ 'incsearch'        : 1,
+        \ 'shell'            : 1,
+        \ 'tmux'             : 1,
+        \ 'tools'            : 1,
+        \ 'VersionControl'   : 1,
+        \ 'unite'            : 1,
+        \ }
+endif
+"}}}
 "}}}
 
 

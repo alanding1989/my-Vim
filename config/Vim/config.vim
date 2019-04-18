@@ -5,6 +5,11 @@
 scriptencoding utf-8
 
 
+
+" choose minimal setting
+let g:pure_viml = 0
+
+
 " Themes list " {{{
 let g:my_cs = split([
       \ '0 gruvbox'     ,
@@ -21,16 +26,17 @@ let g:my_bg = 1 ? 'dark' : 'light'
 
 " ================================================================================
 " Preferences
-let g:autocomplete_method           = get(['coc'       , 'deoplete' , 'ncm2'], 2)
+let g:autocomplete_method           = get(['coc'       , 'deoplete' , 'ncm2'], 1)
 let g:snippet_engine                = get(['neosnippet', 'ultisnips', 'coc' ], 0)
 let g:fuzzyfinder                   = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
-let g:filemanager                   = get(['vimfiler'  , 'nerdtree' , 'defx'], 2)
+let g:filemanager                   = get(['vimfiler'  , 'nerdtree' , 'defx'], 0)
 let g:plugmanager                   = 1 ? 'dein'    : 'vim-plug'
 let g:checker                       = 1 ? 'ale'     : 'neomake'
 let g:statusline                    = 1 ? 'airline' : 'lightline'
 let g:lint_on_the_fly               = 1
 let g:enable_deotabline             = 1
 let g:enable_googlesuggest          = 0
+let g:enable_smart_clock            = 0
 
 " Ui {{{
 let g:enable_cursorword             = (g:is_nvim || g:is_gui) ? 1 : 0
@@ -95,6 +101,27 @@ elseif g:fuzzyfinder ==# 'fzf'
   let g:My_Vim_layers['denite']  = 0
   let g:My_Vim_layers['leaderf'] = 0
 endif
+
+if g:pure_viml " {{{
+  let g:autocomplete_method = 'asyncomplete'
+  let g:snippet_engine      = 'neosnippet'
+  let g:filemanager         = 'nerdtree'
+  let g:enable_smart_clock  = 0
+  let g:My_Vim_layers = {
+        \ 'colorscheme'     : 1,
+        \ 'tags'            : 1,
+        \ 'tools'           : 1,
+        \ 'lsp'             : 0,
+        \ 'lang#latex'      : 0,
+        \ 'lang#scala'      : 0,
+        \ 'lang#vim'        : 1,
+        \ 'tools#clock'     : 1,
+        \ 'ui'              : 1,
+        \ 'VersionControl'  : 1,
+        \ 'unite'           : 1,
+        \ }
+endif
+"}}}
 "}}}
 
 
@@ -102,6 +129,6 @@ endif
 " Disabled plugins
 " ============================================================================== {{{
 "let g:disabled_plugins = [
-    "\ '',
-    "\ ]
+"\ '',
+"\ ]
 "}}}

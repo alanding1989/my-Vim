@@ -44,6 +44,8 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
           return deoplete#manual_complete()
         elseif get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method')) ==# 'ncm2'
           return "\<c-r>=ncm2#manual_trigger()\<cr>"
+        elseif get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method')) ==# 'asyncomplete'
+          return asyncomplete#force_refresh()
         endif
       endif
     endif
@@ -95,6 +97,8 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
         return deoplete#manual_complete()
       elseif get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method')) ==# 'ncm2'
         return "\<c-r>=ncm2#manual_trigger()\<cr>"
+      elseif get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method')) ==# 'asyncomplete'
+        return asyncomplete#force_refresh()
       endif
     endif
   endfunction

@@ -41,6 +41,9 @@ function! s:vim_plug_begin() abort
     !curl -fLo ~/.SpaceVim.d/autoload/plug.vim --create-dirs
           \https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     auto VimEnter * PlugInstall --sync | source $MYVIMRC
+    let s:firstinstall = 1
+  else
+    let s:firstinstall = 0
   endif
   " init vim-plug }}}
   call s:Unite_Plugmenu_begin('~/.cache/Vim/vim-plug')
@@ -68,12 +71,14 @@ function! s:dein_begin() abort
     call mkdir(expand('~/.cache/Vim/dein-plug/repos/github.com/Shougo/dein.vim'), 'p', '0700')
     exec '!git clone git@github.com:Shougo/dein.vim.git "'
           \.expand('~/.cache/Vim/dein-plug/repos/github.com/Shougo/dein.vim').'"'
+    let s:firstinstall = 1
+  else
+    let s:firstinstall = 0
   endif
   " init dein }}}
   if &compatible | set nocompatible | endif
   set runtimepath+=~/.cache/Vim/dein-plug/repos/github.com/Shougo/dein.vim
   if s:check_plugchange() || dein#load_state('~/.cache/Vim/dein-plug')
-    let firstinstall = len(g:enabled_plugins_name) == 0 ? 1 : 0
     call s:Unite_Plugmenu_begin('~/.cache/Vim/dein-plug')
     call dein#add('~/.cache/Vim/dein-plug/repos/github.com/Shougo/dein.vim')
     call dein#add('wsdjeg/dein-ui.vim')
@@ -82,7 +87,7 @@ function! s:dein_begin() abort
       let plug_name = split(repo, '/')[-1]
       if index(get(g:, 'disabled_plugins', []), repo) == -1
         call dein#add(repo, get(elem, 1, {}))
-        if firstinstall | call add(g:enabled_plugins_name, plug_name) | endif
+        if s:firstinstall | call add(g:enabled_plugins_name, plug_name) | endif
         if finddir(expand('~/.cache/Vim/dein-plug/repos/github.com/'.repo)) ==# ''
           call add(g:uninstalled_plugins, plug_name)
         endif
@@ -142,6 +147,8 @@ function! s:check_install() abort
 endfunction
 
 function! My_Vim#layer#plug_end() abort
+  if s:firstinstall | return | endif
+
   " load leyer config (almost keymap setting)
   call map(deepcopy(g:enabled_layers), {key, val -> layers#{val}#config()})
 
@@ -165,6 +172,8 @@ function! My_Vim#layer#plug_end() abort
   " load default_layers global var
   let defaultload = ['autocomp_plugins', 'snippet', 'langtools', 'ui' ]
   call map(deepcopy(defaultload), {key, val -> util#so_file('plugins/'.val.'.vim', 'Vim')})
+  " HotKey menu
+  call util#so_file('keymap.vim', 'Vim')
 
   filetype plugin indent on
   syntax on

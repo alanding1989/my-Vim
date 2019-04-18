@@ -20,4 +20,9 @@ elseif get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method')) =
   function! mapping#space#c_space() abort
     inoremap <expr><c-space> !pumvisible() ? "\<c-r>=ncm2#force_trigger(g:_snippet, )\<cr>" : "\<c-y>"
   endfunction
+
+elseif get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method')) ==# 'asyncomplete'
+  function! mapping#space#c_space() abort
+    inoremap <expr><c-space> !pumvisible() ? asyncomplete#force_refresh() : "\<c-y>"
+  endfunction
 endif

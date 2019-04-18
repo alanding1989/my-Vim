@@ -14,14 +14,12 @@ function! layers#autocomplete#plugins() abort
   if $TMUX !=# ''
     call add(plugins, ['wellle/tmux-complete.vim', {'on_event' : 'InsertEnter'}])
   endif
+  " coc {{{
   if get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method', 'deoplete')) ==# 'coc'
     call add(plugins, ['jsfaint/coc-neoinclude', {'on_event': 'InsertEnter'}])
-    " if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'coc'
-    " call add(plugins, ['SirVer/ultisnips',{'merged' : 0}])
-    " call add(plugins,  ['Shougo/neosnippet.vim', { 'on_event' : 'InsertEnter',
-    " \ 'on_ft' : 'neosnippet', 'on_cmd' : 'NeoSnippetEdit'}])
-    " endif
-    " deoplete-tabnine {{{
+    "}}}
+
+  " deoplete-tabnine {{{
   elseif get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method', 'deoplete')) ==# 'deoplete'
         \ && g:enable_deotabline
     if g:is_win
@@ -32,7 +30,7 @@ function! layers#autocomplete#plugins() abort
             \ 'build': './install.sh', 'do': './install.sh'}])
     endif "}}}
 
-    " ncm2 {{{
+  " ncm2 {{{
   elseif get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method', 'deoplete')) ==# 'ncm2'
     let plugins += [
           \ ['ncm2/ncm2'                 , {'merged': 0}],
@@ -62,7 +60,22 @@ function! layers#autocomplete#plugins() abort
     elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) ==# 'ultisnips'
       call add(plugins, ['ncm2/ncm2-ultisnips' , {'merged': 0, 'on_event': 'InsertEnter'}])
     endif
-  endif "}}}
+    "}}}
+
+  " asyncomplete {{{
+  elseif get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method', 'deoplete')) ==# 'asyncomplete'
+    call add(plugins, ['prabirshrestha/asyncomplete-file.vim'       , {'merged': 0, 'on_event': 'InsertEnter'}])
+    call add(plugins, ['prabirshrestha/asyncomplete-tags.vim'       , {'merged': 0, 'on_event': 'InsertEnter'}])
+    call add(plugins, ['kyouryuukunn/asyncomplete-neoinclude.vim' , {'merged': 0, 'on_event': 'InsertEnter'}])
+    call add(plugins, ['prabirshrestha/asyncomplete-necosyntax.vim', {'merged': 0, 'on_event': 'InsertEnter'}])
+    call add(plugins, ['prabirshrestha/asyncomplete-necovim.vim'    , {'merged': 0, 'on_event': 'InsertEnter'}])
+    if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) ==# 'neosnippet'
+      call add(plugins, ['prabirshrestha/asyncomplete-neosnippet.vim', {'merged': 0, 'on_event': 'InsertEnter'}])
+    elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) ==# 'ultisnips'
+      call add(plugins, ['prabirshrestha/asyncomplete-ultisnips.vim' , {'merged': 0, 'on_event': 'InsertEnter'}])
+    endif
+  endif
+  "}}}
 
   if !g:is_spacevim " {{{
     let plugins += [
@@ -89,6 +102,10 @@ function! layers#autocomplete#plugins() abort
     elseif g:autocomplete_method ==# 'deoplete'
       call add(plugins, ['Shougo/deoplete.nvim', {'merged'  : 0}])
       call add(plugins, ['ujihisa/neco-look'   , {'on_event': 'InsertEnter'}])
+    elseif g:autocomplete_method ==# 'asyncomplete'
+      call add(plugins, ['prabirshrestha/asyncomplete.vim'       , {'merged': 0, }])
+      call add(plugins, ['prabirshrestha/asyncomplete-buffer.vim', {'merged': 0, }])
+      call add(plugins, ['yami-beta/asyncomplete-omni.vim'       , {'merged': 0, }])
     endif
   endif "}}}
   return plugins
@@ -99,17 +116,17 @@ function! layers#autocomplete#config() abort
   " autocmd InsertLeave * if pumvisible() ==# 0 | pclose | endif
 
 
-imap <silent><expr><tab>   mapping#tab#super_tab()
-imap <silent><expr><cr>    mapping#enter#super_enter()
-call mapping#tab#S_tab()
-call mapping#space#c_space()
-call s:snip_source()
+  imap <silent><expr><tab>   mapping#tab#super_tab()
+  imap <silent><expr><cr>    mapping#enter#super_enter()
+  call mapping#tab#S_tab()
+  call mapping#space#c_space()
+  call s:snip_source()
 
-" delimitMate
-imap <expr> <C-h> pumvisible() ? "\<C-e><BS>" : "\<Plug>delimitMateBS"
-imap <expr> >     match(getline('.'), '\v^\s*\zs(if\|wh)') > -1 ? '> ' : "\<Plug>delimitMate\>"
-imap <expr> <     match(getline('.'), '\v^\s*\zs(if\|wh)') > -1 ? '< ' : "\<Plug>delimitMate\<"
-imap <expr> (     "\<Plug>delimitMate("
+  " delimitMate
+  imap <expr> <C-h> pumvisible() ? "\<C-e><BS>" : "\<Plug>delimitMateBS"
+  imap <expr> >     match(getline('.'), '\v^\s*\zs(if\|wh)') > -1 ? '> ' : "\<Plug>delimitMate\>"
+  imap <expr> <     match(getline('.'), '\v^\s*\zs(if\|wh)') > -1 ? '< ' : "\<Plug>delimitMate\<"
+  imap <expr> (     "\<Plug>delimitMate("
 endfunction
 
 function! s:snip_source() abort " {{{

@@ -10,13 +10,18 @@ function! layers#unite#plugins() abort
         \ ]
   if !g:is_spacevim
     let plugins += [
-          \ ['Shougo/unite.vim', {'loadconf' : 1}],
+          \ ['Shougo/unite.vim' ],
           \ ]
-    if !exists(':Denite')
+    if !exists(':Denite') || g:pure_viml
       call add(plugins, ['thinca/vim-unite-history' , {'merged' : 0}])
       call add(plugins, ['Shougo/neoyank.vim'       , {'merged' : 0}])
       call add(plugins, ['osyo-manga/unite-quickfix', {'merged' : 0}])
       call add(plugins, ['SpaceVim/Unite-sources'   , {'merged' : 0}])
+    endif
+    " outline source <Leader>fo
+    if g:pure_viml
+      call add(plugins, ['Shougo/unite-outline', {'merged' : 0}])
+      call add(plugins, ['Shougo/neomru.vim'   , {'merged' : 0}])
     endif
     " \ ['wsdjeg/unite-radio.vim', {'loadconf' : 1, 'merged' : 0}],
     " \ ['Shougo/unite-help', {'merged' : 0}],
@@ -26,9 +31,6 @@ function! layers#unite#plugins() abort
     " \ ['albfan/ag.vim',{'on_cmd' : 'Ag' , 'loadconf' : 1}],
     " \ ['dyng/ctrlsf.vim',{'on_cmd' : 'CtrlSF', 'on_map' : '<Plug>CtrlSF', 'loadconf' : 1 , 'loadconf_before' : 1}],
 
-    " outline source <Leader>fo
-    " call add(plugins, ['Shougo/unite-outline', {'merged' : 0}])
-    " call add(plugins, ['Shougo/neomru.vim', {'merged' : 0}])
     if g:enable_googlesuggest
       call add(plugins, ['mopp/googlesuggest-source.vim',    {'merged': 0}])
       call add(plugins, ['mattn/googlesuggest-complete-vim', {'merged': 0}])

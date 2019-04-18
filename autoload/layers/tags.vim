@@ -6,6 +6,7 @@ scriptencoding utf-8
 
 
 function! layers#tags#plugins() abort
+  if !executable('ctags') | return | endif
   let plugins = [
         \ [ 'ludovicchabant/vim-gutentags'   ,              {'merged' : 0}],
         \ [ 'skywind3000/gutentags_plus'     ,              {'merged' : 0}],
@@ -24,7 +25,9 @@ function! layers#tags#config() abort
   let $GTAGSCONF  = expand('~/.globalrc')
   " Cscope
   set cscopetag                  " 使用 cscope 作为 tags 命令
-  set cscopeprg='gtags-cscope'   " 使用 gtags-cscope 代替 cscope
+  if executable('gtags-cscope')
+    set cscopeprg='gtags-cscope'   " 使用 gtags-cscope 代替 cscope
+  endif
 
   nmap <silent><F2> :Vista!! \| doautocmd WinEnter<CR>
   call s:gutentags_plus()
