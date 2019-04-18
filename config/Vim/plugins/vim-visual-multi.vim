@@ -5,6 +5,10 @@
 " Created Time : Wed 27 Mar 2019 06:01:07 AM CST
 "=========================================================================
 scriptencoding utf-8
+if get(s:, 'loaded', 0)
+  finish
+endif
+let s:loaded = 1
 
 
 

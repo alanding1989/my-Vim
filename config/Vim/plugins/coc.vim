@@ -2,6 +2,10 @@
 " coc.nvim seetings
 " ================================================================================
 scriptencoding utf-8
+if get(s:, 'loaded', 0)
+  finish
+endif
+let s:loaded = 1
 
 
 
@@ -15,7 +19,7 @@ let g:coc_snippet_prev        = '<c-o>'
 let g:vim_node_rpc_folder     = exepath('vim-node-rpc')
 let g:coc_filetype_map        = {
       \ 'html.swig': 'html',
-    \ 'wxss'     : 'css',
+      \ 'wxss'     : 'css',
       \ 'ipynb'    : 'python',
       \ }
 
@@ -48,6 +52,7 @@ augroup END
 " \ 'coc-java'       ,
 " \ 'coc-rls'        ,
 " \ 'coc-pyls'       ,
+" \ 'coc-python'     ,
 " \ 'coc-emmet'      ,
 " \ 'coc-snippets'   ,
 " \ 'coc-dictionary' ,
@@ -102,6 +107,7 @@ elseif !g:is_spacevim
   nnoremap <leader>cl  :CocList<CR>
   nnoremap <leader>cpi :CocInstall 
   nnoremap <leader>cpu :CocUninstall 
+  nnoremap <leader>cpb :call coc#util#build()<CR>
   nnoremap <leader>cs  :CocConfig<CR>
   nnoremap <leader>ce  :CocList snippets<CR>
   nnoremap <leader>cc  :CocList commands<CR>

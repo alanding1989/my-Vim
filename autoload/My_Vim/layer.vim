@@ -66,8 +66,8 @@ function! s:dein_begin() abort
   " install dein {{{
   if glob('~/.cache/Vim/dein-plug/repos/github.com/Shougo/dein.vim') ==# ''
     call mkdir(expand('~/.cache/Vim/dein-plug/repos/github.com/Shougo/dein.vim'), 'p', '0700')
-    exec '!git clone git@github.com:Shougo/dein.vim "'
-          \ .expand('~/.cache/Vim/dein-plug/repos/github.com/Shougo/dein.vim').'"'
+    exec '!git clone git@github.com:Shougo/dein.vim.git "'
+          \.expand('~/.cache/Vim/dein-plug/repos/github.com/Shougo/dein.vim').'"'
   endif
   " init dein }}}
   if &compatible | set nocompatible | endif
@@ -145,17 +145,26 @@ function! My_Vim#layer#plug_end() abort
   " load leyer config (almost keymap setting)
   call map(deepcopy(g:enabled_layers), {key, val -> layers#{val}#config()})
 
-  " " load enabled_plugins global config var
-  " let g:plugnamelist = map(deepcopy(get(g:, 'enabled_plugins_name', [])),
-  "       \ {key, val -> split(val, '\.')[0].'.vim'})
-  " for file in systemlist('ls '.g:vim_plugindir)
-  "   if index(g:plugnamelist, file) > -1
-  "     exec 'so '.g:vim_plugindir . file
-  "   endif
-  " endfor
-  " " load default_layers global var
-  " let defaultload = ['autocomp_plugins', 'snippet', 'langtools', 'ui' ]
-  " call map(deepcopy(defaultload), {key, val -> util#so_file('plugins/'.val.'.vim', 'Vim')})
+  " load enabled_plugins global config var
+  let g:plugnamelist = map(deepcopy(get(g:, 'enabled_plugins_name', [])),
+        \ {key, val -> split(val, '\.')[0].'.vim'})
+  let filelist = !g:is_win ? systemlist('ls '.g:vim_plugindir) : [
+        \ 'ag.vim'                   , 'ale.vim'          , 'autocomp_plugins.vim', 'coc.vim'             , 'defx-icons.vim'       ,
+        \ 'defx.vim'                 , 'denite.vim'       , 'deoplete.vim'        , 'goyo.vim'            , 'langtools.vim'        ,
+        \ 'LanguageClient-neovim.vim', 'LeaderF.vim'      , 'markdown-preview.vim', 'ncm2.vim'            ,
+        \ 'neco-vim.vim'             , 'neomake.vim'      , 'nerdcommenter.vim'   , 'nerdtree.vim'        , 'snippet.vim'          ,
+        \ 'tagbar.vim'               , 'ui.vim'           , 'unite.vim'           , 'vcs.vim'             , 'vim-expand-region.vim',
+        \ 'vim-grammarous.vim'       , 'vim-gutentags.vim', 'vim-startify.vim'    , 'vim-visual-multi.vim', 'vimfiler.vim'         ,
+        \ 'vimpyter.vim'             , 'vista.vim'        , 'YouCompleteMe.vim'   ,
+        \ ]
+  for file in filelist
+    if index(g:plugnamelist, file) > -1
+      exec 'so '.g:vim_plugindir . file
+    endif
+  endfor
+  " load default_layers global var
+  let defaultload = ['autocomp_plugins', 'snippet', 'langtools', 'ui' ]
+  call map(deepcopy(defaultload), {key, val -> util#so_file('plugins/'.val.'.vim', 'Vim')})
 
   filetype plugin indent on
   syntax on

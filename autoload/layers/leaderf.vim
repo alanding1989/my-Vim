@@ -10,11 +10,9 @@ function! layers#leaderf#plugins() abort
   " \ ['Yggdroot/LeaderF-marks', {'on_cmd' : 'LeaderfMarks'}],
   if !g:is_spacevim
     if !g:is_win
-      call add(plugins , ['Yggdroot/LeaderF', {'loadconf': 1, 'merged': 0,
-            \ 'build': './install.sh', 'do': './install.sh'}])
+      call add(plugins , ['Yggdroot/LeaderF', {'merged': 0, 'build': './install.sh', 'do': './install.sh'}])
     else
-      call add(plugins , ['Yggdroot/LeaderF', {'loadconf': 1, 'merged': 0,
-            \ 'build': '.\install.bat', 'do': '.\install.bat'}])
+      call add(plugins , ['Yggdroot/LeaderF', {'merged': 0, 'build': '.\install.bat', 'do': '.\install.bat'}])
     endif
   endif
   return plugins

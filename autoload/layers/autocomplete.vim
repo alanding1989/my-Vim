@@ -17,11 +17,11 @@ function! layers#autocomplete#plugins() abort
   if get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method', 'deoplete')) ==# 'coc'
     call add(plugins, ['jsfaint/coc-neoinclude', {'on_event': 'InsertEnter'}])
     " if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'coc'
-      " call add(plugins, ['SirVer/ultisnips',{ 'loadconf_before' : 1, 'merged' : 0}])
-      " call add(plugins,  ['Shougo/neosnippet.vim', { 'on_event' : 'InsertEnter',
-            " \ 'loadconf' : 1, 'on_ft' : 'neosnippet', 'on_cmd' : 'NeoSnippetEdit'}])
+    " call add(plugins, ['SirVer/ultisnips',{'merged' : 0}])
+    " call add(plugins,  ['Shougo/neosnippet.vim', { 'on_event' : 'InsertEnter',
+    " \ 'on_ft' : 'neosnippet', 'on_cmd' : 'NeoSnippetEdit'}])
     " endif
-  " deoplete-tabnine {{{
+    " deoplete-tabnine {{{
   elseif get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method', 'deoplete')) ==# 'deoplete'
         \ && g:enable_deotabline
     if g:is_win
@@ -32,7 +32,7 @@ function! layers#autocomplete#plugins() abort
             \ 'build': './install.sh', 'do': './install.sh'}])
     endif "}}}
 
-  " ncm2 {{{
+    " ncm2 {{{
   elseif get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method', 'deoplete')) ==# 'ncm2'
     let plugins += [
           \ ['ncm2/ncm2'                 , {'merged': 0}],
@@ -47,13 +47,15 @@ function! layers#autocomplete#plugins() abort
           \ ['ncm2/ncm2-gtags'           , {'merged': 0, 'on_event': 'InsertEnter'}],
           \ ['yuki-ycino/ncm2-dictionary', {'merged': 0, 'on_event': 'InsertEnter'}],
           \ ['ncm2/ncm2-highprio-pop'    , {'merged': 0, 'on_event': 'InsertEnter'}],
-          \ ['ncm2/ncm2-match-highlight' , {'merged': 0, 'on_event': 'InsertEnter'}],
           \ ['fgrsnau/ncm2-otherbuf'     , {'on_event': ['InsertEnter', 'CursorHold', 'CursorHoldI']}],
           \ ['ncm2/ncm2-tern'            , {'on_event': 'InsertEnter',
           \ 'build': 'npm install', 'do': 'npm install'}],
           \ ]
+    if !g:is_win
+      call add(plugins, ['ncm2/ncm2-match-highlight' , {'merged': 0, 'on_event': 'InsertEnter'}])
+    endif
     if has('nvim')
-      " call add(plugins, ['ncm2/float-preview.nvim', {'merged': 0}])
+      call add(plugins, ['ncm2/float-preview.nvim', {'merged': 0}])
     endif
     if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) ==# 'neosnippet'
       call add(plugins, ['ncm2/ncm2-neosnippet', {'merged': 0, 'on_event': 'InsertEnter'}])
@@ -97,17 +99,17 @@ function! layers#autocomplete#config() abort
   " autocmd InsertLeave * if pumvisible() ==# 0 | pclose | endif
 
 
-  imap <silent><expr><tab>   mapping#tab#super_tab()
-  imap <silent><expr><cr>    mapping#enter#super_enter()
-  call mapping#tab#S_tab()
-  call mapping#space#c_space()
-  call s:snip_source()
+imap <silent><expr><tab>   mapping#tab#super_tab()
+imap <silent><expr><cr>    mapping#enter#super_enter()
+call mapping#tab#S_tab()
+call mapping#space#c_space()
+call s:snip_source()
 
-  " delimitMate
-  imap <expr> <C-h> pumvisible() ? "\<C-e><BS>" : "\<Plug>delimitMateBS"
-  imap <expr> >     match(getline('.'), '\v^\s*\zs(if\|wh)') > -1 ? '> ' : "\<Plug>delimitMate\>"
-  imap <expr> <     match(getline('.'), '\v^\s*\zs(if\|wh)') > -1 ? '< ' : "\<Plug>delimitMate\<"
-  imap <expr> (     "\<Plug>delimitMate("
+" delimitMate
+imap <expr> <C-h> pumvisible() ? "\<C-e><BS>" : "\<Plug>delimitMateBS"
+imap <expr> >     match(getline('.'), '\v^\s*\zs(if\|wh)') > -1 ? '> ' : "\<Plug>delimitMate\>"
+imap <expr> <     match(getline('.'), '\v^\s*\zs(if\|wh)') > -1 ? '< ' : "\<Plug>delimitMate\<"
+imap <expr> (     "\<Plug>delimitMate("
 endfunction
 
 function! s:snip_source() abort " {{{

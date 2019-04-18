@@ -1,6 +1,10 @@
 " markdown-preview.nvim
 "================================================================================
 scriptencoding utf-8
+if get(s:, 'loaded', 0)
+  finish
+endif
+let s:loaded = 1
 
 
 " " set to 1, the vim will open the preview window once enter the markdown buffer

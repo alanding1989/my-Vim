@@ -1,3 +1,9 @@
+if get(s:, 'loaded', 0)
+  finish
+endif
+let s:loaded = 1
+
+
 let s:save_option = {}
 function! s:goyo_enter()
   let s:save_option['showmode'] = &showmode

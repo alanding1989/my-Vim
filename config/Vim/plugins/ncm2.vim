@@ -2,6 +2,10 @@
 " ncm2 plugin settings
 " ================================================================================
 scriptencoding utf-8
+if get(s:, 'loaded', 0)
+  finish
+endif
+let s:loaded = 1
 
 
 
@@ -13,6 +17,8 @@ let g:neosnippet#enable_completed_snippet = 0
 let g:ncm2#auto_popup          = 1
 let g:ncm2#popup_delay         = 60   "default
 let g:ncm2#match_highlight     = 'sans-serif-bold'
+" let g:ncm2#match_highlight     = 'mono-space'
+
 
 let g:float_preview#height     = 30
 let g:float_preview#docked     = 1

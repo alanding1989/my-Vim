@@ -1,3 +1,9 @@
+if get(s:, 'loaded', 0)
+  finish
+endif
+let s:loaded = 1
+
+
 xmap v <Plug>(expand_region_expand)
 xmap V <Plug>(expand_region_shrink)
 let g:expand_region_text_objects = {

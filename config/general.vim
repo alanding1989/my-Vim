@@ -1,7 +1,8 @@
 " ================================================================================
-" General environment check
+" General environment setting
 " ================================================================================
 scriptencoding utf-8
+
 
 
 let g:is_mac              = has('mac') || has('osx')
@@ -19,20 +20,21 @@ let g:has_timer           = has('timers')
 let g:has_display         = empty($DISPLAY)
 let g:has_terminal        = g:is_nvim || (has('patch-8.0.1108') && has('terminal'))
 
+
+let g:vim_plugindir       = expand(g:home.'config/Vim/plugins/')
 let g:project_root_marker = ['.root', '.project', '.idea', '.vscode',
       \ '.svn', '.git', '.hg', '.bzr', '_darcs']
 
 
+" neovim
 if g:is_unix || g:is_mac
   " linux
-  let g:vim_plugindir       = g:home.'config/Vim/plugins/'
   let g:ruby_host_prog      = exepath('neovim-ruby-host')
   let g:node_host_prog      = exepath('neovim-node-host')
   let g:python_host_prog    = '/home/alanding/software/anaconda3/envs/py27/bin/python2.7'
   let g:python3_host_prog   = '/home/alanding/software/anaconda3/envs/py36/bin/python3.6'
 else
-" windows
-  let g:vim_plugindir       = g:home.'config\Vim\plugins\'
+  " windows
   let g:ruby_host_prog      = exepath('neovim-ruby-host')
   let g:node_host_prog      = exepath('neovim-node-host')
   let g:python_host_prog    = 'D:\devtools\python\Anaconda3\envs\py27\python'
@@ -40,6 +42,14 @@ else
 endif
 
 " vim only
-if !g:is_nvim && has('pythonx')
+if !g:is_nvim
   set pyxversion=3
+  set pythonthreedll=python36.dll
+  if g:is_unix || g:is_mac
+    " linux
+    set pythonthreehome=/home/alanding/software/anaconda3/envs/py36/bin
+  else
+    " windows
+    set pythonthreehome=D:\devtools\python\Anaconda3\envs\py36
+  endif
 endif

@@ -1,6 +1,11 @@
 " ================================================================================
 " plugin settings
 " ================================================================================
+if get(s:, 'loaded', 0)
+  finish
+endif
+let s:loaded = 1
+
 
 " NOTE: read
 " https://github.com/autozimu/LanguageClient-neovim/pull/514#issuecomment-404463033

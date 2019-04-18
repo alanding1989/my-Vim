@@ -9,18 +9,7 @@ scriptencoding utf-8
 " ================================================================================
 " leader mappings
 " ================================================================================
-augroup MyVim_which_key
-  autocmd! FileType which_key
-  autocmd  FileType which_key set laststatus=2 noshowmode noruler
-        \| autocmd BufLeave <buffer> set laststatus=2 ruler
-augroup END
 
-let g:which_key_map = {}
-call which_key#register('<Space>', 'g:which_key_map')
-nnoremap <silent><leader>       :WhichKey get(g:, 'mapleader', ';')<CR>
-vnoremap <silent><leader>       :WhichKeyVisual get(g:, 'mapleader', ';')<CR>
-nnoremap <silent><localleader>  :WhichKey get(g:, 'localleader', '<Space>')<CR>
-vnoremap <silent><localleader>  :WhichKeyVisual get(g:, 'localleader', '<Space>')<CR>
 
 " nnoremap <leader>aa        ggVG
 
@@ -69,3 +58,6 @@ if has('nvim')
   endif
   " nnoremap <space>qh  :checkhealth<CR>
 endif
+
+call mapping#leader#init()
+

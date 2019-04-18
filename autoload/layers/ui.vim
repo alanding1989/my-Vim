@@ -45,9 +45,10 @@ function! layers#ui#config() abort
 
   augroup rainbow_lisp
     autocmd!
-    if exists(':RainbowParentheses')
+    try
       autocmd BufWinEnter * RainbowParentheses
-    endif
+    catch
+    endtry
     autocmd FileType vimcalc setlocal nonu nornu nofoldenable | inoremap <silent> <buffer> <c-d> <c-[>:q<cr>
           \ | nnoremap <silent> <buffer> q :bdelete<cr>
   augroup END

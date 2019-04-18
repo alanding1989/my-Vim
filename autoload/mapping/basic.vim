@@ -57,6 +57,7 @@ function! mapping#basic#load() abort
   cnoremap <c-j>        <down>
   cnoremap <c-k>        <up>
   cnoremap <c-b>        <left>
+  cnoremap <c-f>        <right>
   cnoremap <c-l>        <right>
   cnoremap <c-a>        <home>
   cnoremap <c-e>        <end>

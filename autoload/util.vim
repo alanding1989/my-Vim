@@ -49,7 +49,7 @@ function! util#so_file(path, ...) abort
   let SPC_p  = glob(g:home.'config/SpaceVim/'.a:path)
   let Vim_p  = glob(g:home.'config/Vim/'.a:path)
   let arbi_p = glob(g:home.a:path)
-  let g:home = resolve(expand(g:home))
+  let g:home = glob(g:home)
   if a:1 ==# 'g' && s:filereadable(gen_p)
     exec 'so ' gen_p
   elseif a:1 ==# 'SPC' && s:filereadable(SPC_p)

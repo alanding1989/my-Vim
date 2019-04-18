@@ -30,7 +30,7 @@ elseif !g:is_nvim && !g:is_win
   set listchars=tab:\|\ ,trail:·,extends:>,precedes:<
 endif
 
-set fillchars=vert:!,fold:·
+set fillchars=vert:!,fold:-
 
 set scrolloff=2 sidescrolloff=5
 set signcolumn=yes

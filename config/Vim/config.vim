@@ -21,19 +21,19 @@ let g:my_bg = 1 ? 'dark' : 'light'
 
 " ================================================================================
 " Preferences
-let g:autocomplete_method           = get(['coc'       , 'deoplete' , 'ncm2'], 1)
+let g:autocomplete_method           = get(['coc'       , 'deoplete' , 'ncm2'], 2)
 let g:snippet_engine                = get(['neosnippet', 'ultisnips', 'coc' ], 0)
 let g:fuzzyfinder                   = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
-let g:filemanager                   = get(['vimfiler'  , 'nerdtree' , 'defx'], 0)
+let g:filemanager                   = get(['vimfiler'  , 'nerdtree' , 'defx'], 2)
 let g:plugmanager                   = 1 ? 'dein'    : 'vim-plug'
 let g:checker                       = 1 ? 'ale'     : 'neomake'
 let g:statusline                    = 1 ? 'airline' : 'lightline'
 let g:lint_on_the_fly               = 1
-let g:enable_deotabline             = 0
+let g:enable_deotabline             = 1
 let g:enable_googlesuggest          = 0
 
 " Ui {{{
-let g:enable_cursorword             = g:is_nvim ? 1 : 0
+let g:enable_cursorword             = (g:is_nvim || g:is_gui) ? 1 : 0
 let g:enable_fat_statusline         = 0
 let g:statusline_separator          = get(['fire', 'arrow', 'curve', 'slant'], 2)
 let g:sidebar_width                 = 25

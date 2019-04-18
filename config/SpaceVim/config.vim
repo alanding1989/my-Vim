@@ -30,7 +30,7 @@ let g:spacevim_filemanager                   = get(['vimfiler'  , 'nerdtree' , '
 let g:spacevim_statusline                    = get(['airline'   , 'lightline', ''    ], 0)
 let g:spacevim_enable_ale                    = 1
 let g:spacevim_lint_on_the_fly               = 1
-let g:enable_deotabline                      = 0
+let g:enable_deotabline                      = 1
 let g:enable_googlesuggest                   = 0
 let g:enable_smart_clock                     = 0
 

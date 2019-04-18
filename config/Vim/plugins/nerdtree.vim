@@ -2,6 +2,10 @@
 " nerdtree.vim --- nerdtree config
 "=============================================================================
 scriptencoding utf-8
+if get(s:, 'loaded', 0)
+  finish
+endif
+let s:loaded = 1
 
 
 let s:VCOP = SpaceVim#api#import('vim#compatible')
