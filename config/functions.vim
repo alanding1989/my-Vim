@@ -12,7 +12,7 @@ function! Insert_headbox() abort " {{{
     call  append(line('.')+1 , '"')
     call  append(line('.')+2 , '"'.repeat('=', 80))
     call  append(line('.')+3 , '')
-  elseif &ft ==# 'sh' || &ft ==# 'python'
+  elseif &ft ==# 'sh' || &ft ==# 'python' || &ft ==# 'ps1'
     call setline(line('.')   , '# '.repeat('=', 80))
     call  append(line('.')   , '# ')
     call  append(line('.')+1 , '# ')
@@ -28,7 +28,7 @@ function! Insert_emptybox() abort
     call  append(line('.')+1 , '"')
     call  append(line('.')+2 , '"'.repeat('-', 80))
     call  append(line('.')+3 , '')
-  elseif &ft ==# 'sh' || &ft ==# 'python'
+  elseif &ft ==# 'sh' || &ft ==# 'python' || &ft ==# 'ps1'
     call setline(line('.')   , '# '.repeat('-', 80))
     call  append(line('.')   , '# ')
     call  append(line('.')+1 , '# ')
@@ -58,9 +58,17 @@ function! SetFileHead() abort " {{{
     call append(line('.')+2, '#  mail         :')
     call append(line('.')+3, '#  Created Time : '.strftime('%c'))
     call append(line('.')+4, '# '.repeat('=', 80))
-    call append(line('.')+5, '# !/usr/bin/env bash')
+    call append(line('.')+5, '#!/usr/bin/env bash')
     call append(line('.')+6, '')
     call append(line('.')+7, '')
+  elseif &filetype ==# 'ps1'
+    call setline(1,          '# '.repeat('=', 80))
+    call append(line('.'),   '#  File Name    : '.expand('%'))
+    call append(line('.')+1, '#  Author       : AlanDing')
+    call append(line('.')+2, '#  mail         :')
+    call append(line('.')+3, '#  Created Time : '.strftime('%c'))
+    call append(line('.')+4, '# '.repeat('=', 80))
+    call append(line('.')+5, '')
   elseif &filetype ==# 'python' || &filetype ==# 'ipynb'
     call setline(1,          '# '.repeat('=', 80))
     call append(line('.'),   '#  File Name    : '.expand('%'))
@@ -68,7 +76,7 @@ function! SetFileHead() abort " {{{
     call append(line('.')+2, '#  mail         :')
     call append(line('.')+3, '#  Created Time : '.strftime('%c'))
     call append(line('.')+4, '# '.repeat('=', 80))
-    call append(line('.')+5, '# !/usr/bin/env python3')
+    call append(line('.')+5, '#!/usr/bin/env python3')
     call append(line('.')+6, '# -*- coding: utf-8 -*-')
     call append(line('.')+7, '')
     call append(line('.')+8, '')

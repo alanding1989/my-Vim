@@ -10,6 +10,7 @@ scriptencoding utf-8
 augroup my_filetype_detection
   autocmd!
   autocmd BufNewFile,BufRead *.sbt,*.sc setlocal filetype=scala
+  autocmd BufNewFile,BufRead *.ps1 setlocal filetype=ps1
 
 
   autocmd FileType scala    setlocal sts=4 sw=4 noet
