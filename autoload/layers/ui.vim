@@ -46,8 +46,8 @@ function! layers#ui#config() abort
   augroup rainbow_lisp
     autocmd!
     autocmd BufWinEnter * RainbowParentheses
-    autocmd FileType vimcalc setlocal nonu nornu nofoldenable | inoremap <silent> <buffer> <c-d> <c-[>:q<cr>
-          \ | nnoremap <silent> <buffer> q :bdelete<cr>
+    autocmd FileType vimcalc setlocal nonu nornu nofoldenable | inoremap <silent> <buffer> <c-d> <c-[>:q<CR>
+          \ | nnoremap <silent> <buffer> q :bdelete<CR>
   augroup END
 
   if !g:is_spacevim
@@ -68,9 +68,9 @@ function! s:startify() abort
   else
     nnoremap <silent><space>bh   :Startify<CR>
     nnoremap <silent><leader>ap  :call util#statusline#pureline()<CR>
-    nnoremap <leader>as          :SSave! 
-    nnoremap <leader>al          :SLoad! 
-    nnoremap <leader>ad          :SDelete! 
+    nnoremap <leader>as          :call feedkeys(':SSave! ')<CR>
+    nnoremap <leader>al          :call feedkeys(':SLoad! ')<CR>
+    nnoremap <leader>ad          :call feedkeys(':SDelete! ')<CR>
   endif
 endfunction
 
@@ -80,8 +80,8 @@ function! s:indent_line() abort
           \ . string(s:_function('s:toggle_indent_length')).', [])',
           \ '@ toggle indent length', 1)
   else
-    noremap <silent><space>ti  :IndentLinesToggle<cr>
-    noremap <silent><space>tl  :call <sid>toggle_indent_length()<cr>
+    noremap <silent><space>ti  :IndentLinesToggle<CR>
+    noremap <silent><space>tl  :call <sid>toggle_indent_length()<CR>
   endif
 endfunction
 

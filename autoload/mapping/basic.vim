@@ -285,7 +285,12 @@ function! mapping#basic#load() abort
   nnoremap <leader>aco         :vs ~/.SpaceVim.d/config/option.vim<CR>
   nnoremap <leader>acb         :vs ~/.SpaceVim.d/autoload/mapping/basic.vim<CR>
   nnoremap <leader>acd         :vs ~/.SpaceVim.d/autoload/default.vim<CR>
-  if get(g:, 'spacevim_fuzzyfinder', get(g:, 'fuzzyfinder', 'leaderf')) ==# 'denite'
+  if !g:has_py || 1
+    nnoremap <leader>acm       :exec 'Unite file_rec/'.(has('nvim') ?
+          \ 'neovim' : 'asyn').' -path=~/.SpaceVim.d'<CR>
+    nnoremap <leader>ac<space> :exec 'Unite file_rec/'.(has('nvim') ?
+          \ 'neovim' : 'asyn').' -path=~/.SpaceVim'<CR>
+  elseif get(g:, 'spacevim_fuzzyfinder', get(g:, 'fuzzyfinder', 'leaderf')) ==# 'denite'
     nnoremap <leader>acm       :Denite file/rec -path=~/.SpaceVim.d<CR>
     nnoremap <leader>ac<space> :Denite file/rec -path=~/.SpaceVim<CR>
   elseif get(g:, 'spacevim_fuzzyfinder', get(g:, 'fuzzyfinder')) ==# 'leaderf'
@@ -314,7 +319,7 @@ function! mapping#basic#load() abort
     nnoremap <leader>acv       :vs ~/.SpaceVim.d/config/SpaceVim/config.vim<CR>
     nnoremap <leader>acl       :vs ~/.SpaceVim.d/config/SpaceVim/keymap.vim<CR>
     nnoremap <leader>ach       :vs ~/.SpaceVim.d/config/SpaceVim/
-  endif "}}
+  endif "}}}
 endfunction
 
 

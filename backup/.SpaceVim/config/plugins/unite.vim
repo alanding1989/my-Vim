@@ -1,13 +1,4 @@
-" ================================================================================
-" unite.vim -- settings
-" ================================================================================
 scriptencoding utf-8
-if get(s:, 'loaded', 0)
-  finish
-endif
-let s:loaded = 1
-
-
 call unite#custom#source('codesearch', 'max_candidates', 30)
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
@@ -46,7 +37,7 @@ let g:unite_source_file_rec_max_depth = get(g:,
       \ 'unite_source_file_rec_max_depth', 6)
 let g:unite_enable_ignore_case = get(g:, 'unite_enable_ignore_case', 1)
 let g:unite_enable_smart_case = get(g:, 'unite_enable_smart_case', 1)
-let g:unite_data_directory = get(g:, 'unite_data_directory', '~/.cache/Vim/unite')
+let g:unite_data_directory = get(g:, 'unite_data_directory','~/.cache/unite')
 "let g:unite_enable_start_insert=1
 let g:unite_source_history_yank_enable = get(g:,
       \ 'unite_source_history_yank_enable', 1)
@@ -55,7 +46,7 @@ let g:unite_winheight = get(g:, 'unite_winheight', 25)
 let g:unite_source_grep_default_opts = get(g:,
       \ 'unite_source_grep_default_opts',
       \ '-iRHn'
-     \ . " --exclude='tags'"
+      \ . " --exclude='tags'"
       \ . " --exclude='cscope*'"
       \ . " --exclude='*.svn*'"
       \ . " --exclude='*.log*'"
@@ -268,7 +259,7 @@ function! s:view_github_starred_repos() abort
     Unite -silent -ignorecase -winheight=17 -start-insert menu:MyStarredrepos
   endif
 endfunction
-" call zvim#util#loadMusics()
+call zvim#util#loadMusics()
 augroup unite_buffer_feature
   autocmd FileType unite call s:unite_my_settings()
 augroup END

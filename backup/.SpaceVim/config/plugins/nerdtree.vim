@@ -1,23 +1,11 @@
-"=============================================================================
-" nerdtree.vim --- nerdtree config
-"=============================================================================
-scriptencoding utf-8
-if get(s:, 'loaded', 0)
-  finish
-endif
-let s:loaded = 1
-
-
 let s:VCOP = SpaceVim#api#import('vim#compatible')
-
-
-if get(g:, 'filetree_direction', 'right') ==# 'right'
+if g:spacevim_filetree_direction ==# 'right'
   let g:NERDTreeWinPos = 'rightbelow'
 else
   let g:NERDTreeWinPos = 'left'
 endif
-let g:NERDTreeWinSize   = get(g:, 'sidebar_width', 30)
-let g:NERDTreeChDirMode = get(g:, 'NERDTreeChDirMode', 1)
+let g:NERDTreeWinSize=get(g:, 'spacevim_sidebar_width', 30)
+let g:NERDTreeChDirMode=get(g:, 'NERDTreeChDirMode', 1)
 augroup nerdtree_zvim
   autocmd!
   autocmd bufenter *

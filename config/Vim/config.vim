@@ -88,7 +88,7 @@ let g:My_Vim_layers = {
       \ 'unite'             : 0,
       \ }
 
-if g:fuzzyfinder ==# 'leaderf'
+if g:fuzzyfinder ==# 'leaderf' " {{{
       \ && g:My_Vim_layers['leaderf']
   let g:My_Vim_layers['leaderf'] = 1
   let g:My_Vim_layers['denite']  = 1
@@ -100,12 +100,12 @@ elseif g:fuzzyfinder ==# 'fzf'
   let g:My_Vim_layers['fzf']     = 1
   let g:My_Vim_layers['denite']  = 0
   let g:My_Vim_layers['leaderf'] = 0
-endif
+endif "}}}
 
 if g:pure_viml " {{{
   let g:autocomplete_method = 'asyncomplete'
   let g:snippet_engine      = 'neosnippet'
-  let g:filemanager         = 'nerdtree'
+  let g:filemanager         = 'vimfiler'
   let g:enable_smart_clock  = 0
   let g:My_Vim_layers = {
         \ 'colorscheme'     : 1,
@@ -118,6 +118,9 @@ if g:pure_viml " {{{
         \ 'tools#clock'     : 1,
         \ 'ui'              : 1,
         \ 'VersionControl'  : 1,
+        \ 'denite'          : 0,
+        \ 'fzf'             : 0,
+        \ 'leaderf'         : 0,
         \ 'unite'           : 1,
         \ }
 endif

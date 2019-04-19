@@ -139,7 +139,7 @@ let g:my_layers = {
       \ 'unite'             : 0,
       \ }
 
-if g:spacevim_fuzzyfinder ==# 'leaderf'
+if g:spacevim_fuzzyfinder ==# 'leaderf' " {{{
       \ && g:my_layers['leaderf']
   let g:my_layers['leaderf'] = 1
   let g:my_layers['denite']  = 1
@@ -153,12 +153,12 @@ elseif g:spacevim_fuzzyfinder ==# 'fzf'
   let g:my_layers['fzf']     = 1
   let g:my_layers['denite']  = 0
   let g:my_layers['leaderf'] = 0
-endif
+endif "}}}
 
-if g:pure_viml " {{{
+if g:pure_viml || !g:has_py " {{{
   let g:spacevim_autocomplete_method = 'asyncomplete'
   let g:spacevim_snippet_engine      = 'neosnippet'
-  let g:spacevim_filemanager         = 'nerdtree'
+  let g:spacevim_filemanager         = 'vimfiler'
   let g:enable_smart_clock           = 0
   let g:my_layers = {
         \ 'checkers'         : 1,
@@ -180,6 +180,9 @@ if g:pure_viml " {{{
         \ 'tmux'             : 1,
         \ 'tools'            : 1,
         \ 'VersionControl'   : 1,
+        \ 'denite'           : 0,
+        \ 'fzf'              : 0,
+        \ 'leaderf'          : 0,
         \ 'unite'            : 1,
         \ }
 endif
@@ -220,7 +223,7 @@ if g:spacevim_snippet_engine !=# 'neosnippet'
         \ 'neopairs.vim'   ,
         \ ]
 endif
-if get(g:my_layers, 'denite', 0)  == 0
+if !get(g:my_layers, 'denite', 0) && !get(g:my_layers, 'unite', 0)
   let g:spacevim_disabled_plugins += [
         \ 'neomru.vim'    ,
         \ 'unite-outline' ,

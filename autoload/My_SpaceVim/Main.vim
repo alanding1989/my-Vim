@@ -46,8 +46,8 @@ function! My_SpaceVim#Main#init() abort
   try
     call s:Mainbegin()
   catch
-    call s:Mainfallback()
     let g:is_fallback = 1
+    call s:Mainfallback()
   endtry
 endfunction
 

@@ -10,7 +10,7 @@ function! layers#denite#plugins() abort
   " endif
   if !g:is_spacevim
     let plugins += [
-          \ ['Shougo/denite.nvim'     , {'merged' : 0, 'loadconf' : 1}],
+          \ ['Shougo/denite.nvim'     , {'merged' : 0}],
           \ ['pocari/vim-denite-emoji', {'merged' : 0}],
           \ ['Shougo/neoyank.vim'     , {'merged' : 0}],
           \ ['chemzqm/unite-location' , {'merged' : 0}],
@@ -57,7 +57,7 @@ function! layers#denite#config() abort
     call SpaceVim#mapping#def('nnoremap', '<leader>fb', ':Denite buffer<CR>',
           \ 'fuzzy find buffer list'    , '', 'fuzzy find buffer list')
     call SpaceVim#mapping#def('nnoremap', '<leader>ff', ':DeniteProjectDir file/rec<CR>',
-          \ 'fuzzy find files in current buffer dir', '', 'fuzzy find files in current buffer dir')
+          \ 'fuzzy files in current working dir', '', 'fuzzy find files in current working dir')
     call SpaceVim#mapping#def('nnoremap', '<leader>fs', ':Denite grep<CR>',
           \ 'fuzzy grep'                , '', 'fuzzy grep')
     call SpaceVim#mapping#def('nnoremap', '<leader>fc', ':Denite colorscheme<CR>',

@@ -16,10 +16,10 @@ let g:is_gui              = has('gui_running') + has('gui_macvim')
 let g:is_macvim           = g:is_gui == 2
 let g:is_spacevim         = exists('g:spacevim_version')
 let g:is_async            = g:is_vim8 || g:is_nvim
+let g:has_py              = has('python3') || has('python')
 let g:has_timer           = has('timers')
 let g:has_display         = empty($DISPLAY)
 let g:has_terminal        = g:is_nvim || (has('patch-8.0.1108') && has('terminal'))
-
 
 let g:vim_plugindir       = expand(g:home.'config/Vim/plugins/')
 let g:project_root_marker = ['.root', '.project', '.idea', '.vscode',
