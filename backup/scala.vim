@@ -82,9 +82,11 @@ scriptencoding utf-8
 
 function! SpaceVim#layers#lang#scala#plugins() abort
   let plugins = [ 
-        \ ['ensime/ensime-vim'   , {'merged': 0 ,'on_ft': 'scala'}],
         \ ['derekwyatt/vim-scala', {'merged': 0 ,'on_ft': 'scala'}],
         \ ]
+  if g:has_py
+    call add(plugins, ['ensime/ensime-vim'   , {'merged': 0 ,'on_ft': 'scala'}])
+  endif
   return plugins
 endfunction
 

@@ -1,20 +1,23 @@
 " ================================================================================
 " enter mappings
+" NOTE: this setting need to set completeopt-=noselect
 " ================================================================================
 scriptencoding utf-8
 
 
-" NOTE: this setting need to set completeopt-=noselect
+
+let s:md = get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method', 'asyncomplete'))
+
 " ================================================================================
 " neosnippet
-" ================================================================================
+" ============================================================================= {{{
 if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) ==# 'neosnippet'
   function! mapping#enter#super_enter() abort
     if pumvisible()
       if neosnippet#expandable()
         if g:neosnippet#enable_complete_done == 1
           if getline('.')[col('.')-2] ==# '('
-            return "\<c-y>"
+            return s:md ==# 'asyncomplete' ? asyncomplete#close_popup() : "\<c-y>"
           else
             return "\<c-e>\<plug>(neosnippet_expand)"
           endif
@@ -48,10 +51,12 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
       endif
     endif
   endfunction
+  "}}}
+
 " ================================================================================
 " ultisnips
-" ================================================================================
-" g:ulti_expand_or_jump_res (0: fail, 1: expand, 2: jump)
+" ============================================================================= {{{
+" NOTE: g:ulti_expand_or_jump_res (0: fail, 1: expand, 2: jump)
 elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisnips'
   function! mapping#enter#super_enter() abort
     if pumvisible()
@@ -94,9 +99,11 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
       return "\<CR>"
     endif
   endfunction
+  "}}}
+
 " ================================================================================
 " coc
-" ================================================================================
+" ============================================================================= {{{
 elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'coc'
   function! mapping#enter#super_enter() abort
     if pumvisible()
@@ -128,3 +135,4 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'coc'
     endif
   endfunction
 endif
+"}}}

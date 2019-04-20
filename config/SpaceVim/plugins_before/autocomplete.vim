@@ -37,6 +37,10 @@ if g:spacevim_autocomplete_method ==# 'ncm2'
   exec 'so '.g:vim_plugindir.'ncm2.vim'
 endif
 
+" asyncomplete
+if g:spacevim_autocomplete_method ==# 'asyncomplete'
+  exec 'so '.g:vim_plugindir.'asyncomplete.vim'
+endif
 
 "--------------------------------------------------------------------------------
 " snippet

@@ -64,15 +64,14 @@ function! layers#autocomplete#plugins() abort
 
   " asyncomplete {{{
   elseif get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method', 'deoplete')) ==# 'asyncomplete'
-    call add(plugins, ['prabirshrestha/asyncomplete-file.vim'       , {'merged': 0, 'on_event': 'InsertEnter'}])
-    call add(plugins, ['prabirshrestha/asyncomplete-tags.vim'       , {'merged': 0, 'on_event': 'InsertEnter'}])
-    call add(plugins, ['kyouryuukunn/asyncomplete-neoinclude.vim' , {'merged': 0, 'on_event': 'InsertEnter'}])
-    call add(plugins, ['prabirshrestha/asyncomplete-necosyntax.vim', {'merged': 0, 'on_event': 'InsertEnter'}])
-    call add(plugins, ['prabirshrestha/asyncomplete-necovim.vim'    , {'merged': 0, 'on_event': 'InsertEnter'}])
+    call add(plugins, ['prabirshrestha/asyncomplete-file.vim'         , {'merged': 0, 'on_event': 'InsertEnter'}])
+    call add(plugins, ['prabirshrestha/asyncomplete-tags.vim'         , {'merged': 0, 'on_event': 'InsertEnter'}])
+    call add(plugins, ['kyouryuukunn/asyncomplete-neoinclude.vim'     , {'merged': 0, 'on_event': 'InsertEnter'}])
+    call add(plugins, ['prabirshrestha/asyncomplete-necosyntax.vim'   , {'merged': 0, 'on_event': 'InsertEnter'}])
     if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) ==# 'neosnippet'
-      call add(plugins, ['prabirshrestha/asyncomplete-neosnippet.vim', {'merged': 0, 'on_event': 'InsertEnter'}])
+      call add(plugins, ['prabirshrestha/asyncomplete-neosnippet.vim' , {'merged': 0, 'on_event': 'InsertEnter'}])
     elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) ==# 'ultisnips'
-      call add(plugins, ['prabirshrestha/asyncomplete-ultisnips.vim' , {'merged': 0, 'on_event': 'InsertEnter'}])
+      call add(plugins, ['prabirshrestha/asyncomplete-ultisnips.vim'  , {'merged': 0, 'on_event': 'InsertEnter'}])
     endif
   endif
   "}}}
@@ -116,8 +115,8 @@ function! layers#autocomplete#config() abort
   " autocmd InsertLeave * if pumvisible() ==# 0 | pclose | endif
 
 
-  imap <silent><expr><tab>   mapping#tab#super_tab()
-  imap <silent><expr><cr>    mapping#enter#super_enter()
+  imap <silent><expr><Tab>   mapping#tab#super_tab()
+  imap <silent><expr><CR>    mapping#enter#super_enter()
   call mapping#tab#S_tab()
   call mapping#space#c_space()
   call s:snip_source()
@@ -139,9 +138,9 @@ function! s:snip_source() abort " {{{
       endif
     else
       if My_Vim#layer#isLoaded('denite')
-        nnoremap <space>is :Denite neosnippet<cr>
+        nnoremap <space>is :Denite neosnippet<CR>
       elseif My_Vim#layer#isLoaded('unite')
-        nnoremap <space>is :Unite neosnippet<cr>
+        nnoremap <space>is :Unite neosnippet<CR>
       endif
       noremap <leader>ae   :NeoSnippetEdit -split -vertical<CR>
     endif
@@ -155,9 +154,9 @@ function! s:snip_source() abort " {{{
       endif
     else
       if My_Vim#layer#isLoaded('denite')
-        nnoremap <space>is :Denite ultisnips<cr>
+        nnoremap <space>is :Denite ultisnips<CR>
       elseif My_Vim#layer#isLoaded('unite')
-        nnoremap <space>is :Unite ultisnips<cr>
+        nnoremap <space>is :Unite ultisnips<CR>
       endif
       nnoremap <leader>ae  :UltiSnipsEdit<CR>
     endif

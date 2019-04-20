@@ -34,7 +34,8 @@ function! mapping#basic#load() abort
   " insert mode
   inoremap <expr><c-j>  pumvisible() ? "\<c-n>" : "\<down>"
   inoremap <expr><c-k>  pumvisible() ? "\<c-p>" : "\<up>"
-  inoremap <expr><c-e>  pumvisible() ? "\<c-e>" : "\<end>"
+  inoremap <expr><c-e>  pumvisible() ? !g:has_py ?
+        \ asyncomplete#cancel_popup() : "\<c-e>" : "\<end>"
   inoremap <c-a>        <esc>^i
   inoremap <c-b>        <left>
   inoremap <c-f>        <right>

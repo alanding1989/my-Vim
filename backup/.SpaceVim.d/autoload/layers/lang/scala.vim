@@ -76,11 +76,12 @@ scriptencoding utf-8
 " and set 'g:spacevim_layer_lang_scala_formatter' to the path of the jar.
 
 function! layers#lang#scala#plugins() abort
-  let plugins = [ 
-        \ ['ensime/ensime-vim', {'merged':0 ,'on_ft': 'scala', 'for': 'scala'}],
-        \ ]
+  let plugins = []
+  if g:has_py
+    call add(plugins, ['ensime/ensime-vim'   , {'merged': 0 ,'on_ft': 'scala'}])
+  endif
   if !g:is_spacevim
-    call add(plugins , ['derekwyatt/vim-scala' , {'on_ft': 'scala', 'for': 'scala'}])
+    call add(plugins, ['derekwyatt/vim-scala' , {'on_ft': 'scala', 'for': 'scala'}])
   endif
   return plugins
 endfunction

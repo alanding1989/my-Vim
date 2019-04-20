@@ -24,6 +24,8 @@ function! layers#lang#vim#plugins() abort
           \ ]
     if g:autocomplete_method ==# 'coc'
       call add(plugins, ['neoclide/coc-neco', {'merged': 0}])
+    elseif g:autocomplete_method ==# 'asyncomplete'
+      call add(plugins, ['prabirshrestha/asyncomplete-necovim.vim', {'merged': 0}])
     endif
   endif
   return plugins

@@ -156,13 +156,13 @@ function! My_Vim#layer#plug_end() abort
   let g:plugnamelist = map(deepcopy(get(g:, 'enabled_plugins_name', [])),
         \ {key, val -> split(val, '\.')[0].'.vim'})
   let filelist = !g:is_win ? systemlist('ls '.g:vim_plugindir) : [
-        \ 'ag.vim'                   , 'ale.vim'          , 'autocomp_plugins.vim', 'coc.vim'             , 'defx-icons.vim'       ,
-        \ 'defx.vim'                 , 'denite.vim'       , 'deoplete.vim'        , 'goyo.vim'            , 'langtools.vim'        ,
-        \ 'LanguageClient-neovim.vim', 'LeaderF.vim'      , 'markdown-preview.vim', 'ncm2.vim'            ,
-        \ 'neco-vim.vim'             , 'neomake.vim'      , 'nerdcommenter.vim'   , 'nerdtree.vim'        , 'snippet.vim'          ,
-        \ 'tagbar.vim'               , 'ui.vim'           , 'unite.vim'           , 'vcs.vim'             , 'vim-expand-region.vim',
-        \ 'vim-grammarous.vim'       , 'vim-gutentags.vim', 'vim-startify.vim'    , 'vim-visual-multi.vim', 'vimfiler.vim'         ,
-        \ 'vimpyter.vim'             , 'vista.vim'        , 'YouCompleteMe.vim'   ,
+        \ 'ag.vim'            , 'ale.vim'                  , 'asyncomplete.vim' , 'autocomp_plugins.vim', 'coc.vim'              ,
+        \ 'defx-icons.vim'    , 'defx.vim'                 , 'denite.vim'       , 'deoplete.vim'        , 'goyo.vim'             ,
+        \ 'langtools.vim'     , 'LanguageClient-neovim.vim', 'LeaderF.vim'      , 'markdown-preview.vim', 'ncm2.vim'             ,
+        \ 'neco-vim.vim'      , 'neomake.vim'              , 'nerdcommenter.vim', 'nerdtree.vim'        , 'snippet.vim'          ,
+        \ 'tagbar.vim'        , 'ui.vim'                   , 'unite.vim'        , 'vcs.vim'             , 'vim-expand-region.vim',
+        \ 'vim-grammarous.vim', 'vim-gutentags.vim'        , 'vim-startify.vim' , 'vim-visual-multi.vim', 'vimfiler.vim'         ,
+        \ 'vimpyter.vim'      , 'vista.vim'                , 'YouCompleteMe.vim',
         \ ]
   for file in filelist
     if index(g:plugnamelist, file) > -1

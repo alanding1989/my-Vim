@@ -17,6 +17,7 @@ let g:is_macvim           = g:is_gui == 2
 let g:is_spacevim         = exists('g:spacevim_version')
 let g:is_async            = g:is_vim8 || g:is_nvim
 let g:has_py              = has('python3') || has('python')
+let g:has_py              = 0
 let g:has_timer           = has('timers')
 let g:has_display         = empty($DISPLAY)
 let g:has_terminal        = g:is_nvim || (has('patch-8.0.1108') && has('terminal'))

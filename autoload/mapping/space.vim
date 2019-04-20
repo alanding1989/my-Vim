@@ -23,6 +23,6 @@ elseif get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method')) =
 
 elseif get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method')) ==# 'asyncomplete'
   function! mapping#space#c_space() abort
-    inoremap <expr><c-space> !pumvisible() ? asyncomplete#force_refresh() : "\<c-y>"
+    inoremap <expr><c-space> !pumvisible() ? asyncomplete#force_refresh() : asyncomplete#close_popup()
   endfunction
 endif
