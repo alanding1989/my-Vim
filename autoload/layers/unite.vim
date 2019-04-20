@@ -86,9 +86,11 @@ function! layers#unite#config() abort
     else
       let cmd = 'Unite file_rec/async'
     endif
-    nnoremap <silent><space>zz  :call call(<sid>_function('s:run_shell_cmd'), [])<CR>
-    nnoremap <silent><space>zp  :call call(<sid>_function('s:run_shell_cmd_project'), [])<CR>
-    nnoremap <silent><space>qp  :Unite -silent -winheight=13 -start-insert menu:AddedPlugins<CR>
+    nnoremap <silent><space>ff        :exec 'UniteWithBufferDir file_rec/'.(has('nvim') ? 'neovim' : 'async')<CR>
+    nnoremap <silent><space>fr        :Unite file_mru<CR>
+    nnoremap <silent><space>zz        :call call(<sid>_function('s:run_shell_cmd'), [])<CR>
+    nnoremap <silent><space>zp        :call call(<sid>_function('s:run_shell_cmd_project'), [])<CR>
+    nnoremap <silent><space>qp        :Unite -silent -winheight=13 -start-insert menu:AddedPlugins<CR>
 
     nnoremap <silent><leader>fa       :call feedkeys(':Unite ')<CR>
     nnoremap <silent><leader>ff       :exec 'UniteWithBufferDir file_rec/'.(has('nvim') ? 'neovim' : 'async')<CR>

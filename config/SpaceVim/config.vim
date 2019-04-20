@@ -7,7 +7,7 @@ scriptencoding utf-8
 
 
 " choose minimal setting
-let g:pure_viml = 1
+let g:pure_viml = 0
 
 
 " Themes list " {{{
@@ -28,7 +28,7 @@ let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 " ================================================================================
 " Preferences
 let g:spacevim_autocomplete_method           = get(['coc'       , 'deoplete' , 'ncm2'], 0)
-let g:spacevim_snippet_engine                = get(['neosnippet', 'ultisnips', 'coc' ], 2)
+let g:spacevim_snippet_engine                = get(['neosnippet', 'ultisnips', 'coc' ], 0)
 let g:spacevim_fuzzyfinder                   = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
 let g:spacevim_filemanager                   = get(['vimfiler'  , 'nerdtree' , 'defx'], 2)
 let g:spacevim_statusline                    = get(['airline'   , 'lightline', ''    ], 0)
@@ -36,7 +36,7 @@ let g:spacevim_enable_ale                    = 1
 let g:spacevim_lint_on_the_fly               = 1
 let g:enable_deotabline                      = 1
 let g:enable_googlesuggest                   = 0
-let g:enable_smart_clock                     = 0
+let g:enable_smart_clock                     = 0 && !g:is_win
 
 " Ui {{{
 let g:statusline_separator                   = get(['fire', 'arrow', 'curve', 'slant'], 0)
@@ -94,10 +94,15 @@ let g:_VersionControl_var = {
       \ }
 let g:_lsp_var = {'filetypes' : [
       \ 'python',
+      \ 'javascript',
       \ ]}
-" \ 'javascript',
+
 if g:is_unix
   call add(g:_lsp_var['filetypes'], 'sh')
+endif
+
+if g:spacevim_autocomplete_method ==# 'coc'
+  let g:spacevim_snippet_engine = 'coc'
 endif
 " }}}
 
@@ -161,29 +166,31 @@ if g:pure_viml || !g:has_py " {{{
   let g:spacevim_filemanager         = 'vimfiler'
   let g:enable_smart_clock           = 0
   let g:my_layers = {
-        \ 'checkers'         : 1,
-        \ 'chinese'          : 1,
-        \ 'colorscheme'      : 1,
-        \ 'debug'            : 1,
-        \ 'git'              : 1,
-        \ 'github'           : 1,
-        \ 'lsp'              : 1,
-        \ 'lang#java'        : 0,
-        \ 'lang#javascript'  : 0,
-        \ 'lang#latex'       : 0,
-        \ 'lang#markdown'    : 1,
-        \ 'lang#scala'       : 1,
-        \ 'lang#vim'         : 1,
-        \ 'lang#sh'          : 1,
-        \ 'incsearch'        : 1,
-        \ 'shell'            : 1,
-        \ 'tmux'             : 1,
-        \ 'tools'            : 1,
-        \ 'VersionControl'   : 1,
-        \ 'denite'           : 0,
-        \ 'fzf'              : 0,
-        \ 'leaderf'          : 0,
-        \ 'unite'            : 1,
+        \ 'core#statusline' : 0,
+        \ 'checkers'        : 1,
+        \ 'chinese'         : 1,
+        \ 'colorscheme'     : 1,
+        \ 'debug'           : 1,
+        \ 'git'             : 1,
+        \ 'github'          : 1,
+        \ 'lsp'             : 1,
+        \ 'lang#java'       : 0,
+        \ 'lang#javascript' : 0,
+        \ 'lang#latex'      : 0,
+        \ 'lang#markdown'   : 1,
+        \ 'lang#scala'      : 1,
+        \ 'lang#vim'        : 1,
+        \ 'lang#sh'         : 1,
+        \ 'incsearch'       : 1,
+        \ 'shell'           : 1,
+        \ 'tmux'            : 1,
+        \ 'tools'           : 1,
+        \ 'VersionControl'  : 1,
+        \
+        \ 'denite'          : 0,
+        \ 'fzf'             : 0,
+        \ 'leaderf'         : 0,
+        \ 'unite'           : 1,
         \ }
 endif
 "}}}

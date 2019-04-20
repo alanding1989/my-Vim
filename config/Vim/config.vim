@@ -20,23 +20,23 @@ let g:my_cs = split([
       \ '5 OceanicNext' ,
       \ '6 PaperColor'  ,
       \ '7 nord'        ,
-      \ ][3])[-1]
+      \ ][3])[1]
 let g:my_bg = 1 ? 'dark' : 'light'
 "}}}
 
 " ================================================================================
 " Preferences
-let g:autocomplete_method           = get(['coc'       , 'deoplete' , 'ncm2'], 1)
+let g:autocomplete_method           = get(['coc'       , 'deoplete' , 'ncm2'], 2)
 let g:snippet_engine                = get(['neosnippet', 'ultisnips', 'coc' ], 0)
 let g:fuzzyfinder                   = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
-let g:filemanager                   = get(['vimfiler'  , 'nerdtree' , 'defx'], 0)
+let g:filemanager                   = get(['vimfiler'  , 'nerdtree' , 'defx'], 2)
 let g:plugmanager                   = 1 ? 'dein'    : 'vim-plug'
 let g:checker                       = 1 ? 'ale'     : 'neomake'
 let g:statusline                    = 1 ? 'airline' : 'lightline'
 let g:lint_on_the_fly               = 1
-let g:enable_deotabline             = 1
+let g:enable_deotabline             = 0
 let g:enable_googlesuggest          = 0
-let g:enable_smart_clock            = 0
+let g:enable_smart_clock            = 0 && !g:is_win
 
 " Ui {{{
 let g:enable_cursorword             = (g:is_nvim || g:is_gui) ? 1 : 0
@@ -46,6 +46,7 @@ let g:sidebar_width                 = 25
 let g:filetree_direction            = 'right'
 let g:linter_error_symbol           = '❌'
 let g:linter_warning_symbol         = '⚠️ '
+let g:linter_info_symbol            = '➤'
 " }}}
 
 " System {{{
@@ -54,6 +55,12 @@ let g:github_username             = 'alanding1989'
 let g:guifont                     = 'SauceCodePro Nerd Font Mono:h11'
 let g:layer_lang_scala_formatter  = '/opt/vim/scalariform.jar'
 let g:spacevim_debug_level        = 1
+"}}}
+
+" Var {{{
+if g:autocomplete_method ==# 'coc'
+  let g:snippet_engine = 'coc'
+endif
 "}}}
 
 " ================================================================================
@@ -67,7 +74,7 @@ let g:spacevim_debug_level        = 1
 " finished ~
 " autocomplete, checkers, chinese, colorscheme, core, edit, format, leaderf/denite, ui, lang#vim
 let g:My_Vim_layers = {
-      \ 'chinese'           : 0,
+      \ 'chinese'           : 1,
       \ 'colorscheme'       : 1,
       \ 'tags'              : 1,
       \ 'tools'             : 1,
@@ -102,12 +109,13 @@ elseif g:fuzzyfinder ==# 'fzf'
   let g:My_Vim_layers['leaderf'] = 0
 endif "}}}
 
-if g:pure_viml " {{{
+if g:pure_viml || !g:has_py " {{{
   let g:autocomplete_method = 'asyncomplete'
   let g:snippet_engine      = 'neosnippet'
   let g:filemanager         = 'vimfiler'
   let g:enable_smart_clock  = 0
   let g:My_Vim_layers = {
+        \ 'chinese'         : 1,
         \ 'colorscheme'     : 1,
         \ 'tags'            : 1,
         \ 'tools'           : 1,
@@ -118,6 +126,7 @@ if g:pure_viml " {{{
         \ 'tools#clock'     : 1,
         \ 'ui'              : 1,
         \ 'VersionControl'  : 1,
+        \
         \ 'denite'          : 0,
         \ 'fzf'             : 0,
         \ 'leaderf'         : 0,

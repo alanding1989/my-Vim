@@ -1,7 +1,7 @@
 "=============================================================================
 " clock.vim -- tools#clock layer
 " Section: tools
-" Parent Rection: layers
+" Parent Section: layers
 "=============================================================================
 scriptencoding utf-8
 

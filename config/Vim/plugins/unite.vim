@@ -55,7 +55,7 @@ let g:unite_winheight = get(g:, 'unite_winheight', 25)
 let g:unite_source_grep_default_opts = get(g:,
       \ 'unite_source_grep_default_opts',
       \ '-iRHn'
-     \ . " --exclude='tags'"
+      \ . " --exclude='tags'"
       \ . " --exclude='cscope*'"
       \ . " --exclude='*.svn*'"
       \ . " --exclude='*.log*'"
@@ -282,12 +282,8 @@ function! s:unite_my_settings()
   " Enable navigation with control-j and control-k in insert mode
   imap <buffer> <C-j>     <Plug>(unite_select_next_line)
   nmap <buffer> <C-j>     <Plug>(unite_select_next_line)
-  imap <buffer> <TAB>     <Plug>(unite_select_next_line)
-  nmap <buffer> <TAB>     <Plug>(unite_select_next_line)
   imap <buffer> <C-k>     <Plug>(unite_select_previous_line)
   nmap <buffer> <C-k>     <Plug>(unite_select_previous_line)
-  imap <buffer> <S-Tab>   <Plug>(unite_select_previous_line)
-  nmap <buffer> <S-Tab>   <Plug>(unite_select_previous_line)
   imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
   imap <buffer><expr> j unite#smart_map('j', '')
 
@@ -295,8 +291,12 @@ function! s:unite_my_settings()
   imap <silent><buffer><expr> <C-s>     unite#do_action('split')
   nmap <silent><buffer><expr> <C-s>     unite#do_action('split')
 
-  " Runs "vsplit" action by <C-v>.
-  imap <silent><buffer><expr> <C-i>     unite#do_action('vsplit')
+  " Runs "vsplit" action by <C-i>.
+  if !has('nvim')
+    inoremap <silent><buffer><expr> <C-i>   unite#do_action('vsplit')
+  else
+    imap <silent><buffer><expr> <C-i>   unite#do_action('vsplit')
+  endif
   nmap <silent><buffer><expr> <C-i>     unite#do_action('vsplit')
 
   " Runs "tabopen" action by <C-t>.

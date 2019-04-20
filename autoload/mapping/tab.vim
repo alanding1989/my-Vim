@@ -119,7 +119,7 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
 " ================================================================================
 " coc
 " ============================================================================= {{{
-elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'coc'
+elseif s:md ==# 'coc'
   function! mapping#tab#super_tab() abort
     if pumvisible()
       if coc#expandable()

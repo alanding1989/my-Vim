@@ -34,8 +34,8 @@ function! mapping#basic#load() abort
   " insert mode
   inoremap <expr><c-j>  pumvisible() ? "\<c-n>" : "\<down>"
   inoremap <expr><c-k>  pumvisible() ? "\<c-p>" : "\<up>"
-  inoremap <expr><c-e>  pumvisible() ? !g:has_py ?
-        \ asyncomplete#cancel_popup() : "\<c-e>" : "\<end>"
+  inoremap <expr><c-e>  pumvisible() ? (!g:has_py ?
+        \ asyncomplete#cancel_popup() : "\<c-e>") : "\<end>"
   inoremap <c-a>        <esc>^i
   inoremap <c-b>        <left>
   inoremap <c-f>        <right>
@@ -288,9 +288,9 @@ function! mapping#basic#load() abort
   nnoremap <leader>acd         :vs ~/.SpaceVim.d/autoload/default.vim<CR>
   if !g:has_py || 1
     nnoremap <leader>acm       :exec 'Unite file_rec/'.(has('nvim') ?
-          \ 'neovim' : 'asyn').' -path=~/.SpaceVim.d'<CR>
+          \ 'neovim' : 'async').' -path=~/.SpaceVim.d'<CR>
     nnoremap <leader>ac<space> :exec 'Unite file_rec/'.(has('nvim') ?
-          \ 'neovim' : 'asyn').' -path=~/.SpaceVim'<CR>
+          \ 'neovim' : 'async').' -path=~/.SpaceVim'<CR>
   elseif get(g:, 'spacevim_fuzzyfinder', get(g:, 'fuzzyfinder', 'leaderf')) ==# 'denite'
     nnoremap <leader>acm       :Denite file/rec -path=~/.SpaceVim.d<CR>
     nnoremap <leader>ac<space> :Denite file/rec -path=~/.SpaceVim<CR>
@@ -301,7 +301,6 @@ function! mapping#basic#load() abort
   if g:is_spacevim
     nnoremap <leader>aca       :vs ~/.SpaceVim.d/autoload/My_SpaceVim/Main.vim<CR>
     nnoremap <leader>acu       :vs ~/.SpaceVim.d/autoload/My_Vim/Main.vim<CR>
-    " nnoremap <leader>aco       :vs ~/.SpaceVim.d/config/SpaceVim/option.vim<CR>
     nnoremap <leader>acc       :vs ~/.SpaceVim.d/config/SpaceVim/config.vim<CR>
     nnoremap <leader>ack       :vs ~/.SpaceVim.d/config/SpaceVim/keymap.vim<CR>
     nnoremap <leader>acy       :vs ~/.SpaceVim.d/config/Vim/option.vim<CR>
@@ -312,7 +311,6 @@ function! mapping#basic#load() abort
   elseif !g:is_spacevim
     nnoremap <leader>aca       :vs ~/.SpaceVim.d/autoload/My_Vim/Main.vim<CR>
     nnoremap <leader>acu       :vs ~/.SpaceVim.d/autoload/My_SpaceVim/Main.vim<CR>
-    " nnoremap <leader>aco       :vs ~/.SpaceVim.d/config/Vim/option.vim<CR>
     nnoremap <leader>acc       :vs ~/.SpaceVim.d/config/Vim/config.vim<CR>
     nnoremap <leader>ack       :vs ~/.SpaceVim.d/config/Vim/keymap.vim<CR>
     nnoremap <leader>acp       :vs ~/.SpaceVim.d/config/Vim/plugins/

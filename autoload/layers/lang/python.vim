@@ -30,7 +30,7 @@ function! layers#lang#python#plugins() abort
         let g:jedi#completions_enabled = 0
       endif
       call add(plugins, ['davidhalter/jedi-vim', { 'on_ft' : 'python',
-            \ 'if' : has('python') || has('python3')}])
+            \ 'if' : g:has_py}])
     endif
     call add(plugins, ['heavenshell/vim-pydocstring',
           \ { 'on_cmd' : 'Pydocstring'}])

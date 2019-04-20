@@ -7,6 +7,7 @@ scriptencoding utf-8
 
 let s:default_layers = [
       \ 'autocomplete'  ,
+      \ 'colorscheme'   ,
       \ 'checkers'      ,
       \ 'core'          ,
       \ 'edit'          ,
@@ -155,7 +156,8 @@ function! My_Vim#layer#plug_end() abort
   " load enabled_plugins global config var
   let g:plugnamelist = map(deepcopy(get(g:, 'enabled_plugins_name', [])),
         \ {key, val -> split(val, '\.')[0].'.vim'})
-  let filelist = !g:is_win ? systemlist('ls '.g:vim_plugindir) : [
+  " let filelist = !g:is_win ? systemlist('ls '.g:vim_plugindir) : [
+  let filelist = [
         \ 'ag.vim'            , 'ale.vim'                  , 'asyncomplete.vim' , 'autocomp_plugins.vim', 'coc.vim'              ,
         \ 'defx-icons.vim'    , 'defx.vim'                 , 'denite.vim'       , 'deoplete.vim'        , 'goyo.vim'             ,
         \ 'langtools.vim'     , 'LanguageClient-neovim.vim', 'LeaderF.vim'      , 'markdown-preview.vim', 'ncm2.vim'             ,

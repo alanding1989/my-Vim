@@ -33,10 +33,8 @@ let g:vista_icon_indent                   = ['', '']
 " let g:vista_icon_indent                   = ['╰─▸ ', '├─▸ ']
 
 let g:vista_fzf_preview                   = ['right:50%']
-" let g:vista_default_executive             = 'ctags'
-" let g:vista_finder_alternative_executives = ['coc'  , 'lcn']
-let g:vista_default_executive             = 'coc'
-let g:vista_finder_alternative_executives = ['ctags', 'lcn']
+let g:vista_default_executive             = 'ctags'
+let g:vista_finder_alternative_executives = ['coc'  , 'lcn']
 let g:vista_executive_for                 = {
       \ 'vim'  : 'ctags',
       \ }
