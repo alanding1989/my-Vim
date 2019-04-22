@@ -7,6 +7,9 @@ if get(s:, 'loaded', 0)
 endif
 let s:loaded = 1
 
+let g:LanguageClient_diagnosticsEnable = 0
+let g:lsp_diagnostics_enabled          = 0
+
 
 " 1 open list and move cursor
 " 2 open list without move cursor

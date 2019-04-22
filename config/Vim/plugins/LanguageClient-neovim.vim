@@ -23,6 +23,7 @@ let s:loaded = 1
 " let g:LanguageClient_settingsPath = expand($WORKSPACE_DIR . '/.vim/settings.json')
 " the suddennly popup of diagnostics sign is kind of annoying
 let g:LanguageClient_autoStart                = 1
+let g:LanguageClient_diagnosticsEnable        = get(g:, 'g:LanguageClient_diagnosticsEnable', 0)
 let g:LanguageClient_diagnosticsSignsMax      = 0
 let g:LanguageClient_completionPreferTextEdit = 1
 let g:LanguageClient_useVirtualText           = 1

@@ -2,15 +2,8 @@
 " python.vim --- lang#python layer
 " Parent Section: layers
 "=============================================================================
+scriptencoding utf-8
 
-""
-" @section lang#python, layer-lang-python
-" @parentsection layers
-" To make this layer work well, you should install jedi.
-" @subsection mappings
-" >
-"   mode            key             function
-" <
 
 function! layers#lang#python#plugins() abort
   let plugins = [
@@ -41,7 +34,6 @@ function! layers#lang#python#plugins() abort
 endfunction
 
 function! layers#lang#python#config() abort
-  let g:blan = 1
   " heavenshell/vim-pydocstring {{{
 
   " If you execute :Pydocstring at no `def`, `class` line.
@@ -120,7 +112,7 @@ function! s:language_specified_mappings() abort
   endif
 
   " Format on save
-  if s:format_on_save
+  if g:format_on_save
     augroup SpaceVim_layer_lang_python
       autocmd!
       autocmd BufWritePost *.py Neoformat yapf
@@ -144,12 +136,4 @@ function! s:go_to_def() abort
   else
     call lsp#go_to_def()
   endif
-endfunction
-
-  let s:format_on_save = 0
-function! layers#lang#python#set_variable(var) abort
-
-  let s:format_on_save = get(a:var,
-        \ 'format-on-save',
-        \ 0)
 endfunction

@@ -10,7 +10,7 @@ let s:loaded = 1
 
 
 " let g:lsp_auto_enable          = 1
-" let g:lsp_diagnostics_enabled  = 1
+let g:lsp_diagnostics_enabled  = get(g:, 'g:lsp_diagnostics_enabled', 0)
 " let g:lsp_preview_keep_focus   = 1
 " let g:lsp_insert_text_enabled  = 1
 " let g:lsp_edit_enabled         = 1

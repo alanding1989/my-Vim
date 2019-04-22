@@ -34,6 +34,7 @@ let g:plugmanager                   = 1 ? 'dein'    : 'vim-plug'
 let g:checker                       = 1 ? 'ale'     : 'neomake'
 let g:statusline                    = 1 ? 'airline' : 'lightline'
 let g:lint_on_the_fly               = 1
+let g:format_on_save                = 1
 let g:enable_deotabline             = 0
 let g:enable_googlesuggest          = 0
 let g:enable_smart_clock            = 0 && !g:is_win

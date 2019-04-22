@@ -27,12 +27,13 @@ let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 
 " ================================================================================
 " Preferences
-let g:spacevim_autocomplete_method           = get(['coc'       , 'deoplete' , 'ncm2'], 1)
-let g:spacevim_snippet_engine                = get(['neosnippet', 'ultisnips', 'coc' ], 0)
+let g:spacevim_autocomplete_method           = get(['coc'       , 'deoplete' , 'ncm2'], 2)
+let g:spacevim_snippet_engine                = get(['neosnippet', 'ultisnips', 'coc' ], 1)
 let g:spacevim_fuzzyfinder                   = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
 let g:spacevim_filemanager                   = get(['vimfiler'  , 'nerdtree' , 'defx'], 2)
 let g:spacevim_statusline                    = get(['airline'   , 'lightline', ''    ], 0)
 let g:spacevim_enable_ale                    = 1
+let g:spacevim_enable_neomake                = !g:spacevim_enable_ale
 let g:spacevim_lint_on_the_fly               = 1
 let g:enable_deotabline                      = 0
 let g:enable_googlesuggest                   = 0
@@ -84,6 +85,9 @@ let g:_checkers_var = {
 let g:_lang#markdown_var = {
       \ 'enableWcwidth'  : 1,
       \ 'listItemIndent' : 1,
+      \ }
+let g:_lang#python_var = {
+      \ 'format_on_save' : 1,
       \ }
 let g:_shell_var = {
       \ 'default_position' : 'right',

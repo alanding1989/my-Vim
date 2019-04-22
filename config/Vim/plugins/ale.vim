@@ -12,6 +12,8 @@ let s:loaded = 1
 " if get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplte_method', 'ncm2')) ==# 'coc'
   " auto FileType python,scala,ipynb,sh let g:ale_enabled = 0
 " endif
+let g:LanguageClient_diagnosticsEnable = 0
+let g:lsp_diagnostics_enabled          = 0
 
 let g:ale_echo_cursor                = 1
 let g:ale_echo_delay                 = 20
@@ -34,6 +36,7 @@ endif
 
 
 " Linter {{{
+let g:ale_linters_explicit = 1
 let g:ale_linters = {
       \ 'c'          : ['gcc'     , 'cppcheck'],
       \ 'cpp'        : ['gcc'     , 'cppcheck'],
@@ -41,7 +44,7 @@ let g:ale_linters = {
       \ 'go'         : ['go build', 'gofmt']   ,
       \ 'java'       : ['javac']  ,
       \ 'javascript' : ['eslint'] ,
-      \ 'python'     : ['flake8'  , 'pylint']  ,
+      \ 'python'     : ['flake8'  , 'pylint', 'mypy'],
       \ 'scala'      : ['scalac'] ,
       \ 'vim'        : ['vint']   ,
       \ 'zsh'        : ['shell']  ,
