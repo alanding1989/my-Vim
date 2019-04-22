@@ -105,8 +105,8 @@ if g:is_spacevim
 
 elseif !g:is_spacevim
   nnoremap <leader>cl  :CocList<CR>
-  nnoremap <leader>cpi :CocInstall 
-  nnoremap <leader>cpu :CocUninstall 
+  nnoremap <leader>cpi :call feedkeys(':CocInstall ')<CR>
+  nnoremap <leader>cpu :call feedkeys(':CocUninstall ')<CR>
   nnoremap <leader>cpb :call coc#util#build()<CR>
   nnoremap <leader>cs  :CocConfig<CR>
   nnoremap <leader>ce  :CocList snippets<CR>

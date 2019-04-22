@@ -27,14 +27,14 @@ let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 
 " ================================================================================
 " Preferences
-let g:spacevim_autocomplete_method           = get(['coc'       , 'deoplete' , 'ncm2'], 0)
+let g:spacevim_autocomplete_method           = get(['coc'       , 'deoplete' , 'ncm2'], 1)
 let g:spacevim_snippet_engine                = get(['neosnippet', 'ultisnips', 'coc' ], 0)
 let g:spacevim_fuzzyfinder                   = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
 let g:spacevim_filemanager                   = get(['vimfiler'  , 'nerdtree' , 'defx'], 2)
 let g:spacevim_statusline                    = get(['airline'   , 'lightline', ''    ], 0)
 let g:spacevim_enable_ale                    = 1
 let g:spacevim_lint_on_the_fly               = 1
-let g:enable_deotabline                      = 1
+let g:enable_deotabline                      = 0
 let g:enable_googlesuggest                   = 0
 let g:enable_smart_clock                     = 0 && !g:is_win
 

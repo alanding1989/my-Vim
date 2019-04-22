@@ -61,6 +61,13 @@ let g:spacevim_debug_level        = 1
 if g:autocomplete_method ==# 'coc'
   let g:snippet_engine = 'coc'
 endif
+
+let g:lsp_ft = [
+      \ 'sh',
+      \ 'python',
+      \ 'ipynb',
+      \ 'javascript',
+      \ ]
 "}}}
 
 " ================================================================================

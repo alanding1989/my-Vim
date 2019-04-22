@@ -28,7 +28,7 @@ let g:LanguageClient_completionPreferTextEdit = 1
 let g:LanguageClient_useVirtualText           = 1
 let g:LanguageClient_useFloatingHover         = 1
 
-" LanguageClient-neovim {{{
+" symbols {{{
 let g:LanguageClient_diagnosticsDisplay = {
       \ 1: {
       \ 'name': 'Error',
@@ -75,7 +75,7 @@ elseif g:checker ==# 'ale'
 endif
 "}}}
 
-let g:LanguageClient_serverCommands = {
+let s:serverCommands = {
       \ 'c'          : ['clangd'],
       \ 'cpp'        : ['clangd'],
       \ 'css'        : ['css-languageserver', '--stdio'],
@@ -88,7 +88,15 @@ let g:LanguageClient_serverCommands = {
       \ 'objcpp'     : ['clangd'],
       \ 'php'        : ['php', $HOME.'/.cache/Vim/dein-plug/repos/github.com/felixfbecker/php-language-server/bin/php-language-server.php'],
       \ 'python'     : ['pyls'],
+      \ 'ipynb'      : ['pyls'],
       \ 'sh'         : ['bash-language-server', 'start'],
       \ 'scala'      : ['metals-vim'],
       \ 'typescript' : ['typescript-language-server', '--stdio'],
       \ }
+let g:LanguageClient_serverCommands = {}
+
+for [ft, cmds] in items(s:serverCommands)
+  if index(g:lsp_ft, ft) > -1
+    let g:LanguageClient_serverCommands[ft] = cmds
+  endif
+endfor

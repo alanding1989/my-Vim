@@ -286,7 +286,7 @@ function! mapping#basic#load() abort
   nnoremap <leader>aco         :vs ~/.SpaceVim.d/config/option.vim<CR>
   nnoremap <leader>acb         :vs ~/.SpaceVim.d/autoload/mapping/basic.vim<CR>
   nnoremap <leader>acd         :vs ~/.SpaceVim.d/autoload/default.vim<CR>
-  if !g:has_py || 1
+  if !g:has_py
     nnoremap <leader>acm       :exec 'Unite file_rec/'.(has('nvim') ?
           \ 'neovim' : 'async').' -path=~/.SpaceVim.d'<CR>
     nnoremap <leader>ac<space> :exec 'Unite file_rec/'.(has('nvim') ?

@@ -4,7 +4,6 @@
 scriptencoding utf-8
 
 
-
 function! layers#lsp#plugins() abort
   let plugins = []
 
@@ -29,5 +28,57 @@ endfunction
 
 function! layers#lsp#config() abort
   return
-  let g:lsp_async_completion = 1
 endfunction
+
+
+" mappings {{{
+if get(g:, 'autocomplete_method') ==# 'coc'
+  function! layers#lsp#show_doc() abort
+    call CocActionAsync('doHover')
+  endfunction
+
+  function! layers#lsp#go_to_def() abort
+    call CocActionAsync('jumpDefinition')
+  endfunction
+
+  function! layers#lsp#rename() abort
+    call CocActionAsync('rename')
+  endfunction
+
+  function! layers#lsp#reference() abort
+    call CocActionAsync('jumpReferences')
+  endfunction
+elseif has('nvim') && has('python3')
+  function! layers#lsp#show_doc() abort
+    call LanguageClient_textDocument_hover()
+  endfunction
+
+  function! layers#lsp#go_to_def() abort
+    call LanguageClient_textDocument_definition()
+  endfunction
+
+  function! layers#lsp#rename() abort
+    call LanguageClient_textDocument_rename()
+  endfunction
+
+  function! layers#lsp#references() abort
+    call LanguageClient_textDocument_references()
+  endfunction
+else
+  function! layers#lsp#show_doc() abort
+    LspHover
+  endfunction
+
+  function! layers#lsp#go_to_def() abort
+    LspDefinition
+  endfunction
+
+  function! layers#lsp#rename() abort
+    LspRename
+  endfunction
+
+  function! layers#lsp#references() abort
+    LspReferences
+  endfunction
+endif
+"}}}
