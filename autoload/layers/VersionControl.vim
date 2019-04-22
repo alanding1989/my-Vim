@@ -15,8 +15,8 @@ function! layers#VersionControl#plugins() abort
   if !g:is_spacevim
     let plugins = [
           \ ['mhinz/vim-signify' , {'merged' : 0}],
-          \ ['tpope/vim-fugitive', {'merged' : 0}],
           \ ]
+    call add(plugins, ['tpope/vim-fugitive', {'merged' : 0}])
   endif
   return plugins
 endfunction

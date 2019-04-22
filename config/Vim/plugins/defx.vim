@@ -31,7 +31,7 @@ call defx#custom#column('mark', {
       \ 'selected_icon': '',
       \ })
 
-call defx#custom#column('filename', {
+call defx#custom#column('icon', {
       \ 'directory_icon': '',
       \ 'opened_icon'   : '',
       \ 'root_icon'     : 'O(∩_∩)O'             ,
@@ -122,6 +122,7 @@ function! s:defx_init()
   nnoremap <silent><buffer><expr> h defx#do_action('call', 'DefxSmartH')
   nnoremap <silent><buffer><expr> <Left> defx#do_action('call', 'DefxSmartH')
   nnoremap <silent><buffer><expr> l defx#do_action('call', 'DefxSmartL')
+  nnoremap <silent><buffer><expr> o defx#do_action('call', 'DefxSmartL')
   nnoremap <silent><buffer><expr> <Right> defx#do_action('call', 'DefxSmartL')
   nnoremap <silent><buffer><expr> <Cr> defx#do_action('call', 'DefxSmartCR')
   nnoremap <silent><buffer><expr> <2-LeftMouse>
@@ -160,12 +161,12 @@ function! s:defx_init()
   nnoremap <silent><buffer><expr> t
         \ defx#do_action('toggle_columns',
         \                'git:icons:mark:filename:type:size:time')
-  nnoremap <silent><buffer><expr> i
-        \ defx#do_action('search')
   nnoremap <silent><buffer><expr> gx
         \ defx#do_action('execute_system')
   nnoremap <silent><buffer><expr> g0
         \ defx#do_action('execute_command')
+  nnoremap <silent><buffer> <Home> :call cursor(2, 1)<cr>
+  nnoremap <silent><buffer> <End>  :call cursor(line('$'), 1)<cr>
 endf
 
 
@@ -239,6 +240,11 @@ function! DefxSmartCR(_) "{{{
 endfunction "}}}
 
 function! DefxSmartH(_) "{{{
+  " if cursor line is first line, or in empty dir
+  if line('.') ==# 1 || line('$') ==# 1
+    return defx#call_action('cd', ['..'])
+  endif
+
   " candidate is opend tree?
   if defx#is_opened_tree()
     return defx#call_action('close_tree')
