@@ -16,7 +16,7 @@ function! layers#lang#python#plugins() abort
   let plugins = [
         \ ['bps/vim-textobj-python', {'on_ft': ['python', 'ipynb'], 'for': ['python', 'ipynb']}],
         \ ]
-  if g:is_nvim 
+  if g:is_nvim
     call add(plugins, ['numirias/semshi', {'on_ft': ['python', 'ipynb'], 'for': ['python', 'ipynb']}])
   else
     call add(plugins, ['vim-python/python-syntax', {'on_ft': ['python', 'ipynb'], 'for': ['python', 'ipynb']}])
@@ -34,7 +34,7 @@ function! layers#lang#python#plugins() abort
     endif
     call add(plugins, ['heavenshell/vim-pydocstring',
           \ { 'on_cmd' : 'Pydocstring'}])
-    call add(plugins, ['Vimjas/vim-python-pep8-indent', 
+    call add(plugins, ['Vimjas/vim-python-pep8-indent',
           \ { 'on_ft' : 'python'}])
   endif
   return plugins
