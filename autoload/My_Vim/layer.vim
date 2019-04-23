@@ -148,6 +148,8 @@ function! s:check_install() abort
 endfunction
 
 function! My_Vim#layer#plug_end() abort
+  filetype plugin indent on
+  syntax on
   if s:firstinstall | return | endif
 
   " load leyer config (almost keymap setting)
@@ -164,7 +166,7 @@ function! My_Vim#layer#plug_end() abort
         \ 'neco-vim.vim'      , 'neomake.vim'              , 'nerdcommenter.vim', 'nerdtree.vim'        , 'snippet.vim'          ,
         \ 'tagbar.vim'        , 'ui.vim'                   , 'unite.vim'        , 'vcs.vim'             , 'vim-expand-region.vim',
         \ 'vim-grammarous.vim', 'vim-gutentags.vim'        , 'vim-startify.vim' , 'vim-visual-multi.vim', 'vimfiler.vim'         ,
-        \ 'vimpyter.vim'      , 'vista.vim'                , 'YouCompleteMe.vim',
+        \ 'vimpyter.vim'      , 'vista.vim'                , 'vim-lsp.vim'      , 'YouCompleteMe.vim',
         \ ]
   for file in filelist
     if index(g:plugnamelist, file) > -1
@@ -176,9 +178,6 @@ function! My_Vim#layer#plug_end() abort
   call map(deepcopy(defaultload), {key, val -> util#so_file('plugins/'.val.'.vim', 'Vim')})
   " HotKey menu
   call util#so_file('keymap.vim', 'Vim')
-
-  filetype plugin indent on
-  syntax on
 endfunction
 
 " util func {{{
