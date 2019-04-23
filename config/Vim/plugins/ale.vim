@@ -38,16 +38,17 @@ endif
 " Linter {{{
 let g:ale_linters_explicit = 1
 let g:ale_linters = {
-      \ 'c'          : ['gcc'     , 'cppcheck'],
-      \ 'cpp'        : ['gcc'     , 'cppcheck'],
-      \ 'lua'        : ['luac']   ,
-      \ 'go'         : ['go build', 'gofmt']   ,
-      \ 'java'       : ['javac']  ,
-      \ 'javascript' : ['eslint'] ,
-      \ 'python'     : ['flake8'  , 'pylint', 'mypy'],
-      \ 'scala'      : ['scalac'] ,
-      \ 'vim'        : ['vint']   ,
-      \ 'zsh'        : ['shell']  ,
+      \ 'c'          : ['gcc'      , 'cppcheck'],
+      \ 'cpp'        : ['gcc'      , 'cppcheck'],
+      \ 'lua'        : ['luac']    ,
+      \ 'go'         : ['go build' , 'gofmt']   ,
+      \ 'java'       : ['javac']   ,
+      \ 'javascript' : ['eslint']  ,
+      \ 'python'     : ['flake8'   , 'pylint'   , 'mypy'],
+      \ 'scala'      : ['scalac']  ,
+      \ 'vim'        : ['vint']    ,
+      \ 'sh'         : ['shell'    , 'shellcheck', ],
+      \ 'zsh'        : ['shell'    , 'shellcheck', ],
       \ }
 let g:ale_linter_aliases = {
       \ 'ipynb': 'python',
