@@ -76,7 +76,7 @@ function! SetFileHead() abort " {{{
     call append(line('.')+2, '#  mail         :')
     call append(line('.')+3, '#  Created Time : '.strftime('%c'))
     call append(line('.')+4, '# '.repeat('=', 80))
-    call append(line('.')+5, '# !/usr/bin/env python3')
+    call append(line('.')+5, '#!/usr/bin/env python3')
     call append(line('.')+6, '# -*- coding: utf-8 -*-')
     call append(line('.')+7, '')
     call append(line('.')+8, '')
