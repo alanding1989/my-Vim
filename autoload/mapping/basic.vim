@@ -159,11 +159,6 @@ function! mapping#basic#load() abort
   " Toggle fold
   nnoremap <CR>        za
   nnoremap <s-CR>      zMza
-
-  " if !exists('#denite') && !exists('#leaderf')
-    " nnoremap <silent><space>bl     :ls<CR>
-    " nnoremap <space>bb             :ls<CR>:b
-  " endif
   " }}}
 
 
@@ -561,11 +556,13 @@ function! s:unmap_SPC() abort
     nnoremap s <nop>
     nnoremap q <nop>
     try
+      unmap   ,<Space>
       unmap   <F7>
       unmap   [SPC]-
       unmap   [SPC]+
       nunmap  <leader>-
       nunmap  <leader>+
+      
       unlet g:_spacevim_mappings['-']
       unlet g:_spacevim_mappings['+']
       unlet g:_spacevim_mappings_space['-']
