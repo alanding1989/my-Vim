@@ -64,7 +64,7 @@
   // "pyls.configurationSources"                : ["pycodestyle"],
   // "pyls.commandPath"                         : "/home/alanding/software/anaconda3/envs/py36/bin/pyls",
 
-  "java.home"                                : "/opt/lang-tools/java/jdk1.8.0_191/bin",
+  "java.home"                                : "/opt/lang-tools/java/jdk",
   "java.completion.enabled"                  : true,
   "java.format.enabled"                      : true,
   "java.signatureHelp.enabled"               : true,
@@ -140,9 +140,7 @@
       "command": "metals-vim",
       "rootPatterns": ["build.sbt"],
       "args": [],
-      "filetypes": ["scala", "sbt"],
-      "java-home": "/opt/lang-tools/java/jdk",
-      "sbt-script": "/opt/lang-tools/scala/sbt/bin/sbt"
+      "filetypes": ["scala", "sbt"]
     },
     "dls"  : {
       "command": "diagnostic-languageserver",
