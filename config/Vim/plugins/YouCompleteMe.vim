@@ -20,16 +20,17 @@ let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_collect_identifiers_from_tags_files           = 1
 let g:ycm_complete_in_strings                           = 1
 let g:ycm_key_invoke_completion                         = '<C-Space>'
-let g:ycm_key_list_select_completion                    = '<C-j>'
-let g:ycm_key_list_previous_completion                  = '<C-k>'
+let g:ycm_key_list_select_completion                    = ['<C-j>']
+let g:ycm_key_list_previous_completion                  = ['<C-k>']
 
 
 " auto trigger complete with input 2 char
 let g:ycm_semantic_triggers =  {
       \ 'c,cpp,python,java,scala,go,erlang,perl': ['re!\w{2}'],
-      \ 'cs,lua,javascript': ['re!\w{2}'],
+      \ 'vim,cs,lua,javascript': ['re!\w{2}'],
       \ }
 
+auto VimEnter * inoremap <expr> <c-u> pumvisible() ? <c-u> : <c-u>
 
 " g:ycm_filetype_whitelist {{{
 let g:ycm_filetype_whitelist = {
