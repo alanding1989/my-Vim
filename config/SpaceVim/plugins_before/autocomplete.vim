@@ -42,6 +42,12 @@ if g:spacevim_autocomplete_method ==# 'asyncomplete'
   exec 'so '.g:vim_plugindir.'asyncomplete.vim'
 endif
 
+" ycm
+if g:spacevim_autocomplete_method ==# 'ycm'
+  exec 'so '.g:vim_plugindir.'YouCompleteMe.vim'
+endif
+
+
 "--------------------------------------------------------------------------------
 " snippet
 "--------------------------------------------------------------------------------
