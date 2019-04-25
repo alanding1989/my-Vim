@@ -7,13 +7,13 @@
 #!/usr/bin/env bash
 
 # Make sure to use coursier v1.1.0-M9 or newer.
-cd /opt/lang-tools/scala && rm -rf coursier
+cd /opt/lang-tools/scala
+rm coursier && rm metals-vim
 curl -L -o coursier https://git.io/coursier
 chmod +x coursier
 ./coursier bootstrap \
   --java-opt -Xss4m \
   --java-opt -Xms100m \
-  --java-opt -Dmetals.client=coc.nvim \
   --java-opt -Dmetals.client=coc.nvim \
   --java-opt -Dmetals.java-home=/opt/lang-tools/java/jdk \
   --java-opt -Dmetals.sbt-script=/opt/lang-tools/scala/sbt/bin/sbt \
