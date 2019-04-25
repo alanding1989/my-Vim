@@ -210,7 +210,7 @@ elseif executable('ag')
         \ '-i --vimgrep --hidden --ignore ' .
         \ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
   let g:unite_source_grep_recursive_opt = ''
-elseif executable('rg') && 0
+elseif executable('rg')
   let g:unite_source_grep_command = 'rg'
   let g:unite_source_grep_default_opts = ''
   let g:unite_source_grep_recursive_opt = ''

@@ -9,9 +9,6 @@ let s:loaded = 1
 
 
 
-" if get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplte_method', 'ncm2')) ==# 'coc'
-  " auto FileType python,scala,ipynb,sh let g:ale_enabled = 0
-" endif
 let g:LanguageClient_diagnosticsEnable = 0
 let g:lsp_diagnostics_enabled          = 0
 

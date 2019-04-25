@@ -30,7 +30,6 @@ let g:ycm_semantic_triggers =  {
       \ 'vim,cs,lua,javascript': ['re!\w{2}'],
       \ }
 
-auto VimEnter * inoremap <expr> <c-u> pumvisible() ? <c-u> : <c-u>
 
 " g:ycm_filetype_whitelist {{{
 let g:ycm_filetype_whitelist = {

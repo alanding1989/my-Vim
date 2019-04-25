@@ -31,7 +31,7 @@ let s:serverCommands = {
       \ 'javascript' : ['javascript-typescript-stdio'],
       \ 'objc'       : ['clangd'],
       \ 'objcpp'     : ['clangd'],
-      \ 'php'        : ['php', $HOME.'/.cache/Vim/dein-plug/repos/github.com/felixfbecker/php-language-server/bin/php-language-server.php'],
+      \ 'php'        : ['php', expand($HOME.'/.cache/Vim/dein-plug/repos/github.com/felixfbecker/php-language-server/bin/php-language-server.php')],
       \ 'python'     : ['pyls'],
       \ 'sh'         : ['bash-language-server', 'start'],
       \ 'scala'      : ['metals-vim'],
