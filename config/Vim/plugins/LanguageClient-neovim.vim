@@ -13,21 +13,22 @@ let s:loaded = 1
 " https://github.com/autozimu/LanguageClient-neovim/pull/514#issuecomment-404463033
 " for contents of settings.json for vue-language-server
 
-" NOTE: for debugging LanguageClient-neovim
-" set noshowmode
-" inoremap <silent> <c-q> <esc>:<c-u>q!<cr>
-" let g:LanguageClient_loggingFile = '/tmp/lc.log'
-" let g:LanguageClient_loggingLevel = 'DEBUG'
-
-
-" let g:LanguageClient_settingsPath = expand($WORKSPACE_DIR . '/.vim/settings.json')
-" the suddennly popup of diagnostics sign is kind of annoying
-let g:LanguageClient_autoStart                = 1
+let g:LanguageClient_loadSettings             = 1
+let g:LanguageClient_settingsPath             = expand('~/.vim/LCN-settings.json')
 let g:LanguageClient_diagnosticsEnable        = get(g:, 'g:LanguageClient_diagnosticsEnable', 0)
 let g:LanguageClient_diagnosticsSignsMax      = 0
+let g:LanguageClient_diagnosticsList          = v:null
+let g:LanguageClient_selectionUI              = 'quickfix'
 let g:LanguageClient_completionPreferTextEdit = 1
 let g:LanguageClient_useVirtualText           = 1
 let g:LanguageClient_useFloatingHover         = 1
+let g:LanguageClient_hoverPreview             = 'Never'
+
+
+" NOTE: for debugging LanguageClient-neovim
+" let g:LanguageClient_loggingFile = '/tmp/lc.log'
+" let g:LanguageClient_loggingLevel = 'DEBUG'
+
 
 " symbols {{{
 let g:LanguageClient_diagnosticsDisplay = {

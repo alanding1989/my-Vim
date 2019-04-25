@@ -18,7 +18,7 @@
     "~/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/",
     "~/.cache/vimfiles/repos/github.com/alanding1989/my-neosnippet-snippets/"
   ],
-//  "snippets.textmateSnippetsRoots": ["~/.SpaceVim.d/vscode"],
+  //  "snippets.textmateSnippetsRoots": ["~/.SpaceVim.d/vscode"],
   "snippets.extends" : {
     "ipynb"      : ["python"],
     "sbt"        : ["scala"],
@@ -48,21 +48,21 @@
   "python.workspaceSymbols.tagFilePath"         : "~/.cache/tags",
 
 
-// "pyls.enable"                              : true,
-// "pyls.plugins.preload.enabled"             : true,
-// "pyls.plugins.rope_completion.enabled"     : true,
-// "pyls.plugins.jedi_completion.enabled"     : true,
-// "pyls.plugins.jedi_hover.enabled"          : true,
-// "pyls.plugins.jedi_symbols.enabled"        : true,
-// "pyls.plugins.jedi_references.enabled"     : true,
-// "pyls.plugins.jedi_signature_help.enabled" : true,
-// "pyls.plugins.pyflakes.enabled"            : true,
-// "pyls.plugins.mccabe.enabled"              : true,
-// "pyls.plugins.pycodestyle.enabled"         : true,
-// "pyls.plugins.pydocstyle.enabled"          : true,
-// "pyls.plugins.yapf.enabled"                : true,
-// "pyls.configurationSources"                : ["pycodestyle"],
-// "pyls.commandPath"                         : "/home/alanding/software/anaconda3/envs/py36/bin/pyls",
+  // "pyls.enable"                              : true,
+  // "pyls.plugins.preload.enabled"             : true,
+  // "pyls.plugins.rope_completion.enabled"     : true,
+  // "pyls.plugins.jedi_completion.enabled"     : true,
+  // "pyls.plugins.jedi_hover.enabled"          : true,
+  // "pyls.plugins.jedi_symbols.enabled"        : true,
+  // "pyls.plugins.jedi_references.enabled"     : true,
+  // "pyls.plugins.jedi_signature_help.enabled" : true,
+  // "pyls.plugins.pyflakes.enabled"            : true,
+  // "pyls.plugins.mccabe.enabled"              : true,
+  // "pyls.plugins.pycodestyle.enabled"         : true,
+  // "pyls.plugins.pydocstyle.enabled"          : true,
+  // "pyls.plugins.yapf.enabled"                : true,
+  // "pyls.configurationSources"                : ["pycodestyle"],
+  // "pyls.commandPath"                         : "/home/alanding/software/anaconda3/envs/py36/bin/pyls",
 
   "java.home"                                : "/opt/lang-tools/java/jdk1.8.0_191/bin",
   "java.completion.enabled"                  : true,
@@ -92,6 +92,16 @@
 
 
   "languageserver": {
+    "ccls": {
+      "command": "ccls",
+      "filetypes": ["c", "cpp", "objc", "objcpp"],
+      "rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
+      "initializationOptions": {
+        "cache": {
+          "directory": "/tmp/ccls"
+        }
+      }
+    },
     "pyls" : {
       "command": "pyls",
       "args": [],
@@ -103,11 +113,11 @@
       "filetypes": ["sh"],
       "ignoredRootPaths": ["~"]
     },
-//    "efm" : {
-//      "command": "efm-langserver",
-//      "args": ["-c", "$HOME/.config/efm-langserver/config.yaml"],
-//      "filetypes": ["vim", "markdown"]
-//    },
+    //    "efm" : {
+      //      "command": "efm-langserver",
+      //      "args": ["-c", "$HOME/.config/efm-langserver/config.yaml"],
+      //      "filetypes": ["vim", "markdown"]
+      //    },
       "golang" : {
         "command": "go-langserver",
         "filetypes": ["go"],
@@ -121,8 +131,9 @@
         "args": [],
         "filetypes": ["javascript"]
       },
-      "scala" : {
+      "metals" : {
         "command": "metals-vim",
+        "rootPatterns": ["build.sbt"]
         "args": [],
         "filetypes": ["scala", "sbt"]
       },

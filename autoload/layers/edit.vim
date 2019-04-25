@@ -30,7 +30,7 @@ function! layers#edit#plugins() abort "{{{
           \ ['junegunn/vim-emoji',                                              {'merged': 0}] ,
           \ ['haya14busa/vim-easyoperator-line',                                {'merged': 0}] ,
           \ ['easymotion/vim-easymotion',                                       {'merged': 0}] ,
-          \ ['godlygeek/tabular',                {'on_cmd': 'Tabularize', 'on': 'Tabularize'}] ,
+          \ ['godlygeek/tabular',                                               {'merged': 0}] ,
           \ ['terryma/vim-expand-region',                                     {'loadconf': 1}] ,
           \ ['gcmt/wildfire.vim',    {'on_map': '<Plug>(wildfire-', 'on': '<Plug>(wildfire-'}] ,
           \ ['osyo-manga/vim-jplus',         {'on_map': '<Plug>(jplus', 'on': '<Plug>(jplus'}] ,
