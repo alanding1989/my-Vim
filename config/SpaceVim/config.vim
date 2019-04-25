@@ -70,7 +70,7 @@ let g:spacevim_windows_smartclose            = ''
 let g:spacevim_windows_leader                = ''
 let g:spacevim_github_username               = 'alanding1989'
 let g:spacevim_guifont                       = 'SauceCodePro Nerd Font Mono:h11'
-let g:spacevim_layer_lang_scala_formatter    = '/opt/vim/scalariform.jar'
+let g:spacevim_layer_lang_scala_formatter    = '/opt/lang-tools/scala/scalariform.jar'
 let g:spacevim_project_rooter_patterns       =
       \ uniq(sort(g:spacevim_project_rooter_patterns
       \ + deepcopy(g:project_root_marker))) "}}}

@@ -18,11 +18,13 @@ scriptencoding utf-8
 "   -------------------------------------------------------------
 "   normal    <F4>          show candidates for importing of cursor symbol
 "   insert    <F4>          show candidates for importing of cursor symbol
-"   normal    SPC l i       show candidates for importing of cursor symbol
-"   normal    SPC l I       prompt for a qualified import
-"   normal    SPC l o       organize imports of current file
+"   normal    SPC l i c     show candidates for importing of cursor symbol
+"   normal    SPC l i q     prompt for a qualified import
+"   normal    SPC l i o     organize imports of current file
+"   normal    SPC l i s     sort imports of current file
 "   insert    <c-j>i        prompt for a qualified import
 "   insert    <c-j>o        organize imports of current file
+"   insert    <c-j>s        sort imports of current file
 "
 "   Debug key bindings:
 "
@@ -62,12 +64,14 @@ scriptencoding utf-8
 "
 "   Mode      Key           Function
 "   -------------------------------------------------------------
+"   normal    SPC l Q       setup when first-time-use-ensime
 "   normal    SPC l h       show Documentation of cursor symbol
+"   normal    SPC l R       inline local refactoring of cursor symbol
+"   normal    SPC l e       rename cursor symbol
+"   normal    SPC l g       find Definition of cursor symbol
 "   normal    SPC l t       show Type of expression of cursor symbol
 "   normal    SPC l p       show Hierarchical view of a package
-"   normal    SPC l g       find Definition of cursor symbol
-"   normal    SPC l u       find Usages of cursor symbol
-"   normal    SPC l Q       setup when first-time-use
+"   normal    SPC l r       find Usages of cursor symbol
 " <
 " @subsection Code formatting
 " To make neoformat support scala file, you should install scalariform.
@@ -75,13 +79,14 @@ scriptencoding utf-8
 "
 " and set 'g:spacevim_layer_lang_scala_formatter' to the path of the jar.
 
+
 function! layers#lang#scala#plugins() abort
   let plugins = []
-  if g:has_py
-    call add(plugins, ['ensime/ensime-vim'   , {'merged': 0 ,'on_ft': 'scala'}])
+  if has('python3')
+    call add(plugins, ['ensime/ensime-vim', {'on_ft': 'scala', 'for': 'scala'}])
   endif
   if !g:is_spacevim
-    call add(plugins, ['derekwyatt/vim-scala' , {'on_ft': 'scala', 'for': 'scala'}])
+    call add(plugins, ['derekwyatt/vim-scala', {'on_ft': 'scala', 'for': 'scala'}])
   endif
   return plugins
 endfunction
@@ -135,21 +140,27 @@ endfunction
 
 
 function! s:language_specified_mappings() abort
+  " ensime-vim {{{
+  " nnoremap <silent><buffer> gd :EnDeclarationSplit v<CR>
+  nmap <silent><buffer> <F4>   :EnSuggestImport<CR>
+  imap <silent><buffer> <F4>   <esc>:EnSuggestImport<CR>
+  imap <silent><buffer> <c-j>i <esc>:EnAddImport<CR>
+  imap <silent><buffer> <c-j>o <esc>:EnOrganizeImports<CR>
+  imap <silent><buffer> <c-j>s <esc>:SortScalaImports<CR>
+  nmap <silent><buffer> K      :EnDocBrowse<CR>
   if g:is_spacevim
-    " nnoremap <silent><buffer> gd :EnDeclarationSplit v<CR>
-    nnoremap <silent><buffer> <F4>   :EnSuggestImport<CR>
-    inoremap <silent><buffer> <F4>   <esc>:EnSuggestImport<CR>
-    imap     <silent><buffer> <c-o>  <nop>
-    inoremap <silent><buffer> <c-j>i :EnAddImport<CR>
-    inoremap <silent><buffer> <c-j>o :EnOrganizeImports<CR>
-    nnoremap <silent><buffer> K      :EnDocBrowse<CR>
-
     call SpaceVim#mapping#space#langSPC('nnoremap', ['l','Q'],
           \ 'EnInstall',
           \ 'setup when first-time-use', 1)
     call SpaceVim#mapping#space#langSPC('nnoremap', ['l','h'],
           \ 'EnDocBrowse',
           \ 'show Documentation of cursor symbol', 1)
+    call SpaceVim#mapping#space#langSPC('nnoremap', ['l','R'],
+          \ 'EnInline',
+          \ 'Inline local refactoring of cursor symbol', 1)
+    call SpaceVim#mapping#space#langSPC('nnoremap', ['l','e'],
+          \ 'EnRename',
+          \ 'Rename cursor symbol', 1)
     call SpaceVim#mapping#space#langSPC('nnoremap', ['l','g'],
           \ 'EnDeclarationSplit v',
           \ 'find Definition of cursor symbol', 1)
@@ -160,11 +171,11 @@ function! s:language_specified_mappings() abort
     call SpaceVim#mapping#space#langSPC('nnoremap', ['l','p'],
           \ 'EnShowPackage',
           \ 'show Hierarchical view of a package', 1)
-    call SpaceVim#mapping#space#langSPC('nnoremap', ['l','u'],
+    call SpaceVim#mapping#space#langSPC('nnoremap', ['l','r'],
           \ 'EnUsages',
           \ 'find Usages of cursor symbol', 1)
 
-    " debug
+    " debug {{{
     let g:_spacevim_mappings_space.l.d = {'name' : '+Debug'}
     call SpaceVim#mapping#space#langSPC('nnoremap', ['l','d','t'],
           \ 'EnDebugBacktrace',
@@ -190,23 +201,22 @@ function! s:language_specified_mappings() abort
     call SpaceVim#mapping#space#langSPC('nnoremap', ['l','d','O'],
           \ 'EnDebugNext',
           \ 'step out of current function', 1)
+    "}}}
 
     " import
-    call SpaceVim#mapping#space#langSPC('nnoremap', ['l','i'],
+    call SpaceVim#mapping#space#langSPC('nnoremap', ['l','i','c'],
           \ 'EnSuggestImport',
           \ 'Show candidates for importing of cursor symbol', 1)
-    call SpaceVim#mapping#space#langSPC('nnoremap', ['l','I'],
+    call SpaceVim#mapping#space#langSPC('nnoremap', ['l','i','q'],
           \ 'EnAddImport',
           \ 'Prompt for a qualified import', 1)
-    call SpaceVim#mapping#space#langSPC('nnoremap', ['l','o'],
+    call SpaceVim#mapping#space#langSPC('nnoremap', ['l','i','o'],
           \ 'EnOrganizeImports',
           \ 'Organize imports of current file', 1)
-    call SpaceVim#mapping#space#langSPC('nnoremap', ['l','r'],
-          \ 'EnInline',
-          \ 'Inline local refactoring of cursor symbol', 1)
-    call SpaceVim#mapping#space#langSPC('nnoremap', ['l','R'],
-          \ 'EnRename',
-          \ 'Rename cursor symbol', 1)
+    call SpaceVim#mapping#space#langSPC('nnoremap', ['l','i','s'],
+          \ 'SortScalaImports',
+          \ 'sort imports', 1)
+    " }}}
 
     " Sbt
     let g:_spacevim_mappings_space.l.b = {'name' : '+Sbt'}
