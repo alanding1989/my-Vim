@@ -137,7 +137,7 @@ endfunction
 function! util#statusline#Hunks() abort
   let hunks = [0,0,0]
   try
-    let hunks = sy#repo#get_stats()
+    let hunks = GitGutterGetHunkSummary()
   catch
   endtry
   let rst = ''

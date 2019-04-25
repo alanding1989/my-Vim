@@ -9,8 +9,8 @@ scriptencoding utf-8
 function! layers#VersionControl#plugins() abort
   let plugins = []
   if g:is_nvim
-    " call add(plugins, ['iamcco/sran.nvim' , {'build': 'yarn', 'do': 'yarn'}])
-    " call add(plugins, ['iamcco/git-p.nvim', {'merged': 0}])
+    call add(plugins, ['iamcco/sran.nvim' , {'build': 'yarn', 'do': 'yarn'}])
+    call add(plugins, ['iamcco/git-p.nvim', {'merged': 0}])
   endif
   if !g:is_spacevim
     let plugins = [
