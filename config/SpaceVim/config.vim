@@ -106,6 +106,7 @@ let g:_VersionControl_var = {
       \ 'enable_gtm_status' : 0,
       \ }
 let g:_lsp_var = {'filetypes' : [
+      \ 'cpp',
       \ 'python',
       \ 'javascript',
       \ ]}

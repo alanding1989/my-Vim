@@ -106,7 +106,7 @@
       "command": "clangd",
       "rootPatterns": ["compile_flags.txt", "compile_commands.json", ".vim/", ".git/", ".hg/"],
       "filetypes": ["c", "cpp", "objc", "objcpp"]
-    }
+    },
     "pyls" : {
       "command": "pyls",
       "args": [],
@@ -119,63 +119,63 @@
       "ignoredRootPaths": ["~"]
     },
     //    "efm" : {
-      //      "command": "efm-langserver",
-      //      "args": ["-c", "$HOME/.config/efm-langserver/config.yaml"],
-      //      "filetypes": ["vim", "markdown"]
-      //    },
-      "golang" : {
-        "command": "go-langserver",
-        "filetypes": ["go"],
-        "initializationOptions": {
-          "gocodeCompletionEnabled": true,
-          "diagnosisEnabled":true,
-          "lintTool":"golint"}
-      },
-      "javascript" : {
-        "command": "javascript-typescript-stdio",
-        "args": [],
-        "filetypes": ["javascript"]
-      },
-      "metals" : {
-        "command": "metals-vim",
-        "rootPatterns": ["build.sbt"]
-        "args": [],
-        "filetypes": ["scala", "sbt"]
-      },
-      "dls"  : {
-        "command": "diagnostic-languageserver",
-        "args": ["--stdio"],
-        "filetypes": [ "sh" ],
-        "initializationOptions": {
-          "linters": {
-            "shellcheck": {
-              "command": "shellcheck",
-              "debounce": 100,
-              "args": [ "--format=gcc", "-"],
-              "offsetLine": 0,
-              "offsetColumn": 0,
-              "sourceName": "shellcheck",
-              "formatLines": 1,
-              "formatPattern": [
-                "^[^:]+:(\\d+):(\\d+):\\s+([^:]+):\\s+(.*)$",
-                {
-                  "line": 1,
-                  "column": 2,
-                  "message": 4,
-                  "security": 3
-                }
-              ],
-              "securities": {
-                "error": "error",
-                "warning": "warning",
-                "note": "info"
+    //      "command": "efm-langserver",
+    //      "args": ["-c", "$HOME/.config/efm-langserver/config.yaml"],
+    //      "filetypes": ["vim", "markdown"]
+    //    },
+   "golang" : {
+      "command": "go-langserver",
+      "filetypes": ["go"],
+      "initializationOptions": {
+        "gocodeCompletionEnabled": true,
+        "diagnosisEnabled":true,
+        "lintTool":"golint"}
+    },
+    "javascript" : {
+      "command": "javascript-typescript-stdio",
+      "args": [],
+      "filetypes": ["javascript"]
+    },
+    "metals" : {
+      "command": "metals-vim",
+      "rootPatterns": ["build.sbt"],
+      "args": [],
+      "filetypes": ["scala", "sbt"]
+    },
+    "dls"  : {
+      "command": "diagnostic-languageserver",
+      "args": ["--stdio"],
+      "filetypes": [ "sh" ],
+      "initializationOptions": {
+        "linters": {
+          "shellcheck": {
+            "command": "shellcheck",
+            "debounce": 100,
+            "args": [ "--format=gcc", "-"],
+            "offsetLine": 0,
+            "offsetColumn": 0,
+            "sourceName": "shellcheck",
+            "formatLines": 1,
+            "formatPattern": [
+              "^[^:]+:(\\d+):(\\d+):\\s+([^:]+):\\s+(.*)$",
+              {
+                "line": 1,
+                "column": 2,
+                "message": 4,
+                "security": 3
               }
+            ],
+            "securities": {
+              "error": "error",
+              "warning": "warning",
+              "note": "info"
             }
-          },
-          "filetypes": {
-            "sh": "shellcheck"
           }
+        },
+        "filetypes": {
+          "sh": "shellcheck"
         }
       }
+    }
   }
 }
