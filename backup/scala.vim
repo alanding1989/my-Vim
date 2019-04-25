@@ -21,10 +21,10 @@ scriptencoding utf-8
 "   -------------------------------------------------------------
 "   normal    <F4>          show candidates for importing of cursor symbol
 "   insert    <F4>          show candidates for importing of cursor symbol
-"   normal    SPC l i       show candidates for importing of cursor symbol
-"   normal    SPC l I       prompt for a qualified import
-"   normal    SPC l o       organize imports of current file
-"   normal    SPC l S       sort imports of current file
+"   normal    SPC l i c     show candidates for importing of cursor symbol
+"   normal    SPC l i q     prompt for a qualified import
+"   normal    SPC l i o     organize imports of current file
+"   normal    SPC l i s     sort imports of current file
 "   insert    <c-j>i        prompt for a qualified import
 "   insert    <c-j>o        organize imports of current file
 "   insert    <c-j>s        sort imports of current file
@@ -67,12 +67,14 @@ scriptencoding utf-8
 "
 "   Mode      Key           Function
 "   -------------------------------------------------------------
+"   normal    SPC l Q       setup when first-time-use-ensime
 "   normal    SPC l h       show Documentation of cursor symbol
+"   normal    SPC l R       inline local refactoring of cursor symbol
+"   normal    SPC l e       rename cursor symbol
+"   normal    SPC l g       find Definition of cursor symbol
 "   normal    SPC l t       show Type of expression of cursor symbol
 "   normal    SPC l p       show Hierarchical view of a package
-"   normal    SPC l g       find Definition of cursor symbol
-"   normal    SPC l u       find Usages of cursor symbol
-"   normal    SPC l Q       setup when first-time-use
+"   normal    SPC l r       find Usages of cursor symbol
 " <
 " @subsection Code formatting
 " To make neoformat support scala file, you should install scalariform.
@@ -84,7 +86,7 @@ function! SpaceVim#layers#lang#scala#plugins() abort
   let plugins = [ 
         \ ['derekwyatt/vim-scala', {'merged': 0 ,'on_ft': 'scala'}],
         \ ]
-  if g:has_py
+  if has('python3')
     call add(plugins, ['ensime/ensime-vim'   , {'merged': 0 ,'on_ft': 'scala'}])
   endif
   return plugins
@@ -134,8 +136,8 @@ function! s:language_specified_mappings() abort
   " nnoremap <silent><buffer> gd :EnDeclarationSplit v<CR>
   nnoremap <silent><buffer> <F4>   :EnSuggestImport<CR>
   inoremap <silent><buffer> <F4>   <esc>:EnSuggestImport<CR>
-  nnoremap <silent><buffer> <c-j>i :EnAddImport<CR>
-  nnoremap <silent><buffer> <c-j>o :EnOrganizeImports<CR>
+  inoremap <silent><buffer> <c-j>i :EnAddImport<CR>
+  inoremap <silent><buffer> <c-j>o :EnOrganizeImports<CR>
   nnoremap <silent><buffer> K      :EnDocBrowse<CR>
 
   call SpaceVim#mapping#space#langSPC('nnoremap', ['l','h'],

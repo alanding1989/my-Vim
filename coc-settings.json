@@ -140,7 +140,9 @@
       "command": "metals-vim",
       "rootPatterns": ["build.sbt"],
       "args": [],
-      "filetypes": ["scala", "sbt"]
+      "filetypes": ["scala", "sbt"],
+      "java-home": "/opt/lang-tools/java/jdk",
+      "sbt-script": "/opt/lang-tools/scala/sbt/bin/sbt"
     },
     "dls"  : {
       "command": "diagnostic-languageserver",
