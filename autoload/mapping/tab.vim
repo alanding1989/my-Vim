@@ -48,6 +48,8 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
           return "\<c-r>=ncm2#manual_trigger()\<cr>"
         elseif s:md ==# 'asyncomplete'
           return asyncomplete#force_refresh()
+        elseif s:md ==# 'ycm'
+          return "\<tab>"
         endif
       endif
     endif
@@ -103,6 +105,8 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
         return "\<c-r>=ncm2#manual_trigger()\<cr>"
       elseif s:md ==# 'asyncomplete'
         return asyncomplete#force_refresh()
+      elseif s:md ==# 'ycm'
+        return "\<tab>"
       endif
     endif
   endfunction

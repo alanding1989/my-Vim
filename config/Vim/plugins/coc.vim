@@ -49,6 +49,7 @@ augroup END
 " \ 'coc-json'       ,
 " \ 'coc-html'       ,
 " \ 'coc-css'        ,
+" \ 'coc-ccls'       ,
 " \ 'coc-java'       ,
 " \ 'coc-rls'        ,
 " \ 'coc-pyls'       ,

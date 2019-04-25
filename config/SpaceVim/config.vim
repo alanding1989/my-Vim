@@ -27,7 +27,7 @@ let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 
 " ================================================================================
 " Preferences
-let g:spacevim_autocomplete_method           = get(['coc'       , 'deoplete' , 'ncm2'], 2)
+let g:spacevim_autocomplete_method           = get(['coc'       , 'deoplete' , 'ncm2', 'ycm'], 3)
 let g:spacevim_snippet_engine                = get(['neosnippet', 'ultisnips', 'coc' ], 1)
 let g:spacevim_fuzzyfinder                   = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
 let g:spacevim_filemanager                   = get(['vimfiler'  , 'nerdtree' , 'defx'], 2)
@@ -82,6 +82,15 @@ let g:spacevim_project_rooter_patterns       =
 let g:_checkers_var = {
       \ 'show_cursor_error' : 1,
       \ }
+let g:_lang#c_var = {
+      \ 'clang_executable' : exepath('clang'),
+      \ 'libclang_path'    : $CLANG_HOME.'/lib',
+      \ 'clang_std'        : { 
+      \     'c'  : 'c11', 
+      \     'cpp': 'c++1z'
+      \ },
+      \ 'enable_clang_syntax_highlight' : 1,
+      \ }
 let g:_lang#markdown_var = {
       \ 'enableWcwidth'  : 1,
       \ 'listItemIndent' : 1,
@@ -100,7 +109,6 @@ let g:_lsp_var = {'filetypes' : [
       \ 'python',
       \ 'javascript',
       \ ]}
-
 if g:is_unix
   call add(g:_lsp_var['filetypes'], 'sh')
 endif
@@ -127,6 +135,7 @@ let g:my_layers = {
       \ 'git'               : 1,
       \ 'github'            : 1,
       \ 'lsp'               : 1,
+      \ 'lang#c'            : 1,
       \ 'lang#ipynb'        : 1,
       \ 'lang#java'         : 0,
       \ 'lang#javascript'   : 0,
