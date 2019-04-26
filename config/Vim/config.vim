@@ -26,7 +26,7 @@ let g:my_bg = 1 ? 'dark' : 'light'
 
 " ================================================================================
 " Preferences
-let g:autocomplete_method           = get(['coc'       , 'deoplete' , 'ncm2'], 2)
+let g:autocomplete_method           = get(['coc'       , 'deoplete' , 'ncm2'], 1)
 let g:snippet_engine                = get(['neosnippet', 'ultisnips', 'coc' ], 0)
 let g:fuzzyfinder                   = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
 let g:filemanager                   = get(['vimfiler'  , 'nerdtree' , 'defx'], 2)
@@ -127,7 +127,7 @@ if g:pure_viml || !g:has_py " {{{
         \ 'colorscheme'     : 1,
         \ 'tags'            : 1,
         \ 'tools'           : 1,
-        \ 'lsp'             : 0,
+        \ 'lsp'             : 1,
         \ 'lang#latex'      : 0,
         \ 'lang#scala'      : 0,
         \ 'lang#vim'        : 1,

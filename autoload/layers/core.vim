@@ -42,8 +42,8 @@ function! layers#core#plugins() abort
     if !has('nvim') && g:is_vim8
       " NOTE: in Vim8, many plugins need the follwing two dependencis
       " ncm2, deoplete, denite, defx etc..
-      call add(plugins, ['roxma/nvim-yarp'         , {'merged': 0}])
-      call add(plugins, ['roxma/vim-hug-neovim-rpc', {'merged': 0}])
+      call add(plugins, ['SpaceVim/nvim-yarp'         , {'merged': 0}])
+      call add(plugins, ['SpaceVim/vim-hug-neovim-rpc', {'merged': 0}])
     endif
   endif
   return plugins
