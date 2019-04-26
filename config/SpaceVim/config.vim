@@ -27,17 +27,17 @@ let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 
 " ================================================================================
 " Preferences
-let g:spacevim_autocomplete_method           = get(['coc'       , 'deoplete' , 'ncm2', 'ycm'], 3)
-let g:spacevim_snippet_engine                = get(['neosnippet', 'ultisnips', 'coc' ], 1)
-let g:spacevim_fuzzyfinder                   = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
-let g:spacevim_filemanager                   = get(['vimfiler'  , 'nerdtree' , 'defx'], 2)
-let g:spacevim_statusline                    = get(['airline'   , 'lightline', ''    ], 0)
-let g:spacevim_enable_ale                    = 1
-let g:spacevim_enable_neomake                = !g:spacevim_enable_ale
-let g:spacevim_lint_on_the_fly               = 1
-let g:enable_deotabline                      = 0
-let g:enable_googlesuggest                   = 0
-let g:enable_smart_clock                     = 0 && !g:is_win
+let g:spacevim_autocomplete_method  = get(['coc'       , 'deoplete' , 'ncm2', 'ycm'], 3)
+let g:spacevim_snippet_engine       = get(['neosnippet', 'ultisnips', 'coc' ], 1)
+let g:spacevim_fuzzyfinder          = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
+let g:spacevim_filemanager          = get(['vimfiler'  , 'nerdtree' , 'defx'], 2)
+let g:spacevim_statusline           = get(['airline'   , 'lightline', ''    ], 0)
+let g:spacevim_enable_ale           = 1
+let g:spacevim_enable_neomake       = !g:spacevim_enable_ale
+let g:spacevim_lint_on_the_fly      = 1
+let g:enable_deotabline             = 0
+let g:enable_googlesuggest          = 0
+let g:enable_smart_clock            = 0 && !g:is_win
 
 " Ui {{{
 let g:statusline_separator                   = get(['fire', 'arrow', 'curve', 'slant'], 0)
@@ -85,7 +85,7 @@ let g:_checkers_var = {
       \ }
 let g:_lang#c_var = {
       \ 'clang_executable' : exepath('clang'),
-      \ 'libclang_path'    : expand(fnamemodify(exepath('clang'), ':h:h').'/lib'),
+      \ 'libclang_path'    : expand(fnamemodify(exepath('clang'), ':h').'/libclang.').(g:is_win ? 'dll' : 'so'),
       \ 'clang_std'        : {
       \     'c'  : 'c11',
       \     'cpp': 'c++1z'
@@ -95,7 +95,7 @@ let g:_lang#c_var = {
 let g:_lang#markdown_var = {
       \ 'enableWcwidth'  : 1,
       \ 'listItemIndent' : 1,
-      \ }
+    \ }
 let g:_lang#python_var = {
       \ 'format_on_save' : 1,
       \ }
