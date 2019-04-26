@@ -58,6 +58,9 @@ if !g:is_spacevim
   set clipboard+=unnamedplus
 endif
 
+" if g:is_win
+  " set renderoptions=type:directx
+" endif
 " speed up
 set lazyredraw
 set synmaxcol=200

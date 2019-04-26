@@ -27,7 +27,7 @@ let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 
 " ================================================================================
 " Preferences
-let g:spacevim_autocomplete_method           = get(['coc'       , 'deoplete' , 'ncm2', 'ycm'], 0)
+let g:spacevim_autocomplete_method           = get(['coc'       , 'deoplete' , 'ncm2', 'ycm'], 3)
 let g:spacevim_snippet_engine                = get(['neosnippet', 'ultisnips', 'coc' ], 1)
 let g:spacevim_fuzzyfinder                   = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
 let g:spacevim_filemanager                   = get(['vimfiler'  , 'nerdtree' , 'defx'], 2)
@@ -70,7 +70,8 @@ let g:spacevim_windows_smartclose            = ''
 let g:spacevim_windows_leader                = ''
 let g:spacevim_github_username               = 'alanding1989'
 let g:spacevim_guifont                       = 'SauceCodePro Nerd Font Mono:h11'
-let g:spacevim_layer_lang_scala_formatter    = '/opt/lang-tools/scala/scalariform.jar'
+let g:spacevim_layer_lang_scala_formatter    = g:is_win ? 'D:\devtools\scala\scalariform.jar' :
+      \ '/opt/lang-tools/scala/scalariform.jar'
 let g:spacevim_project_rooter_patterns       =
       \ uniq(sort(g:spacevim_project_rooter_patterns
       \ + deepcopy(g:project_root_marker))) "}}}
@@ -85,8 +86,8 @@ let g:_checkers_var = {
 let g:_lang#c_var = {
       \ 'clang_executable' : exepath('clang'),
       \ 'libclang_path'    : expand(fnamemodify(exepath('clang'), ':h:h').'/lib'),
-      \ 'clang_std'        : { 
-      \     'c'  : 'c11', 
+      \ 'clang_std'        : {
+      \     'c'  : 'c11',
       \     'cpp': 'c++1z'
       \ },
       \ 'enable_clang_syntax_highlight' : 1,
