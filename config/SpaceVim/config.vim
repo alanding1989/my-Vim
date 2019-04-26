@@ -84,7 +84,7 @@ let g:_checkers_var = {
       \ }
 let g:_lang#c_var = {
       \ 'clang_executable' : exepath('clang'),
-      \ 'libclang_path'    : $CLANG_HOME.'/lib',
+      \ 'libclang_path'    : expand(fnamemodify(exepath('clang'), ':h:h').'/lib'),
       \ 'clang_std'        : { 
       \     'c'  : 'c11', 
       \     'cpp': 'c++1z'
