@@ -19,7 +19,8 @@ let g:gutentags_project_root = deepcopy(g:project_root_marker)
 " 所生成的数据文件的名称
 let g:gutentags_ctags_tagfile = '.tags'
 " 将自动生成的 ctags/gtags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
-let g:gutentags_cache_dir = expand('~/.cache/tags')
+let g:gutentags_cache_dir = expand(g:is_win ? 'D:\.cache\tags' :
+      \ '/home/alanding/.cache/tags'.(g:is_root ? '-root' : '-alan'))
 " 同时开启 ctags 和 gtags 支持：
 let g:gutentags_modules = []
 if executable('ctags')

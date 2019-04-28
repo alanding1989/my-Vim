@@ -14,7 +14,7 @@ let s:loaded = 1
 " for contents of settings.json for vue-language-server
 
 let g:LanguageClient_loadSettings             = 1
-let g:LanguageClient_settingsPath             = expand('~/'.(g:is_win ? 'vimfiles' : '.vim').'/LCN-settings.json')
+let g:LanguageClient_settingsPath             = expand(g:home.'/LCN-settings.json')
 let g:LanguageClient_diagnosticsEnable        = get(g:, 'g:LanguageClient_diagnosticsEnable', 0)
 let g:LanguageClient_diagnosticsSignsMax      = 0
 let g:LanguageClient_diagnosticsList          = v:null

@@ -72,6 +72,8 @@ let g:spacevim_github_username               = 'alanding1989'
 let g:spacevim_guifont                       = 'SauceCodePro Nerd Font Mono:h11'
 let g:spacevim_layer_lang_scala_formatter    = g:is_win ? 'D:\devtools\scala\scalariform.jar' :
       \ '/opt/lang-tools/scala/scalariform.jar'
+let g:spacevim_plugin_bundle_dir             = g:is_win ? 'D:\.cache\vimfiles\' :
+      \ '/home/alanding/.cache/vimfiles'.(g:is_root ? '-root/' : '-alan/')
 let g:spacevim_project_rooter_patterns       =
       \ uniq(sort(g:spacevim_project_rooter_patterns
       \ + deepcopy(g:project_root_marker))) "}}}
@@ -79,13 +81,13 @@ let g:spacevim_project_rooter_patterns       =
 
 " ================================================================================
 " Variable Setting
-" ============================================================================== {{{
+" ============================================================================= {{{
 let g:_checkers_var = {
       \ 'show_cursor_error' : 1,
       \ }
 let g:_lang#c_var = {
       \ 'clang_executable' : exepath('clang'),
-      \ 'libclang_path'    : expand(fnamemodify(exepath('clang'), ':h').'/libclang.').(g:is_win ? 'dll' : 'so'),
+      \ 'libclang_path'    : expand($CLANG_HOME).(g:is_win ? '\bin\libclang.dll' : '/lib/libclang.so'),
       \ 'clang_std'        : {
       \     'c'  : 'c11',
       \     'cpp': 'c++1z'
@@ -126,7 +128,7 @@ endif
 "   efault layers:
 "   autocomplete, checkers, core, edit, format, ui,
 "   代码补全，检错、修改比较，编辑辅助，文件搜索
-" ============================================================================== {{{
+" ============================================================================= {{{
 let g:my_layers = {
       \ 'core#statusline'   : 0,
       \ 'chat'              : 1,
@@ -214,7 +216,7 @@ endif
 
 " ================================================================================
 " Disabled plugins
-" ============================================================================== {{{
+" ============================================================================= {{{
 let g:spacevim_disabled_plugins = [
       \ 'vim-hybrid'           ,
       \ 'jellybeans.vim'       ,

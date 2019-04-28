@@ -19,6 +19,7 @@ let g:is_async            = g:is_vim8 || g:is_nvim
 let g:has_timer           = has('timers')
 let g:has_display         = empty($DISPLAY)
 let g:has_terminal        = g:is_nvim || (has('patch-8.0.1108') && has('terminal'))
+let g:is_root             = $USER ==# 'root'
 
 let g:vim_plugindir       = expand(g:home.'config/Vim/plugins/')
 let g:project_root_marker = ['.root', '.project', '.idea', '.vscode',
@@ -46,8 +47,7 @@ if !g:is_nvim
   set pyxversion=3
   if g:is_unix || g:is_mac
     " linux
-    set pythonthreedll=/home/alanding/software/anaconda3/envs/py36/lib/libpython36.so
-    " set pythonthreehome=/home/alanding/software/anaconda3/envs/py36/bin
+    " set pythonthreedll=/home/alanding/software/anaconda3/envs/py36/lib/libpython3.so
   else
     " windows
     set pythonthreedll=D:\devtools\python\Anaconda3\envs\py36\python36.dll
@@ -56,4 +56,4 @@ if !g:is_nvim
 endif
 "}}}
 
-let g:has_py              = has('python3') || has('python')
+let g:has_py              = has('python3')

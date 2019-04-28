@@ -150,22 +150,31 @@ endif
 if !g:is_spacevim
   " set noswapfile
   " set nowritebackup
-  if glob('~/.cache/Vim/undofile') ==# ''
-    call mkdir(expand('~/.cache/Vim/undofile'), 'p', 0700)
+  let s:undofile  = g:is_win ? 'D:/.cache/Vim/undofile' :
+        \ '/home/alanding/.cache/Vim'.(g:is_root ? '-root' : '-alan').'/undofile'
+  let s:backupdir = g:is_win ? 'D:/.cache/Vim/backup' :
+        \ '/home/alanding/.cache/Vim'.(g:is_root ? '-root' : '-alan').'/backup'
+  let s:swapdir   = g:is_win ? 'D:/.cache/Vim/swap' :
+        \ '/home/alanding/.cache/Vim'.(g:is_root ? '-root' : '-alan').'/swap'
+  if glob(s:undofile) ==# ''
+    call mkdir(expand(s:undofile), 'p', 0700)
   endif
-  if glob('~/.cache/Vim/backup') ==# ''
-    call mkdir(expand('~/.cache/Vim/backup'), 'p', 0700)
+  if glob(s:backupdir) ==# ''
+    call mkdir(expand(s:backupdir), 'p', 0700)
   endif
-  if glob('~/.cache/Vim/swap') ==# ''
-    call mkdir(expand('~/.cache/Vim/swap'), 'p', 0700)
+  if glob(s:swapdir) ==# ''
+    call mkdir(expand(s:swapdir), 'p', 0700)
   endif
   set backup
   set undofile
   set undolevels=1000
   set history=1000
-  set undodir=$HOME/.cache/Vim/undofile
-  set backupdir=$HOME/.cache/Vim/backup
-  set directory=$HOME/.cache/Vim/swap
+  exec 'set undodir='.expand(s:undofile)
+  exec 'set backupdir='.expand(s:backupdir)
+  exec 'set directory='.expand(s:swapdir)
+  unlet s:undofile
+  unlet s:backupdir
+  unlet s:swapdir
 endif
 "}}}
 

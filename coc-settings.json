@@ -16,7 +16,9 @@
   "snippets.shortcut": "Snip",
   "snippets.ultisnips.directories": [
     "~/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/",
-    "~/.cache/vimfiles/repos/github.com/alanding1989/my-neosnippet-snippets/"
+    "~/.cache/vimfiles/repos/github.com/alanding1989/my-neosnippet-snippets/",
+    "~/.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/",
+    "~/.cache/vimfiles-alan/repos/github.com/alanding1989/my-neosnippet-snippets/"
   ],
   //  "snippets.textmateSnippetsRoots": ["~/.SpaceVim.d/vscode"],
   "snippets.extends" : {

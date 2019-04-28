@@ -14,9 +14,10 @@ let s:loaded = 1
 "================================================================================
 " NOTE: when debug set below value to 1
 " let g:codi#raw = 1
-if glob($HOME.'/.cache/Vim/codi_log/codi_log') ==# ''
-  call mkdir(expand($HOME.'/.cache/Vim/codi_log'), 'p', 0700)
-  let g:codi#log = expand($HOME.'/.cache/Vim/codi_log/codi_log')
+let s:codilog = g:is_win ? 'D:/.cache/Vim/codi_log' :
+      \ '/home/alanding/.cache/Vim/'.(g:is_root ? '-root' : '-alan').'codi_log'
+if glob(s:codilog) ==# ''
+  let g:codi#log = expand(s:codilog)
 endif
 
 " interpreter settings

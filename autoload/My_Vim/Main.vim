@@ -9,11 +9,11 @@ scriptencoding utf-8
 " init
 function! My_Vim#Main#init() abort
   call util#so_file('config.vim', 'Vim')
-  try
+  " try
     call s:Mainbegin()
-  catch
-    call s:Mainfallback()
-  endtry
+  " catch
+    " call s:Mainfallback()
+  " endtry
 endfunction
 
 
@@ -25,6 +25,7 @@ endfunction
 function! s:Mainfallback() abort
   let g:my_cs = 'nord'
   let g:My_Vim_layers = {}
+  let g:is_fallback = 1
   call My_Vim#layer#plug_begin()
   call My_Vim#layer#plug_end()
 endfunction

@@ -18,6 +18,10 @@ let s:default_layers = [
       \ ]
 let g:enabled_plugins_name = []
 let g:uninstalled_plugins  = []
+let g:vim_plug_dir  = g:is_win ? 'D:/.cache/Vim/vim-plug'  :
+      \ '/home/alanding/.cache/Vim'.(g:is_root ? '-root' : '-alan').'/vim-plug'
+let g:dein_plug_dir = g:is_win ? 'D:/.cache/Vim/dein-plug' :
+      \ '/home/alanding/.cache/Vim'.(g:is_root ? '-root' : '-alan').'/dein-plug'
 
 function! My_Vim#layer#plug_begin() abort
   let g:enabled_plugins = s:enabled_plugins_get()
@@ -38,23 +42,23 @@ endfunction
 " vim-plug {{{
 function! s:vim_plug_begin() abort
   " install vim-plug {{{
-  if glob('~/.SpaceVim.d/autoload/plug.vim') ==# ''
-    !curl -fLo ~/.SpaceVim.d/autoload/plug.vim --create-dirs
-          \https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  if glob('~/.vim.d/autoload/plug.vim') ==# ''
+    exec '!curl -fLo "'.expand('~/.vim.d/autoload/plug.vim')
+          \.'" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     auto VimEnter * PlugInstall --sync | source $MYVIMRC
     let s:firstinstall = 1
   else
     let s:firstinstall = 0
   endif
   " init vim-plug }}}
-  call s:Unite_Plugmenu_begin('~/.cache/Vim/vim-plug')
+  call s:Unite_Plugmenu_begin(g:vim_plug_dir)
   for elem in g:enabled_plugins
     let repo = elem[0]
     let plug_name = split(repo, '/')[-1]
     if index(get(g:, 'disabled_plugins', []), repo) == -1
       Plug repo, get(elem, 1, {})
       call add(g:enabled_plugins_name, plug_name)
-      if finddir('~/.cache/Vim/vim-plug/'.plug_name) ==# ''
+      if finddir(expand(g:vim_plug_dir.'/').plug_name) ==# ''
         call add(g:uninstalled_plugins, plug_name)
       endif
     else
@@ -68,20 +72,20 @@ endfunction
 " dein {{{
 function! s:dein_begin() abort
   " install dein {{{
-  if glob('~/.cache/Vim/dein-plug/repos/github.com/Shougo/dein.vim') ==# ''
-    call mkdir(expand('~/.cache/Vim/dein-plug/repos/github.com/Shougo/dein.vim'), 'p', '0700')
+  if glob(g:dein_plug_dir.'/repos/github.com/Shougo/dein.vim') ==# ''
+    call mkdir(expand(g:dein_plug_dir.'/repos/github.com/Shougo/dein.vim'), 'p', '0700')
     exec '!git clone git@github.com:Shougo/dein.vim.git "'
-          \.expand('~/.cache/Vim/dein-plug/repos/github.com/Shougo/dein.vim').'"'
+          \.expand(g:dein_plug_dir.'/repos/github.com/Shougo/dein.vim').'"'
     let s:firstinstall = 1
   else
     let s:firstinstall = 0
   endif
   " init dein }}}
   if &compatible | set nocompatible | endif
-  set runtimepath+=~/.cache/Vim/dein-plug/repos/github.com/Shougo/dein.vim
-  if s:check_plugchange() || dein#load_state('~/.cache/Vim/dein-plug')
-    call s:Unite_Plugmenu_begin('~/.cache/Vim/dein-plug')
-    call dein#add('~/.cache/Vim/dein-plug/repos/github.com/Shougo/dein.vim')
+  exec 'set runtimepath+='.expand(g:dein_plug_dir.'/repos/github.com/Shougo/dein.vim')
+  if s:check_plugchange() || dein#load_state(g:dein_plug_dir)
+    call s:Unite_Plugmenu_begin(g:dein_plug_dir)
+    call dein#add(g:dein_plug_dir.'/repos/github.com/Shougo/dein.vim')
     call dein#add('wsdjeg/dein-ui.vim')
     for elem in g:enabled_plugins
       let repo = elem[0]
@@ -89,7 +93,7 @@ function! s:dein_begin() abort
       if index(get(g:, 'disabled_plugins', []), repo) == -1
         call dein#add(repo, get(elem, 1, {}))
         if s:firstinstall | call add(g:enabled_plugins_name, plug_name) | endif
-        if finddir(expand('~/.cache/Vim/dein-plug/repos/github.com/'.repo)) ==# ''
+        if finddir(expand(g:dein_plug_dir.'/repos/github.com/'.repo)) ==# ''
           call add(g:uninstalled_plugins, plug_name)
         endif
       else
@@ -104,7 +108,7 @@ endfunction
 
 " Note: only for dein use
 function! s:check_plugchange() abort
-  let s:filepath = expand('~/.cache/Vim/dein_check_plugchange.vim')
+  let s:filepath = expand(g:dein_plug_dir.'/dein_check_plugchange.vim')
   if findfile(s:filepath) ==# ''
     exec 'silent !touch '.s:filepath
     return 1
@@ -205,7 +209,7 @@ function! s:enabled_plugins_get() abort
 endfunction
 
 function! s:enabled_layers_get() abort
-  if g:My_Vim_layers != {}
+  if !get(g:, 'is_fallback', 0)
     for [layer, en_or_dis] in items(g:My_Vim_layers)
       if en_or_dis
         call add(s:default_layers, layer)
