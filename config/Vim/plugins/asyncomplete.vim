@@ -16,5 +16,3 @@ let g:asyncomplete_auto_completeopt = 0
 auto VimEnter * inoremap <expr><c-e>
       \ pumvisible() ? (g:pure_viml ?
       \ asyncomplete#cancel_popup() : "\<c-e>") : "\<end>"
-" auto VimEnter * inoremap <expr><c-e>
-      " \ pumvisible() ? <c-r>=asyncomplete#cancel_popup()  : "\<end>"

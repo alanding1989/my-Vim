@@ -20,14 +20,14 @@ let g:spacevim_colorscheme = split([
       \ '5 OceanicNext' ,
       \ '6 PaperColor'  ,
       \ '7 nord'        ,
-      \ ][2])[1]
+      \ ][1])[1]
 let g:spacevim_colorscheme_default = 'nord'
 let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 "}}}
 
 " ================================================================================
 " Preferences
-let g:spacevim_autocomplete_method  = get(['coc'       , 'deoplete' , 'ncm2', 'ycm'], 0)
+let g:spacevim_autocomplete_method  = get(['coc'       , 'deoplete' , 'ncm2', 'ycm'], 3)
 let g:spacevim_snippet_engine       = get(['neosnippet', 'ultisnips', 'coc' ], 1)
 let g:spacevim_fuzzyfinder          = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
 let g:spacevim_filemanager          = get(['vimfiler'  , 'nerdtree' , 'defx'], 2)
@@ -130,7 +130,7 @@ endif
 "   代码补全，检错、修改比较，编辑辅助，文件搜索
 " ============================================================================= {{{
 let g:my_layers = {
-      \ 'core#statusline'   : 0,
+      \ 'core#statusline'   : 1,
       \ 'chat'              : 1,
       \ 'checkers'          : 1,
       \ 'chinese'           : 1,
