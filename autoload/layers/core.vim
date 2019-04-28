@@ -30,8 +30,8 @@ function! layers#core#plugins() abort
       call add(plugins, ['Shougo/unite.vim'   , {'merged': 0}])
       call add(plugins, ['Shougo/vimfiler.vim', {'on_cmd': ['VimFiler', 'VimFilerBufferDir']}])
       if g:is_win
-        call add(plugins, ['Shougo/vimproc.vim' , {'build' : 'bash && make',
-              \ 'do': 'bash && make'}])
+        call add(plugins, ['Shougo/vimproc.vim' , {'build' : '.\mingw32-make.exe',
+            \ 'do': '.\mingw32-make.exe'}])
       else
         call add(plugins, ['Shougo/vimproc.vim' , {'build' : [(executable('gmake') ? 'gmake' : 'make')],
               \ 'do': (executable('gmake') ? 'gmake' : 'make')}])
