@@ -19,10 +19,12 @@ scriptencoding utf-8
 
 function! SpaceVim#layers#lang#ipynb#plugins() abort
   let plugins = [
-        \ ['szymonmaszke/vimpyter'        , {'on_ft' : 'ipynb'}],
-        \ ['heavenshell/vim-pydocstring'  , {'on_cmd': 'Pydocstring'}],
+        \ ['wsdjeg/vimpyter'            , {'merged': 0}],
         \ ]
-  " \ ['Vimjas/vim-python-pep8-indent', {'on_ft' : 'ipynb'             }],
+  call add(plugins, ['heavenshell/vim-pydocstring',
+        \ { 'on_cmd' : 'Pydocstring'}])
+  " call add(plugins, ['Vimjas/vim-python-pep8-indent',
+        " \ { 'on_ft' : 'ipynb'}])
   if !SpaceVim#layers#lsp#check_filetype('ipynb')
     if has('nvim')
       call add(plugins, ['zchee/deoplete-jedi', { 'on_ft' : 'ipynb'}])

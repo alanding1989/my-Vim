@@ -118,6 +118,12 @@ elseif g:fuzzyfinder ==# 'fzf'
   let g:My_Vim_layers['leaderf'] = 0
 endif "}}}
 
+" powershell {{{
+if g:is_win
+  let g:my_layers['lang#powershell'] = 1
+endif
+"}}}
+
 if g:pure_viml || !g:has_py " {{{
   let g:autocomplete_method = 'asyncomplete'
   let g:snippet_engine      = 'neosnippet'
