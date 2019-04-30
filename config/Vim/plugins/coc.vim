@@ -32,7 +32,7 @@ augroup my_coc_settings
   if findfile(expand($HOME.'/.SpaceVim/coc-settings.json')) ==# ''
     if g:is_unix
       autocmd User CocNvimInit
-            \ exec '!ln -s "'.expand($HOME.'/.vim/coc-settings.json')
+            \ exec '!ln -s "'.expand($HOME.'/.SpaceVim.d/coc-settings.json')
             \ .'" "'.expand($HOME.'/.SpaceVim/coc-settings.json').'"'
     elseif g:is_win
       autocmd User CocNvimInit

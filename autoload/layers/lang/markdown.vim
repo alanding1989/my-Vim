@@ -64,7 +64,7 @@ function! layers#lang#markdown#config() abort
           \ }
 
     " iamcco/markdown-preview.vim {{{
-    let g:mkdp_browserfunc = 'openbrowser#open'
+    " let g:mkdp_browserfunc = 'openbrowser#open'
     " }}}
     nnoremap <silent> <plug>(markdown-insert-link)    :call <SID>markdown_insert_link(0, 0)<Cr>
     xnoremap <silent> <plug>(markdown-insert-link)    :<C-u> call <SID>markdown_insert_link(1, 0)<Cr>

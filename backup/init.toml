@@ -45,6 +45,9 @@
     windows_leader               = ''
     github_username              = 'alanding1989'
     guifont                      = 'SauceCodePro Nerd Font Mono:h11'
+    # plugin_bundle_dir            = 'D:\.cache\vimfiles\'
+    # plugin_bundle_dir            = '/home/alanding/.cache/vimfiles-root/'
+    plugin_bundle_dir            = '/home/alanding/.cache/vimfiles-alan/'
 # }}}
 
 # Preferences
@@ -85,21 +88,21 @@ name = 'lsp'
 filetypes = [
   'python',
   'sh',
-  'javascript',
 ]
 
-[[layers]]
-name = 'lang#java'
+# [[layers]]
+# name = 'lang#java'
+#
+# [[layers]]
+# name = 'lang#javascript'
 
-[[layers]]
-name = 'lang#javascript'
-
-[[layers]]
-name = 'lang#latex'
+# [[layers]]
+# name = 'lang#latex'
 
 [[layers]]
 name = 'lang#markdown'
 Wcwidth = 1
+listItemIndent = 1
 
 [[layers]]
 name = 'lang#python'

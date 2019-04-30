@@ -14,6 +14,8 @@ scriptencoding utf-8
 " need to define after vim enter
 let g:_spacevim_mappings[';'] = ['', 'easyMotion prefix']
 
+let g:_spacevim_mappings.a   = {'name': '+@ Session/Settings' }
+let g:_spacevim_mappings.a.c = {'name': '+Open config file'   }
 call SpaceVim#mapping#def('nnoremap', '<leader>aa',
       \ 'ggVG', 'select whole buffer', '', 'select whole buffer')
 call SpaceVim#mapping#def('nnoremap', '<leader>ae',
@@ -89,8 +91,13 @@ let g:_spacevim_mappings_space_custom += [
       \ ['nmap', ['h', 'h'], 'call util#help_wrapper()'       , '@ get help docs of input/cursor word', 1],
       \ ['nmap', ['q', 'n'], 'call dein#recache_runtimepath()', '@ recache runtime path for plugins'  , 1],
       \ ['nmap', ['q', 'u'], 'call feedkeys(":SPUpdate ")'    , '@ update all/input plugins'          , 1],
-      \ ['nmap', ['q', 'm'], 'call dein#remote_plugins()'     , '@ update remote plugins'             , 1],
-      \ ['nmap', ['q', 'h'], 'checkhealth'                    , '@ checkhealth'                       , 1],
       \ ['nmap', ['q', 'd'], 'SPDebugInfo!'                   , '@ check SpaceVim debug info'         , 1],
       \ ['nmap', ['q', 'l'], 'SPRuntimeLog'                   , '@ check SpaceVim runtime log'        , 1],
       \ ]
+
+if g:is_nvim
+  let g:_spacevim_mappings_space_custom += [
+        \ ['nmap', ['q', 'm'], 'call dein#remote_plugins()'     , '@ update remote plugins'             , 1],
+        \ ['nmap', ['q', 'h'], 'checkhealth'                    , '@ checkhealth'                       , 1],
+        \ ]
+endif

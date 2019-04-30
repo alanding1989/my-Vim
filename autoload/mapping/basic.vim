@@ -286,7 +286,7 @@ function! mapping#basic#load() abort
           \ 'neovim' : 'async').' -path=~/.SpaceVim.d'<CR>
     nnoremap <leader>ac<space> :exec 'Unite file_rec/'.(has('nvim') ?
           \ 'neovim' : 'async').' -path=~/.SpaceVim'<CR>
-  elseif get(g:, 'spacevim_fuzzyfinder', get(g:, 'fuzzyfinder', 'leaderf')) ==# 'denite'
+  elseif get(g:, 'spacevim_fuzzyfinder', get(g:, 'fuzzyfinder', 'denite')) ==# 'denite'
     nnoremap <leader>acm       :Denite file/rec -path=~/.SpaceVim.d<CR>
     nnoremap <leader>ac<space> :Denite file/rec -path=~/.SpaceVim<CR>
   elseif get(g:, 'spacevim_fuzzyfinder', get(g:, 'fuzzyfinder')) ==# 'leaderf'
