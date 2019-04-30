@@ -207,9 +207,9 @@ if get(g:, 'statusline', 'airline') ==# 'airline'
   let g:airline#extensions#wordcount#enabled = 0
 
   " whitespace check
-  let g:airline#extensions#whitespace#checks = [ 'indent', 'trailing', 'mixed-indent-file' ]
+  let g:airline#extensions#whitespace#checks = [ 'indent', 'trailing', 'mixed-indent-file' ] " long
   let g:airline#extensions#whitespace#max_lines = 200
-  let g:airline#extensions#whitespace#skip_indent_check_ft = {'go': ['mixed-indent-file']}
+  let g:airline#extensions#whitespace#skip_indent_check_ft = {'go': ['mixed-indent-file'], 'markdown': ['trailing']}
   " }}}" }}}
 
 
