@@ -37,7 +37,6 @@ function! SpaceVim#layers#lang#ipynb#plugins() abort
 endfunction
 
 
-let s:format_on_save = 0
 function! SpaceVim#layers#lang#ipynb#config() abort
   if !SpaceVim#layers#lsp#check_filetype('ipynb')
     let g:jedi#completions_command    = ''
@@ -73,20 +72,19 @@ endfunction
 
 function! s:language_specified_mappings() abort
   let g:_spacevim_mappings_space.l.j = {'name' : '+Jupyter Notebook'}
-  imap <silent><buffer> <c-o> <esc>:VimpyterInsertPythonBlock<CR>i
-  call SpaceVim#mapping#space#langSPC('nmap', ['l','j','u'],
+  call SpaceVim#mapping#space#langSPC('nmap', ['l','u'],
         \ 'vimpyter#updateNotebook()',
         \ 'update Notebook'        , 1)
-  call SpaceVim#mapping#space#langSPC('nmap', ['l','j','j'],
+  call SpaceVim#mapping#space#langSPC('nmap', ['l','p'],
         \ 'VimpyterInsertPythonBlock',
         \ 'insert python code block', 1)
-  call SpaceVim#mapping#space#langSPC('nmap', ['l','j','s'],
+  call SpaceVim#mapping#space#langSPC('nmap', ['l','j'],
         \ 'VimpyterStartJupyter',
         \ 'start Jupyter Notebook' , 1)
-  call SpaceVim#mapping#space#langSPC('nmap', ['l','j','n'],
+  call SpaceVim#mapping#space#langSPC('nmap', ['l','n'],
         \ 'VimpyterStartNteract',
         \ 'start Nteract Notebook' , 1)
-  call SpaceVim#mapping#space#langSPC('nmap', ['l','j','v'],
+  call SpaceVim#mapping#space#langSPC('nmap', ['l','v'],
         \ 'vimpyter#createView()',
         \ 'create view of Notebook', 1)
 

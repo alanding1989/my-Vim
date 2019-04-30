@@ -20,7 +20,8 @@ let g:spacevim_colorscheme = split([
       \ '5 OceanicNext' ,
       \ '6 PaperColor'  ,
       \ '7 nord'        ,
-      \ ][1])[1]
+      \ '8 srcery'  ,
+      \ ][2])[1]
 let g:spacevim_colorscheme_default = 'nord'
 let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 "}}}
