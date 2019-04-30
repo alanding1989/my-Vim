@@ -16,7 +16,7 @@ set shiftwidth=2 tabstop=2 softtabstop=2 textwidth=78
 
 set linebreak nowrap
 
-set foldlevel=1 foldmethod=indent
+set foldlevel=0 foldmethod=indent
 set foldtext=Foldtext()
 augroup my_fold
   auto!
