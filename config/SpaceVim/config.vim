@@ -102,6 +102,9 @@ let g:_lang#markdown_var = {
 let g:_lang#python_var = {
       \ 'format_on_save' : 1,
       \ }
+let g:_lang#ipynb_var  = {
+      \ 'format_on_save' : 1,
+      \ }
 let g:_shell_var = {
       \ 'default_position' : 'right',
       \ 'default_height'   : 30     ,

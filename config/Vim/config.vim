@@ -88,6 +88,7 @@ let g:My_Vim_layers = {
       \ 'tools'             : 1,
       \ 'langtools'         : 0,
       \ 'lsp'               : 1,
+      \ 'lang#markdown'     : 1,
       \ 'lang#ipynb'        : 0,
       \ 'lang#python'       : 1,
       \ 'lang#latex'        : 0,

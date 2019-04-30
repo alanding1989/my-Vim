@@ -148,7 +148,7 @@ endif
 
 " backup {{{
 if !g:is_spacevim
-  " set noswapfile
+  set noswapfile
   " set nowritebackup
   let s:undofile  = g:is_win ? 'D:/.cache/Vim/undofile' :
         \ '/home/alanding/.cache/Vim'.(g:is_root ? '-root' : '-alan').'/undofile'
