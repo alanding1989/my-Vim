@@ -1,5 +1,8 @@
 "================================================================================
-" functions.vim -- global func
+" File Name    : config/functions.vim
+" Author       : AlanDing
+" mail         :
+" Created Time : Tue 30 Apr 2019 10:56:20 PM CST
 "================================================================================
 scriptencoding utf-8
 
@@ -7,34 +10,29 @@ scriptencoding utf-8
 
 function! Insert_headbox() abort " {{{
   if &ft ==# 'vim'
-    call setline(line('.')   , '"'.repeat('=', 80))
-    call  append(line('.')   , '"')
-    call  append(line('.')+1 , '"')
-    call  append(line('.')+2 , '"'.repeat('=', 80))
-    call  append(line('.')+3 , '')
+    call s:inshbox('"', '=')
   elseif &ft ==# 'sh' || &ft ==# 'python' || &ft ==# 'ps1'
-    call setline(line('.')   , '# '.repeat('=', 80))
-    call  append(line('.')   , '# ')
-    call  append(line('.')+1 , '# ')
-    call  append(line('.')+2 , '# '.repeat('=', 80))
-    call  append(line('.')+3 , '')
+    call s:inshbox('# ', '=')
+  elseif &ft ==# 'scala' || &ft ==# 'cpp' || &ft ==# 'c'
+    call s:inshbox('//', '=')
   endif
-  silent exec 'normal! 03j'
 endfunc
 function! Insert_emptybox() abort
   if &ft ==# 'vim'
-    call setline(line('.')   , '"'.repeat('-', 80))
-    call  append(line('.')   , '"')
-    call  append(line('.')+1 , '"')
-    call  append(line('.')+2 , '"'.repeat('-', 80))
-    call  append(line('.')+3 , '')
+    call s:inshbox('"', '-')
   elseif &ft ==# 'sh' || &ft ==# 'python' || &ft ==# 'ps1'
-    call setline(line('.')   , '# '.repeat('-', 80))
-    call  append(line('.')   , '# ')
-    call  append(line('.')+1 , '# ')
-    call  append(line('.')+2 , '# '.repeat('-', 80))
-    call  append(line('.')+3 , '')
+    call s:inshbox('# ', '-')
+  elseif &ft ==# 'scala' || &ft ==# 'cpp' || &ft ==# 'c'
+    call s:inshbox('//', '-')
   endif
+endfunc
+
+function! s:inshbox(cmsign, reptsign) abort
+  call setline(line('.')   , a:cmsign.repeat(a:reptsign, 80))
+  call  append(line('.')   , a:cmsign)
+  call  append(line('.')+1 , a:cmsign)
+  call  append(line('.')+2 , a:cmsign.repeat(a:reptsign, 80))
+  call  append(line('.')+3 , '')
   silent exec 'normal! 03j'
 endfunc
 "}}}
@@ -42,65 +40,58 @@ endfunc
 
 function! SetFileHead() abort " {{{
   if &filetype ==# 'vim'
-    call setline(1,          '"'.repeat('=', 80))
-    call append(line('.'),   '" File Name    : '.expand('%'))
-    call append(line('.')+1, '" Author       : AlanDing')
-    call append(line('.')+2, '" mail         :')
-    call append(line('.')+3, '" Created Time : '.strftime('%c'))
-    call append(line('.')+4, '"'.repeat('=', 80))
-    call append(line('.')+5, 'scriptencoding utf-8')
-    call append(line('.')+6, '')
-    call append(line('.')+7, '')
+    call s:insfhead('"', 'scriptencoding utf-8', '')
+
   elseif &filetype ==# 'sh'
-    call setline(1,          '# '.repeat('=', 80))
-    call append(line('.'),   '#  File Name    : '.expand('%'))
-    call append(line('.')+1, '#  Author       : AlanDing')
-    call append(line('.')+2, '#  mail         :')
-    call append(line('.')+3, '#  Created Time : '.strftime('%c'))
-    call append(line('.')+4, '# '.repeat('=', 80))
-    call append(line('.')+5, '#!/usr/bin/env bash')
-    call append(line('.')+6, '')
-    call append(line('.')+7, '')
+    call s:insfhead('#', '#! /usr/bin/env bash', '')
+
   elseif &filetype ==# 'ps1'
-    call setline(1,          '# '.repeat('=', 80))
-    call append(line('.'),   '#  File Name    : '.expand('%'))
-    call append(line('.')+1, '#  Author       : AlanDing')
-    call append(line('.')+2, '#  mail         :')
-    call append(line('.')+3, '#  Created Time : '.strftime('%c'))
-    call append(line('.')+4, '# '.repeat('=', 80))
-    call append(line('.')+5, '')
+    call s:insfhead('#', '', '')
+
   elseif &filetype ==# 'python' || &filetype ==# 'ipynb'
-    call setline(1,          '# '.repeat('=', 80))
-    call append(line('.'),   '#  File Name    : '.expand('%'))
-    call append(line('.')+1, '#  Author       : AlanDing')
-    call append(line('.')+2, '#  mail         :')
-    call append(line('.')+3, '#  Created Time : '.strftime('%c'))
-    call append(line('.')+4, '# '.repeat('=', 80))
-    call append(line('.')+5, '#!/usr/bin/env python3')
-    call append(line('.')+6, '# -*- coding: utf-8 -*-')
+    call s:insfhead('#', '#! /usr/bin/env python3', '# -*- coding: utf-8 -*-')
+
+  elseif &filetype ==# 'scala'
+    call s:insfhead('', '', '', '/*', '*/')
+
+  elseif &filetype ==# 'cpp'
+    call s:insfhead('', '#include <iostream>', 'using namespace std;', '/*', '*/')
+
+  elseif &filetype ==# 'c'
+    call s:insfhead('', '#include <stdio.h>', '', '/*', '*/')
+  endif
+endfunc
+
+function! s:insfhead(cmsign, head1, head2, ...) abort
+  if a:0 == 0
+    call setline(1,          a:cmsign.repeat('=', 80))
+    call append(line('.'),   a:cmsign.' File Name    : '.expand('%'))
+    call append(line('.')+1, a:cmsign.' Author       : AlanDing')
+    call append(line('.')+2, a:cmsign.' mail         :')
+    call append(line('.')+3, a:cmsign.' Created Time : '.strftime('%c'))
+    call append(line('.')+4, a:cmsign.repeat('=', 80))
+  elseif a:0 == 2
+    call setline(1,          a:1.repeat('=', 80))
+    call append(line('.'),   a:cmsign.' File Name    : '.expand('%'))
+    call append(line('.')+1, a:cmsign.' Author       : AlanDing')
+    call append(line('.')+2, a:cmsign.' mail         :')
+    call append(line('.')+3, a:cmsign.' Created Time : '.strftime('%c'))
+    call append(line('.')+4, a:cmsign.repeat('=', 78).a:2)
+  endif
+  if a:head1 !=# '' && a:head2 ==# ''
+    call append(line('.')+5, a:head1)
+    call append(line('.')+6, '')
+    call append(line('.')+7, '')
+  elseif a:head2 !=# ''
+    call append(line('.')+5, a:head1)
+    call append(line('.')+6, a:head2)
     call append(line('.')+7, '')
     call append(line('.')+8, '')
-  elseif &filetype ==# 'scala'
-    call setline(1,          '/*'.repeat('=', 80))
-    call append(line('.'),   '# File Name    : '.expand('%'))
-    call append(line('.')+1, '# Author       : AlanDing')
-    call append(line('.')+2, '# Mail         :')
-    call append(line('.')+3, '# Created Time : '.strftime('%c'))
-    call append(line('.')+4, repeat('=', 80).'*/')
+  else
     call append(line('.')+5, '')
     call append(line('.')+6, '')
   endif
-  if &filetype ==# 'cpp'
-    call append(line('.')+6, '#include<iostream>')
-    call append(line('.')+7, 'using namespace std;')
-    call append(line('.')+8, '')
-  elseif &filetype ==# 'c'
-    call append(line('.')+6, '#include<stdio.h>')
-    call append(line('.')+7, '')
-    call append(line('.')+8, '')
-  endif
-  " after creat new file, move the cursor to the last line
-  silent exec 'normal! G'
+  silent exec 'normal! 08j'
 endfunc "}}}
 
 
