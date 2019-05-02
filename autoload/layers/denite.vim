@@ -28,13 +28,12 @@ function! layers#denite#config() abort
     unmap <leader>fh
     unmap <leader>fp
 
-    if !exists(':Unite')
-      call SpaceVim#mapping#space#def('nnoremap', ['q', 'p'], 'Denite menu:AddedPlugins',
-            \ '@ list all installed plugins', 1)
-    endif
-
     nnoremap         <C-p>      :call <sid>warp_denite('Denite file/rec -path=')<left><left>
     nnoremap <silent><C-y>      :call <sid>warp_denite('DeniteCursorWord outline')<CR>
+
+    call SpaceVim#mapping#space#def('nnoremap', ['q', 'p'], 'Denite menu:AddedPlugins',
+          \ '@ list all installed plugins', 1)
+
     let g:_spacevim_mappings.f          = {'name' : '+@ Fuzzy Finder'}
     let g:_spacevim_mappings.f['[SPC]'] = ['Denite menu:CustomKeyMaps', 'fuzzy find custom key bindings']
     call SpaceVim#mapping#def('nnoremap', '<leader>fe', ':Denite register<CR>',
@@ -72,9 +71,8 @@ function! layers#denite#config() abort
           \ 1)
 
   else
-    if !exists(':Unite')
-      nnoremap <silent><space>qp  :Denite menu:AddedPlugins<CR>
-    endif
+    nnoremap <silent> <space>qp   :Denite menu:AddedPlugins<CR>
+
     " leader mapping
     nnoremap <silent> <Leader>fe  :<C-u>Denite register<CR>
     nnoremap <silent> <Leader>fj  :<C-u>Denite jump<CR>

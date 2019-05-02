@@ -39,73 +39,78 @@ function! layers#unite#plugins() abort
 endfunction
 
 
-function! layers#unite#config() abort
-  nnoremap <C-p> :call feedkeys(':Unite file_rec/'.(has('nvim') ? 'neovim' : 'async').' -path=')<CR>
-  if g:is_spacevim
-    unlet g:_spacevim_mappings.f.h | unmap <leader>fh
-    unlet g:_spacevim_mappings.f.p | unmap <leader>fp
-    let g:_spacevim_mappings.f['[SPC]'] = ['Unite menu:CustomKeyMaps', 'fuzzy find custom key bindings']
-    call SpaceVim#mapping#space#def('nnoremap', ['f', 'f'],
-          \ 'Unite file_rec/' . (has('nvim') ? 'neovim' : 'async'),
-          \ 'Find files in current working dir', 1)
+if !exists(':Denite') && !exists(':Leaderf')
+  function! layers#unite#config() abort
+    nnoremap <C-p> :call feedkeys(':Unite file_rec/'.(has('nvim') ? 'neovim' : 'async').' -path=')<CR>
+    if g:is_spacevim
+      unlet g:_spacevim_mappings.f.h | unmap <leader>fh
+      unlet g:_spacevim_mappings.f.p | unmap <leader>fp
+      let g:_spacevim_mappings.f['[SPC]'] = ['Unite menu:CustomKeyMaps', 'fuzzy find custom key bindings']
+      call SpaceVim#mapping#space#def('nnoremap', ['f', 'f'],
+            \ 'Unite file_rec/' . (has('nvim') ? 'neovim' : 'async'),
+            \ 'Find files in current working dir', 1)
 
-    call SpaceVim#mapping#def('nnoremap', '<leader>fa', ':call feedkeys(":Unite")<CR>',
-          \ 'fuzzy finder prefix/Unite', '', 'fuzzy finder prefix/Unite')
-    call SpaceVim#mapping#def('nnoremap', '<leader>ff', ':Unite file_rec/'
-          \ .(has('nvim') ? 'neovim' : 'async').'<CR>',
-          \ 'fuzzy find files in current working dir', '', 'fuzzy find files in current working dir')
-    call SpaceVim#mapping#def('nnoremap', '<leader>fr', ':Unite file_mru<CR>',
-          \ 'fuzzy find recent file'    , '', 'fuzzy find recent file'  )
-    call SpaceVim#mapping#def('nnoremap', '<leader>fe', ':Unite -buffer-name=register register<CR>',
-          \ 'fuzzy find register'       , '', 'fuzzy find register'     )
-    call SpaceVim#mapping#def('nnoremap', '<leader>fj', ':Unite jump<CR>',
-          \ 'fuzzy find jump list'      , '', 'fuzzy find jump list'    )
-    call SpaceVim#mapping#def('nnoremap', '<leader>fl', ':Unite locationlist<CR>',
-          \ 'fuzzy find location list'  , '', 'fuzzy find location list')
-    call SpaceVim#mapping#def('nnoremap', '<leader>fy', ':Unite history/yank<CR>',
-          \ 'fuzzy find yank history'   , '', 'fuzzy find yank history')
-    call SpaceVim#mapping#def('nnoremap', '<leader>fq', ':Unite quickfix<CR>',
-          \ 'fuzzy find quickfix'       , '', 'fuzzy find quickfix'     )
-    call SpaceVim#mapping#def('nnoremap', '<leader>fm', ':Unite output:message<CR>',
-          \ 'fuzzy find message history', '', 'fuzzy find message history')
-    call SpaceVim#mapping#def('nnoremap', '<leader>fc', ':Unite colorscheme<CR>',
-          \ 'fuzzy find colorschemes'   , '', 'fuzzy find colorschemes')
+      call SpaceVim#mapping#def('nnoremap', '<leader>fa', ':call feedkeys(":Unite")<CR>',
+            \ 'fuzzy finder prefix/Unite', '', 'fuzzy finder prefix/Unite')
+      call SpaceVim#mapping#def('nnoremap', '<leader>ff', ':Unite file_rec/'
+            \ .(has('nvim') ? 'neovim' : 'async').'<CR>',
+            \ 'fuzzy find files in current working dir', '', 'fuzzy find files in current working dir')
+      call SpaceVim#mapping#def('nnoremap', '<leader>fr', ':Unite file_mru<CR>',
+            \ 'fuzzy find recent file'    , '', 'fuzzy find recent file'  )
+      call SpaceVim#mapping#def('nnoremap', '<leader>fe', ':Unite -buffer-name=register register<CR>',
+            \ 'fuzzy find register'       , '', 'fuzzy find register'     )
+      call SpaceVim#mapping#def('nnoremap', '<leader>fj', ':Unite jump<CR>',
+            \ 'fuzzy find jump list'      , '', 'fuzzy find jump list'    )
+      call SpaceVim#mapping#def('nnoremap', '<leader>fl', ':Unite locationlist<CR>',
+            \ 'fuzzy find location list'  , '', 'fuzzy find location list')
+      call SpaceVim#mapping#def('nnoremap', '<leader>fy', ':Unite history/yank<CR>',
+            \ 'fuzzy find yank history'   , '', 'fuzzy find yank history')
+      call SpaceVim#mapping#def('nnoremap', '<leader>fq', ':Unite quickfix<CR>',
+            \ 'fuzzy find quickfix'       , '', 'fuzzy find quickfix'     )
+      call SpaceVim#mapping#def('nnoremap', '<leader>fm', ':Unite output:message<CR>',
+            \ 'fuzzy find message history', '', 'fuzzy find message history')
+      call SpaceVim#mapping#def('nnoremap', '<leader>fc', ':Unite colorscheme<CR>',
+            \ 'fuzzy find colorschemes'   , '', 'fuzzy find colorschemes')
 
-    call SpaceVim#mapping#space#def('nmap', ['q', 'p'], 'Unite -silent -winheight=17 -start-insert -direction=rightbelow menu:AddedPlugins',
-          \ '@ list all installed plugins', 1)
+      call SpaceVim#mapping#space#def('nmap', ['q', 'p'], 'Unite -silent -winheight=17 -start-insert -direction=rightbelow menu:AddedPlugins',
+            \ '@ list all installed plugins', 1)
 
-  else
-    " for Vim
-    " NOTE: Default sources:
-    " file    : <Leader>ff
-    " jump    : <Leader>fj
-    " register: <Leader>fe
-    " messages: <Leader>fm
-    if has('nvim')
-      let cmd = 'Unite file_rec/neovim'
     else
-      let cmd = 'Unite file_rec/async'
+      " for Vim
+      " NOTE: Default sources:
+      " file    : <Leader>ff
+      " jump    : <Leader>fj
+      " register: <Leader>fe
+      " messages: <Leader>fm
+      if has('nvim')
+        let cmd = 'Unite file_rec/neovim'
+      else
+        let cmd = 'Unite file_rec/async'
+      endif
+      nnoremap <silent><space>ff        :exec 'UniteWithBufferDir file_rec/'.(has('nvim') ? 'neovim' : 'async')<CR>
+      nnoremap <silent><space>fr        :Unite file_mru<CR>
+      nnoremap <silent><space>zz        :call call(<sid>_function('s:run_shell_cmd'), [])<CR>
+      nnoremap <silent><space>zp        :call call(<sid>_function('s:run_shell_cmd_project'), [])<CR>
+      nnoremap <silent><space>qp        :Unite -silent -winheight=13 -start-insert menu:AddedPlugins<CR>
+
+      nnoremap <silent><leader>fa       :call feedkeys(':Unite ')<CR>
+      nnoremap <silent><leader>ff       :exec 'UniteWithBufferDir file_rec/'.(has('nvim') ? 'neovim' : 'async')<CR>
+      nnoremap <silent><leader>fr       :Unite file_mru<CR>
+      nnoremap <silent><leader>fe       :Unite -buffer-name=register register<CR>
+      nnoremap <silent><leader>fj       :Unite jump<CR>
+      nnoremap <silent><Leader>fl       :Unite locationlist<CR>
+      nnoremap <silent><leader>fm       :Unite output:message<CR>
+      nnoremap <silent><Leader>fy       :Unite history/yank<CR>
+      nnoremap <silent><Leader>fq       :Unite quickfix<CR>
+      nnoremap <silent><Leader>fo       :Unite outline<CR>
+      " nnoremap <silent><Leader>f<Space> :Unite menu:CustomKeyMaps<CR>
     endif
-    nnoremap <silent><space>ff        :exec 'UniteWithBufferDir file_rec/'.(has('nvim') ? 'neovim' : 'async')<CR>
-    nnoremap <silent><space>fr        :Unite file_mru<CR>
-    nnoremap <silent><space>zz        :call call(<sid>_function('s:run_shell_cmd'), [])<CR>
-    nnoremap <silent><space>zp        :call call(<sid>_function('s:run_shell_cmd_project'), [])<CR>
-    nnoremap <silent><space>qp        :Unite -silent -winheight=13 -start-insert menu:AddedPlugins<CR>
-
-    nnoremap <silent><leader>fa       :call feedkeys(':Unite ')<CR>
-    nnoremap <silent><leader>ff       :exec 'UniteWithBufferDir file_rec/'.(has('nvim') ? 'neovim' : 'async')<CR>
-    nnoremap <silent><leader>fr       :Unite file_mru<CR>
-    nnoremap <silent><leader>fe       :Unite -buffer-name=register register<CR>
-    nnoremap <silent><leader>fj       :Unite jump<CR>
-    nnoremap <silent><Leader>fl       :Unite locationlist<CR>
-    nnoremap <silent><leader>fm       :Unite output:message<CR>
-    nnoremap <silent><Leader>fy       :Unite history/yank<CR>
-    nnoremap <silent><Leader>fq       :Unite quickfix<CR>
-    nnoremap <silent><Leader>fo       :Unite outline<CR>
-    " nnoremap <silent><Leader>f<Space> :Unite menu:CustomKeyMaps<CR>
-  endif
-endfunction
-
+  endfunction
+else
+  function! layers#unite#config() abort
+    return
+  endfunction
+endif
 
 function! s:run_shell_cmd() abort
   let cmd = input('Please input shell command:', '', 'customlist,')

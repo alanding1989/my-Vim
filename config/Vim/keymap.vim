@@ -16,15 +16,15 @@ scriptencoding utf-8
 " echo value
 nnoremap <leader>ec        :echo ' '.g:autocomplete_method<CR>
 " nnoremap <leader>ee        :echo
-nnoremap <leader>eh        :EchoHlight 
+nnoremap <leader>eh        :call feedkeys(':EchoHlight ')<CR>
 nnoremap <leader>es        :echo ' '.g:snippet_engine<CR>
 nnoremap <leader>el        :call layers#checkers#showlinter()<CR>
 " nnoremap <leader>em        :EchoMap
 " nnoremap <leader>ev        :version<CR>
 if get(g:, 'snippet_engine', 'neosnippet') ==# 'neosnippet'
-  noremap <leader>en       :NeoSnippetEdit -split -vertical 
+  noremap <leader>en       :call feedkeys(':NeoSnippetEdit -split -vertical ')<CR>
 elseif get(g:, 'snippet_engine') ==# 'ultisnips'
-  noremap <leader>en       :UltiSnipsEdit 
+  noremap <leader>en       :call feedkeys(':UltiSnipsEdit ')<CR>
 endif
 
 " " directory operatios
@@ -41,13 +41,13 @@ endif
 " help
 " nnoremap <space>hh  :call utile#help()<CR>
 
+nnoremap <space>qu  :call util#update_plugin()<CR>
+
 " recache_runtimepath when plugin list changed
-nnoremap <space>qn  :call dein#recache_runtimepath()<CR>
-
-nnoremap <space>qu  :PlugUpdate 
-
-if g:plugmanager ==# 'vim-plug'
-  nnoremap <space>qs :PlugSnapshot ~/.SpaceVim.d/backup/plugsnapshot.vim<CR>
+if g:plugmanager ==# 'dein'
+  nnoremap <space>qn  :call dein#recache_runtimepath()<CR>
+elseif g:plugmanager ==# 'vim-plug'
+  nnoremap <space>qs  :PlugSnapshot ~/.SpaceVim.d/backup/plugsnapshot.vim<CR>
 endif
 
 if has('nvim')

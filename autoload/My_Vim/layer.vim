@@ -18,21 +18,23 @@ let s:default_layers = [
       \ ]
 let g:enabled_plugins_name = []
 let g:uninstalled_plugins  = []
-let s:vim_plug_dir  = g:is_win ? 'D:/.cache/Vim/vim-plug'  :
-      \ '/home/alanding/.cache/Vim'.(g:is_root ? '-root' : '-alan').'/vim-plug'
-let s:dein_plug_dir = g:is_win ? 'D:/.cache/Vim/dein-plug' :
-      \ '/home/alanding/.cache/Vim'.(g:is_root ? '-root' : '-alan').'/dein-plug'
 
 
 function! My_Vim#layer#plug_begin() abort
   let g:enabled_plugins = s:enabled_plugins_get()
   if g:plugmanager     ==# 'vim-plug'
+    let g:My_Vim_plug_dir = g:is_win ? 'D:/.cache/Vim/vim-plug/'  :
+      \ '/home/alanding/.cache/Vim'.(g:is_root ? '-root' : '-alan').'/vim-plug/'
     call s:vim_plug_begin()
   elseif g:plugmanager ==# 'dein'
+    let g:My_Vim_plug_dir = g:is_win ? 'D:/.cache/Vim/dein-plug/' :
+      \ '/home/alanding/.cache/Vim'.(g:is_root ? '-root' : '-alan').'/dein-plug/'
     call s:dein_begin()
   else
     echoerr 'invalid name for plugmanager'
     let g:plugmanager = 'vim-plug'
+    let g:My_Vim_plug_dir = g:is_win ? 'D:/.cache/Vim/vim-plug/'  :
+      \ '/home/alanding/.cache/Vim'.(g:is_root ? '-root' : '-alan').'/vim-plug/'
     call s:vim_plug_begin()
   endif
   if g:enable_checkinstall
@@ -52,14 +54,14 @@ function! s:vim_plug_begin() abort
     let s:firstinstall = 0
   endif
   " init vim-plug }}}
-  call s:Unite_Plugmenu_begin(s:vim_plug_dir)
+  call s:Unite_Plugmenu_begin(g:My_Vim_plug_dir)
   for elem in g:enabled_plugins
     let repo = elem[0]
     let plug_name = split(repo, '/')[-1]
     if index(get(g:, 'disabled_plugins', []), repo) == -1
       Plug repo, get(elem, 1, {})
       call add(g:enabled_plugins_name, plug_name)
-      if finddir(expand(s:vim_plug_dir.'/').plug_name) ==# ''
+      if finddir(expand(g:My_Vim_plug_dir).plug_name) ==# ''
         call add(g:uninstalled_plugins, plug_name)
       endif
     else
@@ -73,20 +75,20 @@ endfunction
 " dein {{{
 function! s:dein_begin() abort
   " install dein {{{
-  if glob(s:dein_plug_dir.'/repos/github.com/Shougo/dein.vim') ==# ''
-    call mkdir(expand(s:dein_plug_dir.'/repos/github.com/Shougo/dein.vim'), 'p', '0700')
+  if glob(g:My_Vim_plug_dir.'repos/github.com/Shougo/dein.vim') ==# ''
+    call mkdir(expand(g:My_Vim_plug_dir.'repos/github.com/Shougo/dein.vim'), 'p', '0700')
     exec '!git clone git@github.com:Shougo/dein.vim.git "'
-          \.expand(s:dein_plug_dir.'/repos/github.com/Shougo/dein.vim').'"'
+          \.expand(g:My_Vim_plug_dir.'repos/github.com/Shougo/dein.vim').'"'
     let s:firstinstall = 1
   else
     let s:firstinstall = 0
   endif
   " init dein }}}
   if &compatible | set nocompatible | endif
-  exec 'set runtimepath+='.expand(s:dein_plug_dir.'/repos/github.com/Shougo/dein.vim')
-  if s:check_plugchange() || dein#load_state(s:dein_plug_dir)
-    call s:Unite_Plugmenu_begin(s:dein_plug_dir)
-    call dein#add(s:dein_plug_dir.'/repos/github.com/Shougo/dein.vim')
+  exec 'set runtimepath+='.expand(g:My_Vim_plug_dir.'repos/github.com/Shougo/dein.vim')
+  if s:check_plugchange() || dein#load_state(g:My_Vim_plug_dir)
+    call s:Unite_Plugmenu_begin(g:My_Vim_plug_dir)
+    call dein#add(g:My_Vim_plug_dir.'repos/github.com/Shougo/dein.vim')
     call dein#add('wsdjeg/dein-ui.vim')
     for elem in g:enabled_plugins
       let repo = elem[0]
@@ -94,7 +96,7 @@ function! s:dein_begin() abort
       if index(get(g:, 'disabled_plugins', []), repo) == -1
         call dein#add(repo, get(elem, 1, {}))
         if s:firstinstall | call add(g:enabled_plugins_name, plug_name) | endif
-        if finddir(expand(s:dein_plug_dir.'/repos/github.com/'.repo)) ==# ''
+        if finddir(expand(g:My_Vim_plug_dir.'repos/github.com/'.repo)) ==# ''
           call add(g:uninstalled_plugins, plug_name)
         endif
       else
@@ -109,7 +111,7 @@ endfunction
 
 " Note: only for dein use
 function! s:check_plugchange() abort
-  let s:filepath = expand(s:dein_plug_dir.'/dein_check_plugchange.vim')
+  let s:filepath = expand(g:My_Vim_plug_dir.'dein_check_plugchange.vim')
   if findfile(s:filepath) ==# ''
     exec 'silent !touch '.s:filepath
     return 1
@@ -163,15 +165,16 @@ function! My_Vim#layer#plug_end() abort
   " load enabled_plugins global config var
   let g:plugnamelist = map(deepcopy(get(g:, 'enabled_plugins_name', [])),
         \ {key, val -> split(val, '\.')[0].'.vim'})
-  " let filelist = !g:is_win ? systemlist('ls '.g:vim_plugindir) : [
-  let filelist = [
-        \ 'ag.vim'            , 'ale.vim'                  , 'asyncomplete.vim' , 'autocomp_plugins.vim', 'coc.vim'              ,
-        \ 'defx-icons.vim'    , 'defx.vim'                 , 'denite.vim'       , 'deoplete.vim'        , 'goyo.vim'             ,
-        \ 'langtools.vim'     , 'LanguageClient-neovim.vim', 'LeaderF.vim'      , 'markdown-preview.vim', 'ncm2.vim'             ,
-        \ 'neco-vim.vim'      , 'neomake.vim'              , 'nerdcommenter.vim', 'nerdtree.vim'        , 'snippet.vim'          ,
-        \ 'tagbar.vim'        , 'ui.vim'                   , 'unite.vim'        , 'vcs.vim'             , 'vim-expand-region.vim',
-        \ 'vim-grammarous.vim', 'vim-gutentags.vim'        , 'vim-startify.vim' , 'vim-visual-multi.vim', 'vimfiler.vim'         ,
-        \ 'vimpyter.vim'      , 'vista.vim'                , 'vim-lsp.vim'      , 'YouCompleteMe.vim',
+  " TODO: fix Windows
+  let filelist = !g:is_win ? systemlist('ls '.g:vim_plugindir) : [
+        \ 'ag.vim'            , 'ale.vim'                  , 'asyncomplete.vim'    , 'autocomp_plugins.vim' , 'coc.vim'        ,
+        \ 'defx-icons.vim'    , 'defx.vim'                 , 'denite.vim'          , 'deoplete.vim'         , 'goyo.vim'       ,
+        \ 'langtools.vim'     , 'LanguageClient-neovim.vim', 'LeaderF.vim'         , 'markdown-preview.vim' , 'ncm2.vim'       ,
+        \ 'neco-vim.vim'      , 'neomake.vim'              , 'nerdcommenter.vim'   , 'nerdtree.vim'         , 'snippet.vim'    ,
+        \ 'tagbar.vim'        , 'ui.vim'                   , 'unite.vim'           , 'vcs.vim'              , 'java_getset.vim',
+        \ 'vim-grammarous.vim', 'vim-expand-region.vim'    , 'vim-gutentags.vim'   , 'vim-javacomplete2.vim', 'vim-lsp.vim'    ,
+        \ 'vim-ref.vim'       , 'vim-startify.vim'         , 'vim-visual-multi.vim', 'vimfiler.vim'         , 'vimpyter.vim'   ,
+        \ 'vista.vim'         , 'YouCompleteMe.vim'        ,
         \ ]
   for file in filelist
     if index(g:plugnamelist, file) > -1

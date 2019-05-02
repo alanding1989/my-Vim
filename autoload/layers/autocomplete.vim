@@ -93,11 +93,7 @@ function! layers#autocomplete#plugins() abort
     endif
 
     if g:autocomplete_method ==# 'coc'
-      if g:is_win
-        call add(plugins, ['neoclide/coc.nvim', {'merged': 0, 'build': './install.cmd', 'do': './install.cmd'}])
-      else
-        call add(plugins, ['neoclide/coc.nvim', {'merged': 0, 'build': './install.sh' , 'do': './install.sh'}])
-      endif
+      call add(plugins, ['neoclide/coc.nvim',  {'merged': 0, 'build': 'yarn install --frozen-lockfile'}])
     elseif g:autocomplete_method ==# 'deoplete'
       call add(plugins, ['Shougo/deoplete.nvim', {'merged'  : 0}])
       call add(plugins, ['ujihisa/neco-look'   , {'on_event': 'InsertEnter'}])

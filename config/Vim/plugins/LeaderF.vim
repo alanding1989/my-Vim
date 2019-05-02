@@ -28,6 +28,7 @@ auto VimEnter *
 let g:Lf_WorkingDirectoryMode = 'Ac'
 let g:Lf_PreviewResult        = {'BufTag': 0, 'Function': 0}
 let g:Lf_HideHelp             = 0
+" <C-X> : open in horizontal split window.
 let g:Lf_CommandMap           = {
       \ '<del>'  : ['<c-d>'],
       \ '<bs>'   : ['<c-h>'],

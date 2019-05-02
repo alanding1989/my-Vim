@@ -39,7 +39,7 @@ let s:serverCommands = {
       \ }
 
 for [ft, cmds] in items(s:serverCommands)
-  if index(g:lsp_ft, ft) > -1
+  if index(g:My_Vim_lsp_ft, ft) > -1
     exec 'au User lsp_setup call lsp#register_server({'
           \ . "'name': 'LSP',"
           \ . "'cmd': {server_info -> " . string(cmds) . '},'

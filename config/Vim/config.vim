@@ -63,7 +63,7 @@ if g:autocomplete_method ==# 'coc'
   let g:snippet_engine = 'coc'
 endif
 
-let g:lsp_ft = [
+let g:My_Vim_lsp_ft = [
       \ 'sh',
       \ 'python',
       \ 'ipynb',

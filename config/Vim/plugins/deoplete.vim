@@ -43,6 +43,7 @@ call deoplete#custom#var('omni', 'input_patterns', {
       \ 'jsp':  ['[^. \t0-9]\.\w*'],
       \})
 if 1
+" if g:spacevim_enable_javacomplete2_py
   call deoplete#custom#option('ignore_sources', {'java': ['omni']})
   call deoplete#custom#source('javacomplete2', 'mark', 'ja')
 else
@@ -82,7 +83,7 @@ call deoplete#custom#source('typescript', 'rank', 9999)
 
 
 " php two types, 1. phpcd (default)  2. lsp
-if &ft ==# 'php'
+if index(g:My_Vim_lsp_ft, 'php') > 0
   if has('nvim')
     call deoplete#custom#option('ignore_sources', {'php': ['omni', 'around', 'member']})
   else
@@ -107,6 +108,8 @@ let g:deoplete#omni_patterns.lua = get(g:deoplete#omni_patterns, 'lua', '.')
 " c c++
 call deoplete#custom#source('clang2', 'mark', '')
 call deoplete#custom#option('ignore_sources', {'c': ['omni']})
+let g:deoplete#sources#clang#libclang_path = expand($CLANG_HOME).(g:is_win ? '\bin\libclang.dll' : '/lib/libclang.so')
+let g:deoplete#sources#clang#clang_header  = expand($CLANG_HOME)
 
 " rust
 call deoplete#custom#option('ignore_sources', {'rust': ['omni']})
@@ -132,7 +135,7 @@ call deoplete#custom#var('omni', 'input_patterns', {
 call deoplete#custom#option('ignore_sources', {'python': ['omni']})
 call deoplete#custom#source('python', 'mark', 'py')
 let g:deoplete#sources#jedi#python_path = g:python3_host_prog
-let g:deoplete#sources#jedi#extra_path  = g:python_host_prog
+" let g:deoplete#sources#jedi#extra_path  = g:python_host_prog
 
 
 " public settings

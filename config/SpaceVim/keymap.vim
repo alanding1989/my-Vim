@@ -90,14 +90,13 @@ let g:_spacevim_mappings_space_custom += [
       \ ['nmap', ['h', 't'], 'call util#test_SPC()'           , '@ toggle test env of SpaceVim'       , 1],
       \ ['nmap', ['h', 'h'], 'call util#help_wrapper()'       , '@ get help docs of input/cursor word', 1],
       \ ['nmap', ['q', 'n'], 'call dein#recache_runtimepath()', '@ recache runtime path for plugins'  , 1],
-      \ ['nmap', ['q', 'u'], 'call feedkeys(":SPUpdate ")'    , '@ update all/input plugins'          , 1],
+      \ ['nmap', ['q', 'u'], 'call util#update_plugin()'      , '@ update all/input plugins'          , 1],
       \ ['nmap', ['q', 'd'], 'SPDebugInfo!'                   , '@ check SpaceVim debug info'         , 1],
-      \ ['nmap', ['q', 'l'], 'SPRuntimeLog'                   , '@ check SpaceVim runtime log'        , 1],
       \ ]
 
 if g:is_nvim
   let g:_spacevim_mappings_space_custom += [
-        \ ['nmap', ['q', 'm'], 'call dein#remote_plugins()'     , '@ update remote plugins'             , 1],
-        \ ['nmap', ['q', 'h'], 'checkhealth'                    , '@ checkhealth'                       , 1],
+        \ ['nmap', ['q', 'm'], 'call dein#remote_plugins()'   , '@ update remote plugins'             , 1],
+        \ ['nmap', ['q', 'h'], 'checkhealth'                  , '@ checkhealth'                       , 1],
         \ ]
 endif

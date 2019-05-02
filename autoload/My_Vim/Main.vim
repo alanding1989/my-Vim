@@ -9,11 +9,11 @@ scriptencoding utf-8
 " init
 function! My_Vim#Main#init() abort
   call util#so_file('config.vim', 'Vim')
-  " try
+  try
     call s:Mainbegin()
-  " catch
-    " call s:Mainfallback()
-  " endtry
+  catch
+    call s:Mainfallback()
+  endtry
 endfunction
 
 

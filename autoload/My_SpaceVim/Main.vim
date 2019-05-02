@@ -55,9 +55,9 @@ endfunction
 " Main {{{
 function! s:Mainbegin() abort
   call s:SpaceVim_add_plugins()
+  call s:Mylayers_config_load()
 
   " My addon config
-  call s:Mylayers_config_load()
   call s:VimEnter_layers_GlobalVar_load()
   auto VimEnter * call s:VimEnter_config()
 endfunction
@@ -67,9 +67,7 @@ function! s:Mainfallback() abort
 
   " My addon config
   call s:VimEnter_layers_GlobalVar_load()
-  auto VimEnter *
-        \ call layers#core#config() |
-        \ call util#so_file('keymap.vim', 'SPC')
+  auto VimEnter * call s:VimEnter_config()
 endfunction
 "}}}
 
@@ -137,7 +135,7 @@ endfunction
 function! s:VimEnter_layers_GlobalVar_load() abort
   for elem in g:enabled_layers
     let elem = substitute(elem, '#', '_', 'g')
-    let p = util#path(g:home.'config/SpaceVim/plugins_before/'.elem.'.vim')
+    let p = expand(g:home.'config/SpaceVim/plugins_before/'.elem.'.vim')
     if filereadable(p)
       exec 'so ' p
     endif
@@ -145,11 +143,15 @@ function! s:VimEnter_layers_GlobalVar_load() abort
 endfunction
 
 function! s:VimEnter_config() abort
-  for elem in s:modified_conf_layers
-    if SpaceVim#layers#isLoaded(elem)
-      call layers#{elem}#config()
-    endif
-  endfor
+  if get(g:, 'is_fallback', 0) != 1
+    for elem in s:modified_conf_layers
+      if SpaceVim#layers#isLoaded(elem)
+        call layers#{elem}#config()
+      endif
+    endfor
+  else
+    call layers#core#config()
+  endif
   " misc mapping
   call util#so_file('keymap.vim', 'SPC')
 endfunction

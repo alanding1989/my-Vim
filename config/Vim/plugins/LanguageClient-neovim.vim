@@ -98,7 +98,7 @@ let s:serverCommands = {
 let g:LanguageClient_serverCommands = {}
 
 for [ft, cmds] in items(s:serverCommands)
-  if index(g:lsp_ft, ft) > -1
+  if index(g:My_Vim_lsp_ft, ft) > -1
     let g:LanguageClient_serverCommands[ft] = cmds
   endif
 endfor

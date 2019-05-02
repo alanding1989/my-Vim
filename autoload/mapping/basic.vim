@@ -254,7 +254,7 @@ function! mapping#basic#load() abort
   " echo prefix
   nnoremap <leader>ee    :echo 
   " highlight
-  nnoremap <leader>eh    :call util#hlight_wrapper()<left>
+  nnoremap <leader>eh    :<C-u>EchoHlight 
   " maparp
   noremap  <leader>em    :<C-u>EchoMap 
   " set options

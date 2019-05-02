@@ -73,12 +73,6 @@ endfunction
 "}}}
 
 
-function! util#path(path) abort
-  " return resolve(expand(a:path))
-  return glob(a:path)
-endfunction
-
-
 " help wrapper {{{
 function! util#help_wrapper(...) abort
   if &ft ==# 'vim' || &ft ==# 'startify'
@@ -116,12 +110,12 @@ endfunc "}}}
 
 
 " highlight wrapper {{{
-function! util#hlight_wrapper(mode) abort
-  if a:mode ==# 'c'
+function! util#hlight_wrapper(...) abort
+  try
     exec ':highlight '.expand('<cword>')
-  else
+  catch
     exec ':highlight'
-  endif
+  endtry
 endfunction " }}}
 
 
@@ -138,6 +132,60 @@ function! util#test_SPC(...) abort
     exec '!git checkout myspacevim'
     echo ' Test environment is off'
   endif
+endfunction "}}}
+
+
+" Plugins related {{{
+function! util#update_plugin() abort
+  try
+    let a_save = @a
+    let @a=''
+    normal! "ayi'
+    let plug_name = match(@a, '/') >= 0 ? split(@a, '/')[1] : @a
+  finally
+    let @a = a_save
+  endtry
+  if g:is_spacevim
+    call feedkeys(':SPUpdate '.plug_name)
+  else
+    call feedkeys(':PlugUpdate '.plug_name)
+  endif
+endfunction
+
+function! util#Open_curplugin_repo()
+  try
+    let a_save = @a
+    let @a=''
+    normal! "ayi'
+    exec 'OpenBrowser https://github.com/'.@a
+  catch
+    echohl WarningMsg | echomsg 'can not open the web of current plugin' | echohl None
+  finally
+    let @a = a_save
+  endtry
+endfunction
+
+function! util#Show_curplugin_log()
+  if exists(':PlugSnapshot') == 2
+    return
+  endif
+  try
+    let a_save = @a
+    let @a=''
+    normal! "ayi'
+    let plug = match(@a, '/') >= 0 ? @a : 'vim-scripts/'.@a
+  finally
+    let @a = a_save
+  endtry
+  let plugdir = g:is_spacevim ? g:spacevim_plugin_bundle_dir : g:My_Vim_plug_dir
+  call unite#start([['output/shellcmd',
+        \ 'git --no-pager -C '.plugdir.'repos/github.com/'
+        \ . plug
+        \ . ' log -n 15 --oneline']], {'log': 1, 'wrap': 1,'start_insert':0})
+  exe "nnoremap <buffer><CR> :call <SID>Opencommit('". plug ."', strpart(split(getline('.'),'[33m')[1],0,7))<CR>"
+endfunction
+function! s:Opencommit(repo, commit)
+  exe 'OpenBrowser https://github.com/' . a:repo .'/commit/'. a:commit
 endfunction "}}}
 
 
