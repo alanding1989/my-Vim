@@ -32,10 +32,10 @@ function! util#statusline#airline() abort
   else "}}}
 
   " slim {{{
-  let g:airline#extensions#default#layout = [
-        \ [ 'a', 'b', 'c'],
-        \ [ 'x', 'y', 'z', 'error'],
-        \ ]
+  " let g:airline#extensions#default#layout = [
+        " \ [ 'a', 'b', 'c'],
+        " \ [ 'x', 'y', 'z', 'error'],
+        " \ ]
   " let g:airline_section_error = "%{' '.util#statusline#CocDiagnostic()}%= "
 
     let g:airline_section_b = "%{' '.airline#extensions#branch#head().' '.airline#extensions#hunks#get_hunks()}"
