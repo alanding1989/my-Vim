@@ -20,8 +20,8 @@ call SpaceVim#mapping#def('nnoremap', '<leader>aa',
       \ 'ggVG', 'select whole buffer', '', 'select whole buffer')
 call SpaceVim#mapping#def('nnoremap', '<leader>ae',
       \ 'VG', 'select to the end', '', 'select to the end')
-call SpaceVim#mapping#def('vnoremap', '<leader>y',
-      \ '\"+y', 'copy select text to system clipboard', '', 'copy select to system clipboard')
+call SpaceVim#mapping#def('xnoremap', '<leader>y',
+      \ '"+y', 'copy select text to system clipboard', '', 'copy select to system clipboard')
 
 
 " echo value/edit snippets

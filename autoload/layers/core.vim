@@ -84,11 +84,12 @@ function! layers#core#config() abort
 endfunction
 
 
-function! s:filetree() abort
+function! s:filetree() abort "{{{
   if g:is_spacevim
     " a:dir=0 open root dir
     " a:dir=1 open last opened dir
     " a:dir=2 open buffer dir/root dir(VimEnter)
+    " a:dir=3 open my src layout dir
     nnoremap <silent><F3>         :call <SID>open_filetree(0)<CR>
     call SpaceVim#mapping#space#def('nnoremap', ['f','o'], 'call call('
           \ . string(function('s:open_filetree'))
@@ -96,10 +97,14 @@ function! s:filetree() abort
     call SpaceVim#mapping#space#def('nnoremap', ['<Tab>'], 'call call('
           \ . string(function('s:open_filetree'))
           \ . ', [2])', 'show file tree at buffer dir', 1)
+    call SpaceVim#mapping#space#def('nnoremap', ['f','l'], 'call call('
+          \ . string(function('s:open_filetree'))
+          \ . ', [3])', 'open my src layout dir', 1)
   else
     nnoremap <silent><F3>         :call <SID>open_filetree(0)<CR>
     nnoremap <silent><space>fo    :call <SID>open_filetree(1)<CR>
     nnoremap <silent><space><tab> :call <SID>open_filetree(2)<CR>
+    nnoremap <silent><space>fl    :call <SID>open_filetree(3)<CR>
   endif
 endfunction
 
@@ -551,17 +556,21 @@ function! s:restart_neovim_qt() abort
   call system('taskkill /f /t /im nvim.exe')
 endfunction
 
+
 " a:dir=0 open root dir
 " a:dir=1 open last opened dir
-" a:dir=2 open buffer dir/root dir(VimEnter)
+" a:dir=2 open buffer dir/root dir(when VimEnter)
+" a:dir=3 open my src layout dir
 if get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'vimfiler'
   function! s:open_filetree(dir) abort
     if a:dir == 0
-      exe 'VimFiler '.getcwd()
+      exec ':VimFiler '.getcwd()
     elseif a:dir == 1
       VimFiler
     elseif a:dir == 2
       VimFilerBufferDir
+    elseif a:dir == 3
+      exec ':VimFiler '.expand(g:home.'extools/projectdir/')
     endif
     doautocmd WinEnter
   endfunction
@@ -572,8 +581,9 @@ elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# '
     elseif a:dir == 1
       exec ':Defx '
     elseif a:dir == 2
-      let path = expand('%:p:h')
-      exec ':Defx '.path
+      exec ':Defx '.expand('%:p:h')
+    elseif a:dir == 3
+      exec ':Defx '.expand(g:home.'extools/projectdir/')
     endif
     if &ft ==# 'defx' | setl conceallevel=0 | endif
     doautocmd WinEnter
@@ -586,10 +596,13 @@ elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# '
       NERDTreeToggle
     elseif a:dir == 2
       NERDTree %
+    elseif a:dir == 3
+      exec ':NERDTree '.expand(g:home.'extools/projectdir/')
     endif
     doautocmd WinEnter
   endfunction
 endif
+"}}}
 
 " function() wrapper {{{
 if v:version > 703 || v:version == 703 && has('patch1170')
