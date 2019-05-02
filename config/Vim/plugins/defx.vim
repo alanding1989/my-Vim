@@ -109,6 +109,7 @@ function! s:defx_init()
   " nnoremap <silent><buffer><expr> q
         " \ defx#do_action('quit')
   nnoremap <silent><buffer><expr> yy defx#do_action('call', 'DefxYarkPath')
+  nnoremap <silent><buffer><expr> L  defx#do_action('call', 'DefxYarkSrcLayout')
   nnoremap <silent><buffer><expr> c
         \ defx#do_action('copy')
   nnoremap <silent><buffer><expr> m
@@ -186,7 +187,7 @@ function! DefxSmartL(_) "{{{
                 \ 'prompt'      : 'ChooseWin No.: ',
                 \ 'cancelreturn': 0,
                 \ })
-          if input == 0 | return | endif
+          if input =~# 0 | return | endif
         else
           let input = input('ChooseWin No.: ')
         endif
@@ -220,7 +221,7 @@ function! DefxSmartCR(_) "{{{
                 \ 'prompt'      : 'ChooseWin No.: ',
                 \ 'cancelreturn': 0,
                 \ })
-          if input == 0 | return | endif
+          if input =~# 0 | return | endif
         else
           let input = input('ChooseWin No.: ')
         endif
@@ -264,6 +265,30 @@ function! DefxSmartH(_) "{{{
   " if you want close_tree immediately, enable below line.
   call defx#call_action('close_tree')
 endfunction "}}}
+
+function! DefxYarkSrcLayout(_) abort "{{{
+  if defx#is_directory()
+    let dirpath = defx#get_candidate()['action__path']
+  else
+    echohl WarningMsg
+    echo 'candidate is not a directory'
+    echohl NONE
+    return
+  endif
+  if has('nvim')
+    let input = input({
+          \ 'prompt'      : 'Input SrcDirname : ',
+          \ 'cancelreturn': 0,
+          \ })
+    if input =~# 0 | return | endif
+  else
+    let input = input('Input SrcDirname : ')
+  endif
+  exec '!cp -r "'.g:home.'extools/projectdir/'.input
+        \ .'" "'.dirpath.'"'
+  echo 'yarked: '.g:home.'extools/projectdir/'.input
+endfunction
+"}}}
 
 function! DefxYarkPath(_) abort
   let candidate = defx#get_candidate()

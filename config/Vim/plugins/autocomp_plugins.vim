@@ -19,18 +19,16 @@ let g:delimitMate_expand_space = 1
 let g:delimitMate_expand_inside_quotes = 1
 let g:delimitMate_jump_expansion = 1
 let g:delimitMate_balance_matchpairs = 1
+" let g:delimitMate_excluded_regions = 'Comment,String'
+" let g:delimitMate_excluded_ft = "mail,txt"
 
 let g:delimitMate_matchpairs = '(:),[:],{:},<:>'
-let g:delimitMate_excluded_regions = 'Comment,String'
-" let g:delimitMate_excluded_ft = "mail,txt"
 let g:delimitMate_quotes = "\" ' ` *"
 let g:delimitMate_nesting_quotes = ['"','`']
 " let delimitMate_smart_quotes = '\w\%#'
 
-auto FileType vim,html,python   let b:delimitMate_quotes = "\" '"
-auto FileType c,perl,scala      let b:delimitMate_eol_marker = ";"
-auto FileType c,perl            let b:delimitMate_insert_eol_marker = 2
-auto FileType python            let b:delimitMate_nesting_quotes = ['"']
+auto FileType c,cpp,perl        let b:delimitMate_insert_eol_marker = 2
+auto FileType c,cpp,perl,scala  let b:delimitMate_eol_marker = ";"
 auto FileType markdown,txt      let b:delimitMate_matchpairs = "(:),[:],{:},<:>,《:》"
 
 

@@ -4,5 +4,5 @@
 
 ### 1.Env :       
 
-    linux   (neovim/vim)
+    linux   (neovim/vim)  
     windows (neovim/gvim)
