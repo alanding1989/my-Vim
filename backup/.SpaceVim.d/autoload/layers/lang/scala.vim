@@ -203,7 +203,8 @@ function! s:language_specified_mappings() abort
           \ 'step out of current function', 1)
     "}}}
 
-    " import
+    " import {{{
+    let g:_spacevim_mappings_space.l.i = {'name' : '+Import'}
     call SpaceVim#mapping#space#langSPC('nnoremap', ['l','i','c'],
           \ 'EnSuggestImport',
           \ 'Show candidates for importing of cursor symbol', 1)
@@ -216,6 +217,7 @@ function! s:language_specified_mappings() abort
     call SpaceVim#mapping#space#langSPC('nnoremap', ['l','i','s'],
           \ 'SortScalaImports',
           \ 'sort imports', 1)
+    " }}}
     " }}}
 
     " Sbt

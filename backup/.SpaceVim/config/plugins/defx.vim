@@ -160,15 +160,8 @@ function! DefxSmartL(_) "{{{
       if exists(':ChooseWin') == 2
         ChooseWin
       else
-        if has('nvim')
-          let input = input({
-                \ 'prompt'      : 'ChooseWin No.: ',
-                \ 'cancelreturn': 0,
-                \ })
-          if input =~# 0 | return | endif
-        else
-          let input = input('ChooseWin No.: ')
-        endif
+        let input = input('ChooseWin No./Cancel(n): ')
+        if input ==# 'n' | return | endif
         if input == winnr()
           echohl WarningMsg
           echo 'should`t choose exsiting defx window'
@@ -194,15 +187,8 @@ function! DefxSmartCR(_) "{{{
       if exists(':ChooseWin') == 2
         ChooseWin
       else
-        if has('nvim')
-          let input = input({
-                \ 'prompt'      : 'ChooseWin No.: ',
-                \ 'cancelreturn': 0,
-                \ })
-          if input =~# 0 | return | endif
-        else
-          let input = input('ChooseWin No.: ')
-        endif
+        let input = input('ChooseWin No./Cancel(n): ')
+        if input ==# 'n' | return | endif
         if input == winnr()
           echohl WarningMsg
           echo 'should`t choose exsiting defx window'
@@ -248,25 +234,26 @@ function! DefxYarkSrcLayout(_) abort "{{{
   if defx#is_directory()
     let dirpath = defx#get_candidate()['action__path']
   else
-    echohl WarningMsg
-    echo 'candidate is not a directory'
-    echohl NONE
-    return
+    let dirpath = fnamemodify(defx#get_candidate()['action__path'], ':h')
   endif
-  if has('nvim')
-    let input = input({
-          \ 'prompt'      : 'Input SrcDirname : ',
-          \ 'cancelreturn': 0,
-          \ })
-    if input =~# 0 | return | endif
-  else
-    let input = input('Input SrcDirname : ')
-  endif
-  exec '!cp -r "'.g:home.'extools/projectdir/'.input
-        \ .'" "'.dirpath.'"'
-  echo 'yarked: '.g:home.'extools/projectdir/'.input
+  let srcname = {'1': 'cpp', '2': 'scala'}[
+        \ inputlist(['Select SourceDir :',
+        \ '1. cpp'   ,
+        \ '2. scala' ,
+        \ ])]
+  " inputlist() by default return 0 if no input or press <ESC>
+  if srcname =~# 0 | return | endif
+  let dname = input('Input DestinationDirname/Cancel(n) : ')
+  if dname ==# 'n' | return | endif
+  silent exec '!cp -rf "'.expand(g:home.'extools/projectdir/'.srcname)
+        \ .'" "' .expand(dirpath.'/'.dname).'"'
+  echohl WarningMsg
+  echo "\n yarked: ".expand(g:home.'extools/projectdir/'.srcname)
+        \ .' => '.expand(dirpath.'/'.dname)
+  echohl NONE
 endfunction
 "}}}
+
 
 function! DefxYarkPath(_) abort
   let candidate = defx#get_candidate()
