@@ -152,7 +152,7 @@ function! util#update_plugin() abort
   endif
 endfunction
 
-function! util#Open_curplugin_repo()
+function! util#Open_curPlugin_repo()
   try
     let a_save = @a
     let @a=''
@@ -165,7 +165,7 @@ function! util#Open_curplugin_repo()
   endtry
 endfunction
 
-function! util#Show_curplugin_log()
+function! util#Show_curPlugin_log()
   if exists(':PlugSnapshot') == 2
     return
   endif
@@ -186,6 +186,19 @@ function! util#Show_curplugin_log()
 endfunction
 function! s:Opencommit(repo, commit)
   exe 'OpenBrowser https://github.com/' . a:repo .'/commit/'. a:commit
+endfunction "}}}
+
+
+" open or search code online docs {{{
+function! util#OpenlinkOrSearch(key, ...) abort
+  let url = {
+        \ 'scala' : 'https://www.scala-lang.org/api/current/index.html?search='
+        \ }
+  if a:0 > 0
+    exec 'OpenBrowser '.url[a:key].a:1
+  else
+    exec 'OpenBrowser '.url[a:key]
+  endif
 endfunction "}}}
 
 
