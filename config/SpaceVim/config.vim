@@ -157,7 +157,7 @@ let g:my_layers = {
       \ 'shell'             : 1,
       \ 'tmux'              : 1,
       \ 'tools'             : 1,
-      \ 'VersionControl'    : 0,
+      \ 'VersionControl'    : 1,
       \
       \ 'denite'            : 1,
       \ 'fzf'               : 0,
@@ -257,6 +257,15 @@ if g:spacevim_snippet_engine !=# 'neosnippet'
         \ 'neopairs.vim'   ,
         \ ]
 endif
+if g:my_layers['VersionControl'] == 1
+  let g:spacevim_disabled_plugins += [
+        \ 'vim-gitgutter'
+        \ ]
+  let g:spacevim_custom_plugins += [
+        \ ['mhinz/vim-signify' , {'merged' : 0}]
+        \ ]
+endif
+
 if !get(g:my_layers, 'denite', 0) && !get(g:my_layers, 'unite', 0)
   let g:spacevim_disabled_plugins += [
         \ 'neomru.vim'    ,

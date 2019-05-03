@@ -96,7 +96,7 @@ let g:My_Vim_layers = {
       \ 'lang#vim'          : 1,
       \ 'tools#clock'       : 1,
       \ 'ui'                : 1,
-      \ 'git'               : 0,
+      \ 'git'               : 1,
       \ 'VersionControl'    : 1,
       \
       \ 'denite'            : 0,

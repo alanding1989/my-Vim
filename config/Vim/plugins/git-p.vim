@@ -45,6 +45,6 @@ highlight link GitPDiffFloat Pmenu
 " use custom diff sign
 let g:gitp_add_sign                   = '✚'
 let g:gitp_modify_sign                = '✹'
-let g:gitp_delete_top_sign            = '▤'
+let g:gitp_delete_top_sign            = '✖'
 let g:gitp_delete_bottom_sign         = '▤'
 let g:gitp_delete_top_and_bottom_sign = '✖'

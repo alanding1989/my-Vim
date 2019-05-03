@@ -25,7 +25,9 @@ function! layers#git#plugins() abort
     call add(plugins, ['junegunn/gv.vim'       , {'on_cmd': 'GV', 'on': 'GV'}])
     call add(plugins, ['tpope/vim-fugitive'    , {'merged': 0}])
     " show info of vcs in sign column, only support git
-    call add(plugins, ['airblade/vim-gitgutter', {'merged': 0}])
+    if !My_Vim#layer#isLoaded('VersionControl')
+      call add(plugins, ['airblade/vim-gitgutter', {'merged': 0}])
+    endif
     if s:git_plugin ==# 'gina'
       call add(plugins, ['lambdalisue/gina.vim', {'on_cmd': 'Gina'}])
     elseif s:git_plugin ==# 'gita'
@@ -93,11 +95,10 @@ function! layers#git#config() abort
     " call SpaceVim#mapping#space#def('nmap', ['g', 'h', 'a'], '<Plug>GitGutterStageHunk', 'stage current hunk', 0)
     " call SpaceVim#mapping#space#def('nmap', ['g', 'h', 'r'], '<Plug>GitGutterUndoHunk' , 'undo cursor hunk', 0)
     " call SpaceVim#mapping#space#def('nmap', ['g', 'h', 'v'], '<Plug>GitGutterPreviewHunk', 'preview cursor hunk', 0)
-    " call SpaceVim#mapping#space#def('nmap', ['g', 'D'],
-          " \ '<Plug>(git-p-diff-preview)', '@ view git diff virtual', 0)
+    call SpaceVim#mapping#space#def('nmap', ['g', 'D'], '<Plug>(git-p-diff-preview)', '@ view git diff virtual', 0)
   else
     nnoremap <space>gf   :GitGutterFold<CR>
-    " nmap     <space>gD   <Plug>(git-p-diff-preview)
+    nmap     <space>gD   <Plug>(git-p-diff-preview)
   endif
 endfunction
 

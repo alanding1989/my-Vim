@@ -9,10 +9,8 @@ scriptencoding utf-8
 function! layers#VersionControl#plugins() abort
   let plugins = []
   " signify can not only support git
-  if !g:is_spacevim && !My_Vim#layer#isLoaded('git')
-    let plugins = [
-          \ ['mhinz/vim-signify' , {'merged' : 0}],
-          \ ]
+  if !g:is_spacevim
+    call add(plugins, ['mhinz/vim-signify' , {'merged' : 0}])
   endif
   return plugins
 endfunction

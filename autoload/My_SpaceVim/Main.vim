@@ -29,12 +29,12 @@ function! My_SpaceVim#Main#init() abort
   " NOTE: the order shouldn`t be changed
   call s:SpaceVim_config_load()
   call s:SpaceVim_load_layers()
-  try
+  " try
     call s:Mainbegin()
-  catch
-    let g:is_fallback = 1
-    call s:Mainfallback()
-  endtry
+  " catch
+    " let g:is_fallback = 1
+    " call s:Mainfallback()
+  " endtry
 endfunction
 
 
