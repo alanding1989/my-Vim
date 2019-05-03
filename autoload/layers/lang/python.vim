@@ -7,8 +7,7 @@ scriptencoding utf-8
 
 function! layers#lang#python#plugins() abort
   let plugins = []
-  call add(plugins, ['jeetsukumaran/vim-pythonsense',
-        \ {'on_ft': 'python', 'for': 'python'}])
+  call add(plugins, ['jeetsukumaran/vim-pythonsense', {'on_ft': 'python', 'for': 'python'}])
   if g:is_nvim
     call add(plugins, ['numirias/semshi', {'on_ft': 'python', 'for': 'python'}])
   else

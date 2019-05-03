@@ -167,14 +167,14 @@ function! My_Vim#layer#plug_end() abort
         \ {key, val -> split(val, '\.')[0].'.vim'})
   " TODO: fix Windows
   let filelist = !g:is_win ? systemlist('ls '.g:vim_plugindir) : [
-        \ 'ag.vim'            , 'ale.vim'                  , 'asyncomplete.vim'    , 'autocomp_plugins.vim' , 'coc.vim'        ,
-        \ 'defx-icons.vim'    , 'defx.vim'                 , 'denite.vim'          , 'deoplete.vim'         , 'goyo.vim'       ,
-        \ 'langtools.vim'     , 'LanguageClient-neovim.vim', 'LeaderF.vim'         , 'markdown-preview.vim' , 'ncm2.vim'       ,
-        \ 'neco-vim.vim'      , 'neomake.vim'              , 'nerdcommenter.vim'   , 'nerdtree.vim'         , 'snippet.vim'    ,
-        \ 'tagbar.vim'        , 'ui.vim'                   , 'unite.vim'           , 'vcs.vim'              , 'java_getset.vim',
-        \ 'vim-grammarous.vim', 'vim-expand-region.vim'    , 'vim-gutentags.vim'   , 'vim-javacomplete2.vim', 'vim-lsp.vim'    ,
-        \ 'vim-ref.vim'       , 'vim-startify.vim'         , 'vim-visual-multi.vim', 'vimfiler.vim'         , 'vimpyter.vim'   ,
-        \ 'vista.vim'         , 'YouCompleteMe.vim'        ,
+        \ 'ag.vim'            , 'ale.vim'              , 'asyncomplete.vim' , 'autocomp_plugins.vim'     , 'coc.vim'        ,
+        \ 'defx.vim'          , 'defx-git.vim'         , 'defx-icons.vim'   , 'denite.vim'               , 'deoplete.vim'   ,
+        \ 'git-p.vim'         , 'goyo.vim'             , 'langtools.vim'    , 'LanguageClient-neovim.vim', 'LeaderF.vim'    ,
+        \ 'ncm2.vim'          , 'neco-vim.vim'         , 'neomake.vim'      , 'nerdcommenter.vim'        , 'nerdtree.vim'   ,
+        \ 'snippet.vim'       , 'tagbar.vim'           , 'ui.vim'           , 'unite.vim'                , 'java_getset.vim',
+        \ 'vim-grammarous.vim', 'vim-expand-region.vim', 'vim-gutentags.vim', 'vim-javacomplete2.vim'    , 'vim-lsp.vim'    ,
+        \ 'vim-ref.vim'       , 'vim-signify.vim'      , 'vim-startify.vim' , 'vim-visual-multi.vim'     , 'vimfiler.vim'   ,
+        \ 'vimpyter.vim'      , 'vista.vim'            , 'YouCompleteMe.vim', 'markdown-preview.vim'     ,
         \ ]
   for file in filelist
     if index(g:plugnamelist, file) > -1

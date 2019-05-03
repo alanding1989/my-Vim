@@ -7,4 +7,5 @@
 scriptencoding utf-8
 
 
-exec 'so '.g:vim_plugindir.'vcs.vim'
+exec 'so '.g:vim_plugindir.'vim-signify.vim'
+

@@ -28,8 +28,8 @@ let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 
 " ================================================================================
 " Preferences
-let g:spacevim_autocomplete_method  = get(['coc'       , 'deoplete' , 'ncm2', 'ycm'], 0)
-let g:spacevim_snippet_engine       = get(['neosnippet', 'ultisnips', 'coc' ], 1)
+let g:spacevim_autocomplete_method  = get(['coc'       , 'deoplete' , 'ncm2', 'ycm'], 1)
+let g:spacevim_snippet_engine       = get(['neosnippet', 'ultisnips', 'coc' ], 0)
 let g:spacevim_fuzzyfinder          = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
 let g:spacevim_filemanager          = get(['vimfiler'  , 'nerdtree' , 'defx'], 2)
 let g:spacevim_statusline           = get(['airline'   , 'lightline', ''    ], 0)
@@ -157,7 +157,7 @@ let g:my_layers = {
       \ 'shell'             : 1,
       \ 'tmux'              : 1,
       \ 'tools'             : 1,
-      \ 'VersionControl'    : 1,
+      \ 'VersionControl'    : 0,
       \
       \ 'denite'            : 1,
       \ 'fzf'               : 0,

@@ -5,38 +5,24 @@
 scriptencoding utf-8
 
 
-" let s:define_my_layers  = ['tags', 'langtools', 'lang#ipynb']
-
-" let s:add_plugin_layers = [
-      " \ 'autocomplete', 'colorscheme'  , 'edit'       , 'denite'    ,
-      " \ 'langtools'   , 'lang#latex'   , 'lang#scala' , 'lang#ipynb',
-      " \ 'lang#vim'    , 'lang#markdown',
-      " \ ]
-"
-" let s:modified_conf_layers = [
-      " \ 'autocomplete', 'chinese'      , 'colorscheme', 'core' ,
-      " \ 'denite'      , 'edit'         ,
-      " \ 'leaderf'     , 'lang#scala'   , 'tools'      , 'unite', 'ui'
-      " \ ]
-
 " MyVim layers
 let s:define_my_layers  = ['tags', 'langtools', 'tools#clock' ]
 
 " SpaceVim embedded layers
 let s:add_plugin_layers = [
-      \ 'autocomplete', 'colorscheme'  , 'core'       , 'edit'       , 'checkers',
-      \ 'denite'      , 'langtools'    , 'lang#latex' , 'lang#python',
-      \ 'lang#vim'    , 'lang#markdown', 'ui'         , 'VersionControl',
+      \ 'autocomplete', 'colorscheme'  , 'checkers'  , 'edit'       ,
+      \ 'git'         , 'langtools'    , 'lang#latex', 'lang#python',
+      \ 'lang#vim'    , 'lang#markdown', 'ui'        ,
       \ ]
 let s:modified_conf_layers = [
       \ 'autocomplete', 'chinese', 'colorscheme', 'core'   , 'denite',
       \ 'edit'        , 'git'    , 'lang#vim'   , 'leaderf', 'tools' ,
-      \ 'unite'       , 'ui'     , 'VersionControl',
+      \ 'unite'       , 'ui'     ,
       \ ]
 
 let s:spacevim_default_cs = [
-      \ 'gruvbox' , 'molokai' , 'onedark'      , 'jellybeans' , 'one' ,
-      \ 'nord'    , 'hybrid'  , 'NeoSolarized' , 'material'   ,
+      \ 'gruvbox' , 'molokai' , 'onedark'      , 'jellybeans' , 'one'   ,
+      \ 'nord'    , 'hybrid'  , 'NeoSolarized' , 'material'   , 'srcery',
       \ ]
 
 function! My_SpaceVim#Main#init() abort

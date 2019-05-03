@@ -34,34 +34,10 @@ call defx#custom#column('mark', {
 call defx#custom#column('icon', {
       \ 'directory_icon': '',
       \ 'opened_icon'   : '',
-      \ 'root_icon'     : 'O(∩_∩)O'             ,
+      \ 'root_icon'     : 'O(∩_∩)O',
       \ })
       " \ 'root_icon'     : 'R',
 
-" icon-plugins {{{
-" let g:defx_icons_enable_syntax_highlight = 1
-" let g:column_length                      = 5
-" let g:parent_icon             = get(g:, 'defx_icons_parent_icon'            , '')
-" let g:directory_icon          = get(g:, 'defx_icons_directory_icon'         , '')
-" let g:mark_icon               = get(g:, 'defx_icons_mark_icon'              , '')
-" let g:default_icon            = get(g:, 'defx_icons_default_icon'           , '')
-" let g:directory_symlink_icon  = get(g:, 'defx_icons_directory_symlink_icon' , '')
-" let g:root_opened_tree_icon   = get(g:, 'defx_icons_root_opened_tree_icon'  , '')
-" let g:nested_closed_tree_icon = get(g:, 'defx_icons_nested_closed_tree_icon', '')
-" let g:nested_opened_tree_icon = get(g:, 'defx_icons_nested_opened_tree_icon', '')
-" let g:nested_closed_tree_icon = get(g:, 'defx_icons_nested_closed_tree_icon', '''')
-" let g:nested_opened_tree_icon = get(g:, 'defx_icons_nested_opened_tree_icon', '''')
-let g:defx_git#indicators     = {
-  \ 'Modified'  : '✹',
-  \ 'Staged'    : '✚',
-  \ 'Untracked' : '✭',
-  \ 'Renamed'   : '➜',
-  \ 'Unmerged'  : '═',
-  \ 'Ignored'   : '☒',
-  \ 'Deleted'   : '✖',
-  \ 'Unknown'   : '?'
-  \ }
-"}}}
 
 augroup vfinit
   au!

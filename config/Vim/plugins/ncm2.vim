@@ -8,7 +8,6 @@ endif
 let s:loaded = 1
 
 
-
 " NOTE: neosnippet has conflict with ncm2, the below 2 value
 " will be auto changed to 0 by using ncm2, I don`t know why
 let g:neosnippet#enable_complete_done = 0

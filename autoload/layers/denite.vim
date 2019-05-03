@@ -5,9 +5,6 @@
 
 function! layers#denite#plugins() abort
   let plugins = []
-  " if g:is_spacevim && get(g:, 'spacevim_filemanager') ==# 'defx' && !SpaceVim#layers#isLoaded('unite')
-    " call add(plugins, ['Shougo/unite.vim',{ 'merged' : 0 , 'loadconf' : 1}])
-  " endif
   if !g:is_spacevim
     let plugins += [
           \ ['Shougo/denite.nvim'     , {'merged' : 0}],

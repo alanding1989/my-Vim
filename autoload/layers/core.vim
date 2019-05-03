@@ -7,9 +7,6 @@ scriptencoding utf-8
 
 function! layers#core#plugins() abort
   let plugins = []
-  if get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'defx'
-    call add(plugins, ['kristijanhusak/defx-git'  , {'merged': 0}])
-  endif
   if !g:is_spacevim
     let plugins += [
           \ ['rhysd/clever-f.vim'      ,     {'merged' : 0}],
@@ -30,14 +27,14 @@ function! layers#core#plugins() abort
       call add(plugins, ['Shougo/unite.vim'   , {'merged': 0}])
       call add(plugins, ['Shougo/vimfiler.vim', {'on_cmd': ['VimFiler', 'VimFilerBufferDir']}])
       if g:is_win
-        call add(plugins, ['Shougo/vimproc.vim' , {'build' : '.\mingw32-make.exe',
-            \ 'do': '.\mingw32-make.exe'}])
+        call add(plugins, ['Shougo/vimproc.vim', {'build' : '.\mingw32-make.exe', 'do': '.\mingw32-make.exe'}])
       else
-        call add(plugins, ['Shougo/vimproc.vim' , {'build' : [(executable('gmake') ? 'gmake' : 'make')],
+        call add(plugins, ['Shougo/vimproc.vim', {'build' : [(executable('gmake') ? 'gmake' : 'make')],
               \ 'do': (executable('gmake') ? 'gmake' : 'make')}])
       endif
     elseif g:filemanager ==# 'defx'
-      call add(plugins, ['Shougo/defx.nvim'   , {'merged': 0}])
+      call add(plugins, ['Shougo/defx.nvim'         , {'merged': 0}])
+      " call add(plugins, ['kristijanhusak/defx-icons', {'merged': 0}])
     endif
     if !has('nvim') && g:is_vim8
       " NOTE: in Vim8, many plugins need the follwing two dependencis
@@ -159,11 +156,18 @@ function! s:unimpaired() abort
   nmap     <silent> [e  <Plug>(ale_previous_wrap)
   nmap     <silent> ]e  <Plug>(ale_next_wrap)
   " coc
-  nmap     <silent> [c  <Plug>(coc-diagnostic-prev)
-  nmap     <silent> ]c  <Plug>(coc-diagnostic-next)
-  " [c or ]c go to next or previous vcs hunk
-  nmap     <silent> [g  <Plug>(signify-prev-hunk)
-  nmap     <silent> ]g  <Plug>(signify-next-hunk)
+  if exists(':CocConfig')
+    nmap     <silent> [c  <Plug>(coc-diagnostic-prev)
+    nmap     <silent> ]c  <Plug>(coc-diagnostic-next)
+  endif
+
+  " [g or ]g go to next or previous vcs hunk
+  nmap     <silent> [g  <Plug>GitGutterPrevHunk
+  nmap     <silent> ]g  <Plug>GitGutterNextHunk
+  if exists(':SignifyDiff')
+    nmap     <silent> [g  <Plug>(signify-prev-hunk)
+    nmap     <silent> ]g  <Plug>(signify-next-hunk)
+  endif
 endfunction
 
 
