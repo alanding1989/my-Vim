@@ -13,7 +13,7 @@ function! layers#edit#plugins() abort "{{{
         \ ['mattn/vim-textobj-url'             ,                              ],
         \ ['coderifous/textobj-word-column.vim',                              ],
         \ ['mg979/vim-visual-multi'            ,      {'on_event': 'BufEnter'}],
-        \ ['haya14busa/vim-edgemotion'         ,    {'on_map': '<Plug>(edge-'}],
+        \ ['haya14busa/vim-edgemotion'         ,    {'on_map': '<Plug>(edge'}],
         \ ['t9md/vim-quickhl'                  , {'on_map': '<plug>(quickhl-'}],
         \ ]
   if get(g:, 'spacevim_enable_cursorword', get(g:, 'enable_cursorword', 0)) == 1

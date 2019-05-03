@@ -39,7 +39,7 @@ function! layers#chinese#config() abort
     vmap <space>xgt   <Plug>TranslateWV
     nmap <space>xgr   <Plug>TranslateR
     vmap <space>xgr   <Plug>TranslateRV
-    nmap <c-q>        <Plug>TranslateW
-    vmap <c-q>        <Plug>TranslateWV
+    nmap <c-t>        <Plug>TranslateW
+    vmap <c-t>        <Plug>TranslateWV
   endif
 endfunction
