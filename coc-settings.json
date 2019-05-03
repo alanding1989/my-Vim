@@ -138,12 +138,12 @@
       "args": [],
       "filetypes": ["javascript"]
     },
-    "metals" : {
-      "command": "metals-vim",
-      "rootPatterns": ["build.sbt"],
-      "args": [],
-      "filetypes": ["scala", "sbt"]
-    },
+//    "metals" : {
+//     "command": "metals-vim",
+//      "rootPatterns": ["build.sbt"],
+//      "args": [],
+//      "filetypes": ["scala", "sbt"]
+//    },
     "dls"  : {
       "command": "diagnostic-languageserver",
       "args": ["--stdio"],

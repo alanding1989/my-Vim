@@ -28,7 +28,7 @@ let g:delimitMate_nesting_quotes = ['"','`']
 " let delimitMate_smart_quotes = '\w\%#'
 
 auto FileType c,cpp,perl        let b:delimitMate_insert_eol_marker = 2
-auto FileType c,cpp,perl,scala  let b:delimitMate_eol_marker = ";"
+auto FileType c,cpp,perl        let b:delimitMate_eol_marker = ";"
 auto FileType markdown,txt      let b:delimitMate_matchpairs = "(:),[:],{:},<:>,《:》"
 
 

@@ -8,12 +8,12 @@ scriptencoding utf-8
 " echo mapping rhs {{{
 function! util#maparg_wrapper(...) abort
   if a:0 == 1 && a:1 ==# 'v'
-    try
+    " try
       " Scriptease plugin
-      call feedkeys(':Verbose map ')
-    catch
+      " call feedkeys(':Verbose map ')
+    " catch
       call feedkeys(':verbose map ')
-    endtry
+    " endtry
   elseif a:0 == 1
     " n mode
     if !empty(maparg('<'.a:1.'>'))
