@@ -76,7 +76,7 @@ function! s:insfhead(cmsign, head1, head2, ...) abort
     call append(line('.')+1, a:cmsign.' Author       : AlanDing')
     call append(line('.')+2, a:cmsign.' mail         :')
     call append(line('.')+3, a:cmsign.' Created Time : '.strftime('%c'))
-    call append(line('.')+4, a:cmsign.repeat('=', 78).a:2)
+    call append(line('.')+4, a:cmsign.repeat('=', 80).a:2)
   endif
   if a:head1 !=# '' && a:head2 ==# ''
     call append(line('.')+5, a:head1)
