@@ -8,36 +8,34 @@ scriptencoding utf-8
 
 function! layers#edit#plugins() abort "{{{
   let plugins = [
-        \ ['kana/vim-textobj-function'          ,                                              ] ,
-        \ ['vim-scripts/argtextobj.vim'         ,                                              ] ,
-        \ ['mattn/vim-textobj-url'              ,                                              ] ,
-        \ ['coderifous/textobj-word-column.vim' ,                                              ] ,
-        \ ['mg979/vim-visual-multi'             ,                     {'on_event': 'BufEnter'} ] ,
-        \ ['haya14busa/vim-edgemotion',       {'on_map': ['<Plug>(edgemotion-j)', '<Plug>(edgemotion-k)'],
-        \                                      'on'    : ['<Plug>(edgemotion-j)', '<Plug>(edgemotion-k)']}],
-        \ ['t9md/vim-quickhl', {'on_map': ['<plug>(quickhl-cword-toggle)', '<Plug>(quickhl-manual-this)'],
-        \                       'on'    : ['<plug>(quickhl-cword-toggle)', '<Plug>(quickhl-manual-this)']}],
+        \ ['kana/vim-textobj-function'         ,                              ],
+        \ ['vim-scripts/argtextobj.vim'        ,                              ],
+        \ ['mattn/vim-textobj-url'             ,                              ],
+        \ ['coderifous/textobj-word-column.vim',                              ],
+        \ ['mg979/vim-visual-multi'            ,      {'on_event': 'BufEnter'}],
+        \ ['haya14busa/vim-edgemotion'         ,    {'on_map': '<Plug>(edge-'}],
+        \ ['t9md/vim-quickhl'                  , {'on_map': '<plug>(quickhl-'}],
         \ ]
   if get(g:, 'spacevim_enable_cursorword', get(g:, 'enable_cursorword', 0)) == 1
     call add(plugins, ['itchyny/vim-cursorword',  {'on_event': 'BufEnter'}])
   endif
   if !g:is_spacevim
     let plugins += [
-          \ ['kana/vim-textobj-user'                                                         ] ,
-          \ ['kana/vim-textobj-indent'                                                       ] ,
-          \ ['tpope/vim-surround'                                                            ] ,
-          \ ['tpope/vim-repeat'                                                              ] ,
-          \ ['junegunn/vim-emoji',                                              {'merged': 0}] ,
-          \ ['haya14busa/vim-easyoperator-line',                                {'merged': 0}] ,
-          \ ['easymotion/vim-easymotion',                                       {'merged': 0}] ,
-          \ ['godlygeek/tabular',                                               {'merged': 0}] ,
-          \ ['terryma/vim-expand-region',                                     {'loadconf': 1}] ,
-          \ ['gcmt/wildfire.vim',    {'on_map': '<Plug>(wildfire-', 'on': '<Plug>(wildfire-'}] ,
-          \ ['osyo-manga/vim-jplus',         {'on_map': '<Plug>(jplus', 'on': '<Plug>(jplus'}] ,
+          \ ['kana/vim-textobj-user'                                                               ],
+          \ ['kana/vim-textobj-indent'                                                             ],
+          \ ['tpope/vim-surround'                                                                  ],
+          \ ['tpope/vim-repeat'                                                                    ],
+          \ ['junegunn/vim-emoji',                                                    {'merged': 0}],
+          \ ['haya14busa/vim-easyoperator-line',                                      {'merged': 0}],
+          \ ['easymotion/vim-easymotion',                                             {'merged': 0}],
+          \ ['godlygeek/tabular',                                                     {'merged': 0}],
+          \ ['terryma/vim-expand-region',                                           {'loadconf': 1}],
+          \ ['gcmt/wildfire.vim',                                    {'on_map': '<Plug>(wildfire-'}],
+          \ ['osyo-manga/vim-jplus',                                     {'on_map': '<Plug>(jplus'}],
           \ ['ntpeters/vim-better-whitespace', {'on_cmd':
-          \ ['StripWhitespace', 'ToggleWhitespace', 'DisableWhitespace', 'EnableWhitespace'],
-          \ 'on': ['StripWhitespace', 'ToggleWhitespace', 'DisableWhitespace', 'EnableWhitespace']}] ,
-          \ ['editorconfig/editorconfig-vim',    {'merged': 0, 'if': has('python') || has('python3')}] ,
+                  \ ['StripWhitespace', 'ToggleWhitespace', 'DisableWhitespace', 'EnableWhitespace'],
+          \ 'on': ['StripWhitespace', 'ToggleWhitespace', 'DisableWhitespace', 'EnableWhitespace']}],
+          \ ['editorconfig/editorconfig-vim',  {'merged': 0, 'if': has('python') || has('python3')}],
           \ ]
     if executable('fcitx')
       call add(plugins, ['lilydjwg/fcitx.vim', { 'on_event' : 'InsertEnter'}])

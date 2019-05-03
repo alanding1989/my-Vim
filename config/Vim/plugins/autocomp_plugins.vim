@@ -30,6 +30,7 @@ let g:delimitMate_nesting_quotes = ['"','`']
 auto FileType c,cpp,perl        let b:delimitMate_insert_eol_marker = 2
 auto FileType c,cpp,perl        let b:delimitMate_eol_marker = ";"
 auto FileType markdown,txt      let b:delimitMate_matchpairs = "(:),[:],{:},<:>,《:》"
+auto FileType python            let b:delimitMate_nesting_quotes = ['"',"'"]
 
 
 "--------------------------------------------------------------------------------
