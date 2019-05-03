@@ -63,6 +63,7 @@ function! SetFileHead() abort " {{{
 endfunc
 
 function! s:insfhead(cmsign, head1, head2, ...) abort
+  silent exec 'normal! O'
   if a:0 == 0
     call setline(1,          a:cmsign.repeat('=', 80))
     call append(line('.'),   a:cmsign.' File Name    : '.expand('%'))

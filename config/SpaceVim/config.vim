@@ -106,9 +106,9 @@ let g:_lang#ipynb_var  = {
       \ 'format_on_save' : 1,
       \ }
 let g:_shell_var = {
-      \ 'default_position' : 'right',
-      \ 'default_height'   : 30     ,
+      \ 'default_height'   : 35     ,
       \ }
+      " \ 'default_position' : 'right',
 let g:_VersionControl_var = {
       \ 'enable_gtm_status' : 0,
       \ }

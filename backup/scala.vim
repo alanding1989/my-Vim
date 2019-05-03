@@ -49,10 +49,17 @@ scriptencoding utf-8
 "   normal    SPC l b c     sbt clean compile
 "   normal    SPC l b r     sbt run
 "   normal    SPC l b t     sbt test
+"   normal    SPC l b p     sbt package
 "   normal    SPC l b d     sbt show project dependencies tree
-"   normal    SPC l b l     sbt reload project configuration
-"   normal    SPC l b u     sbt update project dependencies
+"   normal    SPC l b l     sbt reload project build definition
+"   normal    SPC l b u     sbt update external dependencies
 "   normal    SPC l b e     run sbt to generate .ensime config file
+"
+"   Execute key bindings:
+"
+"   Mode      Key           Function
+"   -------------------------------------------------------------
+"   normal    SPC l r m     run main class
 "
 "   REPL key bindings:
 "
@@ -67,7 +74,7 @@ scriptencoding utf-8
 "
 "   Mode      Key           Function
 "   -------------------------------------------------------------
-"   normal    SPC l Q       setup when first-time-use-ensime
+"   normal    SPC l Q       bootstrap server when first-time-use
 "   normal    SPC l h       show Documentation of cursor symbol
 "   normal    SPC l R       inline local refactoring of cursor symbol
 "   normal    SPC l e       rename cursor symbol
@@ -75,12 +82,35 @@ scriptencoding utf-8
 "   normal    SPC l t       show Type of expression of cursor symbol
 "   normal    SPC l p       show Hierarchical view of a package
 "   normal    SPC l r       find Usages of cursor symbol
+"
 " <
 " @subsection Code formatting
 " To make neoformat support scala file, you should install scalariform.
 " [`scalariform`](https://github.com/scala-ide/scalariform)
 "
 " and set 'g:spacevim_layer_lang_scala_formatter' to the path of the jar.
+
+
+" NOTE: ensime-vim setup steps:
+" the following is quick install steps, if you want to see complete details,
+" please see: http://ensime.github.io/editors/vim/install/
+"
+" 1. Install vim`s plugin and its dependencies as following:
+"    `pip install websocket-client sexpdata`, `pip install pynvim`(neovim only).
+" 2. Integration ENSIME with your build tools, here we use sbt.
+"    > add "sbt-ensime" as global plugin for sbt:
+"      Put code `addSbtPlugin("org.ensime" % "sbt-ensime" % "2.6.1")` in file 
+"      '~/.sbt/plugins/plugins.sbt' (create if not exists).
+"    > Armed with your build tool plugin, generate the `.ensime` config file from
+"      your project directory in command line, e.g. for sbt use `sbt ensimeConfig`,
+"      or `./gradlew ensime` for Gradle. the first time will take several minutes.
+" 3. The first time you use ensime-vim (per Scala version), it will "bootstrap" the
+"    ENSIME server installation when opening a Scala file you will be prompted to
+"    run |:EnInstall|. Do that and give it a minute or two to run.
+"    After this, you should see reports in Vim's message area that ENSIME is coming
+"    up, and the indexer and analyzer are ready.
+"    Going forward, ensime-vim will automatically start the ENSIME server when you
+"    edit Scala files in a project with an `.ensime` config present.
 
 
 function! SpaceVim#layers#lang#scala#plugins() abort
@@ -94,18 +124,6 @@ function! SpaceVim#layers#lang#scala#plugins() abort
 endfunction
 
 
-" NOTE: ensime-vim
-" Armed with your build tool plugin, generate the `.ensime` config from your
-" project directory, e.g. for sbt use `sbt ensimeConfig`, or `./gradlew ensime`
-" for Gradle.
-"
-" To trigger an update of ENSIME server, nuke the bootstrap project: >
-" $ rm -rf ~/.config/ensime-vim/<your Scala version>
-" Restart Vim and run |:EnInstall|.
-"
-" The server will fail to start if any of these files still exist in the
-" `.ensime_cache` directory: `http`, `port`, `server.pid`. If you don’t see ENSIME
-" running but those files are present, delete them and you should be all set.
 function! SpaceVim#layers#lang#scala#config() abort
   let g:scala_use_default_keymappings = 0
   call SpaceVim#mapping#space#regesit_lang_mappings('scala', function('s:language_specified_mappings'))
@@ -114,7 +132,6 @@ function! SpaceVim#layers#lang#scala#config() abort
   augroup SpaceVim_lang_scala
     auto!
     if !SpaceVim#layers#lsp#check_filetype('scala')
-      " omnifunc will be used only when no scala lsp support
       " no omnifunc for scala
       " autocmd FileType scala setlocal omnifunc=scalacomplete#Complete
       call SpaceVim#mapping#gd#add('scala', function('s:go_to_def'))
@@ -144,7 +161,7 @@ function! s:language_specified_mappings() abort
 
   call SpaceVim#mapping#space#langSPC('nnoremap', ['l','Q'],
         \ 'EnInstall',
-        \ 'setup when first-time-use', 1)
+        \ 'bootstrap server when first-time-use', 1)
   call SpaceVim#mapping#space#langSPC('nnoremap', ['l','h'],
         \ 'EnDocBrowse',
         \ 'show Documentation of cursor symbol', 1)
@@ -213,29 +230,38 @@ function! s:language_specified_mappings() abort
   " }}}
   " }}}
 
+  " Execute
+  let g:_spacevim_mappings_space.l.r = {'name' : '+Run'}
+  call SpaceVim#mapping#space#langSPC('nnoremap', ['l','r', 'm'], 'call call('
+        \ . string(function('s:execCMD')) . ', ["sbt run"])',
+        \ 'Run main class', 1)
+
   " Sbt
   let g:_spacevim_mappings_space.l.b = {'name' : '+Sbt'}
   call SpaceVim#mapping#space#langSPC('nnoremap', ['l','b', 'e'], 'call call('
         \ . string(function('s:execCMD')) . ', ["sbt ensimeConfig"])',
-        \ 'run sbt to generate .ensime config file', 1)
+        \ 'Run sbt to generate .ensime file', 1)
   call SpaceVim#mapping#space#langSPC('nnoremap', ['l','b', 'c'], 'call call('
+        \ . string(function('s:execCMD')) . ', ["sbt ~compile"])',
+        \ 'Run sbt continuous compile', 1)
+  call SpaceVim#mapping#space#langSPC('nnoremap', ['l','b', 'C'], 'call call('
         \ . string(function('s:execCMD')) . ', ["sbt clean compile"])',
-        \ 'run sbt clean compile', 1)
-  call SpaceVim#mapping#space#langSPC('nnoremap', ['l','b', 'r'], 'call call('
-        \ . string(function('s:execCMD')) . ', ["sbt run"])',
-        \ 'run sbt run', 1)
+        \ 'Run sbt clean compile', 1)
   call SpaceVim#mapping#space#langSPC('nnoremap', ['l','b', 't'], 'call call('
         \ . string(function('s:execCMD')) . ', ["sbt test"])',
-        \ 'run sbt test', 1)
+        \ 'Run sbt test', 1)
+  call SpaceVim#mapping#space#langSPC('nnoremap', ['l','b', 'p'], 'call call('
+        \ . string(function('s:execCMD')) . ', ["sbt package"])',
+        \ 'Run sbt to package jar', 1)
   call SpaceVim#mapping#space#langSPC('nnoremap', ['l','b', 'd'], 'call call('
         \ . string(function('s:execCMD')) . ', ["sbt inspect tree compile:sources"])',
-        \ 'run sbt to show project dependencies tree', 1)
+        \ 'Run sbt to show project dependencies tree', 1)
   call SpaceVim#mapping#space#langSPC('nnoremap', ['l','b', 'l'], 'call call('
         \ . string(function('s:execCMD')) . ', ["sbt reload"])',
-        \ 'run sbt to reload project configuration', 1)
+        \ 'Run sbt to reload build definition', 1)
   call SpaceVim#mapping#space#langSPC('nnoremap', ['l','b', 'u'], 'call call('
         \ . string(function('s:execCMD')) . ', ["sbt update"])',
-        \ 'run sbt to update project dependencies', 1)
+        \ 'Run sbt to update external dependencies', 1)
 
   " REPL
   let g:_spacevim_mappings_space.l.s = {'name' : '+Send'}
@@ -253,12 +279,17 @@ function! s:language_specified_mappings() abort
         \ 'send selection and keep code buffer focused', 1)
 endfunction
 
+
 function! s:go_to_def() abort
   EnDeclarationSplit v
 endfunction
 
 function! s:execCMD(cmd) abort
-  call unite#start([['output/shellcmd', a:cmd]], {'log': 1, 'wrap': 1,'start_insert':0})
+  try
+    call unite#start([['output/shellcmd', a:cmd]], {'log': 1, 'wrap': 1,'start_insert':0})
+  catch
+    exec '!'.a:cmd
+  endtry
 endfunction
 
 " vim:set et sw=2 cc=80:
