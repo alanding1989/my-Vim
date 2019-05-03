@@ -87,24 +87,23 @@ scriptencoding utf-8
 " @subsection Code formatting
 " To make neoformat support scala file, you should install scalariform.
 " [`scalariform`](https://github.com/scala-ide/scalariform)
-"
 " and set 'g:spacevim_layer_lang_scala_formatter' to the path of the jar.
-
-
-" NOTE: ensime-vim setup steps:
-" the following is quick install steps, if you want to see complete details,
-" please see: http://ensime.github.io/editors/vim/install/
 "
-" 1. Install vim`s plugin and its dependencies as following:
-"    `pip install websocket-client sexpdata`, `pip install pynvim`(neovim only).
+" @subsection Ensime-vim setup steps
+" The following is quick install steps, if you want to see complete details,
+" please see: [`ensime`](http://ensime.github.io/editors/vim/install/)
+"
+" 1. Install vim`s plugin and its dependencies as following.
+"      `pip install websocket-client sexpdata`,
+"      `pip install pynvim` (neovim only).
 " 2. Integration ENSIME with your build tools, here we use sbt.
-"    > add "sbt-ensime" as global plugin for sbt:
+"    > add (sbt-ensime) as global plugin for sbt:
 "      Put code `addSbtPlugin("org.ensime" % "sbt-ensime" % "2.6.1")` in file 
 "      '~/.sbt/plugins/plugins.sbt' (create if not exists).
 "    > Armed with your build tool plugin, generate the `.ensime` config file from
 "      your project directory in command line, e.g. for sbt use `sbt ensimeConfig`,
 "      or `./gradlew ensime` for Gradle. the first time will take several minutes.
-" 3. The first time you use ensime-vim (per Scala version), it will "bootstrap" the
+" 3. The first time you use ensime-vim (per Scala version), it will `bootstrap` the
 "    ENSIME server installation when opening a Scala file you will be prompted to
 "    run |:EnInstall|. Do that and give it a minute or two to run.
 "    After this, you should see reports in Vim's message area that ENSIME is coming
@@ -115,10 +114,10 @@ scriptencoding utf-8
 
 function! SpaceVim#layers#lang#scala#plugins() abort
   let plugins = [ 
-        \ ['derekwyatt/vim-scala', {'merged': 0 ,'on_ft': 'scala'}],
+        \ ['derekwyatt/vim-scala', {'on_ft': 'scala'}],
         \ ]
-  if has('python3')
-    call add(plugins, ['ensime/ensime-vim', {'merged': 0 ,'on_ft': 'scala'}])
+  if has('python3') || has('python')
+    call add(plugins, ['ensime/ensime-vim', {'on_ft': 'scala'}])
   endif
   return plugins
 endfunction
@@ -140,9 +139,9 @@ function! SpaceVim#layers#lang#scala#config() abort
     autocmd BufRead,BufNewFile *.sbt set filetype=scala
     autocmd BufWritePost *.scala silent :EnTypeCheck
   augroup END
-  let g:neoformat_enabled_scala = ['scalariform']
+  let g:neoformat_enabled_scala = neoformat#formatters#scala#enabled()
   let g:neoformat_scala_scalariform = {
-        \ 'exe': 'scala',
+        \ 'exe': 'java',
         \ 'args': ['-jar', get(g:,'spacevim_layer_lang_scala_formatter', ''), '-'],
         \ 'stdin': 1,
         \ }
@@ -223,12 +222,12 @@ function! s:language_specified_mappings() abort
         \ 'Prompt for a qualified import', 1)
   call SpaceVim#mapping#space#langSPC('nnoremap', ['l','i','o'],
         \ 'EnOrganizeImports',
-        \ 'Organize imports of current file', 1)
+        \ 'Organize imports of current file', 1) " }}}
+  " }}}
+  " import vim-scala
   call SpaceVim#mapping#space#langSPC('nnoremap', ['l','i','s'],
         \ 'SortScalaImports',
         \ 'sort imports', 1)
-  " }}}
-  " }}}
 
   " Execute
   let g:_spacevim_mappings_space.l.r = {'name' : '+Run'}
