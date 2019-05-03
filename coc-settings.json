@@ -141,7 +141,6 @@
 //    "metals" : {
 //     "command": "metals-vim",
 //      "rootPatterns": ["build.sbt"],
-//      "args": [],
 //      "filetypes": ["scala", "sbt"]
 //    },
     "dls"  : {

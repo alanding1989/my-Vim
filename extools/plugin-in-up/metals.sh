@@ -23,7 +23,7 @@ chmod +x coursier
   --java-opt -Dmetals.input-box=on \
   --java-opt -Dmetals.icons=unicode \
   --java-opt -Dmetals.http=true \
-  org.scalameta:metals_2.12:0.5.0 \
+  org.scalameta:metals_2.12:0.5.1 \
   -r bintray:scalacenter/releases \
   -r sonatype:snapshots \
   -o /opt/lang-tools/scala/metals-vim -f
