@@ -20,7 +20,7 @@ let g:spacevim_colorscheme = split([
       \ '5 OceanicNext' ,
       \ '6 PaperColor'  ,
       \ '7 nord'        ,
-      \ '8 srcery'  ,
+      \ '8 srcery'      ,
       \ ][2])[1]
 let g:spacevim_colorscheme_default = 'nord'
 let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
@@ -38,7 +38,7 @@ let g:spacevim_enable_neomake       = !g:spacevim_enable_ale
 let g:spacevim_lint_on_the_fly      = 1
 let g:enable_deotabline             = 0
 let g:enable_googlesuggest          = 0
-let g:enable_smart_clock            = 0 && !g:is_win
+let g:enable_smart_clock_startup    = 0 && !g:is_win
 
 " Ui {{{
 let g:statusline_separator                   = get(['fire', 'arrow', 'curve', 'slant'], 0)
@@ -87,14 +87,17 @@ let g:_checkers_var = {
       \ 'show_cursor_error' : 1,
       \ }
 let g:_lang#c_var = {
-      \ 'clang_executable' : exepath('clang'),
-      \ 'libclang_path'    : expand($CLANG_HOME).(g:is_win ? '\bin\libclang.dll' : '/lib/libclang.so'),
-      \ 'clang_std'        : {
+      \ 'clang_executable': g:is_win ? 'D:\devtools\cpp\LLVM\bin\clang'
+      \                              : '/opt/lang-tools/cpp/clang/bin/clang',
+      \ 'libclang_path'   : g:is_win ? 'D:\devtools\cpp\LLVM\bin\libclang.dll'
+      \                              : '/opt/lang-tools/cpp/clang/lib/libclang.so',
+      \ 'clang_std'       : {
       \     'c'  : 'c11',
-      \     'cpp': 'c++1z'
-      \ },
-      \ 'enable_clang_syntax_highlight' : 1,
+      \     'cpp': 'c++1z'},
+      \ 'enable_clang_syntax_highlight': 1,
       \ }
+      " \ 'clang_executable' : exepath('clang'),
+      " \ 'libclang_path'    : expand($CLANG_HOME).(g:is_win ? '\bin\libclang.dll' : '/lib/libclang.so'),
 let g:_lang#markdown_var = {
       \ 'enableWcwidth'  : 1,
       \ 'listItemIndent' : 1,
@@ -106,17 +109,17 @@ let g:_lang#ipynb_var  = {
       \ 'format_on_save' : 1,
       \ }
 let g:_shell_var = {
-      \ 'default_height'   : 35     ,
+      \ 'default_height'   : 35,
       \ }
       " \ 'default_position' : 'right',
 let g:_VersionControl_var = {
       \ 'enable_gtm_status' : 0,
       \ }
 let g:_lsp_var = {'filetypes' : [
-      \ 'cpp',
       \ 'python',
-      \ 'javascript',
       \ ]}
+      " \ 'cpp',
+      " \ 'javascript',
 if g:is_unix
   call add(g:_lsp_var['filetypes'], 'sh')
 endif
@@ -134,7 +137,6 @@ endif
 "   代码补全，检错、修改比较，编辑辅助，文件搜索
 " ============================================================================= {{{
 let g:my_layers = {
-      \ 'core#statusline'   : 1,
       \ 'chat'              : 1,
       \ 'checkers'          : 1,
       \ 'chinese'           : 1,
@@ -143,7 +145,7 @@ let g:my_layers = {
       \ 'git'               : 1,
       \ 'github'            : 1,
       \ 'lsp'               : 1,
-      \ 'lang#c'            : 1,
+      \ 'lang#c'            : 0,
       \ 'lang#ipynb'        : 1,
       \ 'lang#java'         : 0,
       \ 'lang#javascript'   : 0,
@@ -157,7 +159,7 @@ let g:my_layers = {
       \ 'shell'             : 1,
       \ 'tmux'              : 1,
       \ 'tools'             : 1,
-      \ 'VersionControl'    : 1,
+      \ 'VersionControl'    : 0,
       \
       \ 'denite'            : 1,
       \ 'fzf'               : 0,
@@ -257,12 +259,12 @@ if g:spacevim_snippet_engine !=# 'neosnippet'
         \ 'neopairs.vim'   ,
         \ ]
 endif
-if g:my_layers['VersionControl'] == 1
+if g:my_layers['git'] == 1 && g:my_layers['VersionControl'] == 1
   let g:spacevim_disabled_plugins += [
         \ 'vim-gitgutter'
         \ ]
   let g:spacevim_custom_plugins += [
-        \ ['mhinz/vim-signify' , {'merged' : 0}]
+        \ ['mhinz/vim-signify', {'merged' : 0}]
         \ ]
 endif
 

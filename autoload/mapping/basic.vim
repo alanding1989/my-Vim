@@ -86,6 +86,7 @@ function! mapping#basic#load() abort
   nnoremap <silent>qq   :clo<CR>
   nnoremap <silent>qn   :clo<C-r>=winnr()+1<CR><CR>
   nnoremap <silent>qp   :clo<C-r>=winnr()-1<CR><CR>
+  nnoremap <silent>qu   :wincmd z<CR>
   nnoremap <silent>qo   :only<CR>
   nnoremap <silent>qh   :q<CR>
   nnoremap <silent>qd   :try\|bd\|catch\|endtry<CR>

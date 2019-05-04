@@ -6,7 +6,12 @@ scriptencoding utf-8
 
 
 function! layers#tags#plugins() abort
-  if !executable('ctags') | return | endif
+  if !executable('ctags')
+    echohl WarningMsg
+    echo ' ctags is not executable, you need to install ctags first!'
+    echohl NONE
+    return
+  endif
   let plugins = [
         \ [ 'ludovicchabant/vim-gutentags'   ,              {'merged' : 0}],
         \ [ 'skywind3000/gutentags_plus'     ,              {'merged' : 0}],

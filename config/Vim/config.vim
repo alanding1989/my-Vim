@@ -37,7 +37,7 @@ let g:lint_on_the_fly               = 1
 let g:format_on_save                = 1
 let g:enable_deotabline             = 0
 let g:enable_googlesuggest          = 0
-let g:enable_smart_clock            = 0 && !g:is_win
+let g:enable_smart_clock_startup    = 0 && !g:is_win
 
 " Ui {{{
 let g:enable_cursorword             = (g:is_nvim || g:is_gui) ? 1 : 0
@@ -97,7 +97,7 @@ let g:My_Vim_layers = {
       \ 'tools#clock'       : 1,
       \ 'ui'                : 1,
       \ 'git'               : 1,
-      \ 'VersionControl'    : 1,
+      \ 'VersionControl'    : 0,
       \
       \ 'denite'            : 0,
       \ 'fzf'               : 0,

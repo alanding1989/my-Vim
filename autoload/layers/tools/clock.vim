@@ -23,7 +23,7 @@ function! layers#tools#clock#config() abort
   highlight link ClockNormal Normal
   " highlight link ClockNormal Title
 
-  let s:smart_clock = get(g:, 'enable_smart_clock', 1)
+  let s:smart_clock = get(g:, 'enable_smart_clock_startup', 1)
   augroup layer_tools#clock
     autocmd!
     if s:smart_clock

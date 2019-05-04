@@ -13,7 +13,7 @@ let s:loaded = 1
 
 
 
-let g:defx_git#indicators     = {
+let g:defx_git#indicators = {
   \ 'Modified'  : '✹',
   \ 'Staged'    : '✭',
   \ 'Untracked' : '✚',
@@ -23,4 +23,7 @@ let g:defx_git#indicators     = {
   \ 'Deleted'   : '✖',
   \ 'Unknown'   : '?'
   \ }
+auto FileType defx
+      \ nnoremap <buffer><silent> [c <Plug>(defx-git-prev) |
+      \ nnoremap <buffer><silent> ]c <Plug>(defx-git-next)
 

@@ -12,10 +12,30 @@ let s:loaded = 1
 
 
 
-let g:signify_vcs_cmds = {
+if g:is_spacevim
+  if SpaceVim#layers#isLoaded('git')
+    auto VimEnter * let g:signify_vcs_list = ['git']
+  else
+    auto VimEnter * let g:signify_vcs_list = ['hg']
+  endif
+else
+  if My_Vim#layer#isLoaded('git')
+    let g:signify_vcs_list = ['git']
+  else
+    let g:signify_vcs_list = ['hg']
+  endif
+endif
+
+
+let g:signify_vcs_cmds               = {
       \ 'git': 'git diff --no-color --diff-algorithm=histogram --no-ext-diff -U0 -- %f',
       \}
-let g:signify_vcs_list               = ['git', 'hg', 'svn']
+
+
+" let g:signify_disable_by_default     = 0
+" let g:signify_line_highlight         = 0
+let g:signify_update_on_focusgained  = 1
+let g:signify_fold_context           = [0, 3]
 
 let g:signify_sign_add               = '✚'
 let g:signify_sign_delete            = '✖'

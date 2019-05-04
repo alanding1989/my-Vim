@@ -17,7 +17,7 @@ let s:add_plugin_layers = [
 let s:modified_conf_layers = [
       \ 'autocomplete', 'chinese', 'colorscheme', 'core'   , 'denite',
       \ 'edit'        , 'git'    , 'lang#vim'   , 'leaderf', 'tools' ,
-      \ 'unite'       , 'ui'     ,
+      \ 'unite'       , 'ui'     , 'VersionControl'
       \ ]
 
 let s:spacevim_default_cs = [
@@ -29,12 +29,12 @@ function! My_SpaceVim#Main#init() abort
   " NOTE: the order shouldn`t be changed
   call s:SpaceVim_config_load()
   call s:SpaceVim_load_layers()
-  " try
+  try
     call s:Mainbegin()
-  " catch
-    " let g:is_fallback = 1
-    " call s:Mainfallback()
-  " endtry
+  catch
+    let g:is_fallback = 1
+    call s:Mainfallback()
+  endtry
 endfunction
 
 
@@ -65,6 +65,14 @@ endfunction
 
 " load layers
 function! s:SpaceVim_load_layers() abort
+  " disable core#statusline when cs is not a SpaceVim embedded colorscheme
+  if index(s:spacevim_default_cs, g:spacevim_colorscheme) == -1
+    call SpaceVim#layers#disable('core#statusline')
+    let g:spacevim_statusline_separator = 'nil'
+  else
+    let g:my_layers['VersionControl'] = 1
+    let g:spacevim_statusline_separator = g:statusline_separator
+  endif
   for [key, value] in items(g:my_layers)
     let var = get(g:, '_'.key.'_var')
     if value == 1 && type(var) == type({})
@@ -73,14 +81,6 @@ function! s:SpaceVim_load_layers() abort
       call SpaceVim#layers#load(key)
     endif
   endfor
-  " disable core#statusline when cs is not a SpaceVim embedded colorscheme
-  if index(s:spacevim_default_cs, g:spacevim_colorscheme) == -1
-        \ || g:my_layers['core#statusline'] == 0
-    call SpaceVim#layers#disable('core#statusline')
-    let g:spacevim_statusline_separator = 'nil'
-  else
-    let g:spacevim_statusline_separator = g:statusline_separator
-  endif
   let g:enabled_layers = sort(extend(deepcopy(SpaceVim#layers#get()), s:define_my_layers), 'i')
 endfunction
 

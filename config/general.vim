@@ -34,8 +34,8 @@ endif
 " neovim
 if g:is_unix || g:is_mac
   " linux
-  let g:ruby_host_prog      = exepath('neovim-ruby-host')
-  let g:node_host_prog      = exepath('neovim-node-host')
+  let g:ruby_host_prog      = '/home/alanding/.rbenv/shims/neovim-ruby-host'
+  let g:node_host_prog      = '/opt/lang-tools/nvm/versions/node/v11.9.0/bin/neovim-node-host'
   let g:python_host_prog    = '/home/alanding/software/anaconda3/envs/py27/bin/python2.7'
   let g:python3_host_prog   = '/home/alanding/software/anaconda3/envs/py36/bin/python3.6'
 else

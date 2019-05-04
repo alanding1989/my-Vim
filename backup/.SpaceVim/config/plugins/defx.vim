@@ -17,14 +17,16 @@ else
 endif
 
 call defx#custom#option('_', {
-      \ 'winwidth': g:spacevim_sidebar_width,
-      \ 'split': 'vertical',
-      \ 'direction': s:direction,
+      \ 'winwidth'          : g:spacevim_sidebar_width,
+      \ 'split'             : 'vertical',
+      \ 'direction'         : s:direction,
       \ 'show_ignored_files': 0,
-      \ 'buffer_name': '',
-      \ 'toggle': 1,
-      \ 'resume': 1
+      \ 'buffer_name'       : '',
+      \ 'toggle'            : 1,
+      \ 'resume'            : 1,
+      \ 'root_marker'       : ': ',
       \ })
+      " \ 'columns'           : 'git:mark:indent:icon:filename',
 
 call defx#custom#column('mark', {
       \ 'readonly_icon': '',
@@ -34,9 +36,8 @@ call defx#custom#column('mark', {
 call defx#custom#column('icon', {
       \ 'directory_icon': '',
       \ 'opened_icon'   : '',
-      \ 'root_icon'     : 'O(∩_∩)O',
+      \ 'root_icon'     : 'R',
       \ })
-      " \ 'root_icon'     : 'R',
 
 
 augroup vfinit
@@ -80,10 +81,8 @@ function! s:defx_init()
         \ defx#do_action('toggle_select_all')
 
   " Define mappings
-  nnoremap <silent><buffer> qq
-        \ :Defx -columns=git:mark:filename:type<CR>
-  " nnoremap <silent><buffer><expr> q
-        " \ defx#do_action('quit')
+  nnoremap <silent><buffer><expr> qq
+        \ defx#do_action('quit')
   nnoremap <silent><buffer><expr> yy defx#do_action('call', 'DefxYarkPath')
   nnoremap <silent><buffer><expr> L  defx#do_action('call', 'DefxYarkSrcLayout')
   nnoremap <silent><buffer><expr> c
@@ -137,7 +136,7 @@ function! s:defx_init()
         \ defx#do_action('change_vim_cwd')
   nnoremap <silent><buffer><expr> t
         \ defx#do_action('toggle_columns',
-        \                'git:icons:mark:filename:type:size:time')
+        \                'git:mark:indent:icon:filename:type:size:time')
   nnoremap <silent><buffer><expr> gx
         \ defx#do_action('execute_system')
   nnoremap <silent><buffer><expr> g0

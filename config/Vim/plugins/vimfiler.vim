@@ -82,7 +82,7 @@ auto VimEnter * call vimfiler#custom#profile('default', 'context', {
 augroup vfinit
   au!
   autocmd FileType vimfiler call s:vimfilerinit()
-  autocmd BufEnter * nested if (!has('vim_starting') && winnr('$') == 1 && &filetype ==# 'vimfiler') |
+  autocmd BufEnter * nested if (!has('vim_starting') && winnr('$') == 1 && &filetype ==# 'vimfiler'   && g:_autoclose_filetree) |
         \ call s:close_last_vimfiler_windows() | endif
 augroup END
 

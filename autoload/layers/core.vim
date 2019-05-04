@@ -87,6 +87,7 @@ function! s:filetree() abort "{{{
     " a:dir=1 open last opened dir
     " a:dir=2 open buffer dir/root dir(VimEnter)
     " a:dir=3 open my src layout dir
+    " a:dir=4 open current dir in fullscreen with more infor
     nnoremap <silent><F3>         :call <SID>open_filetree(0)<CR>
     call SpaceVim#mapping#space#def('nnoremap', ['f','o'], 'call call('
           \ . string(function('s:open_filetree'))
@@ -97,6 +98,9 @@ function! s:filetree() abort "{{{
     call SpaceVim#mapping#space#def('nnoremap', ['f','l'], 'call call('
           \ . string(function('s:open_filetree'))
           \ . ', [3])', 'open my src layout dir', 1)
+    call SpaceVim#mapping#space#def('nnoremap', ['f','i'], 'call call('
+          \ . string(function('s:open_filetree'))
+          \ . ', [4])', '@ explore current directory', 1)
   else
     nnoremap <silent><F3>         :call <SID>open_filetree(0)<CR>
     nnoremap <silent><space>fo    :call <SID>open_filetree(1)<CR>
@@ -157,16 +161,15 @@ function! s:unimpaired() abort
   nmap     <silent> ]e  <Plug>(ale_next_wrap)
   " coc
   if exists(':CocConfig')
-    nmap     <silent> [c  <Plug>(coc-diagnostic-prev)
-    nmap     <silent> ]c  <Plug>(coc-diagnostic-next)
+    nmap     <silent> [d  <Plug>(coc-diagnostic-prev)
+    nmap     <silent> ]d  <Plug>(coc-diagnostic-next)
   endif
 
-  " [g or ]g go to next or previous vcs hunk
-  nmap     <silent> [g  <Plug>GitGutterPrevHunk
-  nmap     <silent> ]g  <Plug>GitGutterNextHunk
-  if exists(':SignifyDiff')
-    nmap     <silent> [g  <Plug>(signify-prev-hunk)
-    nmap     <silent> ]g  <Plug>(signify-next-hunk)
+  " [c or ]c go to next or previous vcs hunk
+  if exists(':GitGutterFold')
+    nmap     <silent> [c  <Plug>GitGutterPrevHunk
+    nmap     <silent> ]c  <Plug>GitGutterNextHunk
+  " signify no need to set
   endif
 endfunction
 
@@ -565,35 +568,49 @@ endfunction
 function! s:restart_neovim_qt() abort
   call system('taskkill /f /t /im nvim.exe')
 endfunction
+"}}}
 
 
 " a:dir=0 open root dir
 " a:dir=1 open last opened dir
 " a:dir=2 open buffer dir/root dir(when VimEnter)
 " a:dir=3 open my src layout dir
-if get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'vimfiler'
+" a:dir=4 open current dir in fullscreen with more infor
+if get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'vimfiler' "{{{
   function! s:open_filetree(dir) abort
     if a:dir == 0
-      exec ':VimFiler '.getcwd()
+      exec 'VimFiler '.getcwd()
     elseif a:dir == 1
       VimFiler
     elseif a:dir == 2
       VimFilerBufferDir
     elseif a:dir == 3
-      exec ':VimFiler '.expand(g:home.'extools/projectdir/')
+      exec 'VimFiler '.expand(g:home.'extools/projectdir/')
+    elseif a:dir == 4
+      let g:_autoclose_filetree = 0
+      let g:_spacevim_autoclose_filetree = 0
+      VimFilerCurrentDir -no-split -columns=type:size:time
+      let g:_autoclose_filetree = 1
+      let g:_spacevim_autoclose_filetree = 1
     endif
     doautocmd WinEnter
   endfunction
 elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'defx'
   function! s:open_filetree(dir) abort
     if a:dir == 0
-      exec ':Defx '.getcwd()
+      Defx `getcwd()`
     elseif a:dir == 1
-      exec ':Defx '
+      Defx
     elseif a:dir == 2
-      exec ':Defx '.expand('%:p:h')
+      Defx `expand('%:p:h')`
     elseif a:dir == 3
-      exec ':Defx '.expand(g:home.'extools/projectdir/')
+      Defx `expand(g:home.'extools/projectdir/')`
+    elseif a:dir == 4
+      let g:_autoclose_filetree = 0
+      let g:_spacevim_autoclose_filetree = 0
+      Defx -split=no -columns=git:mark:indent:filename:type:size:time `getcwd()`
+      let g:_autoclose_filetree = 1
+      let g:_spacevim_autoclose_filetree = 1
     endif
     if &ft ==# 'defx' | setl conceallevel=0 | endif
     doautocmd WinEnter
@@ -601,13 +618,15 @@ elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# '
 elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'nerdtree'
   function! s:open_filetree(dir) abort
     if a:dir == 0
-      NERDTreeToggle
+      exec 'e '.getcwd()
     elseif a:dir == 1
       NERDTreeToggle
     elseif a:dir == 2
       NERDTree %
     elseif a:dir == 3
-      exec ':NERDTree '.expand(g:home.'extools/projectdir/')
+      exec 'NERDTree '.expand(g:home.'extools/projectdir/')
+    elseif a:dir == 4
+      exec 'e '.getcwd()
     endif
     doautocmd WinEnter
   endfunction

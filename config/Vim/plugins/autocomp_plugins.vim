@@ -23,14 +23,18 @@ let g:delimitMate_balance_matchpairs = 1
 " let g:delimitMate_excluded_ft = "mail,txt"
 
 let g:delimitMate_matchpairs = '(:),[:],{:},<:>'
-let g:delimitMate_quotes = "\" ' ` *"
+let g:delimitMate_quotes = "\" ' `"
 let g:delimitMate_nesting_quotes = ['"','`']
 " let delimitMate_smart_quotes = '\w\%#'
 
-auto FileType c,cpp,perl        let b:delimitMate_insert_eol_marker = 2
-auto FileType c,cpp,perl        let b:delimitMate_eol_marker = ";"
-auto FileType markdown,txt      let b:delimitMate_matchpairs = "(:),[:],{:},<:>,《:》"
-auto FileType python            let b:delimitMate_nesting_quotes = ['"',"'"]
+augroup my_delimitMate
+  autocmd!
+  auto FileType c,cpp,perl    let b:delimitMate_insert_eol_marker = 2
+  auto FileType c,cpp,perl    let b:delimitMate_eol_marker = ";"
+  auto FileType python        let b:delimitMate_nesting_quotes = ['"',"'"]
+  auto FileType markdown,txt  let b:delimitMate_matchpairs = "(:),[:],{:},<:>,《:》"
+        \ | let b:delimitMate_quotes = "\" ' ` *"
+augroup END
 
 
 "--------------------------------------------------------------------------------

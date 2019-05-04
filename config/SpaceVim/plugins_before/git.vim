@@ -7,9 +7,9 @@
 scriptencoding utf-8
 
 
-if g:is_nvim
-  exec 'so '.g:vim_plugindir.'git-p.vim'
-endif
+" if g:is_nvim
+  " exec 'so '.g:vim_plugindir.'git-p.vim'
+" endif
 
 
 if g:spacevim_filemanager ==# 'defx'
@@ -17,4 +17,6 @@ if g:spacevim_filemanager ==# 'defx'
 endif
 
 
-exec 'so '.g:vim_plugindir.'vim-gitgutter.vim'
+if SpaceVim#layers#isLoaded('git') && index(g:spacevim_disabled_plugins, 'vim-gitgutter') == -1
+  exec 'so '.g:vim_plugindir.'vim-gitgutter.vim'
+endif

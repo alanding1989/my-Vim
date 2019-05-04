@@ -43,29 +43,31 @@ function! layers#denite#config() abort
           \ 'fuzzy find message history', '', 'fuzzy find message history')
     call SpaceVim#mapping#def('nnoremap', '<leader>fq' , ':Denite quickfix<CR>',
           \ 'fuzzy find quickfix'       , '', 'fuzzy find quickfix'     )
-    call SpaceVim#mapping#def('nnoremap', '<leader>fd', ':call feedkeys(":Denite")<CR>',
+    call SpaceVim#mapping#def('nnoremap', '<leader>fd', ':call feedkeys(":Denite ")<CR>',
           \ 'fuzzy finder prefix/Denite', '', 'fuzzy finder prefix/Denite')
 
-    call SpaceVim#mapping#def('nnoremap', '<leader>fa', ':call feedkeys(":Denite")<CR>',
-          \ 'fuzzy finder prefix/Denite', '', 'fuzzy finder prefix/Denite')
-    call SpaceVim#mapping#def('nnoremap', '<leader>fr', ':Denite file_mru<CR>',
-          \ 'fuzzy find recent files'   , '', 'fuzzy find recent files')
-    call SpaceVim#mapping#def('nnoremap', '<leader>fb', ':Denite buffer<CR>',
-          \ 'fuzzy find buffer list'    , '', 'fuzzy find buffer list')
-    call SpaceVim#mapping#def('nnoremap', '<leader>ff', ':DeniteProjectDir file/rec<CR>',
-          \ 'fuzzy files in current working dir', '', 'fuzzy find files in current working dir')
-    call SpaceVim#mapping#def('nnoremap', '<leader>fs', ':Denite grep<CR>',
-          \ 'fuzzy grep'                , '', 'fuzzy grep')
-    call SpaceVim#mapping#def('nnoremap', '<leader>fc', ':Denite colorscheme<CR>',
-          \ 'fuzzy find colorscheme'    , '', 'fuzzy find colorscheme')
-    call SpaceVim#mapping#def('nnoremap', '<leader>fy', ':Denite neoyank<CR>',
-          \ 'fuzzy find yank history'   , '', 'fuzzy find yank history')
-    call SpaceVim#mapping#def('nnoremap', '<leader>fo', ':Denite outline<CR>',
-          \ 'fuzzy find outline'        , '', 'fuzzy find outline')
-    call SpaceVim#mapping#space#def('nnoremap', ['f', 'f'], 'call call('
-          \ . string(s:_function('s:warp_denite')).', ["DeniteProjectDir file/rec"])',
-          \ 'Find files in the directory of the current buffer',
-          \ 1)
+    if !SpaceVim#layers#isLoaded('leaderf')
+      call SpaceVim#mapping#def('nnoremap', '<leader>fa', ':call feedkeys(":Denite ")<CR>',
+            \ 'fuzzy finder prefix/Denite', '', 'fuzzy finder prefix/Denite')
+      call SpaceVim#mapping#def('nnoremap', '<leader>fr', ':Denite file_mru<CR>',
+            \ 'fuzzy find recent files'   , '', 'fuzzy find recent files')
+      call SpaceVim#mapping#def('nnoremap', '<leader>fb', ':Denite buffer<CR>',
+            \ 'fuzzy find buffer list'    , '', 'fuzzy find buffer list')
+      call SpaceVim#mapping#def('nnoremap', '<leader>ff', ':DeniteProjectDir file/rec<CR>',
+            \ 'fuzzy files in current working dir', '', 'fuzzy find files in current working dir')
+      call SpaceVim#mapping#def('nnoremap', '<leader>fs', ':Denite grep<CR>',
+            \ 'fuzzy grep'                , '', 'fuzzy grep')
+      call SpaceVim#mapping#def('nnoremap', '<leader>fc', ':Denite colorscheme<CR>',
+            \ 'fuzzy find colorscheme'    , '', 'fuzzy find colorscheme')
+      call SpaceVim#mapping#def('nnoremap', '<leader>fy', ':Denite neoyank<CR>',
+            \ 'fuzzy find yank history'   , '', 'fuzzy find yank history')
+      call SpaceVim#mapping#def('nnoremap', '<leader>fo', ':Denite outline<CR>',
+            \ 'fuzzy find outline'        , '', 'fuzzy find outline')
+      call SpaceVim#mapping#space#def('nnoremap', ['f', 'f'], 'call call('
+            \ . string(s:_function('s:warp_denite')).', ["DeniteProjectDir file/rec"])',
+            \ 'Find files in the directory of the current buffer',
+            \ 1)
+    endif
 
   else
     nnoremap <silent> <space>qp   :Denite menu:AddedPlugins<CR>
@@ -77,7 +79,7 @@ function! layers#denite#config() abort
     nnoremap <silent> <Leader>fm  :<C-u>Denite output:message<CR>
     nnoremap <silent> <Leader>fy  :<C-u>Denite neoyank<CR>
     nnoremap <silent> <Leader>fq  :<C-u>Denite quickfix<CR>
-    if !exists(':Leaderf')
+    if !My_Vim#layer#isLoaded('leaderf')
       nnoremap <silent><c-p>        :call <sid>warp_denite('Denite file/rec')<CR>
       nnoremap <silent><c-y>        :call <sid>warp_denite('DeniteCursorWord outline')<CR>
       " space mapping

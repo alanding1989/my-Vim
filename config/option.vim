@@ -65,6 +65,8 @@ endif
 set lazyredraw
 set synmaxcol=200
 
+set updatetime=100
+
 set tags=./.tags;,.tags
 "}}}
 

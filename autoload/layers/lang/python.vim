@@ -14,7 +14,7 @@ function! layers#lang#python#plugins() abort
     call add(plugins, ['vim-python/python-syntax', {'on_ft': 'python', 'for': 'python'}])
   endif
   if !g:is_spacevim
-    if g:My_Vim_layers['lsp'] != 1
+    if !My_Vim#layer#isLoaded('lsp')
       if has('nvim')
         call add(plugins, ['zchee/deoplete-jedi', {'on_ft': 'python', 'for': 'python'}])
         " in neovim, we can use deoplete-jedi together with jedi-vim,
