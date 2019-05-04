@@ -23,9 +23,9 @@ function! layers#chinese#config() abort
   if g:is_spacevim
     let g:_spacevim_mappings_space.x.g = {'name' : '+Translate'}
     call SpaceVim#custom#SPC('nmap', ['l', 'c']     , 'CheckChinese'                 , 'Check with ChineseLinter', 1)
-    call SpaceVim#custom#SPC('nmap', ['x', 'g', 'i'], 'call feedkeys(":TranslateW ")', 'translate input word or sentence', 1)
-    call SpaceVim#custom#SPC('nmap', ['x', 'g', 't'], '<Plug>TranslateW'             , 'translate cursor word'           , 0)
-    call SpaceVim#custom#SPC('vmap', ['x', 'g', 't'], '<Plug>TranslateWV'            , 'translate cursor word'           , 0)
+    call SpaceVim#custom#SPC('nmap', ['x', 'g', 'i'], 'call feedkeys(":TranslateW ")', 'translate inputted word or sentence', 1)
+    call SpaceVim#custom#SPC('nmap', ['x', 'g', 't'], '<Plug>TranslateW'             , 'translate cursor word'              , 0)
+    call SpaceVim#custom#SPC('vmap', ['x', 'g', 't'], '<Plug>TranslateWV'            , 'translate cursor word'              , 0)
     call SpaceVim#custom#SPC('nmap', ['x', 'g', 'r'], '<Plug>TranslateR'             , 'replace cursor word with translate one', 0)
     call SpaceVim#custom#SPC('vmap', ['x', 'g', 'r'], '<Plug>TranslateRV'            , 'replace cursor word with translate one', 0)
     nmap <c-q>        <Plug>TranslateW
