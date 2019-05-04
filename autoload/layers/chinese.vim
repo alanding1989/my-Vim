@@ -20,7 +20,6 @@ function! layers#chinese#plugins() abort
 endfunction
 
 function! layers#chinese#config() abort
-  let g:loaded_vimcdoc = 1
   if g:is_spacevim
     let g:_spacevim_mappings_space.x.g = {'name' : '+Translate'}
     call SpaceVim#custom#SPC('nmap', ['l', 'c']     , 'CheckChinese'                 , 'Check with ChineseLinter', 1)
@@ -33,6 +32,7 @@ function! layers#chinese#config() abort
     vmap <c-q>        <Plug>TranslateWV
 
   else
+    let g:loaded_vimcdoc = 1
     nmap <space>lc    :CheckChinese<cr>
     nmap <space>xgi   :TranslateW
     nmap <space>xgt   <Plug>TranslateW
