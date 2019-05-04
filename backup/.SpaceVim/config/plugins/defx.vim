@@ -25,8 +25,8 @@ call defx#custom#option('_', {
       \ 'toggle'            : 1,
       \ 'resume'            : 1,
       \ 'root_marker'       : ': ',
+      \ 'columns'           : 'git:mark:indent:icon:filename',
       \ })
-      " \ 'columns'           : 'git:mark:indent:icon:filename',
 
 call defx#custom#column('mark', {
       \ 'readonly_icon': '',

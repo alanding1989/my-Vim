@@ -15,12 +15,13 @@ endif
 
 function! layers#git#plugins() abort
   let plugins = []
+  call add(plugins, ['sodapopcan/vim-twiggy', {'on_cmd': 'Twiggy', 'on': 'Twiggy'}])
   " if g:is_nvim
     " call add(plugins, ['iamcco/sran.nvim' , {'build': 'yarn', 'do': 'yarn'}])
     " call add(plugins, ['iamcco/git-p.nvim', {'merged': 0}])
   " endif
   if g:is_spacevim && g:spacevim_filemanager ==# 'defx'
-    call add(plugins, ['kristijanhusak/defx-git', {'merged': 0}])
+      " call add(plugins, ['kristijanhusak/defx-git', {'merged': 0}])
   elseif !g:is_spacevim
     call add(plugins, ['junegunn/gv.vim'       , {'on_cmd': 'GV', 'on': 'GV'}])
     call add(plugins, ['tpope/vim-fugitive'    , {'merged': 0}])
@@ -67,6 +68,7 @@ function! layers#git#config() abort
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'f'], 'SignifyFold'  , '@ toggle folding unchanged lines', 1)
       unlet g:_spacevim_mappings_space.g.h
     endif
+    call SpaceVim#mapping#space#def('nnoremap', ['g', 'j'], 'Twiggy', 'open git branch manager', 1)
   else
     "{{{
     if s:git_plugin ==# 'gina'
