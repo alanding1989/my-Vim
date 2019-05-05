@@ -23,18 +23,18 @@ let g:uninstalled_plugins  = []
 function! My_Vim#layer#plug_begin() abort
   let g:enabled_plugins = s:enabled_plugins_get()
   if g:plugmanager     ==# 'vim-plug'
-    let g:My_Vim_plug_dir = g:is_win ? 'D:/.cache/Vim/vim-plug/'  :
-      \ '/home/alanding/.cache/Vim'.(g:is_root ? '-root' : '-alan').'/vim-plug/'
+    let g:My_Vim_plug_dir = g:is_win ? 'D:/.cache/My_Vim/vim-plug/'  :
+      \ '/home/alanding/.cache/My_Vim'.(g:is_root ? '-root' : '-alan').'/vim-plug/'
     call s:vim_plug_begin()
   elseif g:plugmanager ==# 'dein'
-    let g:My_Vim_plug_dir = g:is_win ? 'D:/.cache/Vim/dein-plug/' :
-      \ '/home/alanding/.cache/Vim'.(g:is_root ? '-root' : '-alan').'/dein-plug/'
+    let g:My_Vim_plug_dir = g:is_win ? 'D:/.cache/My_Vim/dein-plug/' :
+      \ '/home/alanding/.cache/My_Vim'.(g:is_root ? '-root' : '-alan').'/dein-plug/'
     call s:dein_begin()
   else
     echoerr 'invalid name for plugmanager'
     let g:plugmanager = 'vim-plug'
-    let g:My_Vim_plug_dir = g:is_win ? 'D:/.cache/Vim/vim-plug/'  :
-      \ '/home/alanding/.cache/Vim'.(g:is_root ? '-root' : '-alan').'/vim-plug/'
+    let g:My_Vim_plug_dir = g:is_win ? 'D:/.cache/My_Vim/vim-plug/'  :
+      \ '/home/alanding/.cache/My_Vim'.(g:is_root ? '-root' : '-alan').'/vim-plug/'
     call s:vim_plug_begin()
   endif
   if g:enable_checkinstall

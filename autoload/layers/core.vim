@@ -597,11 +597,7 @@ if get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'vimf
       VimFilerCurrentDir -no-split -columns=type:size:time
       let g:_spacevim_autoclose_filetree = 1
     elseif a:dir == 5
-      if g:is_spacevim
-        exec 'VimFiler '.g:spacevim_plugin_bundle_dir
-      else
-        exec 'VimFiler '.g:My_Vim_plug_dir
-      endif
+      call <sid>open_filetree_5('VimFiler ')
     endif
     doautocmd WinEnter
   endfunction
@@ -620,11 +616,7 @@ elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# '
       Defx -split=no -columns=git:mark:indent:filename:type:size:time `getcwd()`
       let g:_spacevim_autoclose_filetree = 1
     elseif a:dir == 5
-      if g:is_spacevim
-        Defx `g:spacevim_plugin_bundle_dir`
-      else
-        Defx `g:My_Vim_plug_dir`
-      endif
+      call <sid>open_filetree_5('Defx ')
     endif
     if &ft ==# 'defx' | setl conceallevel=0 | endif
     doautocmd WinEnter
@@ -642,15 +634,39 @@ elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# '
     elseif a:dir == 4
       exec 'e '.getcwd()
     elseif a:dir == 5
-      if g:is_spacevim
-        exec 'NERDTree '.g:spacevim_plugin_bundle_dir
-      else
-        exec 'NERDTree '.g:My_Vim_plug_dir
-      endif
+      call <sid>open_filetree_5('NERDTree ')
     endif
     doautocmd WinEnter
   endfunction
 endif
+function! s:open_filetree_5(cmd) abort
+  let temp = @a | let @a=''
+  norm! mz"ayi'
+  norm! `z
+  if exists('#dein')
+    if g:is_spacevim
+      let g:alan = 1
+      if glob(g:spacevim_plugin_bundle_dir.'repos/github.com/'.@a) !=# ''
+        exec a:cmd . g:spacevim_plugin_bundle_dir.'repos/github.com/'.@a
+      endif
+    else
+      if glob(g:My_Vim_plug_dir.'repos/github.com/'.@a) !=# ''
+        exec a:cmd . g:My_Vim_plug_dir.'repos/github.com/'.@a
+      endif
+    endif
+  else
+    if g:is_spacevim
+      if glob(g:spacevim_plugin_bundle_dir.'repos/github.com/'.@a) !=# ''
+        exec a:cmd . g:spacevim_plugin_bundle_dir . split(@a, '/')[1]
+      endif
+    else
+      if glob(g:My_Vim_plug_dir.'repos/github.com/'.@a) !=# ''
+        exec a:cmd . g:My_Vim_plug_dir . split(@a, '/')[1]
+      endif
+    endif
+  endif
+  let @a = temp
+endfunction
 "}}}
 
 " function() wrapper {{{

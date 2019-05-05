@@ -141,7 +141,8 @@ function! util#update_plugin() abort
   try
     let a_save = @a
     let @a=''
-    normal! "ayi'
+    normal! mx"ayi'
+    normal! `x
     let plug_name = match(@a, '/') >= 0 ? split(@a, '/')[1] : @a
   finally
     let @a = a_save

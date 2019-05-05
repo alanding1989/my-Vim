@@ -21,7 +21,7 @@ endfunction
 
 function! layers#leaderf#config() abort
   if g:is_spacevim
-    nnoremap <c-p>         :LeaderfFile 
+    nnoremap <c-p>         :call feedkeys(':LeaderfFile ')<CR>
     nnoremap <silent><c-y> :LeaderfBufTagAllCword<cr>
 
     " space mapping
@@ -44,23 +44,23 @@ function! layers#leaderf#config() abort
 
     noremap <silent><leader>fhc   :LeaderfHistoryCmd<cr>
     noremap <silent><leader>fhs   :LeaderfHistorySearch<cr>
-    call SpaceVim#mapping#def('nnoremap', '<leader>fa', 'call feedkeys(":Leaderf ")<CR>', 
+    call SpaceVim#mapping#def('nnoremap', '<leader>fa', 'call feedkeys(":Leaderf ")<CR>',
           \ 'fuzzy finder prefix/Leaderf', '', 'fuzzy finder prefix/Leaderf')
-    call SpaceVim#mapping#def('nnoremap', '<leader>fr', ':LeaderfMru<cr>', 
+    call SpaceVim#mapping#def('nnoremap', '<leader>fr', ':LeaderfMru<cr>',
           \ 'fuzzy find recent files'   , '', 'fuzzy find recent files')
-    call SpaceVim#mapping#def('nnoremap', '<leader>fb', ':LeaderfBuffer<cr>', 
+    call SpaceVim#mapping#def('nnoremap', '<leader>fb', ':LeaderfBuffer<cr>',
           \ 'fuzzy find buffer list'    , '', 'fuzzy find buffer list')
-    call SpaceVim#mapping#def('nnoremap', '<leader>ff', ':LeaderfFile<cr>', 
+    call SpaceVim#mapping#def('nnoremap', '<leader>ff', ':LeaderfFile<cr>',
           \ 'fuzzy find files in current working dir'   , '', 'fuzzy find files in current working dir'   )
-    call SpaceVim#mapping#def('nnoremap', '<leader>fs', ':Leaderf rg --cword<cr>', 
+    call SpaceVim#mapping#def('nnoremap', '<leader>fs', ':Leaderf rg --cword<cr>',
           \ 'fuzzy grep cursor word in project dir'     , '', 'fuzzy grep')
-    call SpaceVim#mapping#def('nnoremap', '<leader>fc', ':LeaderfColorscheme<cr>', 
+    call SpaceVim#mapping#def('nnoremap', '<leader>fc', ':LeaderfColorscheme<cr>',
           \ 'fuzzy find colorscheme'    , '', 'fuzzy find colorscheme')
-    call SpaceVim#mapping#def('nnoremap', '<leader>fo', ':LeaderfFunction<cr>', 
+    call SpaceVim#mapping#def('nnoremap', '<leader>fo', ':LeaderfFunction<cr>',
           \ 'fuzzy find function list in current buffer', '', 'fuzzy find function list in current buffer')
-    call SpaceVim#mapping#def('nnoremap', '<leader>fO', ':LeaderfFunctionAll<cr>', 
+    call SpaceVim#mapping#def('nnoremap', '<leader>fO', ':LeaderfFunctionAll<cr>',
           \ 'fuzzy find function list in all buffer'    , '', 'fuzzy find function list in all buffer'    )
-    call SpaceVim#mapping#def('nnoremap', '<leader>ft', ':LeaderfTag<cr>', 
+    call SpaceVim#mapping#def('nnoremap', '<leader>ft', ':LeaderfTag<cr>',
           \ 'fuzzy find tags'           , '', 'fuzzy find tags')
     call SpaceVim#mapping#def('nnoremap', '<leader>fT', ':LeaderfTagCword<cr>',
           \ 'fuzzy find tag cursor word in all buffer'  , '', 'fuzzy find tag cursor word in all buffer'  )
@@ -70,7 +70,7 @@ function! layers#leaderf#config() abort
           \ 'fuzzy find help docs'      , '', 'fuzzy find help docs')
 
   else
-    nnoremap <c-p>               :LeaderfFile 
+    nnoremap <c-p>               :call feedkeys(':LeaderfFile ')<CR>
     nnoremap <silent><c-y>       :LeaderfBufTagAllCword<cr>
     " space mapping
     nnoremap <silent><space>ff   :LeaderfFile<cr>
@@ -79,7 +79,7 @@ function! layers#leaderf#config() abort
     nnoremap <silent><space>ji   :LeaderfFunction<cr>
     nnoremap <silent><space>hi   :LeaderfHelp<cr>
     " leader mapping
-    nnoremap <leader>fa          :Leaderf 
+    nnoremap <leader>fa          :call feedkeys(':Leaderf ')<CR>
     nnoremap <silent><leader>fr  :LeaderfMru<cr>
     nnoremap <silent><leader>fb  :LeaderfBuffer<cr>
     nnoremap <silent><leader>ff  :LeaderfFile<cr>
