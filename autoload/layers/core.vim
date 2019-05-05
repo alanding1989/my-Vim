@@ -579,9 +579,10 @@ endfunction
 " a:dir=0 open root dir
 " a:dir=1 open last opened dir
 " a:dir=2 open current buffer dir/root dir(when VimEnter)
-" a:dir=3 open my src layout dir
+" a:dir=3 open my vimrc favourite dir
 " a:dir=4 open current dir in fullscreen with more infor
 " a:dir=5 open my plugins bundle dir
+let g:_my_favourite_dir = g:home.'extools/'
 if get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'vimfiler' "{{{
   function! s:open_filetree(dir) abort
     if a:dir == 0
@@ -591,7 +592,7 @@ if get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'vimf
     elseif a:dir == 2
       VimFilerBufferDir
     elseif a:dir == 3
-      exec 'VimFiler '.expand(g:home.'extools/projectdir/')
+      exec 'VimFiler '.expand(g:_my_favourite_dir)
     elseif a:dir == 4
       let g:_spacevim_autoclose_filetree = 0
       VimFilerCurrentDir -no-split -columns=type:size:time
@@ -610,7 +611,7 @@ elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# '
     elseif a:dir == 2
       Defx `expand('%:p:h')`
     elseif a:dir == 3
-      Defx `expand(g:home.'extools/projectdir/')`
+      Defx `expand(g:_my_favourite_dir)`
     elseif a:dir == 4
       let g:_spacevim_autoclose_filetree = 0
       Defx -split=no -columns=git:mark:indent:filename:type:size:time `getcwd()`
@@ -630,7 +631,7 @@ elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# '
     elseif a:dir == 2
       NERDTree %
     elseif a:dir == 3
-      exec 'NERDTree '.expand(g:home.'extools/projectdir/')
+      exec 'NERDTree '.expand(g:_my_favourite_dir)
     elseif a:dir == 4
       exec 'e '.getcwd()
     elseif a:dir == 5
@@ -639,7 +640,7 @@ elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# '
     doautocmd WinEnter
   endfunction
 endif
-function! s:open_filetree_5(cmd) abort
+function! s:open_filetree_5(cmd) abort "{{{
   let temp = @a | let @a=''
   norm! mz"ayi'
   norm! `z
@@ -666,7 +667,7 @@ function! s:open_filetree_5(cmd) abort
     endif
   endif
   let @a = temp
-endfunction
+endfunction "}}}
 "}}}
 
 " function() wrapper {{{

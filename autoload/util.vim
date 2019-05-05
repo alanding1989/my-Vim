@@ -16,13 +16,17 @@ function! util#maparg_wrapper(...) abort
     " endtry
   elseif a:0 == 1
     " n mode
+    " c-..., m-... mappings
+    " gd, gg ... mappings
     if !empty(maparg('<'.a:1.'>'))
       exec "echo maparg('<".a:1.">')"
     else
       exec "echo maparg('".a:1."')"
     endif
   elseif a:0 == 2 && a:1 !=# 'leader' && a:2 !=# 'spc'
-    " specify mode
+    " support specify mode
+    " <c- >..., <m- >... mappings
+    " gd, gg ... mappings
     if !empty(maparg('<'.a:1.'>', a:2))
       exec "echo maparg('<".a:1.">', '".a:2."')"
     elseif !empty(maparg(a:1, a:2))
@@ -30,14 +34,19 @@ function! util#maparg_wrapper(...) abort
     endif
   elseif a:0 == 2 && a:1 ==# 'leader'
     " n mode
+    " <leader> mappings
     exec "echo maparg('<".a:1.'>'.a:2."', 'n')"
-    " SPC
   elseif a:0 == 2 && a:2 ==# 'spc'
+    " n mode
+    " [SPC] mappings
     exec "echo maparg('[SPC]".a:1."', 'n')"
   elseif a:0 == 3 && a:3 ==# 'spc'
+    " support specify mode
+    " [SPC] mappings
     exec "echo maparg('[SPC]".a:1."', '".a:2."')"
-    " specify mode
   elseif a:0 == 3
+    " need to specify mode
+    " <c- >.., <m- >.., <space>.., <leader>.. mappings
     exec "echo maparg('<".a:1.'>'.a:2."', '".a:3."')"
   endif
 endfunc "}}}

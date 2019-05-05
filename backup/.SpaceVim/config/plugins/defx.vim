@@ -149,7 +149,7 @@ endf
 
 
 function! DefxSmartL(_) "{{{
-" in this function we should vim-choosewin if possible
+" in this function we should check vim-choosewin if possible
   if defx#is_directory()
     call defx#call_action('open_tree')
     normal! j
@@ -202,7 +202,9 @@ function! DefxSmartH(_) "{{{
   call defx#call_action('close_tree')
 endfunction "}}}
 
+
 function! DefxSmartCR(_) "{{{
+" in this function we should check vim-choosewin if possible
   if defx#is_directory()
     call defx#call_action('open_directory')
     normal! j
@@ -252,6 +254,37 @@ function! DefxYarkSrcLayout(_) abort "{{{
   echohl NONE
 endfunction
 "}}}
+
+function! DefxExeShell(_) abort "{{{
+  if defx#is_directory()
+    echohl WarningMsg
+    echo ' Candidate is not a shell script'
+    echohl NONE
+  else
+    let filepath = defx#get_candidate()['action__path']
+    let ext = fnamemodify(filepath, ':e')
+    if ext ==# 'sh'
+      call system('sh ', filepath)
+    elseif ext ==# 'bat' || ext ==# 'ps1'
+      call system('powershell ', filepath)
+    else
+      echohl WarningMsg
+      echo ' Candidate is not a shell script'
+      echohl NONE
+    endif
+    if v:shell_error
+      echo v:shell_error
+    endif
+  end
+endfunction
+"}}}
+
+function! DefxChangeDir(_) abort "{{{
+  call defx#call_action('change_vim_cwd')
+  echo 'Current dir is: ' . getcwd()
+endfunction
+"}}}
+
 
 
 function! DefxYarkPath(_) abort
