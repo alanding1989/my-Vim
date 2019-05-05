@@ -15,9 +15,9 @@ let s:add_plugin_layers = [
       \ 'lang#vim'    , 'lang#markdown', 'ui'        ,
       \ ]
 let s:modified_conf_layers = [
-      \ 'autocomplete', 'chinese', 'colorscheme', 'core'   , 'denite',
-      \ 'edit'        , 'git'    , 'lang#vim'   , 'leaderf', 'tools' ,
-      \ 'unite'       , 'ui'     , 'VersionControl'
+      \ 'autocomplete', 'chinese', 'colorscheme', 'core'          , 'checkers',
+      \ 'denite'      , 'edit'   , 'git'        , 'lang#vim'      , 'leaderf' ,
+      \ 'tools'       , 'unite'  , 'ui'         , 'VersionControl'
       \ ]
 
 let s:spacevim_default_cs = [

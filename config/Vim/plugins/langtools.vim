@@ -43,7 +43,21 @@ let g:codi#aliases = {
 "================================================================================
 " far
 "================================================================================
-let g:far#source = 'rgnvim'
+if g:is_nvim
+  if executable('rg')
+    let g:far#source = 'rgnvim'
+  elseif executable('ag')
+    let g:far#source = 'agnvim'
+  endif
+else
+  if executable('rg')
+    let g:far#source = 'rg'
+  elseif executable('ag')
+    let g:far#source = 'ag'
+  endif
+endif
+
+let g:far#default_file_mask = '%'
 if g:is_win
   let g:far#file_mask_favorites = [
         \ '%', '**\*.*', '**\*.py', '**\*.scala', '**\*.sh',

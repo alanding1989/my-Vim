@@ -13,8 +13,7 @@ let s:STRING = SpaceVim#api#import('data#string')
 
 function! layers#checkers#plugins() abort
   let plugins = []
-  " call add(plugins, ['rhysd/vim-grammarous', {'on_cmd': 'GrammarousCheck', 'on': 'GrammarousCheck'}])
-  " call add(plugins, ['vim-scripts/errormarker.vim', {'merged': 0}])
+  call add(plugins, ['rhysd/vim-grammarous', {'on_cmd': 'GrammarousCheck', 'on': 'GrammarousCheck'}])
   if !g:is_spacevim
     if get(g:, 'checker')     ==# 'neomake'
       call add(plugins, ['neomake/neomake', {'merged': 0}])
@@ -27,7 +26,6 @@ endfunction
 
 
 function! layers#checkers#config() abort
-  let errormarker_disablemappings = 1
   nmap <silent> ge :ErrorAtCursor<CR>
   if g:is_spacevim
     call SpaceVim#mapping#space#def('nnoremap', ['e', 'n'], 'call call('
