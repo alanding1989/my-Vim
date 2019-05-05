@@ -11,6 +11,36 @@ endif
 let s:loaded = 1
 
 
+" setting LanguageTool dir executable path {{{
+function! s:set_languageTool() abort
+  if exists('#dein')
+    if g:is_spacevim
+      let s:misc_path = g:spacevim_plugin_bundle_dir.'repos/github.com/rhysd/vim-grammarous/misc/'
+    else
+      let s:misc_path = g:My_Vim_plug_dir.'repos/github.com/rhysd/vim-grammarous/misc/'
+    endif
+  else
+    if g:is_spacevim
+      let s:misc_path = g:spacevim_plugin_bundle_dir.'vim-grammarous/misc/'
+    else
+      let s:misc_path = g:My_Vim_plug_dir.'vim-grammarous/misc/'
+    endif
+  endif
+
+  " if glob(s:misc_path) ==# ''
+    " call mkdir(expand(s:misc_path), 'p', 0700)
+    if g:is_unix
+      exec '!ln -s -d "'.expand($LANGUAGE_TOOL_HOME)
+            \ .'" "'.expand(s:misc_path.'LanguageTool').'"'
+    elseif g:is_win
+      " TODO: fix windows
+      exec '!mklink /h "'.expand(s:misc_path.'LanguageTool')
+            \ .'" "'.expand('D:/devtools/LanguageTool').'"'
+    endif
+  " endif
+endfunction
+"}}}
+auto VimEnter * call <sid>set_languageTool()
 
 
 let g:grammarous#default_comments_only_filetypes = {

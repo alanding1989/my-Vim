@@ -21,4 +21,4 @@ endif
 "--------------------------------------------------------------------------------
 " vim-grammarous
 "--------------------------------------------------------------------------------
-" exec 'so '.g:vim_plugindir.'vim-grammarous.vim'
+exec 'so '.g:vim_plugindir.'vim-grammarous.vim'

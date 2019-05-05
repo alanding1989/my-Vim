@@ -26,7 +26,6 @@ endfunction
 
 
 function! layers#checkers#config() abort
-  nmap <silent> ge :ErrorAtCursor<CR>
   if g:is_spacevim
     call SpaceVim#mapping#space#def('nnoremap', ['e', 'n'], 'call call('
           \ . string(s:_function('s:jump_to_next_error')) . ', [])',
