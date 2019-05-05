@@ -86,6 +86,9 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
     endif
   endfunction
   function! mapping#tab#no_popup() abort
+    if getline('.')[col('.')-2] ==# '(' && getline('.')[col('.'-1)] !=# ')'
+      return ")\<left>"
+    endif
     let sni = UltiSnips#ExpandSnippetOrJump()
     if g:ulti_expand_or_jump_res == 1
       return sni

@@ -264,9 +264,9 @@ function! DefxExeShell(_) abort "{{{
     let filepath = defx#get_candidate()['action__path']
     let ext = fnamemodify(filepath, ':e')
     if ext ==# 'sh'
-      call system('sh ', filepath)
+      call system('sh '. filepath)
     elseif ext ==# 'bat' || ext ==# 'ps1'
-      call system('powershell ', filepath)
+      call system('powershell '. filepath)
     else
       echohl WarningMsg
       echo ' Candidate is not a shell script'
