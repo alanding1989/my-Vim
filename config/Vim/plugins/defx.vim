@@ -84,7 +84,6 @@ function! s:defx_init()
   nnoremap <silent><buffer><expr> qq
         \ defx#do_action('quit')
   nnoremap <silent><buffer><expr> yy defx#do_action('call', 'DefxYarkPath')
-  nnoremap <silent><buffer><expr> L  defx#do_action('call', 'DefxYarkSrcLayout')
   nnoremap <silent><buffer><expr> c
         \ defx#do_action('copy')
   nnoremap <silent><buffer><expr> m
@@ -100,7 +99,6 @@ function! s:defx_init()
   nnoremap <silent><buffer><expr> l defx#do_action('call', 'DefxSmartL')
   nnoremap <silent><buffer><expr> o defx#do_action('call', 'DefxSmartL')
   nnoremap <silent><buffer><expr> <Right> defx#do_action('call', 'DefxSmartL')
-  nnoremap <silent><buffer><expr> <Cr> defx#do_action('call', 'DefxSmartCR')
   nnoremap <silent><buffer><expr> <2-LeftMouse>
         \ defx#is_directory() ?
         \ defx#do_action('open_tree') : defx#do_action('drop')
@@ -132,8 +130,7 @@ function! s:defx_init()
         \ defx#do_action('redraw')
   nnoremap <silent><buffer><expr> <C-g>
         \ defx#do_action('print')
-  nnoremap <silent><buffer><expr> cd
-        \ defx#do_action('change_vim_cwd')
+  nnoremap <silent><buffer><expr> cd defx#do_action('call', 'DefxChangeDir')
   nnoremap <silent><buffer><expr> t
         \ defx#do_action('toggle_columns',
         \                'git:mark:indent:icon:filename:type:size:time')
@@ -141,11 +138,17 @@ function! s:defx_init()
         \ defx#do_action('execute_system')
   nnoremap <silent><buffer><expr> g0
         \ defx#do_action('execute_command')
-  nnoremap <silent><buffer><expr> gs defx#do_action('call', 'DefxExeShell')
   nnoremap <silent><buffer> <Home> :call cursor(2, 1)<cr>
   nnoremap <silent><buffer> <End>  :call cursor(line('$'), 1)<cr>
-endf
+  nnoremap <silent><buffer><expr>  <C-Home>
+        \ defx#do_action('cd', SpaceVim#plugins#projectmanager#current_root())
 
+  nnoremap <silent><buffer><expr> <Cr>  defx#do_action('call', 'DefxSmartCR')
+  nnoremap <silent><buffer><expr> L     defx#do_action('call', 'DefxYarkSrcLayout')
+  nnoremap <silent><buffer><expr> gs    defx#do_action('call', 'DefxExeShell')
+  nnoremap <silent><buffer><Space>0     :call defx#call_action('change_vim_cwd')<CR>
+        \ :call SpaceVim#layers#shell#open_default_shell(1)<CR>
+endf
 
 
 function! DefxSmartL(_) "{{{
@@ -263,16 +266,16 @@ function! DefxExeShell(_) abort "{{{
   else
     let filepath = defx#get_candidate()['action__path']
     let ext = fnamemodify(filepath, ':e')
-    if ext ==# 'sh'
+    if ext ==# 'sh' && g:is_unix
       let g:job = jobstart('sh '.filepath)
-    elseif ext ==# 'bat' || ext ==# 'ps1'
+    elseif (ext ==# 'bat' || ext ==# 'ps1') && g:is_win
       let g:job = jobstart('powershell '.filepath)
     else
       echohl WarningMsg
       echo ' Candidate is not a shell script'
       echohl NONE
     endif
-    if g:job ==# jobpid(g:job)
+    if g:job > 0
       echo 'Successfully run stript'
     endif
   end
