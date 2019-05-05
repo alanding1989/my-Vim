@@ -42,8 +42,8 @@ function! My_Vim#layer#plug_begin() abort
   endif
 endfunction
 
-" vim-plug {{{
-function! s:vim_plug_begin() abort
+
+function! s:vim_plug_begin() abort " {{{
   " install vim-plug {{{
   if glob('~/.vim.d/autoload/plug.vim') ==# ''
     exec '!curl -fLo "'.expand('~/.vim.d/autoload/plug.vim')
@@ -72,8 +72,8 @@ function! s:vim_plug_begin() abort
 endfunction
 "}}}
 
-" dein {{{
-function! s:dein_begin() abort
+
+function! s:dein_begin() abort " {{{
   " install dein {{{
   if glob(g:My_Vim_plug_dir.'repos/github.com/Shougo/dein.vim') ==# ''
     call mkdir(expand(g:My_Vim_plug_dir.'repos/github.com/Shougo/dein.vim'), 'p', '0700')
@@ -133,7 +133,8 @@ function! s:check_plugchange() abort
 endfunction
 "}}}
 
-function! s:check_install() abort
+
+function! s:check_install() abort " {{{
   if len(get(g:, 'uninstalled_plugins', [])) > 0
     echohl WarningMsg
     if g:plugmanager ==# 'dein'
@@ -153,8 +154,10 @@ function! s:check_install() abort
     endfor
   endif
 endfunction
+"}}}
 
-function! My_Vim#layer#plug_end() abort
+
+function! My_Vim#layer#plug_end() abort " {{{
   filetype plugin indent on
   syntax on
   if s:firstinstall | return | endif
@@ -164,7 +167,7 @@ function! My_Vim#layer#plug_end() abort
 
   " load enabled_plugins global config var
   let g:plugnamelist = map(deepcopy(get(g:, 'enabled_plugins_name', [])),
-        \ {key, val -> split(val, '\.')[0].'.vim'})
+        \ {key, val -> fnamemodify(val, ':r').'.vim'})
   " TODO: fix Windows
   let filelist = !g:is_win ? systemlist('ls '.g:vim_plugindir) : [
         \ 'ag.vim'            , 'ale.vim'              , 'asyncomplete.vim' , 'autocomp_plugins.vim'     , 'coc.vim'        ,
@@ -187,8 +190,10 @@ function! My_Vim#layer#plug_end() abort
   " HotKey menu
   call util#so_file('keymap.vim', 'Vim')
 endfunction
+"}}}
 
-" util func {{{
+
+" util functions {{{
 let g:unite_source_menu_menus = get(g:, 'unite_source_menu_menus', {})
 function! s:Unite_Plugmenu_begin(path) abort
   let g:unite_source_menu_menus.AddedPlugins =
@@ -224,8 +229,8 @@ function! s:enabled_layers_get() abort
   endif
   return uniq(sort(s:default_layers))
 endfunction
-"}}}
 
 function! My_Vim#layer#isLoaded(name) abort
   return index(g:enabled_layers, a:name) != -1
 endfunction
+"}}}

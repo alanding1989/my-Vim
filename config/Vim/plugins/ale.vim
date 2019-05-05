@@ -91,10 +91,10 @@ endif
 
 
 " Highlight sign "{{{
-let g:ale_sign_column_always     = 1
-let g:ale_sign_error             = '✖'
-let g:ale_sign_warning           = 'ⓦ'
-let g:ale_sign_info              = '➤'
+let g:ale_sign_column_always = 1
+let g:ale_sign_error         = get(g:, 'linter_error_symbol'  , '❌')
+let g:ale_sign_warning       = get(g:, 'linter_warning_symbol', '⚠️ ')
+let g:ale_sign_info          = get(g:, 'linter_info_symbol'   , '➤')
 augroup ALE_Settings
   autocmd!
   autocmd QuitPre * if empty(&buftype) | lclose | endif

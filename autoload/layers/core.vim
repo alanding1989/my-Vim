@@ -91,21 +91,26 @@ function! s:filetree() abort "{{{
     nnoremap <silent><F3>         :call <SID>open_filetree(0)<CR>
     call SpaceVim#mapping#space#def('nnoremap', ['f','o'], 'call call('
           \ . string(function('s:open_filetree'))
-          \ . ', [1])', 'open last opened dir', 1)
+          \ . ', [1])', '@ open last opened dir', 1)
     call SpaceVim#mapping#space#def('nnoremap', ['<Tab>'], 'call call('
           \ . string(function('s:open_filetree'))
-          \ . ', [2])', 'show file tree at buffer dir', 1)
+          \ . ', [2])', '@ show file tree at buffer dir', 1)
     call SpaceVim#mapping#space#def('nnoremap', ['f','l'], 'call call('
           \ . string(function('s:open_filetree'))
-          \ . ', [3])', 'open my src layout dir', 1)
+          \ . ', [3])', '@ open my src layout dir', 1)
     call SpaceVim#mapping#space#def('nnoremap', ['f','i'], 'call call('
           \ . string(function('s:open_filetree'))
-          \ . ', [4])', '@ explore current directory', 1)
+          \ . ', [4])', '@ investigate current working dir', 1)
+    call SpaceVim#mapping#space#def('nnoremap', ['f','p'], 'call call('
+          \ . string(function('s:open_filetree'))
+          \ . ', [5])', '@ open my plugins bundle dir', 1)
   else
     nnoremap <silent><F3>         :call <SID>open_filetree(0)<CR>
     nnoremap <silent><space>fo    :call <SID>open_filetree(1)<CR>
     nnoremap <silent><space><tab> :call <SID>open_filetree(2)<CR>
     nnoremap <silent><space>fl    :call <SID>open_filetree(3)<CR>
+    nnoremap <silent><space>fi    :call <SID>open_filetree(4)<CR>
+    nnoremap <silent><space>fp    :call <SID>open_filetree(5)<CR>
   endif
 endfunction
 
@@ -219,12 +224,12 @@ function! s:open_browser() abort
   let g:openbrowser_default_search = 'baidu'
   if g:is_spacevim
     let g:_spacevim_mappings.o   = {'name': '+@ OpenBrowser'}
-    let g:_spacevim_mappings.o.o = ['call feedkeys("\<Plug>(openbrowser-smart-search)")', 'open link or search cword with default engine']
-    let g:_spacevim_mappings.o.b = ['call feedkeys(":OpenBrowserSmartSearch -baidu ")'  , 'open link or search input/baidu' ]
-    let g:_spacevim_mappings.o.g = ['call feedkeys(":OpenBrowserSmartSearch -google ")' , 'open link or search input/google']
-    let g:_spacevim_mappings.o.h = ['call feedkeys(":OpenBrowserSmartSearch -github ")' , 'open link or search input/github']
-    let g:_spacevim_mappings.o.p = ['call feedkeys(":OpenBrowserSmartSearch -python ")' , 'open docs or search input/python']
-    let g:_spacevim_mappings.o.s = ["call feedkeys(':OpenlinkOrSearch scala ')"         , 'open docs or search input/scala' ]
+    let g:_spacevim_mappings.o.o = ['call feedkeys("\<Plug>(openbrowser-smart-search)")', 'cursor word search /default engine']
+    let g:_spacevim_mappings.o.b = ['call feedkeys(":OpenBrowserSmartSearch -baidu ")'  , 'keyword search /baidu' ]
+    let g:_spacevim_mappings.o.g = ['call feedkeys(":OpenBrowserSmartSearch -google ")' , 'keyword search /google']
+    let g:_spacevim_mappings.o.h = ['call feedkeys(":OpenBrowserSmartSearch -github ")' , 'keyword search /github']
+    let g:_spacevim_mappings.o.p = ['call feedkeys(":OpenBrowserSmartSearch -python ")' , 'docs search /python']
+    let g:_spacevim_mappings.o.s = ["call feedkeys(':OpenlinkOrSearch scala ')"         , 'docs search /scala' ]
     let g:_spacevim_mappings.o.r = ['call util#Open_curPlugin_repo()'                   , 'open github mainpage/cursor plugin`s repository' ]
     let g:_spacevim_mappings.o.l = ['call util#Show_curPlugin_log()'                    , 'open cursor plugin`s log']
   else
@@ -573,9 +578,10 @@ endfunction
 
 " a:dir=0 open root dir
 " a:dir=1 open last opened dir
-" a:dir=2 open buffer dir/root dir(when VimEnter)
+" a:dir=2 open current buffer dir/root dir(when VimEnter)
 " a:dir=3 open my src layout dir
 " a:dir=4 open current dir in fullscreen with more infor
+" a:dir=5 open my plugins bundle dir
 if get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'vimfiler' "{{{
   function! s:open_filetree(dir) abort
     if a:dir == 0
@@ -587,11 +593,15 @@ if get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'vimf
     elseif a:dir == 3
       exec 'VimFiler '.expand(g:home.'extools/projectdir/')
     elseif a:dir == 4
-      let g:_autoclose_filetree = 0
       let g:_spacevim_autoclose_filetree = 0
       VimFilerCurrentDir -no-split -columns=type:size:time
-      let g:_autoclose_filetree = 1
       let g:_spacevim_autoclose_filetree = 1
+    elseif a:dir == 5
+      if g:is_spacevim
+        exec 'VimFiler '.g:spacevim_plugin_bundle_dir
+      else
+        exec 'VimFiler '.g:My_Vim_plug_dir
+      endif
     endif
     doautocmd WinEnter
   endfunction
@@ -606,11 +616,15 @@ elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# '
     elseif a:dir == 3
       Defx `expand(g:home.'extools/projectdir/')`
     elseif a:dir == 4
-      let g:_autoclose_filetree = 0
       let g:_spacevim_autoclose_filetree = 0
       Defx -split=no -columns=git:mark:indent:filename:type:size:time `getcwd()`
-      let g:_autoclose_filetree = 1
       let g:_spacevim_autoclose_filetree = 1
+    elseif a:dir == 5
+      if g:is_spacevim
+        Defx `g:spacevim_plugin_bundle_dir`
+      else
+        Defx `g:My_Vim_plug_dir`
+      endif
     endif
     if &ft ==# 'defx' | setl conceallevel=0 | endif
     doautocmd WinEnter
@@ -627,6 +641,12 @@ elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# '
       exec 'NERDTree '.expand(g:home.'extools/projectdir/')
     elseif a:dir == 4
       exec 'e '.getcwd()
+    elseif a:dir == 5
+      if g:is_spacevim
+        exec 'NERDTree '.g:spacevim_plugin_bundle_dir
+      else
+        exec 'NERDTree '.g:My_Vim_plug_dir
+      endif
     endif
     doautocmd WinEnter
   endfunction

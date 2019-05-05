@@ -250,7 +250,7 @@ function! mapping#basic#load() abort
 
   " help
   nnoremap K             :call util#help_wrapper()<CR>
-  nnoremap <space>hh     :call util#help_wrapper()<CR>
+  nnoremap <space>hh     :call util#vim_help_wrapper()<CR>
   " show full path
   nnoremap <c-g>         2<c-g>
   " echo prefix

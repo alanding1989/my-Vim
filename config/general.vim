@@ -24,6 +24,8 @@ let g:is_root             = $USER ==# 'root'
 let g:project_root_marker = ['.root', '.project', '.idea', '.vscode',
       \ '.svn', '.git', '.hg', '.bzr', '_darcs']
 let g:vim_plugindir       = expand(g:home.'config/Vim/plugins/')
+" if use init.toml, it will not source <g:home.'config/SpaceVim/config.vim'>
+" so add g:spacevim_plugin_bundle_dir here
 if g:is_spacevim
   let g:spacevim_plugin_bundle_dir = g:is_win ? 'D:\.cache\vimfiles\' :
         \ '/home/alanding/.cache/vimfiles'.(g:is_root ? '-root/' : '-alan/')

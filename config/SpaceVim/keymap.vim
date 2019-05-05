@@ -71,12 +71,8 @@ let g:_spacevim_mappings_space.7 = ['call Winjump(7)', 'Window 7']
 let g:_spacevim_mappings_space.8 = ['call Winjump(8)', 'Window 8']
 
 
-if !SpaceVim#layers#isLoaded('lang#java')
-  let g:_spacevim_mappings['<C-I>']  = [':b#<CR>', '@ last buffer' ]
-  nnoremap <silent><leader><tab> :b#<CR>
-else
-  inoremap <silent><Leader><Tab> <C-r>=MyLeaderTabfunc()<CR>
-endif
+let g:_spacevim_mappings['<C-I>']  = [':b#<CR>', '@ last buffer' ]
+nnoremap <silent><leader><tab> :b#<CR>
 
 
 " ================================================================================

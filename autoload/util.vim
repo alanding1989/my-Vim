@@ -75,22 +75,25 @@ endfunction
 
 " help wrapper {{{
 function! util#help_wrapper(...) abort
-  if &ft ==# 'vim' || &ft ==# 'startify'
-    if g:is_nvim
-      let input = input({
-            \ 'prompt'      : 'help keyword: ',
-            \ 'completion'  : 'help'          ,
-            \ 'cancelreturn': 1               ,
-            \ })
-      if input == 1 | return | endif
+  if &ft !=# 'vim'
+    if exists(':CocConfig')
+      call CocActionAsync('doHover')
     else
-      let input = input('help keyword: ', '', 'help')
+      call LanguageClient_textDocument_hover()
     endif
+  else
+    call util#vim_help_wrapper(a:000)
+  endif
+endfunc 
+
+function! util#vim_help_wrapper(...) abort
+    let input = input('Help keyword/Cancel(n): ', '', 'help')
+    if input ==# 'n' | return | endif
     let cword = expand('<cword>')
 
     if empty(input) && !empty(cword)
       exec ':vert bo help '.cword
-    elseif input ==? 'f' && !empty(cword)
+    elseif input ==# 'f' && !empty(cword)
       exec ':help '.cword | exec ':resize'
     elseif !empty(input)
       try
@@ -103,10 +106,8 @@ function! util#help_wrapper(...) abort
         exec ':vert bo help '.input
       endtry
     endif
-  else
-    call CocActionAsync('doHover')
-  endif
-endfunc "}}}
+endfunction
+"}}}
 
 
 " highlight wrapper {{{

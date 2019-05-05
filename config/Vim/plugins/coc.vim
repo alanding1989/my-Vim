@@ -29,6 +29,7 @@ augroup my_coc_settings
   autocmd CursorHoldI,CursorMovedI * silent call CocActionAsync('showSignatureHelp')
   autocmd CursorHold               * silent call CocActionAsync('highlight')
   autocmd User CocDiagnosticChange AirlineRefresh
+  autocmd VimEnter * call s:g_mappings()
   if findfile(expand($HOME.'/.SpaceVim/coc-settings.json')) ==# ''
     if g:is_unix
       autocmd User CocNvimInit
@@ -70,13 +71,15 @@ augroup END
 
 " key mapping  {{{
 nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gt <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> ga <Plug>(coc-codeaction)
-nmap <silent> ge <Plug>(coc-rename)
-nmap <silent> gf :call CocActionAsync('format')<CR>
-nmap <silent> gl :call CocActionAsync('diagnosticList')<CR>
+function! s:g_mappings() abort
+  nmap <silent> gt <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
+  nmap <silent> ga <Plug>(coc-codeaction)
+  nmap <silent> ge <Plug>(coc-rename)
+  nmap <silent> gf :call CocActionAsync('format')<CR>
+  nmap <silent> gl :call CocActionAsync('diagnosticList')<CR>
+endfunction
 
 if g:is_spacevim
   let g:_spacevim_mappings.c     = {'name': '+@ Coc...'}

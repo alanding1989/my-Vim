@@ -73,8 +73,6 @@ let g:spacevim_github_username               = 'alanding1989'
 let g:spacevim_guifont                       = 'SauceCodePro Nerd Font Mono:h11'
 let g:spacevim_layer_lang_scala_formatter    = g:is_win ? 'D:\devtools\scala\scalariform.jar' :
       \ '/opt/lang-tools/scala/scalariform.jar'
-let g:spacevim_plugin_bundle_dir             = g:is_win ? 'D:\.cache\vimfiles\' :
-      \ '/home/alanding/.cache/vimfiles'.(g:is_root ? '-root/' : '-alan/')
 let g:spacevim_project_rooter_patterns       =
       \ uniq(sort(g:spacevim_project_rooter_patterns
       \ + deepcopy(g:project_root_marker))) "}}}
@@ -122,10 +120,6 @@ let g:_lsp_var = {'filetypes' : [
       " \ 'javascript',
 if g:is_unix
   call add(g:_lsp_var['filetypes'], 'sh')
-endif
-
-if g:spacevim_autocomplete_method ==# 'coc'
-  let g:spacevim_snippet_engine = 'coc'
 endif
 " }}}
 
@@ -186,6 +180,11 @@ endif "}}}
 " powershell {{{
 if g:is_win
   let g:my_layers['lang#powershell'] = 1
+endif
+"}}}
+
+if g:spacevim_autocomplete_method ==# 'coc' "{{{
+  let g:spacevim_snippet_engine = 'coc'
 endif
 "}}}
 

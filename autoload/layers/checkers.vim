@@ -66,14 +66,6 @@ function! layers#checkers#config() abort
 endfunction
 
 
-function! layers#checkers#showlinter() abort
-  if exists(':ALEInfo')
-    echo '  Now the syntax checker is Ale!'
-  elseif exists(':Neomake')
-    echo '  Now the syntax checker is Neomake!'
-  endif
-endfunc
-
 function! s:toggle_show_error(...) abort
   try
     botright lopen
@@ -248,3 +240,12 @@ endif
 function! s:clear_errors() abort
   sign unplace *
 endfunction
+
+
+function! layers#checkers#showlinter() abort
+  if exists(':ALEInfo')
+    echo '  Now the syntax checker is Ale!'
+  elseif exists(':Neomake')
+    echo '  Now the syntax checker is Neomake!'
+  endif
+endfunc

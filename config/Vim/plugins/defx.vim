@@ -45,7 +45,7 @@ augroup vfinit
   autocmd FileType defx call s:defx_init()
   " auto close last defx windows
   autocmd BufEnter * nested if
-        \ (!has('vim_starting') && winnr('$') == 1  && g:_autoclose_filetree
+        \ (!has('vim_starting') && winnr('$') == 1
         \ && &filetype ==# 'defx') |
         \ call s:close_last_vimfiler_windows() | endif
 augroup END
@@ -174,6 +174,32 @@ function! DefxSmartL(_) "{{{
   endif
 endfunction "}}}
 
+function! DefxSmartH(_) "{{{
+  " if cursor line is first line, or in empty dir
+  if line('.') ==# 1 || line('$') ==# 1
+    return defx#call_action('cd', ['..'])
+  endif
+
+  " candidate is opend tree?
+  if defx#is_opened_tree()
+    return defx#call_action('close_tree')
+  endif
+
+  " parent is root?
+  let s:candidate = defx#get_candidate()
+  let s:parent = fnamemodify(s:candidate['action__path'], s:candidate['is_directory'] ? ':p:h:h' : ':p:h')
+  let sep = s:SYS.isWindows ? '\\' :  '/'
+  if s:trim_right(s:parent, sep) == s:trim_right(b:defx.paths[0], sep)
+    return defx#call_action('cd', ['..'])
+  endif
+
+  " move to parent.
+  call defx#call_action('search', s:parent)
+
+  " if you want close_tree immediately, enable below line.
+  call defx#call_action('close_tree')
+endfunction "}}}
+
 function! DefxSmartCR(_) "{{{
   if defx#is_directory()
     call defx#call_action('open_directory')
@@ -199,32 +225,6 @@ function! DefxSmartCR(_) "{{{
       exec 'e' filepath
     endif
   endif
-endfunction "}}}
-
-function! DefxSmartH(_) "{{{
-  " if cursor line is first line, or in empty dir
-  if line('.') ==# 1 || line('$') ==# 1
-    return defx#call_action('cd', ['..'])
-  endif
-
-  " candidate is opend tree?
-  if defx#is_opened_tree()
-    return defx#call_action('close_tree')
-  endif
-
-  " parent is root?
-  let s:candidate = defx#get_candidate()
-  let s:parent = fnamemodify(s:candidate['action__path'], s:candidate['is_directory'] ? ':p:h:h' : ':p:h')
-  let sep = s:SYS.isWindows ? '\\' :  '/'
-  if s:trim_right(s:parent, sep) == s:trim_right(b:defx.paths[0], sep)
-    return defx#call_action('cd', ['..'])
-  endif
-
-  " move to parent.
-  call defx#call_action('search', s:parent)
-
-  " if you want close_tree immediately, enable below line.
-  call defx#call_action('close_tree')
 endfunction "}}}
 
 function! DefxYarkSrcLayout(_) abort "{{{

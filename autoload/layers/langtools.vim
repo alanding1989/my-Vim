@@ -35,6 +35,6 @@ function! s:far() abort
   if g:is_spacevim
     call SpaceVim#mapping#def('noremap', '<leader>lf', ':Far ', 'Far prefix', '', 'Far prefix')
   else
-    noremap <leader>lf :Far 
+    noremap <leader>lf :call feedkeys(':Far ')<CR>
   endif
 endfunction
