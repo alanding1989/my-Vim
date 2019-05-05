@@ -44,7 +44,7 @@ function! layers#leaderf#config() abort
 
     noremap <silent><leader>fhc   :LeaderfHistoryCmd<cr>
     noremap <silent><leader>fhs   :LeaderfHistorySearch<cr>
-    call SpaceVim#mapping#def('nnoremap', '<leader>fa', 'call feedkeys(":Leaderf ")<CR>',
+    call SpaceVim#mapping#def('nnoremap', '<leader>fa', ':call feedkeys(":Leaderf ")<CR>',
           \ 'fuzzy finder prefix/Leaderf', '', 'fuzzy finder prefix/Leaderf')
     call SpaceVim#mapping#def('nnoremap', '<leader>fr', ':LeaderfMru<cr>',
           \ 'fuzzy find recent files'   , '', 'fuzzy find recent files')

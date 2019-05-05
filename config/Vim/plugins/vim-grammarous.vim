@@ -11,7 +11,7 @@ endif
 let s:loaded = 1
 
 
-" setting LanguageTool dir executable path {{{
+" Setting LanguageTool dir executable path {{{
 function! s:set_languageTool() abort
   if exists('#dein')
     if g:is_spacevim
@@ -27,8 +27,8 @@ function! s:set_languageTool() abort
     endif
   endif
 
-  " if glob(s:misc_path) ==# ''
-    " call mkdir(expand(s:misc_path), 'p', 0700)
+  if glob(s:misc_path) ==# ''
+    call mkdir(expand(s:misc_path), 'p', 0700)
     if g:is_unix
       exec '!ln -s -d "'.expand($LANGUAGE_TOOL_HOME)
             \ .'" "'.expand(s:misc_path.'LanguageTool').'"'
@@ -37,7 +37,7 @@ function! s:set_languageTool() abort
       exec '!mklink /h "'.expand(s:misc_path.'LanguageTool')
             \ .'" "'.expand('D:/devtools/LanguageTool').'"'
     endif
-  " endif
+  endif
 endfunction
 "}}}
 auto VimEnter * call <sid>set_languageTool()
@@ -57,11 +57,29 @@ let g:grammarous#disabled_categories = {
 
 let g:grammarous#hooks = {}
 function! g:grammarous#hooks.on_check(errs) abort
-    nmap <buffer>[s <Plug>(grammarous-move-to-next-error)
-    nmap <buffer>]s <Plug>(grammarous-move-to-previous-error)
+    nmap <buffer>[s         <Plug>(grammarous-move-to-previous-error)
+    nmap <buffer>]s         <Plug>(grammarous-move-to-next-error)
+    nmap <buffer><space>ep  <Plug>(grammarous-move-to-previous-error)
+    nmap <buffer><space>en  <Plug>(grammarous-move-to-next-error)
+    nmap <buffer><space>el  <Plug>(grammarous-open-info-window)
+    nmap <buffer><space>et  <Plug>(grammarous-reset)
+    nmap <buffer><space>ef  <Plug>(grammarous-fixit)
+    nmap <buffer><space>ea  <Plug>(grammarous-fixall)
+    nmap <buffer>qu         ll<Plug>(grammarous-close-info-window)
+    nmap <buffer><space>ee  <Plug>(grammarous-remove-error)
+    nmap <buffer><space>ed  <Plug>(grammarous-disable-rule)
 endfunction
 
 function! g:grammarous#hooks.on_reset(errs) abort
-    nunmap <buffer>[s
-    nunmap <buffer>]s
+    unmap <buffer>[s
+    unmap <buffer>]s
+    unmap <buffer><space>ep
+    unmap <buffer><space>en
+    unmap <buffer><space>el
+    unmap <buffer><space>et
+    unmap <buffer><space>ef
+    unmap <buffer><space>ea
+    unmap <buffer>qu
+    unmap <buffer><space>ee
+    unmap <buffer><space>ed
 endfunction
