@@ -73,6 +73,7 @@ function! mapping#basic#load() abort
   " fast save
   inoremap qw           <esc>
   nnoremap qw           :w<CR>
+  nnoremap qwe          :wall<CR>
   nnoremap qww          :w !sudo tee % >/dev/null<CR>
   nnoremap qs           :saveas 
   nnoremap <m-s>        :saveas 
@@ -92,7 +93,7 @@ function! mapping#basic#load() abort
   nnoremap <silent>qd   :try\|bd\|catch\|endtry<CR>
   nnoremap <silent>qb   :call <sid>killotherBuffers()<CR>
   nnoremap <silent>qf   :call <sid>delete_buffer_file()<CR>
-  nnoremap <silent>qe   ggVGd
+  nnoremap <silent>qe   ggdG
   nnoremap <silent>qkk  :qa!<CR>
 
   nnoremap so           :vs 
@@ -303,17 +304,15 @@ function! mapping#basic#load() abort
     nnoremap <leader>acv       :vs ~/.SpaceVim.d/config/Vim/config.vim<CR>
     nnoremap <leader>acl       :vs ~/.SpaceVim.d/config/Vim/keymap.vim<CR>
     nnoremap <leader>acp       :vs ~/.SpaceVim.d/config/SpaceVim/plugins_before/
-    nnoremap <leader>ach       :vs ~/.SpaceVim.d/config/Vim/
   elseif !g:is_spacevim
     nnoremap <leader>aca       :vs ~/.SpaceVim.d/autoload/My_Vim/Main.vim<CR>
     nnoremap <leader>acu       :vs ~/.SpaceVim.d/autoload/My_SpaceVim/Main.vim<CR>
     nnoremap <leader>acc       :vs ~/.SpaceVim.d/config/Vim/config.vim<CR>
     nnoremap <leader>ack       :vs ~/.SpaceVim.d/config/Vim/keymap.vim<CR>
-    nnoremap <leader>acp       :vs ~/.SpaceVim.d/config/Vim/plugins/
     nnoremap <leader>acy       :vs ~/.SpaceVim.d/config/SpaceVim/option.vim<CR>
     nnoremap <leader>acv       :vs ~/.SpaceVim.d/config/SpaceVim/config.vim<CR>
     nnoremap <leader>acl       :vs ~/.SpaceVim.d/config/SpaceVim/keymap.vim<CR>
-    nnoremap <leader>ach       :vs ~/.SpaceVim.d/config/SpaceVim/
+    nnoremap <leader>acp       :vs ~/.SpaceVim.d/config/Vim/plugins/
   endif "}}}
 endfunction
 

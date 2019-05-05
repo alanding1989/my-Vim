@@ -223,8 +223,8 @@ function! s:open_browser() abort
     let g:_spacevim_mappings.o.b = ['call feedkeys(":OpenBrowserSmartSearch -baidu ")'  , 'open link or search input/baidu' ]
     let g:_spacevim_mappings.o.g = ['call feedkeys(":OpenBrowserSmartSearch -google ")' , 'open link or search input/google']
     let g:_spacevim_mappings.o.h = ['call feedkeys(":OpenBrowserSmartSearch -github ")' , 'open link or search input/github']
-    let g:_spacevim_mappings.o.p = ['call feedkeys(":OpenBrowserSmartSearch -python ")' , 'open link or search input/python']
-    let g:_spacevim_mappings.o.s = ["call feedkeys(':OpenlinkOrSearch scala ')"         , 'open link or search input/scala' ]
+    let g:_spacevim_mappings.o.p = ['call feedkeys(":OpenBrowserSmartSearch -python ")' , 'open docs or search input/python']
+    let g:_spacevim_mappings.o.s = ["call feedkeys(':OpenlinkOrSearch scala ')"         , 'open docs or search input/scala' ]
     let g:_spacevim_mappings.o.r = ['call util#Open_curPlugin_repo()'                   , 'open github mainpage/cursor plugin`s repository' ]
     let g:_spacevim_mappings.o.l = ['call util#Show_curPlugin_log()'                    , 'open cursor plugin`s log']
   else

@@ -76,7 +76,7 @@ endfunction
 
 function! s:indent_line() abort
   if g:is_spacevim
-    call SpaceVim#mapping#space#def('nnoremap', ['t', 'i'], 'call call(' 
+    call SpaceVim#mapping#space#def('nnoremap', ['t', 'i'], 'call call('
           \ . string(s:_function('s:toggle_indent_length')).', [])',
           \ '@ toggle indent length', 1)
   else
