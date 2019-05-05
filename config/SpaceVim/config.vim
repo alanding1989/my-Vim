@@ -108,8 +108,8 @@ let g:_lang#ipynb_var  = {
       \ }
 let g:_shell_var = {
       \ 'default_height'   : 35,
+      \ 'default_position' : 'right',
       \ }
-      " \ 'default_position' : 'right',
 let g:_VersionControl_var = {
       \ 'enable_gtm_status' : 0,
       \ }
