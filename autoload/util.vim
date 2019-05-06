@@ -209,7 +209,8 @@ endfunction "}}}
 " open or search code online docs {{{
 function! util#OpenlinkOrSearch(key, ...) abort
   let url = {
-        \ 'scala' : 'https://www.scala-lang.org/api/current/index.html?search='
+        \ 'scala': 'https://www.scala-lang.org/api/current/index.html?search=',
+        \ 'arec' : 'https://asciinema.org/~alanding',
         \ }
   if a:0 > 0
     exec 'OpenBrowser '.url[a:key].a:1

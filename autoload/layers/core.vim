@@ -230,6 +230,7 @@ function! s:open_browser() abort
     let g:_spacevim_mappings.o.h = ['call feedkeys(":OpenBrowserSmartSearch -github ")' , 'keyword search /github']
     let g:_spacevim_mappings.o.p = ['call feedkeys(":OpenBrowserSmartSearch -python ")' , 'docs search /python']
     let g:_spacevim_mappings.o.s = ["call feedkeys(':OpenlinkOrSearch scala ')"         , 'docs search /scala' ]
+    let g:_spacevim_mappings.o.c = ['OpenlinkOrSearch arec'                             , 'open my asciinema cast' ]
     let g:_spacevim_mappings.o.r = ['call util#Open_curPlugin_repo()'                   , 'open github mainpage/cursor plugin`s repository' ]
     let g:_spacevim_mappings.o.l = ['call util#Show_curPlugin_log()'                    , 'open cursor plugin`s log']
   else
