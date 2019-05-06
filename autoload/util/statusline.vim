@@ -10,7 +10,7 @@ scriptencoding utf-8
 
 
 " airline
-function! util#statusline#airline() abort
+function! util#statusline#airline_init() abort
   " let g:airline#extensions#default#layout  = [ {{{
   " \ [ 'a', 'b', 'c' ],
   " \ [ 'x', 'y', 'z', 'error', 'warning' ]
@@ -24,28 +24,27 @@ function! util#statusline#airline() abort
   "let g:airline_section_z       (percentage, line number, column number) }}}
 
   " more feature {{{
-  if g:enable_fat_statusline
-    let g:airline_section_b      = "%{util#statusline#Filenamela().'   '.airline#extensions#branch#head().' '.airline#extensions#hunks#get_hunks()}"
-    let g:airline_section_c      = "%{' '.util#statusline#Filenamera().'  '.util#statusline#Fileicon().' '.util#statusline#Readonly()}"
-    let g:airline_section_y      = "%{' '.SpaceVim#api#import('system').fileformat().'  '.&fenc}"
-    let g:airline_section_gutter = "%=%{util#statusline#Readonly().'  '}"
+  if g:enable_fat_statusline && 0
+    let g:airline_section_b    = "%{util#statusline#Filenamela().'   '.airline#extensions#branch#head().' '.airline#extensions#hunks#get_hunks()}"
+    let g:airline_section_y    = "%{' '.util#statusline#system().'  '.&fenc}"
+    let g:airline_section_z    = '%p%%  %{g:airline_symbols.linenr}  %l:%c%{airline_symbols.maxlinenr} - %L% '
   else "}}}
 
   " slim {{{
-  " let g:airline#extensions#default#layout = [
-        " \ [ 'a', 'b', 'c'],
-        " \ [ 'x', 'y', 'z', 'error'],
-        " \ ]
-  " let g:airline_section_error = "%{' '.util#statusline#CocDiagnostic()}%= "
-
-    let g:airline_section_b = "%{' '.airline#extensions#branch#head().' '.airline#extensions#hunks#get_hunks()}"
-    let g:airline_section_c = "%{' '.util#statusline#Filenamera().' '}%m"
-    let g:airline_section_x = "%Y. %{util#statusline#Fileicon().' '}"
-    let g:airline_section_y = "%{' ['.&fenc.'] '}%p%%"
-    let g:airline_section_z = ' %c:%l - %L% '
+    let g:airline_section_b      = "%{' '.airline#extensions#branch#head().' '.airline#extensions#hunks#get_hunks()}"
+    let g:airline_section_y      = "%{' ['.&fenc.'] '}%p%%"
+    let g:airline_section_z      = ' %l:%c - %L% '
+    " let g:airline_section_b      = "%{' '.util#statusline#Gitbranch() .' '.util#statusline#Hunks()}"
   endif "}}}
+
+  " common {{{
+  let g:airline_section_c      = "%{' '.util#statusline#Filenamera().'  '.util#statusline#Readonly()}%m"
+  let g:airline_section_x      = "%Y. %{util#statusline#Fileicon().' '}"
+  " let g:airline_section_gutter = "%=%{util#statusline#Readonly().'  '}"
+  " let g:airline_section_error  = "%{' '.util#statusline#CocDiagnostic()}%= "
   let g:airline#extensions#tabline#tabs_label    = util#statusline#curtime().' - TABS'
   let g:airline#extensions#tabline#buffers_label = util#statusline#curtime().' - BUFFERS'
+  "}}}
 endfunction
 
 
@@ -60,18 +59,9 @@ function! s:OnStdout(id, data, event) dict abort
   let s:time = get(a:data, 0, '')
 endfunction
 
-" set statusline
-function! util#statusline#pureline() abort
-  try
-    AirlineToggle
-  catch
-  endtry
-  set statusline=" %<%F[%1*%M%*%n%R%H]%= %y %0(%{&ff}/%{&encoding} [%c:%l] %p%% - %L%) "
-endfunc
-
 function! util#statusline#Filenamela() abort
   let fname = winwidth(0) < 80 && strwidth(expand('%:t')) <= 15 ?
-        \ ' ' : ' '.util#statusline#Modified().' '.expand('%:t')
+        \ ' ' : ' - '.expand('%:t')
   return  &filetype ==# 'vimfiler' ? vimfiler#get_status_string() :
         \ &filetype ==# 'unite' ? unite#get_status_string() :
         \ &filetype ==# 'denite' ? denite#get_status('path') :
@@ -91,15 +81,19 @@ function! util#statusline#Filenamera() abort
         \ fname
 endfunction
 
+function! util#statusline#system() abort
+  return SpaceVim#api#import('system').fileformat()
+endfunction
+
 function! util#statusline#Fileicon() abort
-let g:spacevim_filetype_icons = {}
+  let g:spacevim_filetype_icons = {}
   let icon = SpaceVim#api#import('file').fticon(bufname(bufnr('%')))
   return icon
 endfunction
 
 function! util#statusline#Modified() abort
   return &filetype =~? 'help\|vimfiler\|defx\|Startify' ? '' :
-        \ &modified ? '[*]' : &modifiable ? '-' : 'x'
+        \ &modified ? '*' : &modifiable ? '-' : 'x'
 endfunction
 
 function! util#statusline#Readonly() abort
@@ -114,10 +108,21 @@ function! util#statusline#curtime() abort
     return strftime('%b%d日 星期%a')
   endif
 endfunction
+
+" set statusline
+function! util#statusline#pureline() abort
+  try
+    AirlineToggle
+  catch
+  endtry
+  set statusline=" %<%F[%1*%M%*%n%R%H]%= %y %0(%{&ff}/%{&encoding} [%c:%l] %p%% - %L%) "
+endfunc
 "}}}
 
 
-" Plugins integration {{{
+" Plugins integration
+
+" vcs {{{
 function! util#statusline#Gitbranch() abort
   if exists('g:loaded_fugitive')
     try
@@ -137,22 +142,28 @@ endfunction
 function! util#statusline#Hunks() abort
   let hunks = [0,0,0]
   try
-    let hunks = GitGutterGetHunkSummary()
+    if exists(':GitGutterFold')
+      let hunks = GitGutterGetHunkSummary()
+    elseif exists(':SignifyFold')
+      let hunks = sy#repo#get_stats()
+    endif
   catch
   endtry
   let rst = ''
   if hunks[0] > 0
-    let rst .=  '+ ' . hunks[0]
+    let rst .=  '+' . hunks[0]
   endif
   if hunks[1] > 0
-    let rst .=  '~ ' . hunks[1]
+    let rst .=  ' ~' . hunks[1]
   endif
   if hunks[2] > 0
-    let rst .=  '- ' . hunks[2]
+    let rst .=  ' -' . hunks[2]
   endif
   return empty(rst) ? '' : '' . rst
 endfunction
+" }}}
 
+" diagnostic {{{
 function! util#statusline#CocDiagnostic() abort
   let E = '❌'
   let W = '⚠️ '

@@ -7,12 +7,18 @@ scriptencoding utf-8
 
 " echo mapping rhs {{{
 function! util#maparg_wrapper(...) abort
-  if a:0 == 1 && a:1 ==# 'v'
+  if a:0 == 1 && a:1 ==# 'vn'
+    call feedkeys(':verbose nmap ')
+  elseif a:0 == 1 && a:1 ==# 'vi'
+    call feedkeys(':verbose imap ')
+  elseif a:0 == 1 && a:1 ==# 'vv'
+    call feedkeys(':verbose vmap ')
+  elseif a:0 == 1 && a:1 ==# 'vx'
+    call feedkeys(':verbose xmap ')
     " try
       " Scriptease plugin
       " call feedkeys(':Verbose map ')
     " catch
-      call feedkeys(':verbose map ')
     " endtry
   elseif a:0 == 1
     " n mode

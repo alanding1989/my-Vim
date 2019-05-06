@@ -114,11 +114,11 @@ if get(g:, 'statusline', 'airline') ==# 'airline'
   let g:airline_powerline_fonts   = 1
   let g:airline_symbols           = {}
   let g:airline_symbols.notexists = ' '
+  let g:airline_symbols.readonly  = ''
 
   " more feature{{{
   if g:enable_fat_statusline
     let g:airline_symbols.branch    = ''
-    let g:airline_symbols.readonly  = ''
     let g:airline_symbols.linenr    = '☰'
     let g:airline_symbols.maxlinenr = ''
     auto VimEnter * let g:airline_left_sep      = s:separators[s:sep_style].sep.left
@@ -131,7 +131,7 @@ if get(g:, 'statusline', 'airline') ==# 'airline'
 
   " slim {{{
     let g:airline_symbols.branch    = ' '
-    let g:airline_symbols.readonly  = ''
+    let g:airline_symbols.dirty     = ' '
     let g:airline_symbols.linenr    = ' '
     let g:airline_symbols.maxlinenr = ' '
     auto VimEnter * let g:airline_left_sep                        = ''
@@ -161,7 +161,7 @@ if get(g:, 'statusline', 'airline') ==# 'airline'
         \ ['vimfiler', 'nerdtree', 'defx', 'denite']
   "}}}
 
-  call util#statusline#airline()
+  call util#statusline#airline_init()
 
   "@ extendtion integrations {{{
   let g:airline_highlighting_cache            = 1

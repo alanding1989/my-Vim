@@ -73,6 +73,7 @@ function! mapping#basic#load() abort
   " fast save
   inoremap qw           <esc>
   nnoremap qw           :w<CR>
+  nnoremap qr           :call <sid>rename()<CR>
   nnoremap qwe          :wall<CR>
   nnoremap qww          :w !sudo tee % >/dev/null<CR>
   nnoremap qs           :saveas 
@@ -318,6 +319,22 @@ function! mapping#basic#load() abort
   endif "}}}
 endfunction
 
+
+" rename file {{{
+function! s:rename() abort
+  let curbufnr = bufnr('%')
+  let newn = input('New name: '.expand('%:p').' -> ', expand('%:p'))
+  if glob(newn) !=# ''
+    call feedkeys(":echohl WarningMsg |
+          \ echo ' The file exists !' | 
+          \ echohl NONE\<CR>")
+    return
+  endif
+  call rename(expand('%'), newn)
+  exec 'e ' newn
+  exec 'bd' curbufnr
+endfunction
+"}}}
 
 " toggle zzmode {{
 let s:zzmode = 0

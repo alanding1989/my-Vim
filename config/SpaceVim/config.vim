@@ -28,7 +28,7 @@ let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 
 " ================================================================================
 " Preferences
-let g:spacevim_autocomplete_method  = get(['coc'       , 'deoplete' , 'ncm2', 'ycm'], 1)
+let g:spacevim_autocomplete_method  = get(['coc'       , 'deoplete' , 'ncm2', 'ycm'], 0)
 let g:spacevim_snippet_engine       = get(['neosnippet', 'ultisnips', 'coc' ], 0)
 let g:spacevim_fuzzyfinder          = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
 let g:spacevim_filemanager          = get(['vimfiler'  , 'nerdtree' , 'defx'], 2)
@@ -42,7 +42,7 @@ let g:enable_smart_clock_startup    = 0 && !g:is_win
 
 " Ui {{{
 let g:statusline_separator                   = get(['fire', 'arrow', 'curve', 'slant'], 0)
-let g:enable_fat_statusline                  = 0
+let g:enable_fat_statusline                  = 1
 let g:spacevim_enable_cursorword             = 1
 let g:spacevim_enable_cursorcolumn           = 0
 let g:spacevim_buffer_index_type             = 1
