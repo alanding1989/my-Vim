@@ -41,7 +41,7 @@ let g:enable_googlesuggest          = 0
 let g:enable_smart_clock_startup    = 0 && !g:is_win
 
 " Ui {{{
-let g:statusline_separator                   = get(['fire', 'arrow', 'curve', 'slant'], 0)
+let g:statusline_separator                   = get(['fire', 'arrow', 'curve', 'slant'], 1)
 let g:enable_fat_statusline                  = 1
 let g:spacevim_enable_cursorword             = 1
 let g:spacevim_enable_cursorcolumn           = 0
