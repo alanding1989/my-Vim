@@ -570,17 +570,17 @@ endf
 
 function! s:unmap_SPC() abort
   if g:is_spacevim
-    iunmap jk
-    nunmap <tab>
     nnoremap s <nop>
     nnoremap q <nop>
     try
-      unmap   ,<Space>
-      unmap   <F7>
-      unmap   [SPC]-
-      unmap   [SPC]+
-      nunmap  <leader>-
-      nunmap  <leader>+
+      nunmap   <F7>
+      nunmap   <tab>
+      iunmap   jk
+      nunmap   ,<Space>
+      nunmap   [SPC]-
+      nunmap   [SPC]+ 
+      nunmap   <leader>-
+      nunmap   <leader>+
       
       unlet g:_spacevim_mappings['-']
       unlet g:_spacevim_mappings['+']

@@ -35,7 +35,7 @@ endfunction
 
 
 function! layers#tools#config() abort
-  nmap <silent><F10> :MundoToggle<CR>
+  nnoremap <silent><F6> :MundoToggle<CR>
 
   if !g:is_spacevim
     call s:vimcalc()
