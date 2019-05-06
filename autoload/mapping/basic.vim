@@ -317,6 +317,7 @@ function! mapping#basic#load() abort
     nnoremap <leader>acp       :vs ~/.SpaceVim.d/config/Vim/plugins/
     nnoremap <leader>ac[       :vs ~/.SpaceVim.d/config/SpaceVim/plugins_before/
   endif "}}}
+  let g:Lf_CacheDirectory      = expand($HOME.'/.cache')
 endfunction
 
 
