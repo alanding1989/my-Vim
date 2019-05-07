@@ -23,7 +23,6 @@ endfunction
 
 function! s:codi() abort
   if g:is_spacevim
-    let g:_spacevim_mappings.a = {'name': '+@ Alan me' }
     let g:_spacevim_mappings.l = {'name': '+@ Language tools' }
     call SpaceVim#mapping#def('noremap', '<leader>lc', ':Codi!! ', 'toggle codi for current buffer', '', 'toggle codi for current buffer')
   else
