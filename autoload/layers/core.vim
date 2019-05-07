@@ -583,7 +583,7 @@ endfunction
 " a:dir=3 open my vimrc favourite dir
 " a:dir=4 open current dir in fullscreen with more infor
 " a:dir=5 open my plugins bundle dir
-let g:_my_favourite_dir = g:home.'extools/'
+let g:_my_favourite_dir = g:home
 if get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'vimfiler' "{{{
   function! s:open_filetree(dir) abort
     if a:dir == 0

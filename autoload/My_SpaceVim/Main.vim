@@ -86,6 +86,19 @@ endfunction
 
 " add custom plugins
 function! s:SpaceVim_add_plugins() abort
+  " unite {{{
+  let g:spacevim_custom_plugins += [
+        \ ['Shougo/unite.vim', {'merged': 0}]
+        \ ]
+  if g:is_win
+    call add(g:spacevim_custom_plugins, ['Shougo/vimproc.vim', {'build' : '.\mingw32-make.exe', 'do': '.\mingw32-make.exe'}])
+  else
+    call add(g:spacevim_custom_plugins, ['Shougo/vimproc.vim', {'build' : [(executable('gmake') ? 'gmake' : 'make')],
+          \ 'do': (executable('gmake') ? 'gmake' : 'make')}])
+  endif
+  auto VimEnter * exec 'so '.g:vim_plugindir.'unite.vim'
+  "}}}
+
   for layer in s:define_my_layers
     if !empty(layer)
       let g:spacevim_custom_plugins += layers#{layer}#plugins()

@@ -173,7 +173,8 @@ function! util#Open_curPlugin_repo()
   try
     let a_save = @a
     let @a=''
-    normal! "ayi'
+    normal! mx"ayi'
+    normal! `x
     exec 'OpenBrowser https://github.com/'.@a
   catch
     echohl WarningMsg | echomsg 'can not open the web of current plugin' | echohl None
@@ -189,7 +190,8 @@ function! util#Show_curPlugin_log()
   try
     let a_save = @a
     let @a=''
-    normal! "ayi'
+    normal! mx"ayi'
+    normal! `x
     let plug = match(@a, '/') >= 0 ? @a : 'vim-scripts/'.@a
   finally
     let @a = a_save

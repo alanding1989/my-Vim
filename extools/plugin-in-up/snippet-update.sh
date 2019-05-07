@@ -4,7 +4,7 @@
 #  mail         :
 #  Created Time : Tue 23 Apr 2019 09:06:07 PM CST
 # ================================================================================
-#!/usr/bin/env bash
+#! /usr/bin/env bash
 
 path=`pwd`
 

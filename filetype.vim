@@ -13,7 +13,6 @@ augroup my_filetype_detection
   autocmd BufNewFile,BufRead *.ps1 setlocal filetype=ps1
 
 
-  autocmd FileType scala    setlocal sts=4 sw=4 noet
   autocmd FileType c,cpp    setlocal commentstring=//\ %s
   autocmd FileType markdown setlocal wrap
   autocmd FileType qf       setlocal nonumber

@@ -72,10 +72,10 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
     elseif !delimitMate#WithinEmptyPair() && getline('.')[col('.')-1] ==# '}'
       return "\<c-y>\<CR>"
     elseif getline('.')[col('.')-1] !=# '}'
-      if g:ulti_expand_or_jump_res == 2
+      if empty(v:completed_item)
+        return "\<c-y>"
+      elseif g:ulti_expand_or_jump_res == 2
         return sni
-      elseif empty(v:completed_item)
-        return "\<c-e>"
       else
         return "\<esc>o"
       endif

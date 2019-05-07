@@ -52,13 +52,13 @@ function! SetFileHead() abort " {{{
     call s:insfhead('#', '#! /usr/bin/env python3', '# -*- coding: utf-8 -*-')
 
   elseif &filetype ==# 'scala'
-    call s:insfhead('', '', '', '/*', '*/')
+    call s:insfhead('#', '', '', '/*', '*/')
 
   elseif &filetype ==# 'cpp'
-    call s:insfhead('', '#include <iostream>', 'using namespace std;', '/*', '*/')
+    call s:insfhead('#', '#include <iostream>', 'using namespace std;', '/*', '*/')
 
   elseif &filetype ==# 'c'
-    call s:insfhead('', '#include <stdio.h>', '', '/*', '*/')
+    call s:insfhead('#', '#include <stdio.h>', '', '/*', '*/')
   endif
 endfunc
 
