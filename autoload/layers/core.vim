@@ -13,13 +13,13 @@ function! layers#core#plugins() abort
           \ ['andymass/vim-matchup'    ,     {'merged' : 0}],
           \ ['scrooloose/nerdcommenter',     {'merged' : 0}],
           \ ['liuchengxu/vim-which-key',     {'merged' : 0}],
-          \ ['wsdjeg/FlyGrep.vim'      ,     {'merged' : 0}],
           \ ['mhinz/vim-grepper'       ,     {'on_cmd': 'Grepper', 'on': 'Grepper'}],
           \ ['tyru/open-browser.vim'   ,     {'on_map': '<Plug>(openbrowser-',
           \ 'on_cmd': ['OpenBrowserSmartSearch', 'OpenBrowser', 'OpenBrowserSearch'],
           \ 'on'    : ['OpenBrowserSmartSearch', 'OpenBrowser', 'OpenBrowserSearch',
           \ '<Plug>(openbrowser-']}],
           \ ]
+          " \ ['wsdjeg/FlyGrep.vim'      ,     {'merged' : 0}],
     if g:filemanager ==# 'nerdtree'
       call add(plugins, ['scrooloose/nerdtree', {'on_cmd': 'NERDTreeToggle', 'on': 'NERDTreeToggle'}])
       call add(plugins, ['Xuyuanp/nerdtree-git-plugin', {'merged' : 0}])
@@ -83,11 +83,13 @@ endfunction
 
 function! s:filetree() abort "{{{
   if g:is_spacevim
-    " a:dir=0 open root dir
-    " a:dir=1 open last opened dir
-    " a:dir=2 open buffer dir/root dir(VimEnter)
-    " a:dir=3 open my src layout dir
-    " a:dir=4 open current dir in fullscreen with more infor
+    " a:num = 0 open root dir
+    " a:num = 1 open last opened dir
+    " a:num = 2 open buffer dir/root dir(VimEnter)
+    " a:num = 3 open my src layout dir
+    " a:num = 4 open current dir in fullscreen with more infor
+    " a:num = 5 open my plugins bundle dir
+    " a:num = 6 open my dotfile dir
     nnoremap <silent><F3>         :call <SID>open_filetree(0)<CR>
     call SpaceVim#mapping#space#def('nnoremap', ['f','o'], 'call call('
           \ . string(function('s:open_filetree'))
@@ -95,15 +97,18 @@ function! s:filetree() abort "{{{
     call SpaceVim#mapping#space#def('nnoremap', ['<Tab>'], 'call call('
           \ . string(function('s:open_filetree'))
           \ . ', [2])', '@ show file tree at buffer dir', 1)
-    call SpaceVim#mapping#space#def('nnoremap', ['f','l'], 'call call('
+    call SpaceVim#mapping#space#def('nnoremap', ['f','a'], 'call call('
           \ . string(function('s:open_filetree'))
-          \ . ', [3])', '@ open my src layout dir', 1)
+          \ . ', [3])', '@ open my vimrc dir', 1)
     call SpaceVim#mapping#space#def('nnoremap', ['f','i'], 'call call('
           \ . string(function('s:open_filetree'))
-          \ . ', [4])', '@ investigate current working dir', 1)
+          \ . ', [4])', '@ Investigate current working dir', 1)
     call SpaceVim#mapping#space#def('nnoremap', ['f','p'], 'call call('
           \ . string(function('s:open_filetree'))
           \ . ', [5])', '@ open my plugins bundle dir', 1)
+    call SpaceVim#mapping#space#def('nnoremap', ['f','.'], 'call call('
+          \ . string(function('s:open_filetree'))
+          \ . ', [6])', '@ open my dotfile dir', 1)
   else
     nnoremap <silent><F3>         :call <SID>open_filetree(0)<CR>
     nnoremap <silent><space>fo    :call <SID>open_filetree(1)<CR>
@@ -577,71 +582,82 @@ endfunction
 "}}}
 
 
-" a:dir=0 open root dir
-" a:dir=1 open last opened dir
-" a:dir=2 open current buffer dir/root dir(when VimEnter)
-" a:dir=3 open my vimrc favourite dir
-" a:dir=4 open current dir in fullscreen with more infor
-" a:dir=5 open my plugins bundle dir
-let g:_my_favourite_dir = g:home
-if get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'vimfiler' "{{{
-  function! s:open_filetree(dir) abort
-    if a:dir == 0
+" a:num=0 open root dir
+" a:num=1 open last opened dir
+" a:num=2 open current buffer dir/root dir(when VimEnter)
+" a:num=3 open my vimrc favourite dir
+" a:num=4 open current dir in fullscreen with more infor
+" a:num=5 open my plugins bundle dir
+" a:num=6 open my dotfile dir
+let g:_my_vimrc_dir   = g:home
+let g:_my_dotfile_dir = g:is_win ? 'E:\my-Dotfile' : '/mnt/fun+downloads/my-Dotfile'
+if get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'vimfiler'
+
+  function! s:open_filetree(num) abort "{{{
+    if a:num == 0
       exec 'VimFiler '.getcwd()
-    elseif a:dir == 1
+    elseif a:num == 1
       VimFiler
-    elseif a:dir == 2
+    elseif a:num == 2
       VimFilerBufferDir
-    elseif a:dir == 3
-      exec 'VimFiler '.expand(g:_my_favourite_dir)
-    elseif a:dir == 4
+    elseif a:num == 3
+      exec 'VimFiler '.expand(g:_my_vimrc_dir)
+    elseif a:num == 4
       let g:_spacevim_autoclose_filetree = 0
       VimFilerCurrentDir -no-split -columns=type:size:time
       let g:_spacevim_autoclose_filetree = 1
-    elseif a:dir == 5
-      call <sid>open_filetree_5('VimFiler ')
+    elseif a:num == 5
+      call <sid>open_plugins_dir('VimFiler ')
+    elseif a:num == 6
+      exec 'VimFiler '.expand(g:_my_dotfile_dir)
     endif
     doautocmd WinEnter
-  endfunction
+  endfunction "}}}
 elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'defx'
-  function! s:open_filetree(dir) abort
-    if a:dir == 0
+
+  function! s:open_filetree(num) abort "{{{
+    if a:num == 0
       Defx `getcwd()`
-    elseif a:dir == 1
+    elseif a:num == 1
       Defx
-    elseif a:dir == 2
+    elseif a:num == 2
       Defx `expand('%:p:h')`
-    elseif a:dir == 3
-      Defx `expand(g:_my_favourite_dir)`
-    elseif a:dir == 4
+    elseif a:num == 3
+      Defx `expand(g:_my_vimrc_dir)`
+    elseif a:num == 4
       let g:_spacevim_autoclose_filetree = 0
       Defx -split=no -columns=git:mark:indent:filename:type:size:time `getcwd()`
       let g:_spacevim_autoclose_filetree = 1
-    elseif a:dir == 5
-      call <sid>open_filetree_5('Defx ')
+    elseif a:num == 5
+      call <sid>open_plugins_dir('Defx ')
+    elseif a:num == 6
+      Defx `expand(g:_my_dotfile_dir)`
     endif
     if &ft ==# 'defx' | setl conceallevel=0 | endif
     doautocmd WinEnter
-  endfunction
+  endfunction "}}}
 elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'nerdtree'
-  function! s:open_filetree(dir) abort
-    if a:dir == 0
+
+  function! s:open_filetree(num) abort "{{{
+    if a:num == 0
       exec 'e '.getcwd()
-    elseif a:dir == 1
+    elseif a:num == 1
       NERDTreeToggle
-    elseif a:dir == 2
+    elseif a:num == 2
       NERDTree %
-    elseif a:dir == 3
-      exec 'NERDTree '.expand(g:_my_favourite_dir)
-    elseif a:dir == 4
+    elseif a:num == 3
+      exec 'NERDTree '.expand(g:_my_vimrc_dir)
+    elseif a:num == 4
       exec 'e '.getcwd()
-    elseif a:dir == 5
-      call <sid>open_filetree_5('NERDTree ')
+    elseif a:num == 5
+      call <sid>open_plugins_dir('NERDTree ')
+    elseif a:num == 6
+      exec 'NERDTree '.expand(g:_my_dotfile_dir)
     endif
     doautocmd WinEnter
-  endfunction
+  endfunction "}}}
 endif
-function! s:open_filetree_5(cmd) abort "{{{
+function! s:open_plugins_dir(cmd) abort "{{{
   let temp = @a | let @a=''
   norm! mz"ayi'
   norm! `z
@@ -669,7 +685,7 @@ function! s:open_filetree_5(cmd) abort "{{{
   endif
   let @a = temp
 endfunction "}}}
-"}}}
+
 
 " function() wrapper {{{
 if v:version > 703 || v:version == 703 && has('patch1170')

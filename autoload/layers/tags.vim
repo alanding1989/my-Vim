@@ -34,7 +34,7 @@ function! layers#tags#config() abort
     set cscopeprg='gtags-cscope'   " 使用 gtags-cscope 代替 cscope
   endif
 
-  nmap <silent><F2> :Vista!! \| doautocmd WinEnter<CR>
+  auto VimEnter * nmap <silent><F2> :Vista!! \| doautocmd WinEnter<CR>
   call s:gutentags_plus()
   call s:vim_preview()
 endfunction

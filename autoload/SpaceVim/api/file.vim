@@ -26,7 +26,7 @@ let s:file_node_extensions = {
       \  'erb'      : '',
       \  'slim'     : '',
       \  'ejs'      : '',
-      \  'wxml'     : '',
+      \  'wxml'      : '',
       \  'css'      : '',
       \  'less'     : '',
       \  'wxss'     : '',
@@ -102,7 +102,7 @@ let s:file_node_extensions = {
       \  'psd'      : '',
       \  'psb'      : '',
       \  'ts'       : '',
-      \  'tsx'      : '',
+      \  'tsx'       : '',
       \  'jl'       : ''
       \}
 

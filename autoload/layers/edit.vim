@@ -23,6 +23,7 @@ function! layers#edit#plugins() abort "{{{
     let plugins += [
           \ ['kana/vim-textobj-user'                                                               ],
           \ ['kana/vim-textobj-indent'                                                             ],
+          \ ['dhruvasagar/vim-table-mode'                                                          ],
           \ ['tpope/vim-surround'                                                                  ],
           \ ['tpope/vim-repeat'                                                                    ],
           \ ['junegunn/vim-emoji',                                                    {'merged': 0}],

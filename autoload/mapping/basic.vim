@@ -587,6 +587,12 @@ function! s:unmap_SPC() abort
       unlet g:_spacevim_mappings['+']
       unlet g:_spacevim_mappings_space['-']
       unlet g:_spacevim_mappings_space['+']
+      " file
+      unlet g:_spacevim_mappings_space.f.s
+      unlet g:_spacevim_mappings_space.f.S
+      unlet g:_spacevim_mappings_space.f.D
+      unlet g:_spacevim_mappings_space.f.v
+      unlet g:_spacevim_mappings_space.f.y
       " chang case
       unlet g:_spacevim_mappings_space.x.u
       unlet g:_spacevim_mappings_space.x.U
