@@ -44,10 +44,8 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
         \ expand('D:/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/UltiSnips') :
         \ expand('/home/alanding/.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/UltiSnips')
   let g:UltiSnipsSnippetDirectories              = g:is_win ? [
-        \ expand('D:/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/snippets'),
         \ expand('D:/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/UltiSnips')
         \ ] : [
-        \ expand('/home/alanding/.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/snippets'),
         \ expand('/home/alanding/.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/UltiSnips')
         \ ]
   let g:UltiSnipsUsePythonVersion                = 3
