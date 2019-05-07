@@ -16,7 +16,7 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
     if pumvisible()
       if neosnippet#expandable()
         if g:neosnippet#enable_complete_done == 1
-          if getline('.')[col('.')-2] ==# '('
+          if s:cur_char(0, '(')
             return s:md ==# 'asyncomplete' ? asyncomplete#close_popup() : "\<c-y>"
           else
             return "\<c-e>\<plug>(neosnippet_expand)"
@@ -24,16 +24,18 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
         else
           return "\<plug>(neosnippet_expand)"
         endif
-      elseif neosnippet#jumpable() && getline('.')[col('.')-1] ==# '('
+      elseif neosnippet#jumpable() && s:cur_char(1, '(')
         return "\<plug>(neosnippet_jump)"
+      elseif delimitMate#WithinEmptyPair()
+        return "\<right>"
       else
         return s:md ==# 'asyncomplete' ? asyncomplete#close_popup() : "\<c-y>"
       endif
     else
-      if neosnippet#expandable() && getline('.')[col('.')-2] !=# '('
+      if neosnippet#expandable() && !s:cur_char(0, '(')
         return "\<plug>(neosnippet_expand)"
       elseif !neosnippet#jumpable() && delimitMate#ShouldJump()
-            \ && s:check_bs() && getline('.')[col('.')-1] !=? ''
+            \ && s:check_bs() && !s:cur_char(1, '')
         return "\<right>"
       elseif neosnippet#jumpable()
         return "\<plug>(neosnippet_jump)"
@@ -60,6 +62,7 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
           \ neosnippet#expandable_or_jumpable() ?
           \ "\<Plug>(neosnippet_expand_or_jump)" :
           \ "\<TAB>"
+    xmap <TAB> <Plug>(neosnippet_expand_target)
   endfunction
   "}}}
 
@@ -79,21 +82,22 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
     let snip = UltiSnips#ExpandSnippetOrJump()
     if g:ulti_expand_or_jump_res == 1
       return snip
-    elseif g:ulti_expand_or_jump_res == 2 && getline('.')[col('.')-2] ==# '('
+    elseif g:ulti_expand_or_jump_res == 2 && s:cur_char(0, '(')
       return snip
+    elseif delimitMate#WithinEmptyPair()
+      return "\<right>"
+    elseif s:cur_char(0, '(')
+      return ")\<left>"
     else
       return s:md ==# 'asyncomplete' ? asyncomplete#close_popup() : "\<c-y>"
     endif
   endfunction
   function! mapping#tab#no_popup() abort
-    if getline('.')[col('.')-2] ==# '(' && getline('.')[col('.'-1)] !=# ')'
-      return ")\<left>"
-    endif
     let sni = UltiSnips#ExpandSnippetOrJump()
     if g:ulti_expand_or_jump_res == 1
       return sni
     elseif g:ulti_expand_or_jump_res != 2 && delimitMate#ShouldJump()
-          \ && s:check_bs() && getline('.')[col('.')-1] !=? ''
+          \ && s:check_bs() && !s:cur_char(1,  '')
       return "\<right>"
     elseif g:ulti_expand_or_jump_res == 2
       return sni
@@ -131,8 +135,10 @@ elseif s:md ==# 'coc'
     if pumvisible()
       if coc#expandable()
         return "\<Plug>(coc-snippets-expand)"
-      elseif coc#jumpable() && getline('.')[col('.')-1] ==# '('
+      elseif coc#jumpable() && s:cur_char(1, '(')
         return coc#rpc#request('doKeymap', ['snippets-jump', ''])
+      elseif delimitMate#WithinEmptyPair()
+        return "\<right>"
       else
         return "\<c-y>"
       endif
@@ -140,7 +146,7 @@ elseif s:md ==# 'coc'
       if coc#expandable()
         return "\<Plug>(coc-snippets-expand)"
       elseif !coc#jumpable() && delimitMate#ShouldJump()
-            \ && s:check_bs() && getline('.')[col('.')-1] !=? ''
+            \ && s:check_bs() && !s:cur_char(1, '')
         return "\<right>"
       elseif coc#jumpable() && s:check_bs()
         return coc#rpc#request('doKeymap', ['snippets-jump', ''])
@@ -161,4 +167,13 @@ endif
 function! s:check_bs() abort
   let col = col('.') - 1
   return col > 0 && getline('.')[col('.')-2] !~# '\s'
+endfunction
+
+function! s:cur_char(pos, char) abort
+  " left 0, right 1
+  if a:pos ==# 0
+    return getline('.')[col('.')-2] ==# a:char
+  elseif a:pos ==# 1
+    return getline('.')[col('.')-1] ==# a:char
+  endif
 endfunction

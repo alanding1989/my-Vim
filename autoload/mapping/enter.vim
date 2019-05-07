@@ -5,7 +5,6 @@
 scriptencoding utf-8
 
 
-
 let s:md = get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method', 'asyncomplete'))
 
 " ================================================================================
@@ -73,7 +72,7 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
       return "\<c-y>\<CR>"
     elseif getline('.')[col('.')-1] !=# '}'
       if empty(v:completed_item)
-        return "\<c-y>"
+        return "\<c-e>"
       elseif g:ulti_expand_or_jump_res == 2
         return sni
       else

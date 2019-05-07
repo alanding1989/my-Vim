@@ -109,8 +109,7 @@ endfunction
 
 
 function! layers#autocomplete#config() abort
-  " autocmd InsertLeave * if pumvisible() ==# 0 | pclose | endif
-
+  auto InsertLeave * if pumvisible() ==# 0 | pclose | endif
 
   imap <silent><expr><Tab>   mapping#tab#super_tab()
   imap <silent><expr><CR>    mapping#enter#super_enter()

@@ -226,8 +226,12 @@ endif
 
 
 " ================================================================================
-" Disabled plugins
+" En/Disabled plugins
 " ============================================================================= {{{
+" let g:spacevim_custom_plugins += [
+      " \ ['honza/vim-snippets'        , {'merged': 0}],
+      " \ ['Shougo/neosnippet-snippets', {'merged': 0}],
+      " \ ]
 let g:spacevim_disabled_plugins = [
       \ 'vim-hybrid'           ,
       \ 'jellybeans.vim'       ,
