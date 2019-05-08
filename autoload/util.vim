@@ -185,7 +185,7 @@ function! util#Show_curPlugin_log()
   else
     let plug = split(plug, '/')[1]
   endif
-  call Unite#start([['output/shellcmd',
+  call unite#start([['output/shellcmd',
         \ 'git --no-pager -C ' 
         \ . plugdir . plug
         \ . ' log -n 15 --oneline']], {'log': 1, 'wrap': 1,'start_insert':0})

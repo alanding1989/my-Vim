@@ -7,7 +7,7 @@ scriptencoding utf-8
 
 function! layers#core#plugins() abort
   let plugins = [
-        \ ['Shougo/unite.vim'],
+        \ ['Shougo/unite.vim', {'merged': 0}],
         \ ]
   if g:is_win
     call add(plugins, ['Shougo/vimproc.vim', {'build' : '.\mingw32-make.exe', 'do': '.\mingw32-make.exe'}])
