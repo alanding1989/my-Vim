@@ -93,6 +93,6 @@ let g:_spacevim_mappings_space_custom += [
 if g:is_nvim
   let g:_spacevim_mappings_space_custom += [
         \ ['nmap', ['q', 'm'], 'call dein#remote_plugins()'   , '@ update remote plugins'             , 1],
-        \ ['nmap', ['q', 'h'], 'checkhealth'                  , '@ checkhealth'                       , 1],
+        \ ['nmap', ['q', 'h'], 'checkhealth'                  , '@ neovim checkhealth'                , 1],
         \ ]
 endif
