@@ -14,14 +14,14 @@ scriptencoding utf-8
 " need to define after vim enter
 let g:_spacevim_mappings[';'] = ['', 'easyMotion prefix']
 
-let g:_spacevim_mappings.a   = {'name': '+@ Session/Settings' }
-let g:_spacevim_mappings.a.c = {'name': '+Open config file'   }
+let g:_spacevim_mappings.a['name'] = get(g:_spacevim_mappings.a, 'name', '+@ Session/Settings')
+let g:_spacevim_mappings.a.c = get(g:_spacevim_mappings.a, 'c', {'name': '+Open config file'})
 call SpaceVim#mapping#def('nnoremap', '<leader>aa',
       \ 'ggVG', 'select whole buffer', '', 'select whole buffer')
 call SpaceVim#mapping#def('nnoremap', '<leader>ae',
       \ 'VG', 'select to the end', '', 'select to the end')
 call SpaceVim#mapping#def('xnoremap', '<leader>y',
-      \ '"+y', 'copy select text to system clipboard', '', 'copy select to system clipboard')
+      \ '"+y', 'copy selection to system clipboard', '', 'copy selection to system clipboard')
 
 
 " echo value/edit snippets

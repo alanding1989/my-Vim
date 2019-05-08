@@ -217,7 +217,7 @@ function! mapping#basic#load() abort
   " yank and paste {{
   if has('unnamedplus')
     xnoremap <Leader>y   "+y
-    " xnoremap <Leader>d "+d
+    xnoremap <Leader>d   "+d
     " lower case paste after
     nnoremap <Leader>p   "+p
     xnoremap <Leader>p   "+p
@@ -226,7 +226,7 @@ function! mapping#basic#load() abort
     xnoremap <Leader>P   "+P
   else
     xnoremap <Leader>y   "*y
-    " xnoremap <Leader>d  "*d
+    xnoremap <Leader>d   "*d
     " lower case paste after
     nnoremap <Leader>p   "*p
     xnoremap <Leader>p   "*p
