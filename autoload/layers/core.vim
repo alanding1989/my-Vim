@@ -32,7 +32,7 @@ function! layers#core#plugins() abort
     elseif g:filemanager ==# 'vimfiler'
       call add(plugins, ['Shougo/vimfiler.vim', {'on_cmd': ['VimFiler', 'VimFilerBufferDir']}])
     elseif g:filemanager ==# 'defx'
-      call add(plugins, ['Shougo/defx.nvim'         , {'merged': 0}])
+      call add(plugins, ['Shougo/defx.nvim'   , {'merged': 0}])
       " call add(plugins, ['kristijanhusak/defx-icons', {'merged': 0}])
     endif
     if !has('nvim') && g:is_vim8
