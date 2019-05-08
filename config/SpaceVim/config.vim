@@ -20,15 +20,15 @@ let g:spacevim_colorscheme = split([
       \ '5 OceanicNext' ,
       \ '6 PaperColor'  ,
       \ '7 nord'        ,
-      \ '8 srcery'      ,
-      \ ][2])[1]
-let g:spacevim_colorscheme_default = 'nord'
+      \ '8 ',
+      \ ][0])[1]
+let g:spacevim_colorscheme_default = 'neodark'
 let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 "}}}
 
 " ================================================================================
 " Preferences
-let g:spacevim_autocomplete_method  = get(['coc'       , 'deoplete' , 'ncm2', 'ycm'], 2)
+let g:spacevim_autocomplete_method  = get(['coc'       , 'deoplete' , 'ncm2', 'ycm'], 1)
 let g:spacevim_snippet_engine       = get(['neosnippet', 'ultisnips', 'coc' ], 1)
 let g:spacevim_fuzzyfinder          = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
 let g:spacevim_filemanager          = get(['vimfiler'  , 'nerdtree' , 'defx'], 2)
@@ -213,7 +213,7 @@ if g:pure_viml || !g:has_py " {{{
         \ 'shell'           : 1,
         \ 'tmux'            : 1,
         \ 'tools'           : 1,
-        \ 'VersionControl'  : 1,
+        \ 'VersionControl'  : 0,
         \
         \ 'denite'          : 0,
         \ 'fzf'             : 0,
@@ -228,17 +228,17 @@ endif
 " ================================================================================
 " En/Disabled plugins
 " ============================================================================= {{{
-" let g:spacevim_custom_plugins += [
-      " \ ['honza/vim-snippets'        , {'merged': 0}],
-      " \ ['Shougo/neosnippet-snippets', {'merged': 0}],
-      " \ ]
 let g:spacevim_disabled_plugins = [
-      \ 'vim-hybrid'           ,
+      \ 'molokai'              ,
       \ 'jellybeans.vim'       ,
+      \ 'vim-one'              ,
+      \ 'vim-hybrid'           ,
+      \ 'vim-material'         ,
+      \ 'srcery-vim'           ,
+      \ 'vim-grepper'          ,
       \ 'neosnippet-snippets'  ,
       \ 'vim-snippets'         ,
       \ 'CompleteParameter.vim',
-      \ 'unite-radio.vim'      ,
       \ 'unite-gtags'          ,
       \ 'denite-gtags'         ,
       \ 'tagbar'               ,

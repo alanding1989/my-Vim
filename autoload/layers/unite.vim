@@ -9,7 +9,8 @@ function! layers#unite#plugins() abort
   let plugins = []
   if !g:is_spacevim
     let plugins += [
-          \ ['Shougo/unite.vim' ],
+          \ ['Shougo/unite.vim'],
+          \ ['Shougo/unite-help', {'merged': 0}],
           \ ]
     if !exists(':Denite') || g:pure_viml || !g:has_py
       call add(plugins, ['thinca/vim-unite-history' , {'merged' : 0}])
@@ -22,9 +23,8 @@ function! layers#unite#plugins() abort
       call add(plugins, ['Shougo/unite-outline', {'merged' : 0}])
       call add(plugins, ['Shougo/neomru.vim'   , {'merged' : 0}])
     endif
-    " \ ['wsdjeg/unite-radio.vim', {'loadconf' : 1, 'merged' : 0}],
-    " \ ['Shougo/unite-help', {'merged' : 0}],
-    " \ ['hewes/unite-gtags' ,{'loadconf' : 1, 'merged' : 0}],
+    " \ ['wsdjeg/unite-radio.vim', {'merged': 0}],
+    " \ ['hewes/unite-gtags' ,{'merged' : 0}],
 
     " \ ['mileszs/ack.vim',{'on_cmd' : 'Ack'}],
     " \ ['albfan/ag.vim',{'on_cmd' : 'Ag' , 'loadconf' : 1}],
@@ -39,7 +39,7 @@ function! layers#unite#plugins() abort
 endfunction
 
 
-if !exists(':Denite') && !exists(':Leaderf')
+if !exists(':Denite') && !exists(':Leaderf') && !exists(':Fzf')
   function! layers#unite#config() abort
     nnoremap <C-p> :call feedkeys(':Unite file_rec/'.(has('nvim') ? 'neovim' : 'async').' -path=')<CR>
     if g:is_spacevim

@@ -6,32 +6,32 @@ scriptencoding utf-8
 
 
 function! layers#core#plugins() abort
-  let plugins = []
+  let plugins = [
+        \ ['Shougo/unite.vim'],
+        \ ]
+  if g:is_win
+    call add(plugins, ['Shougo/vimproc.vim', {'build' : '.\mingw32-make.exe', 'do': '.\mingw32-make.exe'}])
+  else
+    call add(plugins, ['Shougo/vimproc.vim', {'build' : [(executable('gmake') ? 'gmake' : 'make')],
+          \ 'do': (executable('gmake') ? 'gmake' : 'make')}])
+  endif
   if !g:is_spacevim
     let plugins += [
           \ ['rhysd/clever-f.vim'      ,     {'merged' : 0}],
           \ ['andymass/vim-matchup'    ,     {'merged' : 0}],
           \ ['scrooloose/nerdcommenter',     {'merged' : 0}],
           \ ['liuchengxu/vim-which-key',     {'merged' : 0}],
-          \ ['mhinz/vim-grepper'       ,     {'on_cmd': 'Grepper', 'on': 'Grepper'}],
           \ ['tyru/open-browser.vim'   ,     {'on_map': '<Plug>(openbrowser-',
           \ 'on_cmd': ['OpenBrowserSmartSearch', 'OpenBrowser', 'OpenBrowserSearch'],
-          \ 'on'    : ['OpenBrowserSmartSearch', 'OpenBrowser', 'OpenBrowserSearch',
-          \ '<Plug>(openbrowser-']}],
+          \ 'on'    : ['OpenBrowserSmartSearch', 'OpenBrowser', 'OpenBrowserSearch']}],
           \ ]
+          " \ ['mhinz/vim-grepper'       ,     {'on_cmd': 'Grepper', 'on': 'Grepper'}],
           " \ ['wsdjeg/FlyGrep.vim'      ,     {'merged' : 0}],
     if g:filemanager ==# 'nerdtree'
       call add(plugins, ['scrooloose/nerdtree', {'on_cmd': 'NERDTreeToggle', 'on': 'NERDTreeToggle'}])
       call add(plugins, ['Xuyuanp/nerdtree-git-plugin', {'merged' : 0}])
     elseif g:filemanager ==# 'vimfiler'
-      call add(plugins, ['Shougo/unite.vim'   , {'merged': 0}])
       call add(plugins, ['Shougo/vimfiler.vim', {'on_cmd': ['VimFiler', 'VimFilerBufferDir']}])
-      if g:is_win
-        call add(plugins, ['Shougo/vimproc.vim', {'build' : '.\mingw32-make.exe', 'do': '.\mingw32-make.exe'}])
-      else
-        call add(plugins, ['Shougo/vimproc.vim', {'build' : [(executable('gmake') ? 'gmake' : 'make')],
-              \ 'do': (executable('gmake') ? 'gmake' : 'make')}])
-      endif
     elseif g:filemanager ==# 'defx'
       call add(plugins, ['Shougo/defx.nvim'         , {'merged': 0}])
       " call add(plugins, ['kristijanhusak/defx-icons', {'merged': 0}])
@@ -73,6 +73,7 @@ function! layers#core#config() abort
 
     nnoremap <space>ps  :Grepper<CR>
   else
+    exec 'so '.g:vim_plugindir.'unite.vim'
     unlet g:_spacevim_mappings_space.b.R
     call SpaceVim#mapping#space#def('nnoremap', ['b', 'r'], 'call call('
           \ . string(s:_function('s:safe_revert_buffer')) . ', [])',

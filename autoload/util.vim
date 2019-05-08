@@ -184,6 +184,7 @@ function! util#Open_curPlugin_repo()
 endfunction
 
 function! util#Show_curPlugin_log()
+  " only for dein
   if exists(':PlugSnapshot') == 2
     return
   endif
