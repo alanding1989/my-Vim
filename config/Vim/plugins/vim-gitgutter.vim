@@ -12,10 +12,12 @@ let s:loaded = 1
 
 
 let g:gitgutter_map_keys         = 0
+nmap  <silent> [c  <Plug>GitGutterPrevHunk
+nmap  <silent> ]c  <Plug>GitGutterNextHunk
+
 if g:is_vim8
   let g:gtgutter_highlight_lines = 1
 endif
-
 
 " use custom diff sign
 let g:gitgutter_sign_added              = '✚'

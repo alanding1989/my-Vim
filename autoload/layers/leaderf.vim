@@ -21,7 +21,7 @@ endfunction
 
 function! layers#leaderf#config() abort
   if g:is_spacevim
-    nnoremap <c-p>         :call feedkeys(':LeaderfFile ')<CR>
+    nnoremap <silent><c-p> :call feedkeys(':LeaderfFile ')<CR>
     nnoremap <silent><c-y> :LeaderfBufTagAllCword<cr>
 
     " space mapping
@@ -70,7 +70,7 @@ function! layers#leaderf#config() abort
           \ 'fuzzy find help docs'      , '', 'fuzzy find help docs')
 
   else
-    nnoremap <c-p>               :call feedkeys(':LeaderfFile ')<CR>
+    nnoremap <silent><c-p>       :call feedkeys(':LeaderfFile ')<CR>
     nnoremap <silent><c-y>       :LeaderfBufTagAllCword<cr>
     " space mapping
     nnoremap <silent><space>ff   :LeaderfFile<cr>
@@ -79,7 +79,7 @@ function! layers#leaderf#config() abort
     nnoremap <silent><space>ji   :LeaderfFunction<cr>
     nnoremap <silent><space>hi   :LeaderfHelp<cr>
     " leader mapping
-    nnoremap <leader>fa          :call feedkeys(':Leaderf ')<CR>
+    nnoremap <silent><leader>fa  :call feedkeys(':Leaderf ')<CR>
     nnoremap <silent><leader>fr  :LeaderfMru<cr>
     nnoremap <silent><leader>fb  :LeaderfBuffer<cr>
     nnoremap <silent><leader>ff  :LeaderfFile<cr>

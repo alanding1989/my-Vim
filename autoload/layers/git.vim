@@ -25,8 +25,8 @@ function! layers#git#plugins() abort
   elseif !g:is_spacevim
     call add(plugins, ['junegunn/gv.vim'       , {'on_cmd': 'GV', 'on': 'GV'}])
     call add(plugins, ['tpope/vim-fugitive'    , {'merged': 0}])
-    " show vcs info in sign column, only support git, I use vim-sinify by default
     if !My_Vim#layer#isLoaded('VersionControl')
+      " show vcs info in sign column, only support git
       call add(plugins, ['airblade/vim-gitgutter', {'merged': 0}])
     endif
     if s:git_plugin ==# 'gina'
@@ -37,7 +37,7 @@ function! layers#git#plugins() abort
       call add(plugins, ['tpope/vim-dispatch'  , { 'merged' : 0}])
     endif
     if g:filemanager ==# 'defx'
-      call add(plugins, ['kristijanhusak/defx-git', {'merged': 0}])
+      " call add(plugins, ['kristijanhusak/defx-git', {'merged': 0}])
     elseif g:filemanager ==# 'nerdtree'
       call add(plugins, ['Xuyuanp/nerdtree-git-plugin', {'merged': 0}])
     endif

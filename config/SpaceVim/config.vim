@@ -21,7 +21,7 @@ let g:spacevim_colorscheme = split([
       \ '6 PaperColor'  ,
       \ '7 nord'        ,
       \ '8 ',
-      \ ][0])[1]
+      \ ][1])[1]
 let g:spacevim_colorscheme_default = 'neodark'
 let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 "}}}
@@ -73,6 +73,8 @@ let g:spacevim_github_username               = 'alanding1989'
 let g:spacevim_guifont                       = 'SauceCodePro Nerd Font Mono:h11'
 let g:spacevim_layer_lang_scala_formatter    = g:is_win ? 'D:\devtools\scala\scalariform.jar' :
       \ '/opt/lang-tools/scala/scalariform.jar'
+let g:spacevim_music_path                    = g:is_win ? 'E:\娱乐影音\音乐' :
+      \ '/mnt/fun+downloads/娱乐影音/音乐'
 let g:spacevim_project_rooter_patterns       =
       \ uniq(sort(g:spacevim_project_rooter_patterns
       \ + deepcopy(g:project_root_marker))) "}}}

@@ -46,7 +46,7 @@ let g:unite_source_file_rec_max_depth = get(g:,
       \ 'unite_source_file_rec_max_depth', 6)
 let g:unite_enable_ignore_case = get(g:, 'unite_enable_ignore_case', 1)
 let g:unite_enable_smart_case = get(g:, 'unite_enable_smart_case', 1)
-let g:unite_data_directory = get(g:, 'unite_data_directory', '~/.cache/Vim/unite')
+let g:unite_data_directory = get(g:, 'unite_data_directory', '~/.cache/unite')
 "let g:unite_enable_start_insert=1
 let g:unite_source_history_yank_enable = get(g:,
       \ 'unite_source_history_yank_enable', 1)

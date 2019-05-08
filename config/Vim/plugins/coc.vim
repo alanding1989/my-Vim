@@ -72,13 +72,15 @@ augroup END
 " key mapping  {{{
 nmap <silent> gd <Plug>(coc-definition)
 function! s:g_mappings() abort
-  nmap <silent> gt <Plug>(coc-type-definition)
-  nmap <silent> gi <Plug>(coc-implementation)
-  nmap <silent> gr <Plug>(coc-references)
-  nmap <silent> ga <Plug>(coc-codeaction)
-  nmap <silent> ge <Plug>(coc-rename)
-  nmap <silent> gf :call CocActionAsync('format')<CR>
-  nmap <silent> gl :call CocActionAsync('diagnosticList')<CR>
+  nmap <silent> [d  <Plug>(coc-diagnostic-prev)
+  nmap <silent> ]d  <Plug>(coc-diagnostic-next)
+  nmap <silent> gt  <Plug>(coc-type-definition)
+  nmap <silent> gi  <Plug>(coc-implementation)
+  nmap <silent> gr  <Plug>(coc-references)
+  nmap <silent> ga  <Plug>(coc-codeaction)
+  nmap <silent> ge  <Plug>(coc-rename)
+  nmap <silent> gf  :call CocActionAsync('format')<CR>
+  nmap <silent> gl  :call CocActionAsync('diagnosticList')<CR>
 endfunction
 
 if g:is_spacevim

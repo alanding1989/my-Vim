@@ -109,8 +109,6 @@ endfunction
 
 
 function! layers#autocomplete#config() abort
-  auto InsertLeave * if pumvisible() ==# 0 | pclose | endif
-
   imap <silent><expr><Tab>   mapping#tab#super_tab()
   imap <silent><expr><CR>    mapping#enter#super_enter()
   call mapping#tab#S_tab()
@@ -122,6 +120,12 @@ function! layers#autocomplete#config() abort
   imap <expr> >     match(getline('.'), '\v^\s*\zs(if\|wh)') > -1 ? '> ' : "\<Plug>delimitMate\>"
   imap <expr> <     match(getline('.'), '\v^\s*\zs(if\|wh)') > -1 ? '< ' : "\<Plug>delimitMate\<"
   imap <expr> (     "\<Plug>delimitMate("
+
+  augroup layer_autocmplete
+    autocmd!
+    auto CompleteDone * silent! pclose
+    auto InsertLeave  * silent! pclose
+  augroup END
 endfunction
 
 function! s:snip_source() abort " {{{

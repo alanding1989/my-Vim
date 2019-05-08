@@ -41,7 +41,7 @@ call deoplete#custom#option('ignore_sources', {'sh': ['around', 'member', 'tag',
 
 " go
 call deoplete#custom#option('ignore_sources', {'go': ['omni']})
-call deoplete#custom#source('go', 'mark', '')
+call deoplete#custom#source('go', 'mark', 'go')
 call deoplete#custom#source('go', 'rank', 9999)
 
 " markdown
@@ -62,7 +62,7 @@ call deoplete#custom#source('ternjs', 'mark', 'tern')
 call deoplete#custom#source('ternjs', 'rank', 9999)
 
 " typescript
-call deoplete#custom#option('ignore_sources', {'typescript': ['tag','omni', 'syntax']})
+call deoplete#custom#option('ignore_sources', {'typescript': ['tag', 'omni', 'syntax']})
 call deoplete#custom#source('typescript', 'rank', 9999)
 
 
@@ -90,15 +90,16 @@ call deoplete#custom#option('ignore_sources', {'gitcommit': ['neosnippet']})
 let g:deoplete#omni_patterns.lua = get(g:deoplete#omni_patterns, 'lua', '.')
 
 " c c++
-call deoplete#custom#source('clang2', 'mark', '')
+call deoplete#custom#source('clang2', 'mark', 'cpp')
 call deoplete#custom#option('ignore_sources', {'c': ['omni']})
 
 " rust
 call deoplete#custom#option('ignore_sources', {'rust': ['omni']})
-call deoplete#custom#source('racer', 'mark', '')
+call deoplete#custom#source('racer', 'mark', 'rust')
 
 " vim
 call deoplete#custom#option('ignore_sources', {'vim': ['tag']})
+call deoplete#custom#source('neco-vim'  , 'rank', 9999)
 
 " clojure
 let g:deoplete#keyword_patterns.clojure = '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
@@ -114,14 +115,16 @@ call deoplete#custom#var('omni', 'input_patterns', {
       \})
 
 " python
-call deoplete#custom#option('ignore_sources', {'python': ['omni']})
 call deoplete#custom#source('python', 'mark', 'py')
 let g:deoplete#sources#jedi#python_path = g:python3_host_prog
-let g:deoplete#sources#jedi#extra_path  = g:python_host_prog
+" let g:deoplete#sources#jedi#extra_path  = g:python_host_prog
 
 " public settings
 call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
 call deoplete#custom#source('file/include', 'matchers', ['matcher_head'])
+
+call deoplete#custom#source('ultisnips' , 'rank', 1000)
+call deoplete#custom#source('neosnippet', 'rank', 1000)
 
 " inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
 " inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"

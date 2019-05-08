@@ -16,145 +16,43 @@ let s:default_layers = [
       \ 'VersionControl',
       \ 'ui'            ,
       \ ]
-let g:enabled_plugins_name = []
-let g:uninstalled_plugins  = []
 
 
 function! My_Vim#layer#plug_begin() abort
   let g:enabled_plugins = s:enabled_plugins_get()
-  if g:plugmanager     ==# 'vim-plug'
-    let g:My_Vim_plug_dir = g:is_win ? 'D:/.cache/My_Vim/vim-plug/'  :
-      \ '/home/alanding/.cache/My_Vim'.(g:is_root ? '-root' : '-alan').'/vim-plug/'
-    call s:vim_plug_begin()
+  let g:My_Vim_plug_dir = g:is_win ? 'D:/.cache/My_Vim/'.g:plugmanager.'/' :
+        \ '/home/alanding/.cache/My_Vim'.(g:is_root ? '-root/' : '-alan/').g:plugmanager.'/'
+  if g:plugmanager ==# 'vim-plug'
+    " check install vim-plug {{{
+    if glob('~/.vim.d/autoload/plug.vim') ==# ''
+      exec '!curl -fLo "'.expand('~/.SpaceVim.d/autoload/plug.vim')
+            \.'" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+      auto VimEnter * PlugInstall --sync | source $MYVIMRC
+      let s:firstinstall = 1
+    else
+      let s:firstinstall = 0
+    endif "}}}
+    call plug#begin(g:My_Vim_plug_dir)
   elseif g:plugmanager ==# 'dein'
-    let g:My_Vim_plug_dir = g:is_win ? 'D:/.cache/My_Vim/dein-plug/' :
-      \ '/home/alanding/.cache/My_Vim'.(g:is_root ? '-root' : '-alan').'/dein-plug/'
-    call s:dein_begin()
-  else
-    echoerr 'invalid name for plugmanager'
-    let g:plugmanager = 'vim-plug'
-    let g:My_Vim_plug_dir = g:is_win ? 'D:/.cache/My_Vim/vim-plug/'  :
-      \ '/home/alanding/.cache/My_Vim'.(g:is_root ? '-root' : '-alan').'/vim-plug/'
-    call s:vim_plug_begin()
+    " check install dein {{{
+    if glob(g:My_Vim_plug_dir.'repos/github.com/Shougo/dein.vim') ==# ''
+      " call mkdir(expand(g:My_Vim_plug_dir.'repos/github.com/Shougo/dein.vim'), 'p', '0700')
+      exec '!git clone git@github.com:Shougo/dein.vim.git "'
+            \.expand(g:My_Vim_plug_dir.'repos/github.com/Shougo/dein.vim').'"'
+      let s:firstinstall = 1
+    else
+      let s:firstinstall = 0
+    endif
+    exec 'set runtimepath+='.expand(g:My_Vim_plug_dir.'repos/github.com/Shougo/dein.vim/')
+    "}}}
+    call dein#begin(g:My_Vim_plug_dir)
+    call dein#add('Shougo/dein.vim')
   endif
+  call s:plug_add()
   if g:enable_checkinstall
     call s:check_install()
   endif
 endfunction
-
-
-function! s:vim_plug_begin() abort " {{{
-  " install vim-plug {{{
-  if glob('~/.vim.d/autoload/plug.vim') ==# ''
-    exec '!curl -fLo "'.expand('~/.vim.d/autoload/plug.vim')
-          \.'" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    auto VimEnter * PlugInstall --sync | source $MYVIMRC
-    let s:firstinstall = 1
-  else
-    let s:firstinstall = 0
-  endif
-  " init vim-plug }}}
-  call s:Unite_Plugmenu_begin(g:My_Vim_plug_dir)
-  for elem in g:enabled_plugins
-    let repo = elem[0]
-    let plug_name = split(repo, '/')[-1]
-    if index(get(g:, 'disabled_plugins', []), repo) == -1
-      Plug repo, get(elem, 1, {})
-      call add(g:enabled_plugins_name, plug_name)
-      if finddir(expand(g:My_Vim_plug_dir).plug_name) ==# ''
-        call add(g:uninstalled_plugins, plug_name)
-      endif
-    else
-      call remove(g:enabled_plugins, 'v:val != elem')
-    endif
-  endfor
-  call plug#end()
-endfunction
-"}}}
-
-
-function! s:dein_begin() abort " {{{
-  " install dein {{{
-  if glob(g:My_Vim_plug_dir.'repos/github.com/Shougo/dein.vim') ==# ''
-    call mkdir(expand(g:My_Vim_plug_dir.'repos/github.com/Shougo/dein.vim'), 'p', '0700')
-    exec '!git clone git@github.com:Shougo/dein.vim.git "'
-          \.expand(g:My_Vim_plug_dir.'repos/github.com/Shougo/dein.vim').'"'
-    let s:firstinstall = 1
-  else
-    let s:firstinstall = 0
-  endif
-  " init dein }}}
-  if &compatible | set nocompatible | endif
-  exec 'set runtimepath+='.expand(g:My_Vim_plug_dir.'repos/github.com/Shougo/dein.vim')
-  if s:check_plugchange() || dein#load_state(g:My_Vim_plug_dir)
-    call s:Unite_Plugmenu_begin(g:My_Vim_plug_dir)
-    call dein#add(g:My_Vim_plug_dir.'repos/github.com/Shougo/dein.vim')
-    call dein#add('wsdjeg/dein-ui.vim')
-    for elem in g:enabled_plugins
-      let repo = elem[0]
-      let plug_name = split(repo, '/')[-1]
-      if index(get(g:, 'disabled_plugins', []), repo) == -1
-        call dein#add(repo, get(elem, 1, {}))
-        if s:firstinstall | call add(g:enabled_plugins_name, plug_name) | endif
-        if finddir(expand(g:My_Vim_plug_dir.'repos/github.com/'.repo)) ==# ''
-          call add(g:uninstalled_plugins, plug_name)
-        endif
-      else
-        call remove(g:enabled_plugins, 'v:val != elem')
-      endif
-    endfor
-    call dein#end()
-    call dein#save_state()
-    call writefile(g:enabled_plugins_name, s:filepath)
-  endif
-endfunction
-
-" Note: only for dein use
-function! s:check_plugchange() abort
-  let s:filepath = expand(g:My_Vim_plug_dir.'dein_check_plugchange.vim')
-  if findfile(s:filepath) ==# ''
-    exec 'silent !touch '.s:filepath
-    return 1
-  else
-    for elem in g:enabled_plugins
-      let repo = elem[0]
-      let plug_name = split(repo, '/')[-1]
-      if index(get(g:, 'disabled_plugins', []), repo) == -1
-        call add(g:enabled_plugins_name, plug_name)
-      endif
-    endfor
-    let last_plugins_name = readfile(s:filepath)
-    if g:enabled_plugins_name !=# last_plugins_name
-      return 1
-    else
-      return
-    endif
-  endif
-endfunction
-"}}}
-
-
-function! s:check_install() abort " {{{
-  if len(get(g:, 'uninstalled_plugins', [])) > 0
-    echohl WarningMsg
-    if g:plugmanager ==# 'dein'
-      echo "\n dein Start to install Plugins,
-            \please Restart Vim after finishing!\n"
-    elseif g:plugmanager ==# 'vim-plug'
-      echo "\n vim-plug Start to install Plugins,
-            \please Restart Vim after finishing!\n"
-    endif
-    echohl None
-
-    auto VimEnter * PlugInstall
-
-    " don`t source uninstalled plugin`s config (global var and configfunc)
-    for elem in g:uninstalled_plugins
-      call filter(g:enabled_plugins_name, 'v:val != elem')
-    endfor
-  endif
-endfunction
-"}}}
 
 
 function! My_Vim#layer#plug_end() abort " {{{
@@ -193,6 +91,62 @@ endfunction
 "}}}
 
 
+function! s:plug_add() abort " {{{
+  let g:enabled_plugins_name = []
+  let g:uninstalled_plugins  = []
+  for elem in g:enabled_plugins
+    let repo = elem[0]
+    let plug_name = split(repo, '/')[-1]
+    if index(get(g:, 'disabled_plugins', []), repo) == -1
+      if g:plugmanager ==# 'vim-plug'
+        Plug repo, get(elem, 1, {})
+        if finddir(expand(g:My_Vim_plug_dir).plug_name) ==# ''
+          call add(g:uninstalled_plugins, plug_name)
+        endif
+      elseif g:plugmanager ==# 'dein'
+        call dein#add(repo, get(elem, 1, {}))
+        if finddir(expand(g:My_Vim_plug_dir.'repos/github.com/'.repo)) ==# ''
+          call add(g:uninstalled_plugins, plug_name)
+        endif
+      endif
+      call add(g:enabled_plugins_name, plug_name)
+    else
+      call remove(g:enabled_plugins, 'v:val != elem')
+      call remove(g:enabled_plugins_name, 'v:val != plug_name')
+    endif
+  endfor
+  if g:plugmanager ==# 'vim-plug'
+    call plug#end()
+  elseif g:plugmanager ==# 'dein'
+    call dein#end()
+  endif
+endfunction
+"}}}
+
+
+function! s:check_install() abort " {{{
+  if len(get(g:, 'uninstalled_plugins', [])) > 0
+    echohl WarningMsg
+    if g:plugmanager ==# 'dein'
+      echo "\n dein Start to install Plugins,
+            \please Restart Vim after finishing!\n"
+    elseif g:plugmanager ==# 'vim-plug'
+      echo "\n vim-plug Start to install Plugins,
+            \please Restart Vim after finishing!\n"
+    endif
+    echohl None
+
+    auto VimEnter * PlugInstall
+
+    " don`t source uninstalled plugin`s config (global var and configfunc)
+    for elem in g:uninstalled_plugins
+      call filter(g:enabled_plugins_name, 'v:val != elem')
+    endfor
+  endif
+endfunction
+"}}}
+
+
 " util functions {{{
 let g:unite_source_menu_menus = get(g:, 'unite_source_menu_menus', {})
 function! s:Unite_Plugmenu_begin(path) abort
@@ -201,11 +155,6 @@ function! s:Unite_Plugmenu_begin(path) abort
         \ 'All the Added plugins'
         \ . '                    <space>qp'}
   let g:unite_source_menu_menus.AddedPlugins.command_candidates = []
-  if g:plugmanager ==# 'vim-plug'
-    call plug#begin(a:path)
-  elseif g:plugmanager ==# 'dein'
-    call dein#begin(a:path)
-  endif
 endfunction
 
 function! s:enabled_plugins_get() abort
@@ -233,4 +182,46 @@ endfunction
 function! My_Vim#layer#isLoaded(name) abort
   return index(g:enabled_layers, a:name) != -1
 endfunction
+
+function! s:dein_begin() abort " {{{
+  " if s:check_plugchange() || dein#load_state(g:My_Vim_plug_dir)
+    for elem in g:enabled_plugins
+      let repo = elem[0]
+      let plug_name = split(repo, '/')[-1]
+      if index(get(g:, 'disabled_plugins', []), repo) == -1
+        call dein#add(repo, get(elem, 1, {}))
+        call add(g:enabled_plugins_name, plug_name)
+        " if s:firstinstall | call add(g:enabled_plugins_name, plug_name) | endif
+      else
+        call remove(g:enabled_plugins, 'v:val != elem')
+      endif
+    endfor
+    call dein#save_state()
+    call writefile(g:enabled_plugins_name, s:filepath)
+  " endif
+endfunction
+
+" Note: only for dein use
+function! s:check_plugchange() abort
+  let s:filepath = expand(g:My_Vim_plug_dir.'dein_check_plugchange.vim')
+  if findfile(s:filepath) ==# ''
+    exec 'silent !touch '.s:filepath
+    return 1
+  else
+    for elem in g:enabled_plugins
+      let repo = elem[0]
+      let plug_name = split(repo, '/')[-1]
+      if index(get(g:, 'disabled_plugins', []), repo) == -1
+        call add(g:enabled_plugins_name, plug_name)
+      endif
+    endfor
+    let last_plugins_name = readfile(s:filepath)
+    if g:enabled_plugins_name !=# last_plugins_name
+      return 1
+    else
+      return
+    endif
+  endif
+endfunction
+"}}}
 "}}}

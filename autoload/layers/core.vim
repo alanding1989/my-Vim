@@ -17,6 +17,7 @@ function! layers#core#plugins() abort
   endif
   if !g:is_spacevim
     let plugins += [
+          \ ['wsdjeg/FlyGrep.vim'      ,     {'merged' : 0}],
           \ ['rhysd/clever-f.vim'      ,     {'merged' : 0}],
           \ ['andymass/vim-matchup'    ,     {'merged' : 0}],
           \ ['scrooloose/nerdcommenter',     {'merged' : 0}],
@@ -25,8 +26,6 @@ function! layers#core#plugins() abort
           \ 'on_cmd': ['OpenBrowserSmartSearch', 'OpenBrowser', 'OpenBrowserSearch'],
           \ 'on'    : ['OpenBrowserSmartSearch', 'OpenBrowser', 'OpenBrowserSearch']}],
           \ ]
-          " \ ['mhinz/vim-grepper'       ,     {'on_cmd': 'Grepper', 'on': 'Grepper'}],
-          " \ ['wsdjeg/FlyGrep.vim'      ,     {'merged' : 0}],
     if g:filemanager ==# 'nerdtree'
       call add(plugins, ['scrooloose/nerdtree', {'on_cmd': 'NERDTreeToggle', 'on': 'NERDTreeToggle'}])
       call add(plugins, ['Xuyuanp/nerdtree-git-plugin', {'merged' : 0}])
@@ -170,18 +169,10 @@ function! s:unimpaired() abort
   " ale
   nmap     <silent> [e  <Plug>(ale_previous_wrap)
   nmap     <silent> ]e  <Plug>(ale_next_wrap)
+
   " coc
-  if exists(':CocConfig')
-    nmap     <silent> [d  <Plug>(coc-diagnostic-prev)
-    nmap     <silent> ]d  <Plug>(coc-diagnostic-next)
-  endif
 
   " [c or ]c go to next or previous vcs hunk
-  if exists(':GitGutterFold')
-    nmap     <silent> [c  <Plug>GitGutterPrevHunk
-    nmap     <silent> ]c  <Plug>GitGutterNextHunk
-  " signify no need to set
-  endif
 endfunction
 
 
@@ -217,8 +208,8 @@ function! s:flygrep() abort
     nnoremap<space>sp  :call SpaceVim#plugins#flygrep#open({'input': input("grep pattern:"), 'dir'  : get(b:, "rootDir", getcwd())})<CR>
     nnoremap<space>sP  :call SpaceVim#plugins#flygrep#open({'input': expand("<cword>")     , 'dir'  : get(b:, "rootDir", getcwd())})<CR>
     " Searching background
-    nnoremap<space>sj  :call SpaceVim#plugins#searcher#find(""                              , SpaceVim#mapping#search#default_tool()[0])<CR>
-    nnoremap<space>sJ  :call SpaceVim#plugins#searcher#find(expand("<cword>")               , SpaceVim#mapping#search#default_tool()[0])<CR>
+    nnoremap<space>sj  :call SpaceVim#plugins#searcher#find(""                             , SpaceVim#mapping#search#default_tool()[0])<CR>
+    nnoremap<space>sJ  :call SpaceVim#plugins#searcher#find(expand("<cword>")              , SpaceVim#mapping#search#default_tool()[0])<CR>
     nnoremap<space>sl  :call SpaceVim#plugins#searcher#list()<CR>
     " <space>s/
     nnoremap<space>so  :call SpaceVim#plugins#flygrep#open({})<CR>

@@ -153,11 +153,11 @@ if !g:is_spacevim
   set noswapfile
   " set nowritebackup
   let s:undofile  = g:is_win ? 'D:/.cache/Vim/undofile' :
-        \ '/home/alanding/.cache/Vim'.(g:is_root ? '-root' : '-alan').'/undofile'
+        \ '/home/alanding/.cache/My_Vim'.(g:is_root ? '-root' : '-alan').'/undofile'
   let s:backupdir = g:is_win ? 'D:/.cache/Vim/backup' :
-        \ '/home/alanding/.cache/Vim'.(g:is_root ? '-root' : '-alan').'/backup'
+        \ '/home/alanding/.cache/My_Vim'.(g:is_root ? '-root' : '-alan').'/backup'
   let s:swapdir   = g:is_win ? 'D:/.cache/Vim/swap' :
-        \ '/home/alanding/.cache/Vim'.(g:is_root ? '-root' : '-alan').'/swap'
+        \ '/home/alanding/.cache/My_Vim'.(g:is_root ? '-root' : '-alan').'/swap'
   if glob(s:undofile) ==# ''
     call mkdir(expand(s:undofile), 'p', 0700)
   endif

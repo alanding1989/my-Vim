@@ -12,8 +12,9 @@ let s:loaded = 1
 let g:neosnippet#enable_complete_done = 1
 let g:tmuxcomplete#trigger = ''
 
-let g:deoplete#enable_at_startup = 1
-" auto InsertEnter * call deoplete#enable()
+let g:deoplete#enable_at_startup = 0
+auto InsertEnter * call deoplete#enable()
+
 
 " deoplete options
 call deoplete#custom#option({
@@ -28,8 +29,8 @@ call deoplete#custom#option({
 " let g:deoplete#max_abbr_width = get(g:, 'deoplete#max_abbr_width', 0)
 " let g:deoplete#max_menu_width = get(g:, 'deoplete#max_menu_width', 0)
 " init deoplet option dict
-let g:deoplete#ignore_sources = get(g:,'deoplete#ignore_sources',{})
-let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
+let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources',{})
+let g:deoplete#omni#input_patterns = get(g:, 'deoplete#omni#input_patterns',{})
 let g:deoplete#omni_patterns = get(g:, 'deoplete#omni_patterns', {})
 let g:deoplete#keyword_patterns = get(g:, 'deoplete#keyword_patterns', {})
 
@@ -42,8 +43,7 @@ call deoplete#custom#var('omni', 'input_patterns', {
       \         ],
       \ 'jsp':  ['[^. \t0-9]\.\w*'],
       \})
-if 1
-" if g:spacevim_enable_javacomplete2_py
+if get(g:, 'enable_javacomplete2_py', 0)
   call deoplete#custom#option('ignore_sources', {'java': ['omni']})
   call deoplete#custom#source('javacomplete2', 'mark', 'ja')
 else
@@ -106,17 +106,18 @@ call deoplete#custom#option('ignore_sources', {'gitcommit': ['neosnippet']})
 let g:deoplete#omni_patterns.lua = get(g:deoplete#omni_patterns, 'lua', '.')
 
 " c c++
-call deoplete#custom#source('clang2', 'mark', '')
+call deoplete#custom#source('clang2', 'mark', 'cpp')
 call deoplete#custom#option('ignore_sources', {'c': ['omni']})
 let g:deoplete#sources#clang#libclang_path = expand($CLANG_HOME).(g:is_win ? '\bin\libclang.dll' : '/lib/libclang.so')
 let g:deoplete#sources#clang#clang_header  = expand($CLANG_HOME)
 
 " rust
 call deoplete#custom#option('ignore_sources', {'rust': ['omni']})
-call deoplete#custom#source('racer', 'mark', '')
+call deoplete#custom#source('racer', 'mark', 'rust')
 
 " vim
 call deoplete#custom#option('ignore_sources', {'vim': ['tag']})
+call deoplete#custom#source('neco-vim'  , 'rank', 9999)
 
 " clojure
 let g:deoplete#keyword_patterns.clojure = '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
@@ -132,7 +133,6 @@ call deoplete#custom#var('omni', 'input_patterns', {
       \})
 
 " python
-call deoplete#custom#option('ignore_sources', {'python': ['omni']})
 call deoplete#custom#source('python', 'mark', 'py')
 let g:deoplete#sources#jedi#python_path = g:python3_host_prog
 " let g:deoplete#sources#jedi#extra_path  = g:python_host_prog
@@ -140,7 +140,10 @@ let g:deoplete#sources#jedi#python_path = g:python3_host_prog
 
 " public settings
 call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
-call deoplete#custom#source('file/include', 'matchers', ['matcher_head'])
+call deoplete#custom#source('file/include' , 'matchers', ['matcher_head'])
+call deoplete#custom#source('ultisnips' , 'rank', 1000)
+call deoplete#custom#source('neosnippet', 'rank', 1000)
+
 
 " inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
 " inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"

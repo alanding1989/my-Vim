@@ -70,32 +70,33 @@ function! layers#denite#config() abort
     endif
 
   else
-    nnoremap <silent> <space>qp   :Denite menu:AddedPlugins<CR>
+    nnoremap <silent> <space>qp      :Denite menu:AddedPlugins<CR>
 
     " leader mapping
-    nnoremap <silent> <Leader>fe  :<C-u>Denite register<CR>
-    nnoremap <silent> <Leader>fj  :<C-u>Denite jump<CR>
-    nnoremap <silent> <Leader>fl  :<C-u>Denite location_list<CR>
-    nnoremap <silent> <Leader>fm  :<C-u>Denite output:message<CR>
-    nnoremap <silent> <Leader>fy  :<C-u>Denite neoyank<CR>
-    nnoremap <silent> <Leader>fq  :<C-u>Denite quickfix<CR>
+    nnoremap <silent> <Leader>fd     :call feedkeys(':Denite ')<CR>
+    nnoremap <silent> <Leader>fe     :Denite register<CR>
+    nnoremap <silent> <Leader>fj     :Denite jump<CR>
+    nnoremap <silent> <Leader>fl     :Denite location_list<CR>
+    nnoremap <silent> <Leader>fm     :Denite output:message<CR>
+    nnoremap <silent> <Leader>fy     :Denite neoyank<CR>
+    nnoremap <silent> <Leader>fq     :Denite quickfix<CR>
     if !My_Vim#layer#isLoaded('leaderf')
-      nnoremap <silent><c-p>        :call <sid>warp_denite('Denite file/rec')<CR>
-      nnoremap <silent><c-y>        :call <sid>warp_denite('DeniteCursorWord outline')<CR>
+      nnoremap <silent> <c-p>        :call <sid>warp_denite('Denite file/rec')<CR>
+      nnoremap <silent> <c-y>        :call <sid>warp_denite('DeniteCursorWord outline')<CR>
       " space mapping
-      nnoremap <silent><space>ff    :call <sid>warp_denite('DeniteProjectDir file/rec')<CR>
-      nnoremap <silent><space>bb    :call <sid>warp_denite('Denite buffer')<CR>
-      nnoremap <silent><space>fr    :call <sid>warp_denite('Denite file_mru')<CR>
-      nnoremap <silent><space>ji    :call <sid><sid>warp_d('Denite outline')<CR>
-      nnoremap <silent><space>hi    :call <sid>warp_denite('DeniteCursorWord help')<CR>
+      nnoremap <silent> <space>ff    :call <sid>warp_denite('DeniteProjectDir file/rec')<CR>
+      nnoremap <silent> <space>bb    :call <sid>warp_denite('Denite buffer')<CR>
+      nnoremap <silent> <space>fr    :call <sid>warp_denite('Denite file_mru')<CR>
+      nnoremap <silent> <space>ji    :call <sid>warp_denite('Denite outline')<CR>
+      nnoremap <silent> <space>hi    :call <sid>warp_denite('DeniteCursorWord help')<CR>
       " leader mapping
-      nnoremap          <Leader>fa  :<C-u>Denite
-      nnoremap <silent> <Leader>fr  :<C-u>Denite file_mru<CR>
-      nnoremap <silent> <Leader>fb  :<C-u>Denite buffer<CR>
-      nnoremap <silent> <Leader>ff  :<C-u>DeniteProjectDir file/rec<CR>
-      nnoremap <silent> <Leader>fs  :<C-u>Denite grep<CR>
-      nnoremap <silent> <leader>fc  :<C-u>Denite colorscheme<CR>
-      nnoremap <silent> <Leader>fo  :<C-u>Denite outline<CR>
+      nnoremap <silent> <Leader>fa   :call feedkeys(':Denite ')<CR>
+      nnoremap <silent> <Leader>fr   :Denite file_mru<CR>
+      nnoremap <silent> <Leader>fb   :Denite buffer<CR>
+      nnoremap <silent> <Leader>ff   :DeniteProjectDir file/rec<CR>
+      nnoremap <silent> <Leader>fs   :Denite grep<CR>
+      nnoremap <silent> <leader>fc   :Denite colorscheme<CR>
+      nnoremap <silent> <Leader>fo   :Denite outline<CR>
     endif
   endif
 endfunction

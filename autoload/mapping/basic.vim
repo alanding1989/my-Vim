@@ -169,6 +169,9 @@ function! mapping#basic#load() abort
   auto FileType sh, inoremap <expr> =   match(getline('.'),
         \ '\v(\=\s){1}\_$\|(\>\s){1}\_$\|(\<\s){1}\_$\|(\+\s){1}\_$\|(\-\s){1}\_$') > -1 ?
         \ "\<bs>=<space>" : '='
+  auto FileType vim inoremap <expr> #   match(getline('.'),
+        \ '\v(\=\s){1}\_$\|(\>\s){1}\_$\|(\<\s){1}\_$\|(\~\s){1}\_$\|(s\s){1}\_$') > -1 ?
+        \ "\<bs>#<space>" : '#'
   inoremap <expr> =   match(getline('.'),
         \ '\v(\=\s){1}\_$\|(\>\s){1}\_$\|(\<\s){1}\_$\|(\+\s){1}\_$\|(\-\s){1}\_$') > -1 ?
         \ "\<bs>=<space>" : '= '
