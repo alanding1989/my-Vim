@@ -86,7 +86,7 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
       return snip
     elseif delimitMate#WithinEmptyPair()
       return "\<right>"
-    elseif s:cur_char(0, '(')
+    elseif s:cur_char(0, '(') && s:cur_char(1, '\s')
       return ")\<left>"
     else
       return s:md ==# 'asyncomplete' ? asyncomplete#close_popup() : "\<c-y>"

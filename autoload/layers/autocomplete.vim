@@ -53,7 +53,7 @@ function! layers#autocomplete#plugins() abort
       call add(plugins, ['ncm2/ncm2-match-highlight' , {'merged': 0, 'on_event': 'InsertEnter'}])
     endif
     if has('nvim')
-      " call add(plugins, ['ncm2/float-preview.nvim', {'merged': 0}])
+      call add(plugins, ['ncm2/float-preview.nvim', {'merged': 0}])
     endif
     if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) ==# 'neosnippet'
       call add(plugins, ['ncm2/ncm2-neosnippet', {'merged': 0, 'on_event': 'InsertEnter'}])
