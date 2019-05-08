@@ -93,6 +93,9 @@ let g:_spacevim_mappings_space_custom += [
 if g:is_nvim
   let g:_spacevim_mappings_space_custom += [
         \ ['nmap', ['q', 'm'], 'call dein#remote_plugins()'   , '@ update remote plugins'             , 1],
-        \ ['nmap', ['q', 'h'], 'checkhealth'                  , '@ neovim checkhealth'                , 1],
+        \ ['nmap', ['q', 'h'], 'checkhealth'                  , '@ Neovim checkhealth'                , 1],
         \ ]
 endif
+
+auto FileType vim call SpaceVim#mapping#space#def('nmap', ['q', 'l'],
+      \ 'call util#Show_curPlugin_log()', '@ show cursor plugin`s commit log', 1)

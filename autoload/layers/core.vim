@@ -226,20 +226,30 @@ function! s:open_browser() abort
     let g:_spacevim_mappings.o.b = ['call feedkeys(":OpenBrowserSmartSearch -baidu ")'  , 'keyword search /baidu' ]
     let g:_spacevim_mappings.o.g = ['call feedkeys(":OpenBrowserSmartSearch -google ")' , 'keyword search /google']
     let g:_spacevim_mappings.o.h = ['call feedkeys(":OpenBrowserSmartSearch -github ")' , 'keyword search /github']
-    let g:_spacevim_mappings.o.p = ['call feedkeys(":OpenBrowserSmartSearch -python ")' , 'docs search /python']
-    let g:_spacevim_mappings.o.s = ["call feedkeys(':OpenlinkOrSearch scala ')"         , 'docs search /scala' ]
-    let g:_spacevim_mappings.o.c = ['OpenlinkOrSearch arec'                             , 'open my asciinema cast' ]
-    let g:_spacevim_mappings.o.r = ['call util#Open_curPlugin_repo()'                   , 'open github mainpage/cursor plugin`s repository' ]
-    let g:_spacevim_mappings.o.l = ['call util#Show_curPlugin_log()'                    , 'open cursor plugin`s log']
+    let g:_spacevim_mappings.o.c = ['OpenlinkOrSearch arec'                             , 'open my asciinema cast']
+    let g:_spacevim_mappings.o.r = ['call util#Open_curPlugin_repo()'                   , 'open github mainpage/cursor plugin`s repo']
+    let g:_spacevim_mappings.o['.'] = ['call util#vg_starred_repos()'                   , 'view github starred repos']
+    " language docs
+    augroup layer_core_openbrowser
+      autocmd!
+      auto FileType python, ipynb let g:_spacevim_mappings.o.p
+            \ = ['call feedkeys(":OpenBrowserSmartSearch -python ")' , 'docs search /python']
+      auto FileType scala let g:_spacevim_mappings.o.s
+            \ = ["call feedkeys(':OpenlinkOrSearch scala ')"         , 'docs search /scala' ]
+    augroup END
   else
     nnoremap <leader>oo  <Plug>(openbrowser-smart-search)
-    nnoremap <leader>ob  :OpenBrowserSmartSearch -baidu 
-    nnoremap <leader>og  :OpenBrowserSmartSearch -google 
+    nnoremap <leader>ob  :call feedkeys(':OpenBrowserSmartSearch -baidu ')<CR>
+    nnoremap <leader>og  :call feedkeys(':OpenBrowserSmartSearch -google ')<CR>
     nnoremap <leader>oh  :OpenBrowserSmartSearch -github 
-    nnoremap <leader>op  :OpenBrowserSmartSearch -python 
-    nnoremap <leader>os  :call feedkeys(':OpenlinkOrSearch scala ')<CR>
+    nnoremap <leader>oc  :OpenlinkOrSearch arec<CR>
     nnoremap <leader>or  :call util#Open_curPlugin_repo()<CR>
-    nnoremap <leader>ol  :call util#Show_curPlugin_log()<CR>
+    " language docs
+    augroup layer_core_openbrowser
+      autocmd!
+      auto FileType python, ipynb nnoremap <leader>op  :call feedkeys(':OpenBrowserSmartSearch -python ')<CR>
+      auto FileType scala nnoremap <leader>os  :call feedkeys(':OpenlinkOrSearch scala ')<CR>
+    augroup END
   endif
 endfunction
 

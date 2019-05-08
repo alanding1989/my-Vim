@@ -59,5 +59,7 @@ if has('nvim')
   " nnoremap <space>qh  :checkhealth<CR>
 endif
 
+auto FileType vim nnoremap <leader>ql  :call util#Show_curPlugin_log()<CR>
+
 call mapping#leader#init()
 

@@ -21,6 +21,7 @@ let g:has_display         = empty($DISPLAY)
 let g:has_terminal        = g:is_nvim || (has('patch-8.0.1108') && has('terminal'))
 let g:is_root             = $USER ==# 'root'
 
+let g:github_username     = 'alanding1989'
 let g:project_root_marker = ['.root', '.project', '.idea', '.vscode',
       \ '.svn', '.git', '.hg', '.bzr', '_darcs']
 let g:vim_plugindir       = expand(g:home.'config/Vim/plugins/')

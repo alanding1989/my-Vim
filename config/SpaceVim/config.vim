@@ -69,7 +69,7 @@ let g:spacevim_enable_debug                  = 0
 let g:spacevim_auto_disable_touchpad         = 1
 let g:spacevim_windows_smartclose            = ''
 let g:spacevim_windows_leader                = ''
-let g:spacevim_github_username               = 'alanding1989'
+let g:spacevim_github_username               = g:github_username
 let g:spacevim_guifont                       = 'SauceCodePro Nerd Font Mono:h11'
 let g:spacevim_layer_lang_scala_formatter    = g:is_win ? 'D:\devtools\scala\scalariform.jar' :
       \ '/opt/lang-tools/scala/scalariform.jar'

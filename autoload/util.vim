@@ -169,6 +169,35 @@ function! util#update_plugin() abort
   endif
 endfunction
 
+function! util#Show_curPlugin_log()
+  try
+    let a_save = @a
+    let @a=''
+    normal! mx"ayi'
+    normal! `x
+    let plug = match(@a, '/') >= 0 ? @a : 'vim-scripts/'.@a
+  finally
+    let @a = a_save
+  endtry
+  let plugdir = g:is_spacevim ? g:spacevim_plugin_bundle_dir : g:My_Vim_plug_dir
+  if !exists(':PlugSnapshot')
+    let plugdir = plugdir.'repos/github.com/'
+  else
+    let plug = split(plug, '/')[1]
+  endif
+  call Unite#start([['output/shellcmd',
+        \ 'git --no-pager -C ' 
+        \ . plugdir . plug
+        \ . ' log -n 15 --oneline']], {'log': 1, 'wrap': 1,'start_insert':0})
+  " exec 'Denite output:!git\ --no-pager\ -C\ '
+        " \ . plugdir . plug
+        " \ . '\ log\ -n\ 15\ --oneline'
+  exe "nnoremap <buffer><CR> :call <SID>Opencommit('". plug ."', strpart(split(getline('.'),'[33m')[1],0,7))<CR>"
+endfunction
+function! s:Opencommit(repo, commit)
+  exe 'OpenBrowser https://github.com/' . a:repo .'/commit/'. a:commit
+endfunction
+
 function! util#Open_curPlugin_repo()
   try
     let a_save = @a
@@ -183,33 +212,40 @@ function! util#Open_curPlugin_repo()
   endtry
 endfunction
 
-function! util#Show_curPlugin_log()
-  " only for dein
-  if exists(':PlugSnapshot') == 2
-    return
+function! util#vg_starred_repos() abort
+  if empty(g:unite_source_menu_menus.MyStarredrepos.command_candidates)
+    if s:UpdateStarredRepos()
+      Unite -silent -ignorecase -winheight=17 -start-insert menu:MyStarredrepos
+    endif
+  else
+    Unite -silent -ignorecase -winheight=17 -start-insert menu:MyStarredrepos
   endif
-  try
-    let a_save = @a
-    let @a=''
-    normal! mx"ayi'
-    normal! `x
-    let plug = match(@a, '/') >= 0 ? @a : 'vim-scripts/'.@a
-  finally
-    let @a = a_save
-  endtry
-  let plugdir = g:is_spacevim ? g:spacevim_plugin_bundle_dir : g:My_Vim_plug_dir
-  call unite#start([['output/shellcmd',
-        \ 'git --no-pager -C '.plugdir.'repos/github.com/'
-        \ . plug
-        \ . ' log -n 15 --oneline']], {'log': 1, 'wrap': 1,'start_insert':0})
-  exe "nnoremap <buffer><CR> :call <SID>Opencommit('". plug ."', strpart(split(getline('.'),'[33m')[1],0,7))<CR>"
 endfunction
-function! s:Opencommit(repo, commit)
-  exe 'OpenBrowser https://github.com/' . a:repo .'/commit/'. a:commit
+function! s:UpdateStarredRepos()
+  if empty(g:github_username)
+    echohl WarningMsg
+    echo 'You need to set g:github_username'
+    echohl NONE
+    return 0
+  endif
+  let cache_file = expand('~/.cache/github' . g:github_username)
+  if filereadable(cache_file)
+    let repos = json_encode(readfile(cache_file, '')[0])
+  else
+    let repos = github#api#users#GetStarred(g:github_username)
+    echom writefile([json_decode(repos)], cache_file, '')
+  endif
+
+  for repo in repos
+    let description = repo.full_name . repeat(' ', 40 - len(repo.full_name)) . repo.description
+    let cmd = 'OpenBrowser ' . repo.html_url
+    call add(g:unite_source_menu_menus.MyStarredrepos.command_candidates, [description, cmd])
+  endfor
+  return 1
 endfunction "}}}
 
 
-" open or search code online docs {{{
+" open or search language online docs {{{
 function! util#OpenlinkOrSearch(key, ...) abort
   let url = {
         \ 'scala': 'https://www.scala-lang.org/api/current/index.html?search=',
