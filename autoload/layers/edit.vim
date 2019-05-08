@@ -267,26 +267,27 @@ endfunction " }}}
 
 function! s:vim_table_mode() abort "{{{
   if g:is_spacevim
-    let g:_spacevim_mappings.t = {'name': '+@ Table mode'}
+    let g:_spacevim_mappings.t   = {'name': '+@ Table mode'}
+    let g:_spacevim_mappings.t.d = {'name': 'Delete cells'}
     let g:_spacevim_mappings.t.m = ['TableModeToggle'                    , 'toggle tablemode']
     let g:_spacevim_mappings.t.t = ['Tableize'                           , 'convert current/select line to table']
     let g:_spacevim_mappings.t.r = ['TableModeRealign'                   , 'realign table columns']
     let g:_spacevim_mappings.t.a = ['TableAddFormula'                    , 'define a formula']
     let g:_spacevim_mappings.t.e = ['TableEvalFormulaLine'               , 'eval formula and update table']
-    let g:_spacevim_mappings.t.? = ['<Plug>(table-mode-echo-cell)'       , 'echo formula result']
-    let g:_spacevim_mappings.t.s = ['TableSort'                          , 'sort table column']
-    let g:_spacevim_mappings.t.d.d = ['<Plug>(table-mode-delete-row)'    , 'delete current row']
-    let g:_spacevim_mappings.t.d.c = ['<Plug>(table-mode-delete-column)' , 'delete current column']
+    let g:_spacevim_mappings.t.s = ['TableSort'                          , 'sort cursor column']
+    let g:_spacevim_mappings.t.d.d = ['<Plug>(table-mode-delete-row)'    , 'delete cursor/select row']
+    let g:_spacevim_mappings.t.d.c = ['<Plug>(table-mode-delete-column)' , 'delete cursor/select column']
+    let g:_spacevim_mappings.t['?'] = ['<Plug>(table-mode-echo-cell)'    , 'echo formula result']
   else
     nnoremap <silent><leader>tm   :TableModeToggle<CR>
     nnoremap <silent><leader>tt   :Tableize<CR>
     nnoremap <silent><leader>tr   :TableModeRealign<CR>
     nnoremap <silent><leader>ta   :TableAddFormula<CR>
     nnoremap <silent><leader>te   :TableEvalFormulaLine<CR>
-    nnoremap <silent><leader>t?   <Plug>(table-mode-echo-cell)
     nnoremap <silent><leader>ts   :TableSort<CR>
     nnoremap <silent><leader>tdd  <Plug>(table-mode-delete-row)
     nnoremap <silent><leader>tdc  <Plug>(table-mode-delete-column)
+    nnoremap <silent><leader>t?   <Plug>(table-mode-echo-cell)
   endif
 endfunction "}}}
 
