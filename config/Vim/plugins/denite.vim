@@ -11,7 +11,7 @@ let s:loaded = 1
 " denite option
 let s:denite_options = {
       \ 'default' : {
-      \ 'winheight' : 10,
+      \ 'winheight' : 12,
       \ 'mode' : 'insert',
       \ 'quit' : 1,
       \ 'highlight_matched_charw' : 'MoreMsg',

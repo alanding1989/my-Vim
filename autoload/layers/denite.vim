@@ -43,6 +43,8 @@ function! layers#denite#config() abort
           \ 'fuzzy find message history', '', 'fuzzy find message history')
     call SpaceVim#mapping#def('nnoremap', '<leader>fq' , ':Denite quickfix<CR>',
           \ 'fuzzy find quickfix'       , '', 'fuzzy find quickfix'     )
+    call SpaceVim#mapping#def('nnoremap', '<leader>fy', ':Denite neoyank<CR>',
+          \ 'fuzzy find yank history'   , '', 'fuzzy find yank history')
     call SpaceVim#mapping#def('nnoremap', '<leader>fd', ':call feedkeys(":Denite ")<CR>',
           \ 'fuzzy finder prefix/Denite', '', 'fuzzy finder prefix/Denite')
 
@@ -59,8 +61,6 @@ function! layers#denite#config() abort
             \ 'fuzzy grep'                , '', 'fuzzy grep')
       call SpaceVim#mapping#def('nnoremap', '<leader>fc', ':Denite colorscheme<CR>',
             \ 'fuzzy find colorscheme'    , '', 'fuzzy find colorscheme')
-      call SpaceVim#mapping#def('nnoremap', '<leader>fy', ':Denite neoyank<CR>',
-            \ 'fuzzy find yank history'   , '', 'fuzzy find yank history')
       call SpaceVim#mapping#def('nnoremap', '<leader>fo', ':Denite outline<CR>',
             \ 'fuzzy find outline'        , '', 'fuzzy find outline')
       call SpaceVim#mapping#space#def('nnoremap', ['f', 'f'], 'call call('
