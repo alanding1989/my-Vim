@@ -34,7 +34,6 @@ function! layers#autocomplete#plugins() abort
   elseif get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method', 'deoplete')) ==# 'ncm2'
     let plugins += [
           \ ['ncm2/ncm2'                 , {'merged': 0}],
-          \ ['roxma/nvim-yarp'           , {'merged': 0}],
           \ ['ncm2/ncm2-neoinclude'      , {'merged': 0, 'on_event': 'InsertEnter'}],
           \ ['ncm2/ncm2-syntax'          , {'merged': 0, 'on_event': 'InsertEnter'}],
           \ ['ncm2/ncm2-bufword'         , {'merged': 0, 'on_event': 'InsertEnter'}],

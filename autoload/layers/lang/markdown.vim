@@ -23,7 +23,7 @@ function! layers#lang#markdown#plugins() abort
     call add(plugins, ['mzlogin/vim-markdown-toc'           , {'on_ft': 'markdown', 'for': 'markdown'}])
     call add(plugins, ['iamcco/mathjax-support-for-mkdp'    , {'on_ft': 'markdown', 'for': 'markdown'}])
     call add(plugins, ['iamcco/markdown-preview.nvim'       , {'on_ft': 'markdown', 'for': 'markdown',
-          \'depends': 'open-browser.vim', 'build' : 'cd app & yarn install', 'do': 'cd app & yarn install'}])
+          \ 'depends': 'open-browser.vim', 'build' : 'cd ./app & yarn install', 'do': {-> mkdp#util#install()}}])
   endif
   return plugins
 endfunction

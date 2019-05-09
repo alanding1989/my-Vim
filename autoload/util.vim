@@ -88,6 +88,12 @@ endfunction
 "}}}
 
 
+" globpath "{{{
+function! util#globpath(path, expr) abort
+  return globpath(a:path, a:expr, 1, 1)
+endfunction "}}}
+
+
 " help wrapper {{{
 function! util#help_wrapper(...) abort
   if &ft !=# 'vim'
@@ -133,22 +139,6 @@ function! util#hlight_wrapper(...) abort
     exec ':highlight'
   endtry
 endfunction " }}}
-
-
-" SpaceVim test mode {{{
-function! util#test_SPC(...) abort
-  if glob(g:home.'init.toml') ==# ''
-    silent exec '!cp "'.expand(g:home.'backup/init.toml').'" "'.expand(g:home).'"'
-    silent exec '!cd "'.expand('~/.SpaceVim').'"'
-    exec '!git checkout master'
-    echo ' Test environment is on!'
-  else
-    silent call delete(g:home.'init.toml')
-    silent exec '!cd "'.expand('~/.SpaceVim').'"'
-    exec '!git checkout myspacevim'
-    echo ' Test environment is off'
-  endif
-endfunction "}}}
 
 
 " Plugins related {{{
@@ -245,7 +235,7 @@ function! s:UpdateStarredRepos()
 endfunction "}}}
 
 
-" open or search language online docs {{{
+" open or search websites {{{
 function! util#OpenlinkOrSearch(key, ...) abort
   let url = {
         \ 'scala': 'https://www.scala-lang.org/api/current/index.html?search=',
@@ -255,6 +245,22 @@ function! util#OpenlinkOrSearch(key, ...) abort
     exec 'OpenBrowser '.url[a:key].a:1
   else
     exec 'OpenBrowser '.url[a:key]
+  endif
+endfunction "}}}
+
+
+" SpaceVim test mode {{{
+function! util#test_SPC(...) abort
+  if glob(g:home.'init.toml') ==# ''
+    silent exec '!cp "'.expand(g:home.'backup/init.toml').'" "'.expand(g:home).'"'
+    silent exec '!cd "'.expand('~/.SpaceVim').'"'
+    exec '!git checkout master'
+    echo ' Test environment is on!'
+  else
+    silent call delete(g:home.'init.toml')
+    silent exec '!cd "'.expand('~/.SpaceVim').'"'
+    exec '!git checkout myspacevim'
+    echo ' Test environment is off'
   endif
 endfunction "}}}
 

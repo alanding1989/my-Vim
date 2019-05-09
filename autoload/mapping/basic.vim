@@ -88,7 +88,7 @@ function! mapping#basic#load() abort
   nnoremap <silent>qq   :clo<CR>
   nnoremap <silent>qn   :clo<C-r>=winnr()+1<CR><CR>
   nnoremap <silent>qp   :clo<C-r>=winnr()-1<CR><CR>
-  nnoremap <silent>qu   :wincmd z<CR>
+  nnoremap <silent>qu   :winc z<CR>
   nnoremap <silent>qo   :only<CR>
   nnoremap <silent>qh   :q<CR>
   nnoremap <silent>qd   :try\|bd\|catch\|endtry<CR>
@@ -108,9 +108,10 @@ function! mapping#basic#load() abort
   nnoremap <silent>si   <c-w>x<C-w>w
   nnoremap <silent>s-   <c-w>K
   nnoremap <silent>s\   <c-w>L
-  nnoremap <silent>sm   :res<CR>:vert resize<CR>
+  nnoremap <silent>sm   :res\|vert res<CR>
   nnoremap <silent>s=   :winc =<CR>
   nnoremap <silent>st   :tabnew<CR>
+  nnoremap <silent>s3   :vs\|vs\|<CR>
   nnoremap <silent>su   :nohl<CR>
   " last edit buffer
   nnoremap <silent><leader><tab>   :b#<CR>
@@ -247,10 +248,10 @@ function! mapping#basic#load() abort
 
   " misc {{{
   " quickfix list movement
-  " nnoremap <Leader>qn  :cnext<CR>
-  " nnoremap <Leader>qp  :cprev<CR>
-  " nnoremap <Leader>ql  :copen<CR>
-  " nnoremap <Leader>qc  :call setqflist([])<CR>
+  nnoremap <Leader>qn    :cnext<CR>
+  nnoremap <Leader>qp    :cprev<CR>
+  nnoremap <Leader>ql    :copen<CR>
+  nnoremap <Leader>qc    :call setqflist([])<CR>
 
   " help
   nnoremap K             :call util#help_wrapper()<CR>
@@ -259,12 +260,14 @@ function! mapping#basic#load() abort
   nnoremap <c-g>         2<c-g>
   " echo prefix
   nnoremap <leader>ee    :echo 
-  " highlight
-  nnoremap <leader>eh    :<C-u>EchoHlight 
-  " maparp
-  noremap  <leader>em    :<C-u>EchoMap 
+  " call function
+  nnoremap <leader>ef    :call 
   " set options
-  noremap  <leader>eo    :<C-u>set 
+  noremap  <leader>eo    :set 
+  " highlight
+  nnoremap <leader>eh    :EchoHlight 
+  " maparp
+  noremap  <leader>em    :EchoMap 
   " show version
   nnoremap <leader>ev    :version<CR>
 
