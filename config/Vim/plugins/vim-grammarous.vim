@@ -12,6 +12,17 @@ let s:loaded = 1
 
 
 " Setting LanguageTool dir executable path {{{
+function! s:make_link() abort
+  if glob(s:misc_path.'LanguageTool') ==# ''
+    if g:is_unix
+      exec '!ln -s -d "'.expand($LANGUAGE_TOOL_HOME)
+            \ .'" "'.expand(s:misc_path.'LanguageTool').'"'
+    elseif g:is_win
+      exec '!mklink /D "'.expand(s:misc_path.'LanguageTool')
+            \ .'" "'.expand('D:/devtools/LanguageTool').'"'
+    endif
+  endif
+endfunction
 function! s:set_languageTool() abort
   if exists('#dein')
     if g:is_spacevim
@@ -29,14 +40,9 @@ function! s:set_languageTool() abort
 
   if glob(s:misc_path) ==# ''
     call mkdir(expand(s:misc_path), 'p', 0700)
-    if g:is_unix
-      exec '!ln -s -d "'.expand($LANGUAGE_TOOL_HOME)
-            \ .'" "'.expand(s:misc_path.'LanguageTool').'"'
-    elseif g:is_win
-      " TODO: fix windows
-      exec '!mklink /h "'.expand(s:misc_path.'LanguageTool')
-            \ .'" "'.expand('D:/devtools/LanguageTool').'"'
-    endif
+    call <sid>make_link()
+  else
+    call <sid>make_link()
   endif
 endfunction
 "}}}

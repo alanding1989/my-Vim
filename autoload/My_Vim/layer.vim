@@ -32,7 +32,7 @@ function! My_Vim#layer#plug_begin() abort
 endfunction
 
 
-function! s:load_plugin() abort
+function! s:load_plugin() abort "{{{
   for layer in s:enabled_layers_get()
     for plugin in layers#{layer}#plugins()
       call s:plugin_add(layer, plugin)
@@ -43,7 +43,7 @@ function! s:load_plugin() abort
   elseif g:plugmanager ==# 'dein'
     call dein#end()
   endif
-endfunction
+endfunction "}}}
 
 
 function! s:plugin_add(layer, plugin) abort " {{{
@@ -106,56 +106,30 @@ function! My_Vim#layer#plug_end() abort " {{{
   syntax on
   if s:firstinstall | return | endif
 
-  " load leyer config (almost keymap setting)
+  " load leyer config
   call map(deepcopy(g:enabled_layers), {key, val -> layers#{val}#config()})
 
-  " load enabled_plugins global config var
-  let g:enabled_pluglist = map(deepcopy(s:enabled_plugins_name),
+  " load enabled_plugins global config variable
+  let enabled_pluglist = map(deepcopy(s:enabled_plugins_name),
         \ {key, val -> g:vim_plugindir . fnamemodify(val, ':r').'.vim'})
-
-  " TODO: fix Windows
-  let g:filelist = util#globpath(g:vim_plugindir, '*.vim')
-
-  "let filelist = !g:is_win ? systemlist('ls '.g:vim_plugindir) : [
-        "\ 'ag.vim'            , 'ale.vim'              , 'asyncomplete.vim' , 'autocomp_plugins.vim'     , 'coc.vim'        ,
-        "\ 'defx.vim'          , 'defx-git.vim'         , 'defx-icons.vim'   , 'denite.vim'               , 'deoplete.vim'   ,
-        "\ 'git-p.vim'         , 'goyo.vim'             , 'langtools.vim'    , 'LanguageClient-neovim.vim', 'LeaderF.vim'    ,
-        "\ 'ncm2.vim'          , 'neco-vim.vim'         , 'neomake.vim'      , 'nerdcommenter.vim'        , 'nerdtree.vim'   ,
-        "\ 'snippet.vim'       , 'tagbar.vim'           , 'ui.vim'           , 'unite.vim'                , 'java_getset.vim',
-        "\ 'vim-grammarous.vim', 'vim-expand-region.vim', 'vim-gutentags.vim', 'vim-javacomplete2.vim'    , 'vim-lsp.vim'    ,
-        "\ 'vim-ref.vim'       , 'vim-signify.vim'      , 'vim-startify.vim' , 'vim-visual-multi.vim'     , 'vimfiler.vim'   ,
-        "\ 'vimpyter.vim'      , 'vista.vim'            , 'YouCompleteMe.vim', 'markdown-preview.vim'     ,
-        "\ ]
-  for file in g:filelist
-    if index(g:enabled_pluglist, file) > 0
-      exec 'so ' file
+  let filelist = util#globpath(g:vim_plugindir, '*.vim')
+  for fpath in filelist
+    if index(enabled_pluglist, fpath) > 0
+      exec 'so ' fpath
     endif
   endfor
-  " load default_layers global var
+
+  " load default_layers global variable
   let defaultload = ['autocomp_plugins', 'snippet', 'langtools', 'ui' ]
   call map(deepcopy(defaultload), {key, val -> util#so_file('plugins/'.val.'.vim', 'Vim')})
 
-  " HotKey menu
+  " Hotkey menu
   call util#so_file('keymap.vim', 'Vim')
 endfunction
 "}}}
 
 
 " util functions {{{
-function! s:enabled_layers_get() abort
-  if !get(g:, 'is_fallback', 0)
-    for [layer, en_or_dis] in items(g:My_Vim_layers)
-      if en_or_dis
-        call add(s:default_layers, layer)
-      else
-        call filter(s:default_layers, 'v:val !=# layer')
-      endif
-    endfor
-  endif
-  let g:enabled_layers = uniq(sort(s:default_layers))
-  return g:enabled_layers
-endfunction
-
 function! s:check_manager_install() abort "{{{
   let g:My_Vim_plug_dir = g:is_win ? 'D:/.cache/My_Vim/'.g:plugmanager.'/' :
         \ '/home/alanding/.cache/My_Vim'.(g:is_root ? '-root/' : '-alan/').g:plugmanager.'/'
@@ -190,6 +164,20 @@ function! s:check_manager_install() abort "{{{
         \ . '                    <space>qp'}
   let g:unite_source_menu_menus.AddedPlugins.command_candidates = []
 endfunction "}}}
+
+function! s:enabled_layers_get() abort
+  if !get(g:, 'is_fallback', 0)
+    for [layer, en_or_dis] in items(g:My_Vim_layers)
+      if en_or_dis
+        call add(s:default_layers, layer)
+      else
+        call filter(s:default_layers, 'v:val !=# layer')
+      endif
+    endfor
+  endif
+  let g:enabled_layers = uniq(sort(s:default_layers))
+  return g:enabled_layers
+endfunction
 
 function! My_Vim#layer#isLoaded(name) abort
   return index(g:enabled_layers, a:name) != -1

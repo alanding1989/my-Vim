@@ -45,7 +45,8 @@ function! layers#checkers#config() abort
           \ . string(s:_function('s:toggle_syntax_checker')) . ', [])',
           \ 'toggle syntax checker', 1)
   else
-    " only work in neomake
+    nnoremap <leader>lz  :GrammarousCheck --lang=
+
     if g:checker ==# 'neomake'
       nnoremap <silent><space>ee  :call <sid>explain_the_error()<CR>
     endif

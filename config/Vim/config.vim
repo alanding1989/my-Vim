@@ -55,7 +55,6 @@ let g:enable_checkinstall         = 1
 let g:github_username             = 'alanding1989'
 let g:guifont                     = 'SauceCodePro Nerd Font Mono:h11'
 let g:layer_lang_scala_formatter  = '/opt/vim/scalariform.jar'
-let g:spacevim_debug_level        = 1
 "}}}
 
 " Var {{{
@@ -77,10 +76,8 @@ let g:My_Vim_lsp_ft = [
 "   autocomplete,  checkers,  core,  edit,  format,  leaderf
 "   代码补全，检错、修改比较，编辑辅助，文件搜索
 " ============================================================================= {{{
-" \ 'tools'              : 0, TODO: learn
 
 " finished ~
-" autocomplete, checkers, chinese, colorscheme, core, edit, format, leaderf/denite, ui, lang#vim
 let g:My_Vim_layers = {
       \ 'chinese'           : 1,
       \ 'colorscheme'       : 1,
@@ -121,7 +118,7 @@ endif "}}}
 
 " powershell {{{
 if g:is_win
-  let g:my_layers['lang#powershell'] = 1
+  let g:My_Vim_layers['lang#powershell'] = 1
 endif
 "}}}
 

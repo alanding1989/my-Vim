@@ -19,7 +19,7 @@ let g:is_async            = g:is_vim8 || g:is_nvim
 let g:has_timer           = has('timers')
 let g:has_display         = empty($DISPLAY)
 let g:has_terminal        = g:is_nvim || (has('patch-8.0.1108') && has('terminal'))
-let g:is_root             = $USER ==# 'root'
+let g:is_root             = $USER ==# 'root' || $USERNAME ==# 'Administrator'
 
 let g:github_username     = 'alanding1989'
 let g:project_root_marker = ['.root', '.project', '.idea', '.vscode',

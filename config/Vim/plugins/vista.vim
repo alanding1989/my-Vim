@@ -19,7 +19,8 @@ else
   let g:vista_sidebar_position = 'vertical botright'
 endif
 let g:vista_sidebar_width = 30
-      " \ get(g:, 'spacevim_sidebar_width', get(g:, 'sidebar_width', 25))
+let g:vista_sidebar_width =
+      \ get(g:, 'spacevim_sidebar_width', get(g:, 'sidebar_width', 25))
 
 
 auto FileType vista_kind nnoremap

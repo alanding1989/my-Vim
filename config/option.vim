@@ -54,9 +54,6 @@ set mouse=nv
 " system {{{
 set autoread
 set hidden
-if !g:is_nvim
-  set clipboard+=unnamedplus
-endif
 
 " if g:is_win
   " set renderoptions=type:directx
