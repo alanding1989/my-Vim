@@ -24,9 +24,11 @@ function! layers#lang#powershell#plugins() abort
   if !g:is_spacevim
     " syntax highlighting and indent
     call add(plugins, ['PProvost/vim-ps1', {'merged': 0}])
-    if g:autocomplete_method ==# 'coc'
-      call add(plugins, ['yatli/coc-powershell', {'build': 'call coc#powershell#install()',
-            \ 'do': { -> coc#powershell#install()}}])
+    if g:autocomplete_method ==# 'coc' && executable('pwsh')
+      call add(plugins, ['yatli/coc-powershell', { 'do': { -> coc#powershell#install()}}])
+      if g:plugmanager ==# 'dein'
+        call coc#powershell#install('preview')
+      endif
     endif
   endif
   return plugins

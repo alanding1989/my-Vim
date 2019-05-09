@@ -222,6 +222,7 @@ function! s:open_browser() abort
   let g:openbrowser_default_search = 'baidu'
   if g:is_spacevim
     let g:_spacevim_mappings.o   = {'name': '+@ OpenBrowser'}
+    let g:_spacevim_mappings.o.a = ['call feedkeys(":OpenBrowser ")'                    , 'OpenBrowser prefix' ]
     let g:_spacevim_mappings.o.o = ['call feedkeys("\<Plug>(openbrowser-smart-search)")', 'cursor word search /default engine']
     let g:_spacevim_mappings.o.b = ['call feedkeys(":OpenBrowserSmartSearch -baidu ")'  , 'keyword search /baidu' ]
     let g:_spacevim_mappings.o.g = ['call feedkeys(":OpenBrowserSmartSearch -google ")' , 'keyword search /google']
