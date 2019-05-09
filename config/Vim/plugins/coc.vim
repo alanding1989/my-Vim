@@ -46,13 +46,14 @@ augroup END
 
 " extensions {{{
 " let g:coc_global_extensions = [
-" \ 'coc-tsserver'   ,
 " \ 'coc-json'       ,
+" \ 'coc-tsserver'   ,
 " \ 'coc-html'       ,
 " \ 'coc-css'        ,
-" \ 'coc-ccls'       ,
+" \ 'coc-vetur'      ,
 " \ 'coc-java'       ,
 " \ 'coc-rls'        ,
+" \ 'coc-yaml'       ,
 " \ 'coc-pyls'       ,
 " \ 'coc-python'     ,
 " \ 'coc-emmet'      ,
@@ -66,21 +67,26 @@ augroup END
 " \ 'coc-ultisnips'  ,
 " \ 'coc-omni'       ,
 " \ 'coc-vimtex'     ,
+" \ 'coc-ccls'       ,
+" \ 'coc-lbdbq'      ,
 " \ 'https://github.com/andys8/vscode-jest-snippets.git#master' ,
 " \ ] "}}}
 
 " key mapping  {{{
 nmap <silent> gd <Plug>(coc-definition)
 function! s:g_mappings() abort
-  nmap <silent> [d  <Plug>(coc-diagnostic-prev)
-  nmap <silent> ]d  <Plug>(coc-diagnostic-next)
-  nmap <silent> gt  <Plug>(coc-type-definition)
-  nmap <silent> gi  <Plug>(coc-implementation)
-  nmap <silent> gr  <Plug>(coc-references)
-  nmap <silent> ga  <Plug>(coc-codeaction)
-  nmap <silent> ge  <Plug>(coc-rename)
-  nmap <silent> gf  :call CocActionAsync('format')<CR>
-  nmap <silent> gl  :call CocActionAsync('diagnosticList')<CR>
+  nmap <silent>  [g  <Plug>(coc-git-prevchunk)
+  nmap <silent>  ]g  <Plug>(coc-git-nextchunk)
+  nmap <silent>  gs  <Plug>(coc-git-chunkinfo)
+  nmap <silent>  [d  <Plug>(coc-diagnostic-prev)
+  nmap <silent>  ]d  <Plug>(coc-diagnostic-next)
+  nmap <silent>  gt  <Plug>(coc-type-definition)
+  nmap <silent>  gi  <Plug>(coc-implementation)
+  nmap <silent>  gr  <Plug>(coc-references)
+  nmap <silent>  ga  <Plug>(coc-codeaction)
+  nmap <silent>  ge  <Plug>(coc-rename)
+  nmap <silent>  gf  :call CocActionAsync('format')<CR>
+  nmap <silent>  gl  :call CocActionAsync('diagnosticList')<CR>
 endfunction
 
 if g:is_spacevim

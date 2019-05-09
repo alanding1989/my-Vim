@@ -15,10 +15,9 @@
   // snippets
   "snippets.shortcut": "Snip",
   "snippets.ultisnips.directories": [
-    "~/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/",
-    "~/.cache/vimfiles/repos/github.com/alanding1989/my-neosnippet-snippets/",
     "~/.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/",
-    "~/.cache/vimfiles-alan/repos/github.com/alanding1989/my-neosnippet-snippets/"
+    "~/.cache/vimfiles-alan/repos/github.com/alanding1989/my-neosnippet-snippets/",
+    "D:/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/UltiSnips"
   ],
   //  "snippets.textmateSnippetsRoots": ["~/.SpaceVim.d/vscode"],
   "snippets.extends" : {
@@ -29,7 +28,9 @@
   },
   "emmet.showSuggestionsAsSnippets" : true ,
 
+
   // languageserver
+
   // MPLS microsoft
   "python.autoComplete.addBrackets"             : true,
   "python.jediEnabled"                          : false,
@@ -48,7 +49,6 @@
   "python.formatting.yapfPath"                  : "/home/alanding/software/anaconda3/envs/py36/bin/yapf",
   "python.workspaceSymbols.ctagsPath"           : "/opt/vim/universal-ctags/bin/ctags",
   "python.workspaceSymbols.tagFilePath"         : "~/.cache/tags",
-
 
   // "pyls.enable"                              : true,
   // "pyls.plugins.preload.enabled"             : true,
@@ -120,11 +120,11 @@
       "filetypes": ["sh"],
       "ignoredRootPaths": ["~"]
     },
-    //    "efm" : {
-    //      "command": "efm-langserver",
-    //      "args": ["-c", "$HOME/.config/efm-langserver/config.yaml"],
-    //      "filetypes": ["vim", "markdown"]
-    //    },
+//    "efm" : {
+//      "command": "efm-langserver",
+//      "args": ["-c", "~/.config/efm-langserver/config.yaml"],
+//      "filetypes": ["vim", "markdown"]
+//    },
    "golang" : {
       "command": "go-langserver",
       "filetypes": ["go"],
@@ -178,5 +178,12 @@
         }
       }
     }
-  }
+  },
+
+  "git.branchCharacter"        : "",
+  "git.addedSign.text"         : "✚",
+  "git.removedSign.text"       : "✖",
+  "git.topRemovedSign.text"    : "▤",
+  "git.changedSign.text"       : "✹",
+  "git.changeRemovedSign.text" : "≃"
 }
