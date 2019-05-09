@@ -12,12 +12,13 @@ let s:define_my_layers  = ['tags', 'langtools', 'tools#clock' ]
 let s:add_plugin_layers = [
       \ 'autocomplete', 'colorscheme'  , 'checkers'  , 'edit'       ,
       \ 'git'         , 'langtools'    , 'lang#latex', 'lang#python',
-      \ 'lang#vim'    , 'lang#markdown', 'ui'        , 'core'
+      \ 'lang#vim'    , 'lang#markdown', 'lang#ps1'  , 'ui'         ,
+      \ 'core'
       \ ]
 let s:modified_conf_layers = [
-      \ 'autocomplete', 'chinese', 'colorscheme', 'core'  , 'checkers'      ,
-      \ 'denite'      , 'edit'   , 'git'        , 'lang#vim'      ,
-      \ 'leaderf'     , 'tools'  , 'unite'      , 'ui'    , 'VersionControl'
+      \ 'autocomplete', 'chinese', 'colorscheme', 'core'    , 'checkers'      ,
+      \ 'denite'      , 'edit'   , 'git'        , 'lang#vim', 'lang#ps1'      ,
+      \ 'leaderf'     , 'tools'  , 'unite'      , 'ui'      , 'VersionControl',
       \ ]
 
 let s:spacevim_default_cs = [

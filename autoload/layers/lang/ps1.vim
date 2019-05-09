@@ -19,23 +19,33 @@ scriptencoding utf-8
 " <
 
 
-function! layers#lang#powershell#plugins() abort
+function! layers#lang#ps1#plugins() abort
   let plugins = []
-  if !g:is_spacevim
-    " syntax highlighting and indent
-    call add(plugins, ['PProvost/vim-ps1', {'merged': 0}])
-    if g:autocomplete_method ==# 'coc' && executable('pwsh')
-      call add(plugins, ['yatli/coc-powershell', { 'do': { -> coc#powershell#install()}}])
-      if g:plugmanager ==# 'dein'
-        call coc#powershell#install('preview')
+  if get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method', 'deoplete')) ==# 'coc'
+    call add(plugins, ['yatli/coc-powershell', { 'do': { -> coc#powershell#install({ "preview": 1, "PowerShellExecutable": "pwsh"})}}])
+    if g:is_spacevim && g:spacevim_plugin_manager ==# 'dein'
+      if g:is_nvim && glob(g:spacevim_plugin_bundle_dir.'.cache/init.vim/.dein/PowerShellEditorServices') ==# ''
+        auto VimEnter * call coc#powershell#install("preview")
+      elseif g:is_vim8 && glob(g:spacevim_plugin_bundle_dir.'.cache/vimrc/.dein/PowerShellEditorServices') ==# ''
+        auto VimEnter * call coc#powershell#install("preview")
+      endif
+    elseif !g:is_spacevim && g:plugmanager ==# 'dein'
+      if g:is_nvim && glob(g:My_Vim_plug_dir.'.cache/init.vim/.dein/PowerShellEditorServices') ==# ''
+        auto VimEnter * call coc#powershell#install("preview")
+      elseif g:is_vim8 && glob(g:My_Vim_plug_dir.'.cache/vimrc/.dein/PowerShellEditorServices') ==# ''
+        auto VimEnter * call coc#powershell#install("preview")
       endif
     endif
+  endif
+  if !g:is_spacevim
+    " syntax highlighting and indent
+  call add(plugins, ['PProvost/vim-ps1'])
   endif
   return plugins
 endfunction
 
 
-function! layers#lang#powershell#config() abort
+function! layers#lang#ps1#config() abort
   if g:is_spacevim
     call SpaceVim#mapping#gd#add('ps1', function('s:go_to_def'))
     call SpaceVim#mapping#space#regesit_lang_mappings('ps1', function('s:language_specified_mappings'))
