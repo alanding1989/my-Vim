@@ -21,7 +21,7 @@ function! layers#git#plugins() abort
     " call add(plugins, ['iamcco/git-p.nvim', {'merged': 0}])
   " endif
   if g:is_spacevim && g:spacevim_filemanager ==# 'defx'
-      " call add(plugins, ['kristijanhusak/defx-git', {'merged': 0}])
+    " call add(plugins, ['kristijanhusak/defx-git', {'merged': 0}])
   elseif !g:is_spacevim
     call add(plugins, ['junegunn/gv.vim'       , {'on_cmd': 'GV', 'on': 'GV'}])
     call add(plugins, ['tpope/vim-fugitive'    , {'merged': 0}])
