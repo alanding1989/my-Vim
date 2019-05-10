@@ -159,7 +159,7 @@ function! mapping#basic#load() abort
   noremap <expr> <C-u> (line("w0") <= 1         ? "k" : "3\<C-y>")
 
   " Toggle zz mode
-  nnoremap zz          :call <sid>toggle_zzmode()<CR>
+  auto VimEnter * nnoremap zz     :call <sid>toggle_zzmode()<CR>
   " Toggle fold
   nnoremap <CR>        za
   nnoremap <s-CR>      zMza

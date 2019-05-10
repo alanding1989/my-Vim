@@ -11,7 +11,7 @@ function! layers#chinese#plugins() abort
     let plugins += [
           \ ['yianwillis/vimcdoc'      , {'merged': 0}],
           \ ['voldikss/vim-translate-me' , {'merged': 0, 'on_cmd': ['TranslateW', 'TranslateR'],
-          \  'on_map': ['<Plug>Trans'],'on': ['TranslateW', 'TranslateR']}],
+          \  'on_map': ['<Plug>Trans'],'on': ['Translate', 'TranslateW', 'TranslateR']}],
           \ ['wsdjeg/ChineseLinter.vim', {'merged': 0, 'on_cmd': 'CheckChinese', 'on' : 'CheckChinese',
           \ 'on_ft': ['markdown', 'text'], 'for': ['markdown', 'text']}],
           \ ]
@@ -35,12 +35,13 @@ function! layers#chinese#config() abort
   else
     let g:loaded_vimcdoc = 1
     nmap <space>lc    :CheckChinese<CR>
-    nmap <space>xgi   :call feedkeys(':TranslateW ')<CR>
-    nmap <space>xgt   :TranslateW<CR>
-    vmap <space>xgt   <Plug>TranslateWV
+    nmap <space>xgi   :call feedkeys(':Translate ')<CR>
+    nmap <space>xgt   :Translate<CR>
+    vmap <space>xgt   <Plug>TranslateV
     nmap <space>xgr   :TranslateR<CR>
     vmap <space>xgr   <Plug>TranslateRV
-    nmap <c-q>        :TranslateW<CR>
-    vmap <c-q>        <Plug>TranslateWV
+    nmap <c-q>        <Plug>Translate
+    vmap <c-q>        <Plug>TranslateV
+    let g:vtm_preview_position = 'to'
   endif
 endfunction

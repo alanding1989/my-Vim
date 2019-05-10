@@ -193,6 +193,7 @@ function! s:flygrep() abort
     call SpaceVim#mapping#space#def('nnoremap', ['s', 'o'], 'call SpaceVim#plugins#flygrep#open({})',
           \ 'grep on the fly', 1)
   else
+    let g:spacevim_debug_level = 1
     " Searching in current buffer
     nnoremap<space>ss  :call SpaceVim#plugins#flygrep#open({'input': input("grep pattern:"), 'files': bufname("%")})<CR>
     nnoremap<space>sS  :call SpaceVim#plugins#flygrep#open({'input': expand("<cword>")     , 'files': bufname("%")})<CR>

@@ -122,8 +122,8 @@ function! layers#autocomplete#config() abort
 
   augroup layer_autocmplete
     autocmd!
-    auto CompleteDone * silent! pclose
-    auto InsertLeave  * silent! pclose
+    " auto CompleteDone * silent! pclose
+    " auto InsertLeave  * silent! pclose
   augroup END
 endfunction
 

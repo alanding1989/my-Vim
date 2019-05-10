@@ -26,7 +26,7 @@ let g:my_bg = 1 ? 'dark' : 'light'
 
 " ================================================================================
 " Preferences
-let g:autocomplete_method           = get(['coc'       , 'deoplete' , 'ncm2'], 0)
+let g:autocomplete_method           = get(['coc'       , 'deoplete' , 'ncm2'], 2)
 let g:snippet_engine                = get(['neosnippet', 'ultisnips', 'coc' ], 0)
 let g:fuzzyfinder                   = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
 let g:filemanager                   = get(['vimfiler'  , 'nerdtree' , 'defx'], 2)
