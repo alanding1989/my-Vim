@@ -123,9 +123,9 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
 
   function! mapping#tab#S_tab() abort
     snoremap <silent><tab>  <Esc>:call UltiSnips#ExpandSnippetOrJump()<CR>
-    xnoremap <silent><tab>  :call UltiSnips#SaveLastVisualSelection()<cr>gvs"
-    snoremap <silent><c-o>  <ESC>:call UltiSnips#JumpBackwards()<CR>
     inoremap <silent><c-o>  <ESC>:call UltiSnips#JumpBackwards()<CR>
+    snoremap <silent><c-o>  <ESC>:call UltiSnips#JumpBackwards()<CR>
+    xnoremap <silent><tab>  :call UltiSnips#SaveLastVisualSelection()<cr>gvs"
     inoremap <silent><c-t>  <C-R>=UltiSnips#ListSnippets()<cr>
   endfunction
   "}}}
@@ -139,7 +139,7 @@ elseif s:md ==# 'coc'
       if coc#expandable()
         return "\<Plug>(coc-snippets-expand)"
       elseif coc#jumpable() && s:cur_char(1, '(')
-        return coc#rpc#request('doKeymap', ['snippets-jump', ''])
+        return "\<Plug>(coc-snippets-jump)"
       elseif delimitMate#WithinEmptyPair()
         return "\<right>"
       else
@@ -151,8 +151,8 @@ elseif s:md ==# 'coc'
       elseif !coc#jumpable() && delimitMate#ShouldJump()
             \ && s:check_bs() && !s:cur_char(1, '')
         return "\<right>"
-      elseif coc#jumpable() && s:check_bs()
-        return coc#rpc#request('doKeymap', ['snippets-jump', ''])
+      elseif coc#jumpable()
+        return "\<Plug>(coc-snippets-jump)"
       elseif !s:check_bs()
         return "\<tab>"
       else
@@ -162,6 +162,8 @@ elseif s:md ==# 'coc'
   endfunction
 
   function! mapping#tab#S_tab() abort
+    snoremap <silent><tab> <Esc>:call coc#rpc#request('snippetNext', [])<cr>
+    snoremap <silent><c-o> <Esc>:call coc#rpc#request('snippetPrev', [])<cr>
     xmap <tab> <Plug>(coc-snippets-select)
   endfunction
 endif

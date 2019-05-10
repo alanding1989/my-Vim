@@ -20,6 +20,8 @@ call SpaceVim#mapping#def('nnoremap', '<leader>aa',
       \ 'ggVG', 'select whole buffer', '', 'select whole buffer')
 call SpaceVim#mapping#def('nnoremap', '<leader>ae',
       \ 'VG', 'select to the end', '', 'select to the end')
+call SpaceVim#mapping#def('nnoremap', '<leader>az',
+      \ ':call mapping#basic#zzmode()<CR>', 'toggle zzmode', '', 'toggle zzmode')
 call SpaceVim#mapping#def('xnoremap', '<leader>y',
       \ '"+y', 'copy selection to system clipboard', '', 'copy selection to system clipboard')
 
@@ -28,6 +30,7 @@ call SpaceVim#mapping#def('xnoremap', '<leader>y',
 let g:_spacevim_mappings.e   = {'name':  '+@ Echo value/Edit snippets' }
 let g:_spacevim_mappings.e.c = ["echo '  '.g:spacevim_autocomplete_method", 'show autocomplete method']
 let g:_spacevim_mappings.e.e = ['call feedkeys(":echo ")'                 , 'echo prefix'             ]
+let g:_spacevim_mappings.e.f = ['call feedkeys(":call ")'                 , 'call prefix'             ]
 let g:_spacevim_mappings.e.h = ['call feedkeys(":EchoHlight ")'           , 'echo highlight'          ]
 let g:_spacevim_mappings.e.l = ['call layers#checkers#showlinter()'       , 'show syntax linter '     ]
 let g:_spacevim_mappings.e.m = ['call feedkeys(":EchoMap ")'              , 'show specific keymap'    ]

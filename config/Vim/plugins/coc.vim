@@ -14,7 +14,7 @@ let s:loaded = 1
 let g:neosnippet#enable_complete_done = 1
 
 let g:coc_start_at_startup    = 1
-let g:coc_snippet_next        = '<tab>'
+let g:coc_snippet_next        = ''
 let g:coc_snippet_prev        = '<c-o>'
 let g:vim_node_rpc_folder     = exepath('vim-node-rpc')
 let g:coc_filetype_map        = {

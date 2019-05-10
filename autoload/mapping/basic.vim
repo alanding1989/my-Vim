@@ -143,26 +143,24 @@ function! mapping#basic#load() abort
   " }}}
 
   " inc/decrease buffer width/height
-  nnoremap <silent> <m-->         :10winc <<CR>
-  nnoremap <silent> <m-=>         :10winc ><CR>
-  nnoremap <silent> <m-[>         :10winc -<CR>
-  nnoremap <silent> <m-]>         :10winc +<CR>
+  nnoremap <silent> <m-->      :10winc <<CR>
+  nnoremap <silent> <m-=>      :10winc ><CR>
+  nnoremap <silent> <m-[>      :10winc -<CR>
+  nnoremap <silent> <m-]>      :10winc +<CR>
 
   " improve window scroll
-  nnoremap <expr> zz (winline() == (winheight(0)+1) / 2) ?
-        \ 'zt' : (winline() == &scrolloff + 1) ? 'zb' : 'zz'
-  noremap <expr> <C-f> max([winheight(0) - 2, 1])
-        \ ."\<C-d>".(line('w$') >= line('$') ? "L" : "M")
-  noremap <expr> <C-b> max([winheight(0) - 2, 1])
-        \ ."\<C-u>".(line('w0') <= 1 ? "H" : "M")
-  noremap <expr> <C-d> (line("w$") >= line('$') ? "j" : "3\<C-e>")
-  noremap <expr> <C-u> (line("w0") <= 1         ? "k" : "3\<C-y>")
+  auto VimEnter * noremap 
+        \ <expr> zz            <sid>win_scroll(1, 'z')
+  noremap <expr> <C-f>         <sid>win_scroll(1, 'f')
+  noremap <expr> <C-b>         <sid>win_scroll(0, 'f')
+  noremap <expr> <C-d>         <sid>win_scroll(1, 'd')
+  noremap <expr> <C-u>         <sid>win_scroll(0, 'd')
 
   " Toggle zz mode
-  auto VimEnter * nnoremap zz     :call <sid>toggle_zzmode()<CR>
+  nnoremap <leader>az          :call <sid>toggle_zzmode()<CR>
   " Toggle fold
-  nnoremap <CR>        za
-  nnoremap <s-CR>      zMza
+  nnoremap <CR>                za
+  nnoremap <s-CR>              zMza
   " }}}
 
 
@@ -327,6 +325,33 @@ function! mapping#basic#load() abort
 endfunction
 
 
+" window scroll {{{
+function! s:win_scroll(forward, mode)
+  let winnr = 0
+  for i in range(1, winnr('$'))
+    if getwinvar(i, 'float')
+      let winnr = i
+    endif
+  endfor
+  " f half screen, d several lines
+  if a:forward && a:mode ==# 'f'
+    let key = max([winheight(0) - 2, 1]) ."\<C-d>".(line('w$') >= line('$') ? 'L' : 'M')
+  elseif !a:forward && a:mode ==# 'f'
+    let key = max([winheight(0) - 2, 1]) ."\<C-u>".(line('w0') <= 1 ? 'H' : 'M')
+  elseif a:forward && a:mode ==# 'd'
+    let key = (line('w$') >= line('$') ? 'j' : "3\<C-e>")
+  elseif !a:forward && a:mode ==# 'd'
+    let key = (line('w0') <= 1         ? 'k' : "3\<C-y>")
+  elseif a:forward && a:mode ==# 'z'
+    let key = (winline() == (winheight(0)+1) / 2) ? 'zt' : (winline() == &scrolloff + 1) ? 'zb' : 'zz'
+  endif
+  if winnr
+    return winnr."\<C-w>w".key."\<C-w>p"
+  else
+    return key
+  endif
+endfunction "}}}
+
 " rename file {{{
 function! s:rename() abort
   let curbufnr = bufnr('%')
@@ -344,6 +369,9 @@ endfunction
 "}}}
 
 " toggle zzmode {{
+function! mapping#basic#zzmode() abort
+  call s:toggle_zzmode()
+endfunction
 let s:zzmode = 0
 function! s:toggle_zzmode() abort
   if s:zzmode == 0
@@ -616,6 +644,5 @@ function! s:unmap_SPC() abort
     endtry
   endif
 endfunction " }}
-
 
 " vim: set sw=2 ts=2 sts=2 et tw=78 foldmarker={{,}} foldmethod=marker:

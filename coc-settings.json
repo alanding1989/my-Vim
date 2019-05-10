@@ -7,16 +7,29 @@
   "suggest.echodocSupport"                    : true ,
   "suggest.snippetIndicator"                  : "~►"   ,
 
-  "coc.preferences.colorSupport"              : true ,
+  "coc.preferences.previewAutoClose"          : false,
   "coc.preferences.rootPatterns": [
     ".root","*.sbt",".vim",".git",".hg",".projections.json"
   ],
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+
+  "diagnostic.enable"                        : true,
+  "diagnostic.virtualText"                   : true,
+  "diagnostic.virtualTextPrefix"             : "->>",
+  "diagnostic.displayByAle"                  : true,
+
+  "signature.enable"                         : true,
+  "signature.target"                         : "float",
+
+  "codeLens.enable"                          : true,
+
 
   // snippets
   "snippets.shortcut": "Snip",
   "snippets.ultisnips.directories": [
-    "~/.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/",
-    "~/.cache/vimfiles-alan/repos/github.com/alanding1989/my-neosnippet-snippets/",
+    "~/.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/snippets",
+    "~/.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/UltiSnips",
+    "D:/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/snipeets",
     "D:/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/UltiSnips"
   ],
   //  "snippets.textmateSnippetsRoots": ["~/.SpaceVim.d/vscode"],
@@ -87,11 +100,6 @@
   "html.format.enable"                       : true,
   "html.validate.scripts"                    : true,
   "html.validate.styles"                     : true,
-
-  "diagnostic.enable"                        : true,
-  "diagnostic.virtualText"                   : true,
-  "diagnostic.virtualTextPrefix"             : "->>",
-
 
   "languageserver": {
 //    "ccls": {
