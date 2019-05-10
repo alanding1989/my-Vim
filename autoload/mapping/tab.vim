@@ -139,7 +139,7 @@ elseif s:md ==# 'coc'
       if coc#expandable()
         return "\<Plug>(coc-snippets-expand)"
       elseif coc#jumpable() && s:cur_char(1, '(')
-        return "\<Plug>(coc-snippets-jump)"
+        return "\<Plug>(coc-snippets-expand-jump)"
       elseif delimitMate#WithinEmptyPair()
         return "\<right>"
       else
@@ -152,7 +152,7 @@ elseif s:md ==# 'coc'
             \ && s:check_bs() && !s:cur_char(1, '')
         return "\<right>"
       elseif coc#jumpable()
-        return "\<Plug>(coc-snippets-jump)"
+        return "\<Plug>(coc-snippets-expand-jump)"
       elseif !s:check_bs()
         return "\<tab>"
       else
