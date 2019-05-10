@@ -20,7 +20,7 @@ let g:my_cs = split([
       \ '5 OceanicNext' ,
       \ '6 PaperColor'  ,
       \ '7 nord'        ,
-      \ ][3])[1]
+      \ ][2])[1]
 let g:my_bg = 1 ? 'dark' : 'light'
 "}}}
 
@@ -41,8 +41,8 @@ let g:enable_smart_clock_startup    = 0 && !g:is_win
 
 " Ui {{{
 let g:enable_cursorword             = (g:is_nvim || g:is_gui) ? 1 : 0
-let g:enable_fat_statusline         = 0
-let g:statusline_separator          = get(['fire', 'arrow', 'curve', 'slant'], 2)
+let g:enable_fat_statusline         = 1
+let g:statusline_separator          = get(['fire', 'arrow', 'curve', 'slant'], 1)
 let g:sidebar_width                 = 25
 let g:filetree_direction            = 'right'
 let g:linter_error_symbol           = '❌'

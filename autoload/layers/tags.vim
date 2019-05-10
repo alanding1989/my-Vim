@@ -17,7 +17,7 @@ function! layers#tags#plugins() abort
         \ [ 'skywind3000/gutentags_plus'     ,              {'merged' : 0}],
         \ [ 'skywind3000/vim-preview'        , {'on_cmd': 'PreviewQuickfix',
         \ 'on': 'PreviewQuickfix'}],
-        \ [ 'liuchengxu/vista.vim', {'on_cmd': 'Vista!!', 'on': 'Vista!!'}],
+        \ [ 'liuchengxu/vista.vim', {'merged': 0, 'on_cmd': 'Vista!!', 'on': 'Vista!!'}],
         \ ]
   return plugins
 endfunction

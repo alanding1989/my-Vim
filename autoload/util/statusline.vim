@@ -24,8 +24,8 @@ function! util#statusline#airline_init() abort
   "let g:airline_section_z       (percentage, line number, column number) }}}
 
   " more feature {{{
-  if g:enable_fat_statusline && 0
-    let g:airline_section_b    = "%{util#statusline#Filenamela().'   '.airline#extensions#branch#head().' '.airline#extensions#hunks#get_hunks()}"
+  if g:enable_fat_statusline && 1
+    let g:airline_section_b    = "%{'-'.util#statusline#filesize().' '.util#statusline#Filenamela().'   '.airline#extensions#branch#head().' '.airline#extensions#hunks#get_hunks()}"
     let g:airline_section_y    = "%{' '.util#statusline#system().'  '.&fenc}"
     let g:airline_section_z    = '%p%%  %{g:airline_symbols.linenr}  %l:%c%{airline_symbols.maxlinenr} - %L% '
   else "}}}
@@ -79,6 +79,22 @@ function! util#statusline#Filenamera() abort
         \ &filetype ==# 'denite' ? denite#get_status('path') :
         \ &filetype ==# 'vimshell' ? vimshell#get_status_string() :
         \ fname
+endfunction
+
+function! util#statusline#filesize() abort
+  let l:size = getfsize(bufname('%'))
+  if l:size == 0 || l:size == -1 || l:size == -2
+    return ''
+  endif
+  if l:size < 1024
+    return l:size.' bytes '
+  elseif l:size < 1024*1024
+    return printf('%.1f', l:size/1024.0).'k '
+  elseif l:size < 1024*1024*1024
+    return printf('%.1f', l:size/1024.0/1024.0) . 'm '
+  else
+    return printf('%.1f', l:size/1024.0/1024.0/1024.0) . 'g '
+  endif
 endfunction
 
 function! util#statusline#system() abort

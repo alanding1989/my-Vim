@@ -23,7 +23,7 @@ let s:modified_conf_layers = [
 
 let s:spacevim_default_cs = [
       \ 'gruvbox' , 'molokai' , 'onedark'      , 'jellybeans' , 'one'   ,
-      \ 'nord'    , 'hybrid'  , 'NeoSolarized' , 'material'   , 'srcery',
+      \ 'nord'    , 'hybrid'  , 'NeoSolarized' , 'material'   , 'srcery', 'palenight'
       \ ]
 
 function! My_SpaceVim#Main#init() abort
