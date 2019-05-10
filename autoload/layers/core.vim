@@ -638,7 +638,7 @@ elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# '
     elseif a:num == 6
       Defx `expand(g:_my_dotfile_dir)`
     endif
-    if &ft ==# 'defx' | setl conceallevel=0 | endif
+    if &ft ==# 'defx' | setl conceallevel=3 | endif
     doautocmd WinEnter
   endfunction "}}}
 elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'nerdtree'

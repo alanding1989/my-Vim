@@ -63,7 +63,6 @@ function! s:defx_init()
   setl listchars=
   setl nofoldenable
   setl foldmethod=manual
-  setl conceallevel=0
 
   silent! nunmap <buffer> <Space>
   silent! nunmap <buffer> <C-l>
