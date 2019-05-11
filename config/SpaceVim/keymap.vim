@@ -93,7 +93,7 @@ nnoremap <silent><leader><tab> :b#<CR>
 " define before VimEnter or after
 let g:_spacevim_mappings_space_custom += [
       \ ['nmap', ['h', 't'], 'call util#test_SPC()'           , '@ toggle test env of SpaceVim'       , 1],
-      \ ['nmap', ['h', 'p'], 'call feedkeys(":SPC_PR ")'      , '@ SPC PR environment preparation'    , 1],
+      \ ['nmap', ['h', 'p'], 'call feedkeys(":SpcPR ")'       , '@ SPC PR environment preparation'    , 1],
       \ ['nmap', ['h', 'h'], 'call util#help_wrapper()'       , '@ get help docs of input/cursor word', 1],
       \ ['nmap', ['q', 'n'], 'call dein#recache_runtimepath()', '@ recache runtime path for plugins'  , 1],
       \ ['nmap', ['q', 'u'], 'call util#update_plugin()'      , '@ update all/input plugins'          , 1],

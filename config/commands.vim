@@ -9,7 +9,7 @@ scriptencoding utf-8
 command! -nargs=*  EchoMap          call util#maparg_wrapper(<f-args>)
 command! -nargs=*  EchoHlight       call util#hlight_wrapper(<f-args>)
 command! -nargs=+  OpenlinkOrSearch call util#OpenlinkOrSearch(<f-args>)
-command! -nargs=?  SPC_PR           call util#SPC_PR(<f-args>)
+command! -nargs=?  SpcPR            call util#SPC_PR(<f-args>)
 
 
 " Convenient command to see the difference between the current buffer and the
