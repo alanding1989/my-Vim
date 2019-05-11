@@ -23,7 +23,7 @@ augroup END
 augroup colorscheme_related
 
   " italic matched paren e.g. if-endif
-  auto ColorScheme * hi MatchParen cterm=italic gui=italic cterm=bold
+  auto ColorScheme * hi MatchParen cterm=italic,bold gui=italic,bold 
 augroup END
 
 

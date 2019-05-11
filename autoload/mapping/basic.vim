@@ -60,6 +60,8 @@ function! mapping#basic#load() abort
   cnoremap <c-b>        <left>
   cnoremap <c-f>        <right>
   cnoremap <c-l>        <right>
+  cnoremap <m-b>        <c-left>
+  cnoremap <m-f>        <c-right>
   cnoremap <c-a>        <home>
   cnoremap <c-e>        <end>
   cnoremap <c-d>        <del>
@@ -73,19 +75,19 @@ function! mapping#basic#load() abort
   " fast save
   inoremap qw           <esc>
   nnoremap qw           :w<CR>
-  nnoremap qr           :call <sid>rename()<CR>
+  nnoremap <c-s>        :w<CR>
+  inoremap <c-s>        <c-o>:w<CR>
   nnoremap qwe          :wall<CR>
   nnoremap qww          :w !sudo tee % >/dev/null<CR>
   nnoremap qs           :saveas 
   nnoremap <m-s>        :saveas 
   inoremap <m-s>        <c-o>:saveas 
-  nnoremap <c-s>        :w<CR>
-  inoremap <c-s>        <c-o>:w<CR>
+  nnoremap qr           :call <sid>rename()<CR>
   "}}}
 
 
   " window and buffer management {{{
-  nnoremap <silent>qq   :clo<CR>
+  nnoremap <expr>  qq   <sid>close_window()
   nnoremap <silent>qn   :clo<C-r>=winnr()+1<CR><CR>
   nnoremap <silent>qp   :clo<C-r>=winnr()-1<CR><CR>
   nnoremap <silent>qu   :winc z<CR>
@@ -179,11 +181,6 @@ function! mapping#basic#load() abort
   inoremap <expr> >   match(getline('.'), '\v^\s*\zs(if\|wh)') > -1 ? '> '  : ">"
   inoremap <expr> <   match(getline('.'), '\v^\s*\zs(if\|wh)') > -1 ? '< '  : "<>"
 
-  " Select
-  noremap  vv          V
-  nnoremap <leader>aa  ggVG
-  nnoremap <leader>ae  VG
-
   " insert new line
   nnoremap <tab>o      o<ESC>
   nnoremap <tab>p      O<ESC>j
@@ -216,6 +213,13 @@ function! mapping#basic#load() abort
     let @s = temp
   endfunction
 
+  " Select
+  noremap  vv          V
+  nnoremap <leader>aa  ggVG
+  nnoremap <leader>ae  VG
+  " Select last paste
+  nnoremap <silent><expr> <leader>ap '`['.strpart(getregtype(), 0, 1).'`]'
+
   " yank and paste {{
   if has('unnamedplus')
     xnoremap <Leader>y   "+y
@@ -239,8 +243,6 @@ function! mapping#basic#load() abort
 
   " Copy buffer absolute path to X11 clipboard'
   nnoremap <C-c>          :call <sid>CopyToClipboard()<CR>
-  " Select last paste
-  nnoremap <silent><expr> gp '`['.strpart(getregtype(), 0, 1).'`]'
   " }} }}
 
 
@@ -320,16 +322,32 @@ function! mapping#basic#load() abort
     nnoremap <leader>acl       :vs ~/.SpaceVim.d/config/SpaceVim/keymap.vim<CR>
     nnoremap <leader>acp       :vs ~/.SpaceVim.d/config/Vim/plugins/
     nnoremap <leader>ac[       :vs ~/.SpaceVim.d/config/SpaceVim/plugins_before/
-  let g:Lf_CacheDirectory      = expand($HOME.'/.cache')
+  let g:Lf_CacheDirectory      = expand('~/.cache')
   endif "}}}
 endfunction
 
+
+" quit_preview window {{{
+function! s:close_window() abort
+  let winnr = 0
+  for i in range(1, winnr('$'))
+    if getwinvar(i, '$previewwindow')
+      let winnr = i
+    endif
+  endfor
+  let key = "\<C-w>c"
+  if winnr
+    return winnr."\<C-w>w".key."\<C-w>p"
+  else
+    return key
+  endif
+endfunction "}}}
 
 " window scroll {{{
 function! s:win_scroll(forward, mode)
   let winnr = 0
   for i in range(1, winnr('$'))
-    if getwinvar(i, 'float')
+    if getwinvar(i, 'float') || getwinvar(i, '$previewwindow')
       let winnr = i
     endif
   endfor

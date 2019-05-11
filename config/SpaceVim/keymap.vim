@@ -14,16 +14,21 @@ scriptencoding utf-8
 " need to define after vim enter
 let g:_spacevim_mappings[';'] = ['', 'easyMotion prefix']
 
-let g:_spacevim_mappings.a['name'] = get(g:_spacevim_mappings.a, 'name', '+@ Session/Settings')
-let g:_spacevim_mappings.a.c = get(g:_spacevim_mappings.a, 'c', {'name': '+Open config file'})
+let g:_spacevim_mappings.a['name'] = get(g:_spacevim_mappings.a, 'name', '+@ Session/Setting/Select')
+let g:_spacevim_mappings.a.c       = get(g:_spacevim_mappings.a, 'c', {'name': '+Open config file'})
+" select
 call SpaceVim#mapping#def('nnoremap', '<leader>aa',
       \ 'ggVG', 'select whole buffer', '', 'select whole buffer')
 call SpaceVim#mapping#def('nnoremap', '<leader>ae',
       \ 'VG', 'select to the end', '', 'select to the end')
 call SpaceVim#mapping#def('nnoremap', '<leader>az',
       \ ':call mapping#basic#zzmode()<CR>', 'toggle zzmode', '', 'toggle zzmode')
-call SpaceVim#mapping#def('xnoremap', '<leader>y',
-      \ '"+y', 'copy selection to system clipboard', '', 'copy selection to system clipboard')
+call SpaceVim#mapping#def('nnoremap <expr>', '<leader>az',
+      \ "'`['.strpart(getregtype(), 0, 1).'`]'", 'toggle zzmode', '', 'toggle zzmode')
+" call SpaceVim#mapping#def('nnoremap', '<leader>am',
+      " \ ':call util#statusline#pureline()', 'set statusline', '', 'set statusline')
+" call SpaceVim#mapping#def('xnoremap', '<leader>y',
+      " \ '"+y', 'copy selection to system clipboard', '', 'copy selection to system clipboard')
 
 
 " echo value/edit snippets

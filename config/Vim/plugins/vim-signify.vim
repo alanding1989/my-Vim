@@ -26,6 +26,8 @@ else
   endif
 endif
 
+nmap  [g  <plug>(signify-prev-hunk)
+nmap  ]g  <plug>(signify-next-hunk)
 
 let g:signify_vcs_cmds               = {
       \ 'git': 'git diff --no-color --diff-algorithm=histogram --no-ext-diff -U0 -- %f',

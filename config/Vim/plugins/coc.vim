@@ -75,18 +75,19 @@ augroup END
 " key mapping  {{{
 nmap <silent> gd <Plug>(coc-definition)
 function! s:g_mappings() abort
-  nmap <silent>  [g  <Plug>(coc-git-prevchunk)
-  nmap <silent>  ]g  <Plug>(coc-git-nextchunk)
-  nmap <silent>  gs  <Plug>(coc-git-chunkinfo)
-  nmap <silent>  [d  <Plug>(coc-diagnostic-prev)
-  nmap <silent>  ]d  <Plug>(coc-diagnostic-next)
   nmap <silent>  gt  <Plug>(coc-type-definition)
   nmap <silent>  gi  <Plug>(coc-implementation)
   nmap <silent>  gr  <Plug>(coc-references)
   nmap <silent>  ga  <Plug>(coc-codeaction)
   nmap <silent>  ge  <Plug>(coc-rename)
-  nmap <silent>  gf  :call CocActionAsync('format')<CR>
-  nmap <silent>  gl  :call CocActionAsync('diagnosticList')<CR>
+  nmap <silent>  gf  <Plug>(coc-format)
+  vmap <silent>  gf  <Plug>(coc-format-selected)
+  nmap <silent>  gl  <Plug>(coc-diagnostic-info)
+  nmap <silent>  gp  <Plug>(coc-git-chunkinfo)
+  nmap <silent>  [g  <Plug>(coc-git-prevchunk)
+  nmap <silent>  ]g  <Plug>(coc-git-nextchunk)
+  nmap <silent>  [d  <Plug>(coc-diagnostic-prev)
+  nmap <silent>  ]d  <Plug>(coc-diagnostic-next)
 endfunction
 
 if g:is_spacevim
@@ -106,14 +107,13 @@ if g:is_spacevim
   call SpaceVim#mapping#def('nnoremap', '<leader>li', ":call CocActionAsync('jumpImplementation')<CR>", 'goto Implementation'      , '', 'goto Implementation'      )
   call SpaceVim#mapping#def('nnoremap', '<leader>lt', ":call CocActionAsync('jumpTypeDefinition')<CR>", 'goto TypeDefinition'      , '', 'goto TypeDefinition'      )
   call SpaceVim#mapping#def('nnoremap', '<leader>lr', ":call CocActionAsync('jumpReferences')<CR>"    , 'find References'          , '', 'find References'          )
-  call SpaceVim#mapping#def('nnoremap', '<leader>lF', ":call CocActionAsync('format')<CR>"            , 'format code'              , '', 'format code'              )
+  call SpaceVim#mapping#def('nnoremap', '<leader>lf', ":call CocActionAsync('format')<CR>"            , 'format code'              , '', 'format code'              )
   call SpaceVim#mapping#def('nnoremap', '<leader>lh', ":call CocActionAsync('doHover')<CR>"           , 'show Documentation'       , '', 'show Documentation'       )
-  call SpaceVim#mapping#def('nnoremap', '<leader>ls', ":call CocActionAsync('showSignatureHelp')<CR>" , 'show SignatureHelp'       , '', 'show SignatureHelp'       )
-  call SpaceVim#mapping#def('nnoremap', '<leader>lo', ":call CocActionAsync('documentSymbols')<CR>"   , 'get Symbols of document'  , '', 'get symbols document'     )
-  call SpaceVim#mapping#def('nnoremap', '<leader>lO', ":call CocActionAsync('workspaceSymbols')<CR>"  , 'get Symbols of workspace' , '', 'get symbols of workspace' )
+  call SpaceVim#mapping#def('nnoremap', '<leader>ls', ":call CocActionAsync('documentSymbols')<CR>"   , 'get Symbols of document'  , '', 'get symbols document'     )
+  call SpaceVim#mapping#def('nnoremap', '<leader>lS', ":call CocActionAsync('workspaceSymbols')<CR>"  , 'get Symbols of workspace' , '', 'get symbols of workspace' )
   call SpaceVim#mapping#def('nnoremap', '<leader>le', ":call CocActionAsync('rename')<CR>"            , 'rename Symbol'            , '', 'rename Symbol'            )
   call SpaceVim#mapping#def('nnoremap', '<leader>ld', ":call CocActionAsync('diagnosticInfo')<CR>"    , 'show Diagnostic info'     , '', 'show Diagnostic info'     )
-  call SpaceVim#mapping#def('nnoremap', '<leader>ll', ":call CocActionAsync('diagnosticList')<CR>"    , 'show all Diagnostic items', '', 'show all Diagnostic items')
+  call SpaceVim#mapping#def('nnoremap', '<leader>ll', ":call CocActionAsync('diagnosticList')<CR>"    , 'show Diagnostic list'     , '', 'show Diagnostic list')
 
 elseif !g:is_spacevim
   nnoremap <leader>cl  :CocList<CR>
@@ -129,11 +129,10 @@ elseif !g:is_spacevim
   nnoremap <leader>li  :call CocActionAsync('jumpImplementation')<CR>
   nnoremap <leader>lt  :call CocActionAsync('jumpTypeDefinition')<CR>
   nnoremap <leader>lr  :call CocActionAsync('jumpReferences'    )<CR>
-  nnoremap <leader>lF  :call CocActionAsync('format'            )<CR>
+  nnoremap <leader>lf  :call CocActionAsync('format'            )<CR>
   nnoremap <leader>lh  :call CocActionAsync('doHover'           )<CR>
-  nnoremap <leader>ls  :call CocActionAsync('showSignatureHelp' )<CR>
-  nnoremap <leader>lo  :call CocActionAsync('documentSymbols'   )<CR>
-  nnoremap <leader>lO  :call CocActionAsync('workspaceSymbols'  )<CR>
+  nnoremap <leader>ls  :call CocActionAsync('documentSymbols'   )<CR>
+  nnoremap <leader>lS  :call CocActionAsync('workspaceSymbols'  )<CR>
   nnoremap <leader>le  :call CocActionAsync('rename'            )<CR>
   nnoremap <leader>ld  :call CocActionAsync('diagnosticInfo'    )<CR>
   nnoremap <leader>ll  :call CocActionAsync('diagnosticList'    )<CR>

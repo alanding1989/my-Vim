@@ -130,7 +130,7 @@ function! s:VimEnter_layers_GlobalVar_load() abort
 endfunction
 
 function! s:VimEnter_config() abort
-  if get(g:, 'is_fallback', 0) != 1
+  if !get(g:, 'is_fallback', 0)
     for elem in s:modified_conf_layers
       if SpaceVim#layers#isLoaded(elem)
         call layers#{elem}#config()

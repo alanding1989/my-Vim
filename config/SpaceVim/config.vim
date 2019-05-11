@@ -24,6 +24,7 @@ let g:spacevim_colorscheme = split([
       \ ][2])[1]
 let g:spacevim_colorscheme_default = 'neodark'
 let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
+let g:spacevim_statusline_bright   = 1
 "}}}
 
 " ================================================================================
@@ -36,28 +37,26 @@ let g:spacevim_statusline           = get(['airline'   , 'lightline', ''    ], 0
 let g:spacevim_enable_ale           = 1
 let g:spacevim_enable_neomake       = !g:spacevim_enable_ale
 let g:spacevim_lint_on_the_fly      = 1
-let g:enable_deotabline             = 0
+let g:enable_deotabline             = 1
 let g:enable_googlesuggest          = 0
-let g:enable_smart_clock_startup    = 0 && !g:is_win
 
 " Ui {{{
-let g:statusline_separator                   = get(['fire', 'arrow', 'curve', 'slant'], 1)
 let g:enable_fat_statusline                  = 1
-let g:spacevim_enable_cursorword             = 1
+let g:statusline_separator                   = get(['fire', 'arrow', 'curve', 'slant'], 1)
+let g:spacevim_statusline_left_sections      = ['winnr', 'filename', 'syntax checking', 'minor mode lighters']
+let g:spacevim_statusline_right_sections     += ['time', 'date']
 let g:spacevim_enable_cursorcolumn           = 0
 let g:spacevim_buffer_index_type             = 1
 let g:spacevim_enable_tabline_filetype_icon  = 1
 let g:spacevim_enable_statusline_mode        = 1
 let g:spacevim_enable_statusline_bfpath      = 1
 let g:spacevim_enable_os_fileformat_icon     = 1
-let g:spacevim_error_symbol                  = '❌'
-let g:spacevim_warning_symbol                = '⚠️ '
-" let g:spacevim_error_symbol                  = '✖'
-" let g:spacevim_warning_symbol                = 'ⓦ'
-let g:spacevim_info_symbol                   = '➤'
+let g:spacevim_error_symbol                  = g:linter_error_symbol
+let g:spacevim_warning_symbol                = g:linter_warning_symbol
+let g:spacevim_info_symbol                   = g:linter_info_symbol
 
-" let g:spacevim_filetree_direction            = 'left'
-let g:spacevim_sidebar_width                 = 25
+let g:spacevim_sidebar_width                 = g:sidebar_width
+let g:spacevim_filetree_direction            = g:filetree_direction
 let g:spacevim_enable_vimfiler_welcome       = 0
 let g:spacevim_enable_vimfiler_gitstatus     = 1
 let g:spacevim_enable_vimfiler_filetypeicon  = 0
@@ -70,14 +69,12 @@ let g:spacevim_auto_disable_touchpad         = 1
 let g:spacevim_windows_smartclose            = ''
 let g:spacevim_windows_leader                = ''
 let g:spacevim_github_username               = g:github_username
-let g:spacevim_guifont                       = 'SauceCodePro Nerd Font Mono:h11'
-let g:spacevim_layer_lang_scala_formatter    = g:is_win ? 'D:\devtools\scala\scalariform.jar' :
-      \ '/opt/lang-tools/scala/scalariform.jar'
-let g:spacevim_music_path                    = g:is_win ? 'E:\娱乐影音\音乐' :
-      \ '/mnt/fun+downloads/娱乐影音/音乐'
-let g:spacevim_project_rooter_patterns       =
-      \ uniq(sort(g:spacevim_project_rooter_patterns
-      \ + deepcopy(g:project_root_marker))) "}}}
+let g:spacevim_guifont                       = g:guifont
+let g:spacevim_layer_lang_scala_formatter    = g:layer_lang_scala_formatter
+let g:spacevim_music_path                    = g:is_win ? 'E:\娱乐影音\音乐' : '/mnt/fun+downloads/娱乐影音/音乐'
+let g:spacevim_project_rooter_patterns       = uniq(sort(g:spacevim_project_rooter_patterns
+      \ + deepcopy(g:project_root_marker)))
+"}}}
 
 
 " ================================================================================

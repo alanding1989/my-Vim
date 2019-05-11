@@ -16,7 +16,7 @@ function! layers#edit#plugins() abort "{{{
         \ ['haya14busa/vim-edgemotion'         ,    {'on_map': '<Plug>(edge'}],
         \ ['t9md/vim-quickhl'                  , {'on_map': '<plug>(quickhl-'}],
         \ ]
-  if get(g:, 'spacevim_enable_cursorword', get(g:, 'enable_cursorword', 0)) == 1
+  if get(g:, 'enable_cursorword', 0)
     call add(plugins, ['itchyny/vim-cursorword',  {'on_event': 'BufEnter'}])
   endif
   if !g:is_spacevim

@@ -81,7 +81,8 @@ function! layers#core#config() abort
 endfunction
 
 
-function! s:filetree() abort "{{{
+" plugin funcs {{{
+function! s:filetree() abort
   if g:is_spacevim
     " a:num = 0 open root dir
     " a:num = 1 open last opened dir
@@ -90,6 +91,7 @@ function! s:filetree() abort "{{{
     " a:num = 4 open current dir in fullscreen with more infor
     " a:num = 5 open my plugins bundle dir
     " a:num = 6 open my dotfile dir
+    " a:num = 7 open a new defx buffer in current working dir
     nnoremap <silent><F3>         :call <SID>open_filetree(0)<CR>
     call SpaceVim#mapping#space#def('nnoremap', ['f','o'], 'call call('
           \ . string(function('s:open_filetree'))
@@ -109,6 +111,9 @@ function! s:filetree() abort "{{{
     call SpaceVim#mapping#space#def('nnoremap', ['f','.'], 'call call('
           \ . string(function('s:open_filetree'))
           \ . ', [6])', '@ open my dotfile dir', 1)
+    call SpaceVim#mapping#space#def('nnoremap', ['f','n'], 'call call('
+          \ . string(function('s:open_filetree'))
+          \ . ', [7])', '@ open new file window in current working dir', 1)
   else
     nnoremap <silent><F3>         :call <SID>open_filetree(0)<CR>
     nnoremap <silent><space>fo    :call <SID>open_filetree(1)<CR>
@@ -117,6 +122,7 @@ function! s:filetree() abort "{{{
     nnoremap <silent><space>fi    :call <SID>open_filetree(4)<CR>
     nnoremap <silent><space>fp    :call <SID>open_filetree(5)<CR>
     nnoremap <silent><space>f.    :call <SID>open_filetree(6)<CR>
+    nnoremap <silent><space>fn    :call <SID>open_filetree(7)<CR>
   endif
 endfunction
 
@@ -173,7 +179,7 @@ function! s:unimpaired() abort
 
   " coc
 
-  " [c or ]c go to next or previous vcs hunk
+  " [g or ]g go to next or previous vcs hunk
 endfunction
 
 
@@ -254,8 +260,9 @@ function! s:open_browser() abort
     augroup END
   endif
 endfunction
+"}}}
 
-
+" local funcs {{{
 function! s:number_transient_state(n) abort
   if a:n ==# '+'
     exe "normal! \<c-a>"
@@ -584,16 +591,32 @@ endfunction
 function! s:restart_neovim_qt() abort
   call system('taskkill /f /t /im nvim.exe')
 endfunction
+
+" function() wrapper {{{
+if v:version > 703 || v:version == 703 && has('patch1170')
+  function! s:_function(fstr) abort
+    return function(a:fstr)
+  endfunction
+else
+  function! s:_SID() abort
+    return matchstr(expand('<sfile>'), '<SNR>\zs\d\+\ze__SID$')
+  endfunction
+  let s:_s = '<SNR>' . s:_SID() . '_'
+  function! s:_function(fstr) abort
+    return function(substitute(a:fstr, 's:', s:_s, 'g'))
+  endfunction
+endif "}}}
 "}}}
 
 
-" a:num=0 open root dir
-" a:num=1 open last opened dir
-" a:num=2 open current buffer dir/root dir(when VimEnter)
-" a:num=3 open my vimrc favourite dir
-" a:num=4 open current dir in fullscreen with more infor
-" a:num=5 open my plugins bundle dir
-" a:num=6 open my dotfile dir
+" a:num = 0 open root dir
+" a:num = 1 open last opened dir
+" a:num = 2 open current buffer dir/root dir(when VimEnter)
+" a:num = 3 open my vimrc favourite dir
+" a:num = 4 open current working dir in fullscreen with more infor
+" a:num = 5 open my plugins bundle dir
+" a:num = 6 open my dotfile dir
+" a:num = 7 open a new defx buffer in current working dir
 let g:_my_vimrc_dir   = g:home
 let g:_my_dotfile_dir = g:is_win ? 'E:\my-Dotfile' : '/mnt/fun+downloads/my-Dotfile'
 if get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'vimfiler'
@@ -637,6 +660,8 @@ elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# '
       call <sid>open_plugins_dir('Defx ')
     elseif a:num == 6
       Defx `expand(g:_my_dotfile_dir)`
+    elseif a:num == 7
+      Defx -new `getcwd()`
     endif
     if &ft ==# 'defx' | setl conceallevel=3 | endif
     doautocmd WinEnter
@@ -690,19 +715,3 @@ function! s:open_plugins_dir(cmd) abort "{{{
   endif
   let @a = temp
 endfunction "}}}
-
-
-" function() wrapper {{{
-if v:version > 703 || v:version == 703 && has('patch1170')
-  function! s:_function(fstr) abort
-    return function(a:fstr)
-  endfunction
-else
-  function! s:_SID() abort
-    return matchstr(expand('<sfile>'), '<SNR>\zs\d\+\ze__SID$')
-  endfunction
-  let s:_s = '<SNR>' . s:_SID() . '_'
-  function! s:_function(fstr) abort
-    return function(substitute(a:fstr, 's:', s:_s, 'g'))
-  endfunction
-endif "}}}

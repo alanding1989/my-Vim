@@ -16,16 +16,13 @@ endif
 function! layers#git#plugins() abort
   let plugins = []
   call add(plugins, ['sodapopcan/vim-twiggy', {'on_cmd': 'Twiggy', 'on': 'Twiggy'}])
-  " if g:is_nvim
-    " call add(plugins, ['iamcco/sran.nvim' , {'build': 'yarn', 'do': 'yarn'}])
-    " call add(plugins, ['iamcco/git-p.nvim', {'merged': 0}])
-  " endif
   if g:is_spacevim && g:spacevim_filemanager ==# 'defx'
     " call add(plugins, ['kristijanhusak/defx-git', {'merged': 0}])
-  elseif !g:is_spacevim
+  elseif !g:is_spacevim 
+    "{{{
     call add(plugins, ['junegunn/gv.vim'       , {'on_cmd': 'GV', 'on': 'GV'}])
     call add(plugins, ['tpope/vim-fugitive'    , {'merged': 0}])
-    if !My_Vim#layer#isLoaded('VersionControl')
+    if !My_Vim#layer#isLoaded('VersionControl') && g:autocomplete_method !=# 'coc'
       " show vcs info in sign column, only support git
       call add(plugins, ['airblade/vim-gitgutter', {'merged': 0}])
     endif
@@ -41,13 +38,14 @@ function! layers#git#plugins() abort
     elseif g:filemanager ==# 'nerdtree'
       call add(plugins, ['Xuyuanp/nerdtree-git-plugin', {'merged': 0}])
     endif
+    "}}}
   endif
   return plugins
 endfunction
 
 
 function! layers#git#config() abort
-  if g:is_spacevim
+  if g:is_spacevim "{{{
     if s:git_plugin ==# 'gina'
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'a'], 'Gina add %', 'stage current file', 1)
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'u'], 'Gina reset -q %', 'unstage current file', 1)
@@ -58,10 +56,6 @@ function! layers#git#config() abort
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'a'], 'Gita add %', 'stage current file', 1)
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'u'], 'Gita reset %', 'unstage current file', 1)
     endif
-    " augroup spacevim_layer_git
-      " autocmd!
-      " autocmd User GitGutter let &l:statusline = SpaceVim#layers#core#statusline#get(1)
-    " augroup END
     if exists(':GitGutterFold')
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'f'], 'GitGutterFold', '@ toggle folding unchanged lines', 1)
     else
@@ -69,6 +63,7 @@ function! layers#git#config() abort
       unlet g:_spacevim_mappings_space.g.h
     endif
     call SpaceVim#mapping#space#def('nnoremap', ['g', 'j'], 'Twiggy', 'open git branch manager', 1)
+    "}}}
   else
     "{{{
     if s:git_plugin ==# 'gina'
@@ -101,11 +96,8 @@ function! layers#git#config() abort
     endif
     augroup layer_git
       autocmd!
-      autocmd FileType diff nnoremap <buffer><silent> q :bd!<CR>
-      " autocmd User GitGutter let &l:statusline = SpaceVim#layers#core#statusline#get(1)
-      " Instead of reverting the cursor to the last position in the buffer, we
-      " set it to the first line when editing a git commit message
-      au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
+      auto FileType diff nnoremap <buffer><silent> q :bd!<CR>
+      auto FileType gitcommit auto! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
     augroup END
     nnoremap <Space>gM     :call <sid>display_last_commit_of_current_line<CR>
     nnoremap <Space>gV     :GV!<CR>
@@ -118,9 +110,6 @@ function! layers#git#config() abort
     else
       nnoremap <Space>gf   :SignifyFold<CR>
     endif
-    " if g:is_nvim
-      " nmap   <space>gD   <Plug>(git-p-diff-preview)
-    " endif
   endif "}}}
 endfunction
 

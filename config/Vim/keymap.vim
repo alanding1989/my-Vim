@@ -12,11 +12,12 @@ scriptencoding utf-8
 
 
 " nnoremap <leader>aa        ggVG
+" nnoremap <silent><leader>am  :call util#statusline#pureline()<CR>
 
 " echo value
 nnoremap <leader>ec        :echo ' '.g:autocomplete_method<CR>
 " nnoremap <leader>ee        :echo
-nnoremap <leader>eh        :call feedkeys(':EchoHlight ')<CR>
+" nnoremap <leader>eh        :call feedkeys(':EchoHlight ')<CR>
 nnoremap <leader>es        :echo ' '.g:snippet_engine<CR>
 nnoremap <leader>el        :call layers#checkers#showlinter()<CR>
 " nnoremap <leader>em        :EchoMap

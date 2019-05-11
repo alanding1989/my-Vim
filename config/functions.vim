@@ -30,9 +30,8 @@ endfunc
 function! s:inshbox(cmsign, reptsign) abort
   call setline(line('.')   , a:cmsign.repeat(a:reptsign, 80))
   call  append(line('.')   , a:cmsign)
-  call  append(line('.')+1 , a:cmsign)
-  call  append(line('.')+2 , a:cmsign.repeat(a:reptsign, 80))
-  call  append(line('.')+3 , '')
+  call  append(line('.')+1 , a:cmsign.repeat(a:reptsign, 80))
+  call  append(line('.')+2 , '')
   silent exec 'normal! 03j'
 endfunc
 "}}}
@@ -122,10 +121,15 @@ function! Foldtext() abort " {{{
 endfunction "}}}
 
 
-function! Tabjump(n) abort "{{{
+function! Tabjump(n) abort " {{{
   call util#tabline#tabjump(a:n)
 endfunction
 
 function! Winjump(n) abort
   call util#tabline#winjump(a:n)
+endfunction "}}}
+
+
+function! Statusline(name) abort " {{{
+  return util#statusline#{a:name}()
 endfunction "}}}

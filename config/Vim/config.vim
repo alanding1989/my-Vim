@@ -37,24 +37,14 @@ let g:lint_on_the_fly               = 1
 let g:format_on_save                = 1
 let g:enable_deotabline             = 0
 let g:enable_googlesuggest          = 0
-let g:enable_smart_clock_startup    = 0 && !g:is_win
 
 " Ui {{{
-let g:enable_cursorword             = (g:is_nvim || g:is_gui) ? 1 : 0
 let g:enable_fat_statusline         = 1
 let g:statusline_separator          = get(['fire', 'arrow', 'curve', 'slant'], 1)
-let g:sidebar_width                 = 25
-let g:filetree_direction            = 'right'
-let g:linter_error_symbol           = '❌'
-let g:linter_warning_symbol         = '⚠️ '
-let g:linter_info_symbol            = '➤'
 " }}}
 
 " System {{{
-let g:enable_checkinstall         = 1
-let g:github_username             = 'alanding1989'
-let g:guifont                     = 'SauceCodePro Nerd Font Mono:h11'
-let g:layer_lang_scala_formatter  = '/opt/vim/scalariform.jar'
+let g:enable_checkinstall          = 1
 "}}}
 
 " Var {{{
