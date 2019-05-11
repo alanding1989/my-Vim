@@ -51,47 +51,46 @@ function! SetFileHead() abort " {{{
     call s:insfhead('#', '#! /usr/bin/env python3', '# -*- coding: utf-8 -*-')
 
   elseif &filetype ==# 'scala'
-    call s:insfhead('#', '', '', '/*', '*/')
+    call s:insfhead('#', '', '', '/*')
 
   elseif &filetype ==# 'cpp'
-    call s:insfhead('#', '#include <iostream>', 'using namespace std;', '/*', '*/')
+    call s:insfhead('#', '#include <iostream>', 'using namespace std;', '/*')
 
   elseif &filetype ==# 'c'
-    call s:insfhead('#', '#include <stdio.h>', '', '/*', '*/')
+    call s:insfhead('#', '#include <stdio.h>', '', '/*')
   endif
 endfunc
 
 function! s:insfhead(cmsign, head1, head2, ...) abort
-  silent exec 'normal! O'
   if a:0 == 0
-    call setline(1,          a:cmsign.repeat('=', 80))
-    call append(line('.'),   a:cmsign.' File Name    : '.expand('%'))
-    call append(line('.')+1, a:cmsign.' Author       : AlanDing')
-    call append(line('.')+2, a:cmsign.' mail         :')
-    call append(line('.')+3, a:cmsign.' Created Time : '.strftime('%c'))
-    call append(line('.')+4, a:cmsign.repeat('=', 80))
-  elseif a:0 == 2
-    call setline(1,          a:1.repeat('=', 80))
-    call append(line('.'),   a:cmsign.' File Name    : '.expand('%'))
-    call append(line('.')+1, a:cmsign.' Author       : AlanDing')
-    call append(line('.')+2, a:cmsign.' mail         :')
-    call append(line('.')+3, a:cmsign.' Created Time : '.strftime('%c'))
-    call append(line('.')+4, a:cmsign.repeat('=', 80).a:2)
+    let head = [
+          \ (&ft ==# 'sh' ? a:head1 : ''),
+          \ a:cmsign. repeat('=', 80),
+          \ a:cmsign. ' File Name    : '. expand('%'),
+          \ a:cmsign. ' Author       : AlanDing',
+          \ a:cmsign. ' mail         : ',
+          \ a:cmsign. ' Created Time : '. strftime('%c'),
+          \ a:cmsign. repeat('=', 80),
+          \ ]
+  elseif a:0 == 1
+    let head = [
+          \ a:1     . repeat('=', 80),
+          \ a:cmsign. ' File Name    : '. expand('%'),
+          \ a:cmsign. ' Author       : AlanDing',
+          \ a:cmsign. ' mail         : ',
+          \ a:cmsign. ' Created Time : '. strftime('%c'),
+          \ a:cmsign. repeat('=', 80). join(reverse(split(a:1)), ''),
+          \ ]
   endif
   if a:head1 !=# '' && a:head2 ==# ''
-    call append(line('.')+5, a:head1)
-    call append(line('.')+6, '')
-    call append(line('.')+7, '')
+    call map([&ft ==# 'sh' ? '' : a:head1, '', ''], {key, val -> add(head, val)})
   elseif a:head2 !=# ''
-    call append(line('.')+5, a:head1)
-    call append(line('.')+6, a:head2)
-    call append(line('.')+7, '')
-    call append(line('.')+8, '')
+    call map([a:head1, a:head2, '', ''], {key, val -> add(head, val)})
   else
-    call append(line('.')+5, '')
-    call append(line('.')+6, '')
+    call map(['', ''], {key, val -> add(head, val)})
   endif
-  silent exec 'normal! 08j'
+  call setline(1, head)
+  call setpos('.', [0, len(head), 1])
 endfunc "}}}
 
 
