@@ -117,7 +117,7 @@ call deoplete#custom#source('racer', 'mark', 'rust')
 
 " vim
 call deoplete#custom#option('ignore_sources', {'vim': ['tag']})
-call deoplete#custom#source('neco-vim'  , 'rank', 9999)
+call deoplete#custom#source('vim'  , 'rank', 9999)
 
 " clojure
 let g:deoplete#keyword_patterns.clojure = '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
@@ -141,8 +141,17 @@ let g:deoplete#sources#jedi#python_path = g:python3_host_prog
 " public settings
 call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
 call deoplete#custom#source('file/include' , 'matchers', ['matcher_head'])
+
 call deoplete#custom#source('ultisnips' , 'rank', 1000)
 call deoplete#custom#source('neosnippet', 'rank', 1000)
+
+" deoplete-tabline
+call deoplete#custom#source('tabline', 'rank', 800)
+call deoplete#custom#var('tabline', {
+      \ 'rank'           : 1000,
+      \ 'line_limit'     : 500,
+      \ 'max_num_results': 20,
+      \ })
 
 
 " inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
