@@ -9,7 +9,7 @@
 
 
 cd /tmp
-rm ./SpaceVim | git clone git@github.com:SpaceVim/SpaceVim.git SpaceVim | cd ./SpaceVim
+rm -rf ./SpaceVim | git clone git@github.com:SpaceVim/SpaceVim.git SpaceVim | cd ./SpaceVim
 git checkout -b dev
 git remote remove origin | git remote add origin git@github.com:alanding1989/SpaceVim.git
 git remote add upstream git@github.com:SpaceVim:SpaceVIm.git
