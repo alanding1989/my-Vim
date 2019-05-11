@@ -250,17 +250,18 @@ endfunction "}}}
 
 
 " SpaceVim test mode {{{
-function! util#test_SPC(...) abort
-  if glob(g:home.'init.toml') ==# ''
-    silent exec '!cp "'.expand(g:home.'backup/init.toml').'" "'.expand(g:home).'"'
-    silent exec '!cd "'.expand('~/.SpaceVim').'"'
-    exec '!git checkout master'
-    echo ' Test environment is on!'
-  else
-    silent call delete(g:home.'init.toml')
-    silent exec '!cd "'.expand('~/.SpaceVim').'"'
-    exec '!git checkout myspacevim'
-    echo ' Test environment is off'
+let s:test_on = 0
+function! util#test_SPC() abort
+  call system('sh '.g:home.'extools/spacevim/test-SpaceVim.sh')
+  if empty(v:shell_error) && !s:test_on && glob(g:home.'init.toml') !=# ''
+    echohl WarningMsg
+    echo 'test environment is on'
+    echohl NONE
+    let s:test_on = 1
+  elseif empty(v:shell_error) && s:test_on && glob(g:home.'init.toml') ==# ''
+    echohl WarningMsg
+    echo 'test environment is off'
+    echohl NONE
   endif
 endfunction "}}}
 

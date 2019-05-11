@@ -1,0 +1,136 @@
+#=============================================================================
+# dark_powered.toml --- dark powered configuration example for SpaceVim
+# Copyright (c) 2016-2017 Wang Shidong & Contributors
+# Author: Wang Shidong < wsdjeg at 163.com >
+# URL: https://spacevim.org
+# License: GPLv3
+#=============================================================================
+
+[options]
+# Theme list
+    # '0 gruvbox'
+    # '1 neodark'
+    # '2 NeoSolarized'
+    # '3 onedark'
+    # '4 OceanicNext'
+    colorscheme         = 'onedark'
+    colorscheme_bg      = 'dark'
+    colorscheme_default = 'NeoSolarized'
+
+# Ui {{{
+    # 1. arrow
+    # 2. curve
+    # 3. slant
+    # 5. fire
+    statusline_separator         = 'fire'
+    enable_statusline_mode       = 1
+    enable_statusline_bfpath     = 1
+    enable_tabline_filetype_icon = 1
+    enable_os_fileformat_icon    = 1
+    buffer_index_type            = 1
+
+    # filetree_direction           = 'left'
+    sidebar_width                = 25
+    enable_vimfiler_gitstatus    = 1
+    enable_vimfiler_filetypeicon = 0
+    enable_vimfiler_welcome      = 0
+    autocomplete_parens          = 0
+# }}}
+
+# System {{{
+    checkinstall                 = 1
+    enable_debug                 = 0
+    auto_disable_touchpad        = 1
+    windows_smartclose           = ''
+    windows_leader               = ''
+    github_username              = 'alanding1989'
+    guifont                      = 'SauceCodePro Nerd Font Mono:h11'
+    # plugin_bundle_dir            = 'D:\.cache\vimfiles\'
+    # plugin_bundle_dir            = '/home/alanding/.cache/vimfiles-root/'
+    plugin_bundle_dir            = '/home/alanding/.cache/vimfiles-alan/'
+# }}}
+
+# Preferences
+    autocomplete_method          = 'deoplete'
+    snippet_engine               = 'neosnippet'
+    filemanager                  = 'defx'
+    enable_ale                   = 1
+    lint_on_the_fly              = 1
+    bootstrap_before             = 'My_SpaceVim#bootstrap#before'
+    bootstrap_after              = 'My_SpaceVim#bootstrap#after'
+
+# Layers {{{
+[[layers]]
+name = 'autocomplete'
+auto-completion-return-key-behavior = 'complete'
+auto-completion-tab-key-behavior    = 'smart'
+
+[[layers]]
+name = 'chat'
+
+[[layers]]
+name = 'chinese'
+
+[[layers]]
+name = 'colorscheme'
+
+[[layers]]
+name = 'debug'
+
+[[layers]]
+name = 'git'
+
+[[layers]]
+name = 'github'
+
+[[layers]]
+name = 'lsp'
+filetypes = [
+  'python',
+  'sh',
+]
+
+# [[layers]]
+# name = 'lang#java'
+#
+# [[layers]]
+# name = 'lang#javascript'
+
+# [[layers]]
+# name = 'lang#latex'
+
+[[layers]]
+name = 'lang#markdown'
+Wcwidth = 1
+listItemIndent = 1
+
+[[layers]]
+name = 'lang#python'
+
+[[layers]]
+name = 'lang#sh'
+
+[[layers]]
+name = 'lang#vim'
+
+[[layers]]
+name = 'incsearch'
+
+[[layers]]
+name = 'VersionControl'
+enable_gtm_status = 0
+
+[[layers]]
+name = 'denite'
+
+# [[layers]]
+# name = 'leaderf'
+
+[[layers]]
+name = 'shell'
+default_position = 'bottom'
+default_height = 30
+
+[[layers]]
+name = 'tmux'
+#}}}

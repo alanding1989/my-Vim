@@ -14,6 +14,7 @@ scriptencoding utf-8
 " need to define after vim enter
 let g:_spacevim_mappings[';'] = ['', 'easyMotion prefix']
 
+let g:_spacevim_mappings.a         = get(g:_spacevim_mappings, 'a', {})
 let g:_spacevim_mappings.a['name'] = get(g:_spacevim_mappings.a, 'name', '+@ Session/Setting/Select')
 let g:_spacevim_mappings.a.c       = get(g:_spacevim_mappings.a, 'c', {'name': '+Open config file'})
 " select
