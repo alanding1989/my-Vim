@@ -250,15 +250,13 @@ endfunction "}}}
 
 
 " SpaceVim test mode {{{
-let s:test_on = 0
 function! util#test_SPC() abort
   call system('sh '.g:home.'extools/spacevim/test-SpaceVim.sh')
-  if empty(v:shell_error) && !s:test_on && glob(g:home.'init.toml') !=# ''
+  if empty(v:shell_error) && glob(g:home.'init.toml') !=# ''
     echohl WarningMsg
     echo 'test environment is on'
     echohl NONE
-    let s:test_on = 1
-  elseif empty(v:shell_error) && s:test_on && glob(g:home.'init.toml') ==# ''
+  elseif empty(v:shell_error) && glob(g:home.'init.toml') ==# ''
     echohl WarningMsg
     echo 'test environment is off'
     echohl NONE
