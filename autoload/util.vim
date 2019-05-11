@@ -254,11 +254,34 @@ function! util#test_SPC() abort
   call system('sh '.g:home.'extools/spacevim/test-SpaceVim.sh')
   if empty(v:shell_error) && glob(g:home.'init.toml') !=# ''
     echohl WarningMsg
-    echo 'test environment is on'
+    echo ' Test environment is on'
     echohl NONE
   elseif empty(v:shell_error) && glob(g:home.'init.toml') ==# ''
     echohl WarningMsg
-    echo 'test environment is off'
+    echo ' test environment is off'
+    echohl NONE
+  endif
+endfunction "}}}
+
+
+" SpaceVim new PR {{{
+function! util#SPC_PR(...) abort
+  if a:0 == 1
+    call system('sh '.g:home.'extools/spacevim/SPC-pr.sh '.a:1)
+  else
+    call system('sh '.g:home.'extools/spacevim/SPC-pr.sh ')
+  endif
+  if empty(v:shell_error) && glob('/tmp/SpaceVim') !=# '' && glob('~/.SpaceVim_origin') ==# ''
+    echohl WarningMsg
+    echo ' PR preparation ready'
+    echohl NONE
+  elseif empty(v:shell_error) && glob('/tmp/SpaceVim') !=# '' && glob('~/.SpaceVim_origin') !=# ''
+    echohl WarningMsg
+    echo ' PR test environment is ready'
+    echohl NONE
+  elseif empty(v:shell_error) && glob('/tmp/SpaceVim') ==# '' && glob('~/.SpaceVim_origin') ==# ''
+    echohl WarningMsg
+    echo ' PR Environment recovery done'
     echohl NONE
   endif
 endfunction "}}}
