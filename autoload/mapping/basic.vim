@@ -170,6 +170,9 @@ function! mapping#basic#load() abort
   auto FileType sh, inoremap <expr> =   match(getline('.'),
         \ '\v(\=\s){1}\_$\|(\>\s){1}\_$\|(\<\s){1}\_$\|(\+\s){1}\_$\|(\-\s){1}\_$') > -1 ?
         \ "\<bs>=<space>" : '='
+  for char in ['d', 'e', 'f', 'z', 'n']
+    exec 'inoremap <expr> '.char.' matchend(getline("."), "- ") > -1 ? "\<bs>'.char.'<space>" : "'.char.'"'
+  endfor
   auto FileType vim inoremap <expr> #   match(getline('.'),
         \ '\v(\=\s){1}\_$\|(\>\s){1}\_$\|(\<\s){1}\_$\|(\~\s){1}\_$\|(s\s){1}\_$') > -1 ?
         \ "\<bs>#<space>" : '#'
@@ -364,7 +367,7 @@ function! s:win_scroll(forward, mode)
     let key = (winline() == (winheight(0)+1) / 2) ? 'zt' : (winline() == &scrolloff + 1) ? 'zb' : 'zz'
   endif
   if winnr
-    return winnr."\<C-w>w".key."\<C-w>p"
+    return winnr."\<C-w>w".'zn'.key."\<C-w>p"
   else
     return key
   endif

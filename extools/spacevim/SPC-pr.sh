@@ -14,7 +14,7 @@ branchname=$1
 # creat pr temp branch
 if [ ! -d "/tmp/SpaceVim" ] && [ ! -d "$HOME/.SpaceVim_origin" ]; then
   cd /tmp || return
-  rm -rf ./SpaceVim | git clone git@github.com:SpaceVim/SpaceVim.git SpaceVim && (cd ./SpaceVim || return)
+  rm -rf ./SpaceVim | git clone git@github.com:SpaceVim/SpaceVim.git SpaceVim && (cd SpaceVim || return)
   git checkout -b "$branchname"
   git remote remove origin && git remote add origin git@github.com:alanding1989/SpaceVim.git
   git remote add upstream git@github.com:SpaceVim/SpaceVIm.git
