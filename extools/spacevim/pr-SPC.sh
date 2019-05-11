@@ -10,9 +10,9 @@
 
 branchname=$1
 
-cd /tmp
-rm -rf ./SpaceVim | git clone git@github.com:SpaceVim/SpaceVim.git SpaceVim && cd ./SpaceVim
+cd /tmp || return
+rm -rf ./SpaceVim | git clone git@github.com:SpaceVim/SpaceVim.git SpaceVim && (cd ./SpaceVim || return)
 git checkout -b "$branchname"
 git remote remove origin && git remote add origin git@github.com:alanding1989/SpaceVim.git
 git remote add upstream git@github.com:SpaceVim:SpaceVIm.git
-git push -u origin dev
+git push -u origin "$branchname"
