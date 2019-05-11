@@ -269,7 +269,7 @@ function! util#SPC_PR(...) abort
   if a:0 == 1
     call system('sh '.g:home.'extools/spacevim/SPC-pr.sh '.a:1)
   else
-    call system('sh '.g:home.'extools/spacevim/SPC-pr.sh ')
+    call system('sh '.g:home.'extools/spacevim/SPC-pr.sh')
   endif
   if empty(v:shell_error) && glob('/tmp/SpaceVim') !=# '' && glob('~/.SpaceVim_origin') ==# ''
     echohl WarningMsg
@@ -282,6 +282,10 @@ function! util#SPC_PR(...) abort
   elseif empty(v:shell_error) && glob('/tmp/SpaceVim') ==# '' && glob('~/.SpaceVim_origin') ==# ''
     echohl WarningMsg
     echo ' PR Environment recovery done'
+    echohl NONE
+  else
+    echohl WarningMsg
+    echo v:shell_error
     echohl NONE
   endif
 endfunction "}}}
