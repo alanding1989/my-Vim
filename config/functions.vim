@@ -1,8 +1,8 @@
 "================================================================================
 " File Name    : config/functions.vim
 " Author       : AlanDing
-" mail         :
-" Created Time : Tue 30 Apr 2019 10:56:20 PM CST
+" mail         : 
+" Created Time : Sun 12 May 2019 09:48:38 PM CST
 "================================================================================
 scriptencoding utf-8
 
@@ -64,7 +64,6 @@ endfunc
 function! s:insfhead(cmsign, head1, head2, ...) abort
   if a:0 == 0
     let head = [
-          \ (&ft ==# 'sh' ? a:head1 : ''),
           \ a:cmsign. repeat('=', 80),
           \ a:cmsign. ' File Name    : '. expand('%'),
           \ a:cmsign. ' Author       : AlanDing',
@@ -72,6 +71,7 @@ function! s:insfhead(cmsign, head1, head2, ...) abort
           \ a:cmsign. ' Created Time : '. strftime('%c'),
           \ a:cmsign. repeat('=', 80),
           \ ]
+    let head = &ft ==# 'sh' ? insert(head, a:head1, 0) : head
   elseif a:0 == 1
     let head = [
           \ a:1     . repeat('=', 80),
@@ -83,7 +83,8 @@ function! s:insfhead(cmsign, head1, head2, ...) abort
           \ ]
   endif
   if a:head1 !=# '' && a:head2 ==# ''
-    call map([&ft ==# 'sh' ? '' : a:head1, '', ''], {key, val -> add(head, val)})
+    let lst = &ft ==# 'sh' ? ['', ''] : [a:head1, '', '']
+    call map(lst, {key, val -> add(head, val)})
   elseif a:head2 !=# ''
     call map([a:head1, a:head2, '', ''], {key, val -> add(head, val)})
   else

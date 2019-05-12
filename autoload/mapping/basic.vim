@@ -96,6 +96,7 @@ function! mapping#basic#load() abort
   nnoremap <silent>qf   :call <sid>delete_buffer_file()<CR>
   nnoremap <silent>qe   ggdG
   nnoremap <silent>qkk  :qa!<CR>
+  nnoremap <silent>q0   :vert rightb new<CR>
 
   nnoremap so           :vs 
   nnoremap <silent>sv   :vs<CR><C-w>w
