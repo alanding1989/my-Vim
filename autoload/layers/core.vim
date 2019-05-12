@@ -241,10 +241,10 @@ function! s:open_browser() abort
     " language docs
     augroup layer_core_openbrowser
       autocmd!
-      auto FileType python, ipynb let g:_spacevim_mappings.o.p
-            \ = ['call feedkeys(":OpenBrowserSmartSearch -python ")' , 'docs search /python']
-      auto FileType scala let g:_spacevim_mappings.o.s
-            \ = ["call feedkeys(':OpenlinkOrSearch scala ')"         , 'docs search /scala' ]
+      auto FileType python,ipynb call SpaceVim#mapping#def('nnoremap', '<leader>op',
+            \ 'call feedkeys(":OpenBrowserSmartSearch -python ")', 'docs search /python', 1)
+      auto FileType scala call SpaceVim#mapping#def('nnoremap', '<leader>os',
+            \ 'call feedkeys(":OpenlinkOrSearch scala ")', 'docs search /scala', 1)
     augroup END
   else
     nnoremap <leader>oa        :call feedkeys(':OpenBrowser ')<CR>
