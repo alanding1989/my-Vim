@@ -85,6 +85,7 @@ let g:_checkers_var = {
       \ 'show_cursor_error' : 1,
       \ }
 let g:_lang#c_var = {
+      \ 'enable_clang_syntax_highlight': 1,
       \ 'clang_executable': g:is_win ? 'D:\devtools\cpp\LLVM\bin\clang'
       \                              : '/opt/lang-tools/cpp/clang/bin/clang',
       \ 'libclang_path'   : g:is_win ? 'D:\devtools\cpp\LLVM\bin\libclang.dll'
@@ -92,7 +93,6 @@ let g:_lang#c_var = {
       \ 'clang_std'       : {
       \     'c'  : 'c11',
       \     'cpp': 'c++1z'},
-      \ 'enable_clang_syntax_highlight': 1,
       \ }
 let g:_lang#markdown_var = {
       \ 'enableWcwidth'  : 1,
