@@ -167,22 +167,21 @@ function! mapping#basic#load() abort
 
   " edit related {{{
   auto FileType sh, inoremap <expr> =   match(getline('.'),
-        \ '\v(\=\s){1}\_$\|(\>\s){1}\_$\|(\<\s){1}\_$\|(\+\s){1}\_$\|(\-\s){1}\_$') > -1 ?
-        \ "\<bs>=<space>" : '='
+        \ '\v(\=\s){1}\_$\|(\>\s){1}\_$\|(\<\s){1}\_$\|(\+\s){1}\_$\|(\-\s){1}\_$') > -1 ? "\<bs>=<space>" : '='
   for char in ['d', 'e', 'f', 'z', 'n']
     exec 'inoremap <expr> '.char.' matchend(getline("."), "- ") > -1 ? "\<bs>'.char.'<space>" : "'.char.'"'
   endfor
   auto FileType vim inoremap <expr> #   match(getline('.'),
-        \ '\v(\=\s){1}\_$\|(\>\s){1}\_$\|(\<\s){1}\_$\|(\~\s){1}\_$\|(s\s){1}\_$') > -1 ?
-        \ "\<bs>#<space>" : '#'
+        \ '\v(\=\s){1}\_$\|(\>\s){1}\_$\|(\<\s){1}\_$\|(\~\s){1}\_$\|(s\s){1}\_$') > -1 ? "\<bs>#<space>" : '#'
   inoremap <expr> =   match(getline('.'),
-        \ '\v(\=\s){1}\_$\|(\>\s){1}\_$\|(\<\s){1}\_$\|(\+\s){1}\_$\|(\-\s){1}\_$') > -1 ?
-        \ "\<bs>=<space>" : '= '
+        \ '\v(\=\s){1}\_$\|(\>\s){1}\_$\|(\<\s){1}\_$\|(\+\s){1}\_$\|(\-\s){1}\_$') > -1 ? "\<bs>=<space>" : '= '
   inoremap <expr> +   match(getline('.'), '\v\zs(if\|wh)') > -1 ? '+ ' : '+'
   inoremap <expr> -   match(getline('.'), '\v\zs(if\|wh)') > -1 ? '- ' : '-'
   inoremap <expr> >   match(getline('.'), '\v^\s*\zs(if\|wh)') > -1 ? '> '  : ">"
   inoremap <expr> <   match(getline('.'), '\v^\s*\zs(if\|wh)') > -1 ? '< '  : "<>"
 
+  " g related
+  nnoremap g1 gf
   " insert new line
   nnoremap <tab>o      o<ESC>
   nnoremap <tab>p      O<ESC>j
