@@ -17,6 +17,7 @@ function! layers#lang#vim#plugins() abort
     let plugins = [
           \ ['wsdjeg/vim-lookup',                                   {'merged' : 0}],
           \ ['tweekmonster/exception.vim',                          {'merged' : 0}],
+          \ ['syngan/vim-vimlint',                 {'on_ft' : 'vim', 'for': 'vim'}],
           \ ['ynkdir/vim-vimlparser',              {'on_ft' : 'vim', 'for': 'vim'}],
           \ ['todesking/vint-syntastic',           {'on_ft' : 'vim', 'for': 'vim'}],
           \ ['Shougo/neco-vim',           {'merged': 0, 'on_event': 'InsertEnter'}],

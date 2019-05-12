@@ -48,6 +48,10 @@ function! layers#autocomplete#plugins() abort
           \ ['ncm2/ncm2-tern'            , {'on_event': 'InsertEnter',
           \ 'build': 'npm install', 'do': 'npm install'}],
           \ ]
+    if g:is_spacevim
+      call add(plugins, ['SpaceVim/nvim-yarp'         , {'merged': 0}])
+      call add(plugins, ['SpaceVim/vim-hug-neovim-rpc', {'merged': 0}])
+    endif
     if !g:is_win
       call add(plugins, ['ncm2/ncm2-match-highlight' , {'merged': 0, 'on_event': 'InsertEnter'}])
     endif

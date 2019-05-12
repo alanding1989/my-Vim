@@ -110,21 +110,25 @@ endfunc
 function! util#vim_help_wrapper(...) abort
     let input = input('Help keyword/Cancel(n): ', '', 'help')
     if input ==# 'n' | return | endif
+    if input ==# 'fl'
+      exec 'help function-list' | exec ':resize'
+      return
+    endif
     let cword = expand('<cword>')
 
     if empty(input) && !empty(cword)
-      exec ':vert bo help '.cword
+      exec 'vert bo help '.cword
     elseif input ==# 'f' && !empty(cword)
-      exec ':help '.cword | exec ':resize'
+      exec 'help '.cword | exec 'resize'
     elseif !empty(input)
       try
         let input0 = split(input)[0]
         let input1 = split(input)[1]
         if input1 ==# 'f'
-          exec ':help '.input0 | exec ':resize'
+          exec 'help '.input0 | exec 'resize'
         endif
       catch
-        exec ':vert bo help '.input
+        exec 'vert bo help '.input
       endtry
     endif
 endfunction

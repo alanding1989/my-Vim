@@ -29,7 +29,7 @@ let g:spacevim_statusline_bright   = 1
 
 " ================================================================================
 " Preferences
-let g:spacevim_autocomplete_method  = get(['coc'       , 'deoplete' , 'ncm2', 'ycm'], 0)
+let g:spacevim_autocomplete_method  = get(['coc'       , 'deoplete' , 'ncm2', 'ycm'], 2)
 let g:spacevim_snippet_engine       = get(['neosnippet', 'ultisnips', 'coc' ], 0)
 let g:spacevim_fuzzyfinder          = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
 let g:spacevim_filemanager          = get(['vimfiler'  , 'nerdtree' , 'defx'], 2)
@@ -244,9 +244,7 @@ let g:spacevim_disabled_plugins = [
       \ 'tagbar-makefile.vim'  ,
       \ 'tagbar-proto.vim'     ,
       \ 'tagbar-markdown'      ,
-      \ 'vim-vimlint'          ,
       \ 'vim-scriptease'       ,
-      \ 'vim-multiple-cursors' ,
       \ 'vim-textobj-line'     ,
       \ 'vim-textobj-entire'   ,
       \ ]
@@ -269,7 +267,6 @@ if g:my_layers['git'] == 1 && g:my_layers['VersionControl'] == 1
         \ ['mhinz/vim-signify', {'merged' : 0}]
         \ ]
 endif
-
 if !get(g:my_layers, 'denite', 0) && !get(g:my_layers, 'unite', 0)
   let g:spacevim_disabled_plugins += [
         \ 'neomru.vim'    ,
