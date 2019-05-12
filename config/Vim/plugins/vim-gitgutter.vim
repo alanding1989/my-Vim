@@ -21,6 +21,10 @@ if g:is_vim8
 endif
 
 " use custom diff sign
+if get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method', 'deoplete')) ==# 'coc'
+  let g:gitgutter_signs                 = 0
+endif
+let g:gitgutter_max_signs               = 200
 let g:gitgutter_sign_added              = '✚'
 let g:gitgutter_sign_removed            = '✖'
 let g:gitgutter_sign_removed_first_line = '▤'
