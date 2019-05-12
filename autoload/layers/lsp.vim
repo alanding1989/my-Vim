@@ -45,7 +45,7 @@ if get(g:, 'autocomplete_method') ==# 'coc'
     call CocActionAsync('rename')
   endfunction
 
-  function! layers#lsp#reference() abort
+  function! layers#lsp#references() abort
     call CocActionAsync('jumpReferences')
   endfunction
 elseif has('nvim') && has('python3')

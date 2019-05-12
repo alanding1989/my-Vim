@@ -611,7 +611,7 @@ else
 endif "}}}
 "}}}
 
-
+" open filemanager {{{
 " a:num = 0 open root dir
 " a:num = 1 open last opened dir
 " a:num = 2 open current buffer dir/root dir(when VimEnter)
@@ -718,3 +718,4 @@ function! s:open_plugins_dir(cmd) abort "{{{
   endif
   let @a = temp
 endfunction "}}}
+"}}}

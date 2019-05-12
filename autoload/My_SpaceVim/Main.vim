@@ -10,15 +10,15 @@ let s:define_my_layers  = ['tags', 'langtools', 'tools#clock' ]
 
 " SpaceVim embedded layers
 let s:add_plugin_layers = [
-      \ 'autocomplete', 'colorscheme'  , 'checkers'  , 'edit'       ,
-      \ 'git'         , 'langtools'    , 'lang#latex', 'lang#python',
-      \ 'lang#vim'    , 'lang#markdown', 'lang#ps1'  , 'ui'         ,
-      \ 'core'
+      \ 'autocomplete' , 'colorscheme', 'checkers'  , 'core'       , 'edit'    ,
+      \ 'git'          , 'langtools'  , 'lang#latex', 'lang#python', 'lang#vim',
+      \ 'lang#markdown', 'lang#ps1'   , 'lang#ipynb', 'ui'         ,
       \ ]
 let s:modified_conf_layers = [
-      \ 'autocomplete', 'chinese', 'colorscheme', 'core'    , 'checkers'      ,
-      \ 'denite'      , 'edit'   , 'git'        , 'lang#vim', 'lang#ps1'      ,
-      \ 'leaderf'     , 'tools'  , 'unite'      , 'ui'      , 'VersionControl',
+      \ 'autocomplete', 'chinese' , 'colorscheme'   , 'core'   , 'checkers',
+      \ 'denite'      , 'edit'    , 'git'           , 'leaderf', 'tools'   ,
+      \ 'unite'       , 'ui'      , 'VersionControl',
+      \ 'lang#ipynb'  , 'lang#vim', 'lang#ps1'      ,
       \ ]
 
 let s:spacevim_default_cs = [

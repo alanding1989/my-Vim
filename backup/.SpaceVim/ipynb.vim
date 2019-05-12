@@ -28,9 +28,6 @@ function! SpaceVim#layers#lang#ipynb#plugins() abort
   if !SpaceVim#layers#lsp#check_filetype('ipynb')
     if has('nvim')
       call add(plugins, ['zchee/deoplete-jedi', { 'on_ft' : 'ipynb'}])
-      " in neovim, we can use deoplete-jedi together with jedi-vim,
-      " but we need to disable the completions of jedi-vim.
-      let g:jedi#completions_enabled = 0
     endif
     call add(plugins, ['davidhalter/jedi-vim', { 'on_ft' : 'ipynb',
           \ 'if' : has('python') || has('python3')}])
@@ -40,12 +37,6 @@ endfunction
 
 
 function! SpaceVim#layers#lang#ipynb#config() abort
-  if !SpaceVim#layers#lsp#check_filetype('ipynb')
-    let g:jedi#completions_command    = ''
-    let g:jedi_auto_vim_configuration = 0
-    let g:jedi#use_splits_not_buffers = 1
-    let g:jedi#force_py_version       = 3
-  endif
   " heavenshell/vim-pydocstring {{{
     " If you execute :Pydocstring at no `def`, `class` line.
     " g:pydocstring_enable_comment enable to put comment.txt value.
