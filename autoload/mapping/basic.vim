@@ -11,8 +11,6 @@ function! mapping#basic#load() abort
   let g:maplocalleader  = "\<Space>"
   set timeout
   " set timeoutlen=800
-  " set ttimeout
-  " set ttimeoutlen=50
   auto VimEnter * call s:unmap_SPC()
 
   " mode mapping {{{

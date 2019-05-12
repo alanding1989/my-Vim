@@ -188,11 +188,16 @@
     }
   },
 
-  "git.branchCharacter"        : "",
-  "git.enableGutters"          : false,
-  "git.addedSign.text"         : "✚",
-  "git.removedSign.text"       : "✖",
-  "git.topRemovedSign.text"    : "▤",
-  "git.changedSign.text"       : "✹",
-  "git.changeRemovedSign.text" : "≃"
+  "git.branchCharacter"          : "",
+  "git.enableGutters"            : true,
+  "git.addedSign.text"           : "✚",
+  "git.removedSign.text"         : "✖",
+  "git.topRemovedSign.text"      : "▤",
+  "git.changedSign.text"         : "✹",
+  "git.changeRemovedSign.text"   : "≃",
+  "git.addedSign.hlGroup"        : "SignifySignAdd",
+  "git.removedSign.hlGroup"      : "SignifySignDelete",
+  "git.topRemovedSign.hlGroup"   : "SignifySignDelete",
+  "git.changedSign.hlGroup"      : "SignifySignChange",
+  "git.changeRemovedSign.hlGroup": "SignifySignChange"
 }
