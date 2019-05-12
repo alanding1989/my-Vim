@@ -29,6 +29,7 @@ let g:spacevim_statusline_bright   = 1
 
 " ================================================================================
 " Preferences
+" ================================================================================
 let g:spacevim_autocomplete_method  = get(['coc'       , 'deoplete' , 'ncm2', 'ycm'], 2)
 let g:spacevim_snippet_engine       = get(['neosnippet', 'ultisnips', 'coc' ], 0)
 let g:spacevim_fuzzyfinder          = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
@@ -93,8 +94,6 @@ let g:_lang#c_var = {
       \     'cpp': 'c++1z'},
       \ 'enable_clang_syntax_highlight': 1,
       \ }
-      " \ 'clang_executable' : exepath('clang'),
-      " \ 'libclang_path'    : expand($CLANG_HOME).(g:is_win ? '\bin\libclang.dll' : '/lib/libclang.so'),
 let g:_lang#markdown_var = {
       \ 'enableWcwidth'  : 1,
       \ 'listItemIndent' : 1,
@@ -183,7 +182,8 @@ endif
 "}}}
 
 if g:spacevim_autocomplete_method ==# 'coc' "{{{
-  let g:spacevim_snippet_engine = 'coc'
+  let s:se = g:spacevim_snippet_engine
+  let s:se = s:se !=# 'neosnippet' ? 'coc' : s:se
 endif
 "}}}
 

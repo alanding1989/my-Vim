@@ -26,6 +26,7 @@ let g:my_bg = 1 ? 'dark' : 'light'
 
 " ================================================================================
 " Preferences
+" ================================================================================
 let g:autocomplete_method           = get(['coc'       , 'deoplete' , 'ncm2'], 2)
 let g:snippet_engine                = get(['neosnippet', 'ultisnips', 'coc' ], 0)
 let g:fuzzyfinder                   = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
@@ -59,6 +60,7 @@ let g:My_Vim_lsp_ft = [
       \ 'javascript',
       \ ]
 "}}}
+
 
 " ================================================================================
 " Layers en/disable
@@ -112,6 +114,12 @@ if g:is_win
 endif
 "}}}
 
+if g:autocomplete_method ==# 'coc' " {{{
+  let s:se = g:snippet_engine
+  let s:se = s:se !=# 'neosnippet' ? 'coc' : s:se
+endif 
+"}}}
+
 if g:pure_viml || !g:has_py " {{{
   let g:autocomplete_method = 'asyncomplete'
   let g:snippet_engine      = 'neosnippet'
@@ -135,15 +143,15 @@ if g:pure_viml || !g:has_py " {{{
         \ 'leaderf'         : 0,
         \ 'unite'           : 1,
         \ }
-endif
-"}}}
+endif "}}}
+
 "}}}
 
 
 " ================================================================================
 " Disabled plugins
 " ============================================================================= {{{
-"let g:disabled_plugins = [
-"\ '',
-"\ ]
+" let g:disabled_plugins = [
+      " \ '',
+      " \ ]
 "}}}
