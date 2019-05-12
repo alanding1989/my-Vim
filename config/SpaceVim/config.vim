@@ -112,9 +112,9 @@ let g:_VersionControl_var = {
       \ 'enable_gtm_status' : 0,
       \ }
 let g:_lsp_var = {'filetypes' : [
+      \ 'cpp',
       \ 'python',
       \ ]}
-      " \ 'cpp',
       " \ 'javascript',
 if g:is_unix
   call add(g:_lsp_var['filetypes'], 'sh')
@@ -137,7 +137,7 @@ let g:my_layers = {
       \ 'git'               : 1,
       \ 'github'            : 1,
       \ 'lsp'               : 1,
-      \ 'lang#c'            : 0,
+      \ 'lang#c'            : 1,
       \ 'lang#ipynb'        : 1,
       \ 'lang#java'         : 0,
       \ 'lang#javascript'   : 0,

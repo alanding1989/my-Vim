@@ -145,6 +145,21 @@ function! util#hlight_wrapper(...) abort
 endfunction " }}}
 
 
+" open or search websites {{{
+function! util#OpenlinkOrSearch(key, ...) abort
+  let url = {
+        \ 'scala': 'https://www.scala-lang.org/api/current/index.html?search=',
+        \ 'arec' : 'https://asciinema.org/~alanding',
+        \ 'spc'  : 'https://spacevim.org/cn/layers',
+        \ }
+  if a:0 > 0
+    exec 'OpenBrowser '.url[a:key].a:1
+  else
+    exec 'OpenBrowser '.url[a:key]
+  endif
+endfunction "}}}
+
+
 " Plugins related {{{
 function! util#update_plugin() abort
   try
@@ -236,20 +251,6 @@ function! s:UpdateStarredRepos()
     call add(g:unite_source_menu_menus.MyStarredrepos.command_candidates, [description, cmd])
   endfor
   return 1
-endfunction "}}}
-
-
-" open or search websites {{{
-function! util#OpenlinkOrSearch(key, ...) abort
-  let url = {
-        \ 'scala': 'https://www.scala-lang.org/api/current/index.html?search=',
-        \ 'arec' : 'https://asciinema.org/~alanding',
-        \ }
-  if a:0 > 0
-    exec 'OpenBrowser '.url[a:key].a:1
-  else
-    exec 'OpenBrowser '.url[a:key]
-  endif
 endfunction "}}}
 
 
