@@ -189,7 +189,7 @@
   },
 
   "git.branchCharacter"          : "",
-  "git.enableGutters"            : true,
+  "git.enableGutters"            : false,
   "git.addedSign.text"           : "✚",
   "git.removedSign.text"         : "✖",
   "git.topRemovedSign.text"      : "▤",
