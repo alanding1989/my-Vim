@@ -7,10 +7,14 @@ scriptencoding utf-8
 
 function! layers#lang#ipynb#plugins() abort
   let plugins = [
-        \ ['wsdjeg/vimpyter'            , {'merged': 0}],
+        \ ['wsdjeg/vimpyter', {'merged': 0}],
         \ ]
-  call add(plugins, ['heavenshell/vim-pydocstring', { 'on_cmd' : 'Pydocstring'}])
+  call add(plugins, ['jeetsukumaran/vim-pythonsense', {'on_ft' : 'python', 'for': 'python'}])
+  call add(plugins, ['heavenshell/vim-pydocstring'  , {'on_cmd': 'Pydocstring'}])
   " call add(plugins, ['Vimjas/vim-python-pep8-indent', \ { 'on_ft' : 'ipynb'}])
+  if g:is_nvim
+    call add(plugins, ['numirias/semshi', {'on_ft': 'python', 'for': 'python'}])
+  endif
   if get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method', 'deoplete')) ==# 'coc'
     " nop
   elseif g:is_spacevim && SpaceVim#layers#isLoaded('lsp')

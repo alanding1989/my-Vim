@@ -15,19 +15,13 @@ function! layers#lang#python#plugins() abort
   endif
   if !g:is_spacevim
     if !My_Vim#layer#isLoaded('lsp')
-      if has('nvim')
+      call add(plugins, ['davidhalter/jedi-vim', {'on_ft': 'python', 'for': 'python', 'if' : g:has_py}])
+      if g:autocomplete_method ==# 'deoplete'
         call add(plugins, ['zchee/deoplete-jedi', {'on_ft': 'python', 'for': 'python'}])
-        " in neovim, we can use deoplete-jedi together with jedi-vim,
-        " but we need to disable the completions of jedi-vim.
-        let g:jedi#completions_enabled = 0
       endif
-      call add(plugins, ['davidhalter/jedi-vim', {'on_ft': 'python', 'for': 'python',
-            \ 'if' : g:has_py}])
     endif
-    call add(plugins, ['heavenshell/vim-pydocstring',
-          \ {'on_cmd' : 'Pydocstring'}])
-    call add(plugins, ['Vimjas/vim-python-pep8-indent',
-          \ {'on_ft' : 'python', 'for': 'python'}])
+    call add(plugins, ['heavenshell/vim-pydocstring', {'on_cmd': 'Pydocstring', 'on': 'Pydocstring'}])
+    call add(plugins, ['Vimjas/vim-python-pep8-indent', {'on_ft': 'python', 'for': 'python'}])
   endif
   return plugins
 endfunction
