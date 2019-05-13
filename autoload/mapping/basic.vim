@@ -177,11 +177,14 @@ function! mapping#basic#load() abort
         \ '\v(\=\s){1}\_$\|(\>\s){1}\_$\|(\<\s){1}\_$\|(\+\s){1}\_$\|(\-\s){1}\_$') > -1 ? "\<bs>=<space>" : '= '
   inoremap <expr> +   match(getline('.'), '\v\zs(if\|wh)') > -1 ? '+ ' : '+'
   inoremap <expr> -   match(getline('.'), '\v\zs(if\|wh)') > -1 ? '- ' : '-'
-  inoremap <expr> >   match(getline('.'), '\v^\s*\zs(if\|wh)') > -1 ? '> '  : ">"
-  inoremap <expr> <   match(getline('.'), '\v^\s*\zs(if\|wh)') > -1 ? '< '  : "<>"
+  inoremap <expr> >   match(getline('.'), '\v^\s*\zs(if\|wh\|let)') > -1 ? '> '  : ">"
+  inoremap <expr> <   match(getline('.'), '\v^\s*\zs(if\|wh\|let)') > -1 ? '< '  : "<>"
+  inoremap <expr> ?   match(getline('.'), '\v^\s*\zs(let.*\=)') > -1 ? '? ' : "?"
+  inoremap <expr> :   match(getline('.'), '\v^\s*\zs(let.*\?)') > -1 ? ': ' : ":"
 
   " g related
-  nnoremap g1 gf
+  nnoremap go          gf
+  nnoremap g0          *
   " insert new line
   nnoremap <tab>o      o<ESC>
   nnoremap <tab>p      O<ESC>j

@@ -44,7 +44,6 @@ if !g:is_spacevim
     augroup layer_lang_python
       autocmd!
       auto FileType python call s:language_specified_mappings()
-      " \ | Semshi enable
       if s:format_on_save
         auto BufWritePost *.py Neoformat yapf
       endif

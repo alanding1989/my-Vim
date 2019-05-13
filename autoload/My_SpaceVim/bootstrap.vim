@@ -17,6 +17,36 @@ function! My_SpaceVim#bootstrap#before() abort
 " ================================================================================
 " En/Disabled plugins
 " ============================================================================= {{{
+let g:My_SpaceVim_layers = {
+      \ 'chat'              : 1,
+      \ 'checkers'          : 1,
+      \ 'chinese'           : 1,
+      \ 'colorscheme'       : 1,
+      \ 'debug'             : 1,
+      \ 'git'               : 1,
+      \ 'github'            : 1,
+      \ 'lsp'               : 1,
+      \ 'lang#c'            : 0,
+      \ 'lang#ipynb'        : 1,
+      \ 'lang#java'         : 0,
+      \ 'lang#javascript'   : 0,
+      \ 'lang#latex'        : 0,
+      \ 'lang#markdown'     : 1,
+      \ 'lang#python'       : 1,
+      \ 'lang#scala'        : 1,
+      \ 'lang#vim'          : 1,
+      \ 'lang#sh'           : 1,
+      \ 'incsearch'         : 1,
+      \ 'shell'             : 1,
+      \ 'tmux'              : 1,
+      \ 'tools'             : 1,
+      \ 'VersionControl'    : 0,
+      \
+      \ 'denite'            : 1,
+      \ 'fzf'               : 0,
+      \ 'leaderf'           : 1,
+      \ 'unite'             : 0,
+      \ }
 let g:spacevim_disabled_plugins = [
       \ 'molokai'              ,
       \ 'jellybeans.vim'       ,
@@ -50,7 +80,7 @@ if g:spacevim_snippet_engine !=# 'neosnippet'
         \ 'neopairs.vim'   ,
         \ ]
 endif
-if g:my_layers['git'] == 1 && g:my_layers['VersionControl'] == 1
+if g:My_SpaceVim_layers['git'] == 1 && g:My_SpaceVim_layers['VersionControl'] == 1
   let g:spacevim_disabled_plugins += [
         \ 'vim-gitgutter'
         \ ]
@@ -58,7 +88,7 @@ if g:my_layers['git'] == 1 && g:my_layers['VersionControl'] == 1
         \ ['mhinz/vim-signify', {'merged' : 0}]
         \ ]
 endif
-if !get(g:my_layers, 'denite', 0) && !get(g:my_layers, 'unite', 0)
+if !get(g:My_SpaceVim_layers, 'denite', 0) && !get(g:My_SpaceVim_layers, 'unite', 0)
   let g:spacevim_disabled_plugins += [
         \ 'neomru.vim'    ,
         \ 'unite-outline' ,

@@ -46,7 +46,6 @@ function! layers#colorscheme#config() abort
       " auto VimEnter * AirlineToggle
       colorscheme NeoSolarized
       set background=dark
-      let g:neosolarized_italic = 1
     endtry
 
     noremap <silent><space>tb :call <sid>toggleBG()<CR>

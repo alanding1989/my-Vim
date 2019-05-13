@@ -62,7 +62,7 @@ set hidden
 set lazyredraw
 set synmaxcol=200
 
-set updatetime=500
+" set updatetime=500
 
 set tags=./.tags;,.tags
 "}}}

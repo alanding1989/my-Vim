@@ -1,3 +1,3 @@
 
-  " json comment highlight
-  syntax match Comment +\/\/.\+$+
+" json comment highlight
+syntax match Comment +\/\/.\+$+

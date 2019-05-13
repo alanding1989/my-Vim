@@ -24,8 +24,8 @@ call SpaceVim#mapping#def('nnoremap', '<leader>ae',
       \ 'VG', 'select to the end', '', 'select to the end')
 call SpaceVim#mapping#def('nnoremap', '<leader>az',
       \ ':call mapping#basic#zzmode()<CR>', 'toggle zzmode', '', 'toggle zzmode')
-call SpaceVim#mapping#def('nnoremap <expr>', '<leader>az',
-      \ "'`['.strpart(getregtype(), 0, 1).'`]'", 'toggle zzmode', '', 'toggle zzmode')
+call SpaceVim#mapping#def('nnoremap <expr>', '<leader>ap',
+      \ "'`['.strpart(getregtype(), 0, 1).'`]'", 'select last paste section', '', 'select last paste section')
 " call SpaceVim#mapping#def('nnoremap', '<leader>am',
       " \ ':call util#statusline#pureline()', 'set statusline', '', 'set statusline')
 " call SpaceVim#mapping#def('xnoremap', '<leader>y',
@@ -38,8 +38,9 @@ let g:_spacevim_mappings.e.c = ["echo '  '.g:spacevim_autocomplete_method", 'sho
 let g:_spacevim_mappings.e.e = ['call feedkeys(":echo ")'                 , 'echo prefix'             ]
 let g:_spacevim_mappings.e.f = ['call feedkeys(":call ")'                 , 'call prefix'             ]
 let g:_spacevim_mappings.e.h = ['call feedkeys(":EchoHlight ")'           , 'echo highlight'          ]
-let g:_spacevim_mappings.e.l = ['call layers#checkers#showlinter()'       , 'show syntax linter '     ]
-let g:_spacevim_mappings.e.m = ['call feedkeys(":EchoMap ")'              , 'show specific keymap'    ]
+let g:_spacevim_mappings.e.l = ['call layers#checkers#showlinter()'       , 'show syntax linter'      ]
+let g:_spacevim_mappings.e.g = ['syntax'                                  , 'show syntax summary'     ]
+let g:_spacevim_mappings.e.m = ['call feedkeys(":EchoMap ")'              , 'echo specific keymap'    ]
 let g:_spacevim_mappings.e.o = ['call feedkeys(":set ")'                  , 'echo options'            ]
 let g:_spacevim_mappings.e.s = ["echo '  '.g:spacevim_snippet_engine"     , 'show snippet engine'     ]
 let g:_spacevim_mappings.e.t = ["echo '  '.g:colors_name"                 , 'show colortheme'         ]

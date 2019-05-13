@@ -23,9 +23,8 @@ let g:spacevim_colorscheme = split([
       \ '8 nord'        ,
       \ '9 default'     ,
       \ ][1])[1]
-let g:spacevim_colorscheme_default = 'neodark'
+let g:spacevim_colorscheme_default = 'nord'
 let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
-" let g:spacevim_statusline_bright   = 1
 "}}}
 
 " ================================================================================
@@ -82,11 +81,11 @@ let g:spacevim_project_rooter_patterns       = uniq(sort(g:spacevim_project_root
 " ================================================================================
 " Variable Setting
 " ============================================================================= {{{
-let g:_colorscheme_var = {
-      \ 'bright_statusline' : 1,
-      \ }
 let g:_checkers_var = {
       \ 'show_cursor_error' : 1,
+      \ }
+let g:_colorscheme_var = {
+      \ 'bright_statusline' : 1,
       \ }
 let g:_lang#c_var = {
       \ 'enable_clang_syntax_highlight': 1,
@@ -121,6 +120,12 @@ let g:_lsp_var = {'filetypes' : [
       \ 'python',
       \ ]}
       " \ 'javascript',
+let g:_defhighlight_var = { 'hicolor' : {
+      \ 'python' : {
+      \      'pythonSelf'     : [ '#61afef',  -1,  75,  -1,  1 ],
+      \      'pythonClassVar' : [ '#61afef',  -1,  75,  -1,  1 ],
+      \ }
+      \ }}
 if g:is_unix
   call add(g:_lsp_var['filetypes'], 'sh')
 endif
@@ -133,7 +138,7 @@ endif
 "   autocomplete, checkers, core, edit, format, ui,
 "   代码补全，检错、修改比较，编辑辅助，文件搜索
 " ============================================================================= {{{
-let g:my_layers = {
+let g:My_SpaceVim_layers = {
       \ 'chat'              : 1,
       \ 'checkers'          : 1,
       \ 'chinese'           : 1,
@@ -165,24 +170,23 @@ let g:my_layers = {
       \ }
 
 if g:spacevim_fuzzyfinder ==# 'leaderf' " {{{
-      \ && g:my_layers['leaderf']
-  let g:my_layers['leaderf'] = 1
-  let g:my_layers['denite']  = 1
-  let g:my_layers['fzf']     = 0
-  " let g:my_layers['unite']   = 1
+      \ && g:My_SpaceVim_layers['leaderf']
+  let g:My_SpaceVim_layers['leaderf'] = 1
+  let g:My_SpaceVim_layers['denite']  = 1
+  let g:My_SpaceVim_layers['fzf']     = 0
 elseif g:spacevim_fuzzyfinder ==# 'denite'
-  let g:my_layers['denite']  = 1
-  let g:my_layers['leaderf'] = 0
-  let g:my_layers['fzf']     = 0
+  let g:My_SpaceVim_layers['denite']  = 1
+  let g:My_SpaceVim_layers['leaderf'] = 0
+  let g:My_SpaceVim_layers['fzf']     = 0
 elseif g:spacevim_fuzzyfinder ==# 'fzf'
-  let g:my_layers['fzf']     = 1
-  let g:my_layers['denite']  = 0
-  let g:my_layers['leaderf'] = 0
+  let g:My_SpaceVim_layers['fzf']     = 1
+  let g:My_SpaceVim_layers['denite']  = 0
+  let g:My_SpaceVim_layers['leaderf'] = 0
 endif "}}}
 
 " powershell {{{
 if g:is_win
-  let g:my_layers['lang#ps1'] = 1
+  let g:My_SpaceVim_layers['lang#ps1'] = 1
 endif
 "}}}
 
@@ -197,7 +201,7 @@ if g:pure_viml || !g:has_py " {{{
   let g:spacevim_snippet_engine      = 'neosnippet'
   let g:spacevim_filemanager         = 'vimfiler'
   let g:enable_smart_clock           = 0
-  let g:my_layers = {
+  let g:My_SpaceVim_layers = {
         \ 'core#statusline' : 0,
         \ 'checkers'        : 1,
         \ 'chinese'         : 1,
@@ -264,7 +268,7 @@ if g:spacevim_snippet_engine !=# 'neosnippet'
         \ 'neopairs.vim'   ,
         \ ]
 endif
-if g:my_layers['git'] == 1 && g:my_layers['VersionControl'] == 1
+if g:My_SpaceVim_layers['git'] == 1 && g:My_SpaceVim_layers['VersionControl'] == 1
   let g:spacevim_disabled_plugins += [
         \ 'vim-gitgutter'
         \ ]
@@ -272,7 +276,7 @@ if g:my_layers['git'] == 1 && g:my_layers['VersionControl'] == 1
         \ ['mhinz/vim-signify', {'merged' : 0}]
         \ ]
 endif
-if !get(g:my_layers, 'denite', 0) && !get(g:my_layers, 'unite', 0)
+if !get(g:My_SpaceVim_layers, 'denite', 0) && !get(g:My_SpaceVim_layers, 'unite', 0)
   let g:spacevim_disabled_plugins += [
         \ 'neomru.vim'    ,
         \ 'unite-outline' ,

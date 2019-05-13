@@ -6,7 +6,7 @@ scriptencoding utf-8
 
 
 " MyVim layers
-let s:define_my_layers  = ['tags', 'langtools', 'tools#clock' ]
+let s:define_my_layers  = ['tags', 'langtools', 'tools#clock', 'defhighligt']
 
 " SpaceVim embedded layers
 let s:add_plugin_layers = [
@@ -25,15 +25,15 @@ let s:spacevim_default_cs = [
       \ 'gruvbox' , 'molokai' , 'onedark'      , 'jellybeans' , 'one'   ,
       \ 'nord'    , 'hybrid'  , 'NeoSolarized' , 'material'   , 'srcery', 'palenight'
       \ ]
+let s:is_fallback = 0
+
 
 function! My_SpaceVim#Main#init() abort
   " NOTE: the order shouldn`t be changed
-  call s:SpaceVim_config_load()
-  call s:SpaceVim_load_layers()
+  call   s:SpaceVim_config_load()
   try
     call s:Mainbegin()
   catch
-    let g:is_fallback = 1
     call s:Mainfallback()
   endtry
 endfunction
@@ -41,20 +41,31 @@ endfunction
 
 " Main {{{
 function! s:Mainbegin() abort
+  call s:SpaceVim_load_layers()
+  " add custom plugins
   call s:SpaceVim_add_plugins()
-  call s:Mylayers_config_load()
 
   " My addon config
+  call s:Mylayers_config_load()
   call s:VimEnter_layers_GlobalVar_load()
   auto VimEnter * call s:VimEnter_config()
 endfunction
 
 function! s:Mainfallback() abort
+  " only load core layer modified config
+  let s:is_fallback = 1
   let g:spacevim_colorscheme = g:spacevim_colorscheme_default
-
-  " My addon config
-  call s:VimEnter_layers_GlobalVar_load()
-  auto VimEnter * call s:VimEnter_config()
+  let g:My_SpaceVim_layers = {
+        \ 'checkers'          : 1,
+        \ 'colorscheme'       : 1,
+        \ 'git'               : 1,
+        \ 'github'            : 1,
+        \ 'lang#vim'          : 1,
+        \ 'shell'             : 1,
+        \ 'denite'            : 1,
+        \ 'leaderf'           : 1,
+        \ }
+  call s:Mainbegin()
 endfunction
 "}}}
 
@@ -70,33 +81,48 @@ function! s:SpaceVim_load_layers() abort
   if index(s:spacevim_default_cs, g:spacevim_colorscheme) == -1
     call SpaceVim#layers#disable('core#statusline')
     let g:spacevim_statusline_separator = 'nil'
+    call s:loadlayers()
   else
-    let g:my_layers['VersionControl'] = 1
+    let st = s:is_fallback ? 0 : g:My_SpaceVim_layers['VersionControl']
+    let g:My_SpaceVim_layers['VersionControl'] = 1
     let g:spacevim_statusline_separator = g:statusline_separator
+    call s:loadlayers()
+    let g:My_SpaceVim_layers['VersionControl'] = st
   endif
-  for [key, value] in items(g:my_layers)
-    let var = get(g:, '_'.key.'_var')
-    if value == 1 && type(var) == type({})
-      call SpaceVim#layers#load(key, var)
-    elseif value == 1
-      call SpaceVim#layers#load(key)
-    endif
-  endfor
-  let g:enabled_layers = sort(extend(deepcopy(SpaceVim#layers#get()), s:define_my_layers), 'i')
 endfunction
 
 " add custom plugins
 function! s:SpaceVim_add_plugins() abort
-  for layer in s:define_my_layers
-    if !empty(layer)
-      let g:spacevim_custom_plugins += layers#{layer}#plugins()
-    endif
-  endfor
+  if !s:is_fallback
+    for layer in s:define_my_layers
+      let plugins = layers#{layer}#plugins()
+      if !empty(layer) && util#dict#valid(plugins)
+        let g:spacevim_custom_plugins += plugins
+      endif
+    endfor
+  endif
   for layer in s:add_plugin_layers
     if SpaceVim#layers#isLoaded(layer)
       let g:spacevim_custom_plugins += layers#{layer}#plugins()
     endif
   endfor
+endfunction
+
+" load layer
+function! s:loadlayers() abort
+  for [layer, value] in items(g:My_SpaceVim_layers)
+    let var = get(g:, '_'. layer .'_var')
+    if value == 1 && util#dict#valid(var)
+      call SpaceVim#layers#load(layer, var)
+    elseif value == 1
+      call SpaceVim#layers#load(layer)
+    endif
+  endfor
+  if s:is_fallback
+    let g:enabled_layers = sort(deepcopy(SpaceVim#layers#get()), 'i')
+  else
+    let g:enabled_layers = sort(deepcopy(SpaceVim#layers#get()) + s:define_my_layers, 'i')
+  endif
 endfunction
 "}}}
 
@@ -104,9 +130,16 @@ endfunction
 " ============================== My addon config ================================= {{{
 " NOTE: Personal layer which hasn`t been defined by SpaceVim, no need to load VimEnter
 function! s:Mylayers_config_load() abort
-  for elem in s:define_my_layers
-    if !empty(elem)
-      call layers#{elem}#config()
+  if s:is_fallback
+    return
+  endif
+  for layer in s:define_my_layers
+    if !empty(layer)
+      let var = get(g:, '_'.layer.'_var')
+      if util#dict#valid(var)
+        call layers#{layer}#set_variable(var)
+      endif
+      call layers#{layer}#config()
     endif
   endfor
 endfunction
@@ -120,9 +153,9 @@ endfunction
 "    for layers which need to amend SpaceVim`s, if there has global var that SpaceVim hasn`t defined,
 "    i.e these global var must be set by myself, put these files in '/.SpaceVim.d/config/plugins_before'.
 function! s:VimEnter_layers_GlobalVar_load() abort
-  for elem in g:enabled_layers
-    let elem = substitute(elem, '#', '_', 'g')
-    let p = expand(g:home.'config/SpaceVim/plugins_before/'.elem.'.vim')
+  for layer in g:enabled_layers
+    let layer = substitute(layer, '#', '_', 'g')
+    let p = expand(g:home.'config/SpaceVim/plugins_before/'.layer.'.vim')
     if filereadable(p)
       exec 'so ' p
     endif
@@ -130,16 +163,16 @@ function! s:VimEnter_layers_GlobalVar_load() abort
 endfunction
 
 function! s:VimEnter_config() abort
-  if !get(g:, 'is_fallback', 0)
-    for elem in s:modified_conf_layers
-      if SpaceVim#layers#isLoaded(elem)
-        call layers#{elem}#config()
-      endif
-    endfor
-  else
-    call layers#core#config()
-  endif
+  for layer in s:modified_conf_layers
+    if SpaceVim#layers#isLoaded(layer)
+      call layers#{layer}#config()
+    endif
+  endfor
   " misc mapping
   call util#so_file('keymap.vim', 'SPC')
 endfunction
 "}}}
+
+function! My_SpaceVim#Main#isfallback() abort
+  return get(s:, 'is_fallback', 0)
+endfunction

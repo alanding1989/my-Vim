@@ -18,14 +18,18 @@ endfunction
 
 
 function! s:Mainbegin() abort
-  call My_Vim#layer#plug_begin()
-  call My_Vim#layer#plug_end()
+  call My_Vim#plugin#begin()
+  call My_Vim#plugin#end()
 endfunction
 
 function! s:Mainfallback() abort
+  let s:is_fallback = 1
   let g:my_cs = 'nord'
   let g:My_Vim_layers = {}
-  let g:is_fallback = 1
-  call My_Vim#layer#plug_begin()
-  call My_Vim#layer#plug_end()
+  call My_Vim#plugin#begin()
+  call My_Vim#plugin#end()
+endfunction
+
+function! My_Vim#Main#isfallback() abort
+  return get(s:, 'is_fallback', 0)
 endfunction

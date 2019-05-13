@@ -72,11 +72,14 @@ function! layers#core#config() abort
 
     nnoremap <space>ps  :Grepper<CR>
   else
-    exec 'so '.g:vim_plugindir.'unite.vim'
-    unlet g:_spacevim_mappings_space.b.R
+    " if My_SpaceVim#Main#isfallback()
+      " exec 'set runtimepath+='. g:spacevim_plugin_bundle_dir. 'repos/github.com/Shougo/unite.vim'
+    " endif
+    exec 'so '. g:vim_plugindir .'unite.vim'
+    unlet g:_spacevim_mappings_space.b.R | nunmap [SPC]bR
     call SpaceVim#mapping#space#def('nnoremap', ['b', 'r'], 'call call('
           \ . string(s:_function('s:safe_revert_buffer')) . ', [])',
-          \ 'safe-revert-buffer', 1)
+          \ 'safe revert buffer', 1)
   endif
 endfunction
 
@@ -696,7 +699,6 @@ function! s:open_plugins_dir(cmd) abort "{{{
   norm! `z
   if exists('#dein')
     if g:is_spacevim
-      let g:alan = 1
       if glob(g:spacevim_plugin_bundle_dir.'repos/github.com/'.@a) !=# ''
         exec a:cmd . g:spacevim_plugin_bundle_dir.'repos/github.com/'.@a
       endif
