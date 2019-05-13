@@ -13,15 +13,16 @@ let g:pure_viml = 0
 " Themes list " {{{
 let g:spacevim_colorscheme = split([
       \ '0 gruvbox'     ,
-      \ '1 onedark'     ,
-      \ '2 palenight'   ,
-      \ '3 neodark'     ,
-      \ '4 NeoSolarized',
+      \ '1 one'         ,
+      \ '2 onedark'     ,
+      \ '3 palenight'   ,
+      \ '4 neodark'     ,
       \ '5 OceanicNext' ,
-      \ '6 PaperColor'  ,
-      \ '7 nord'        ,
-      \ '8 one'         ,
-      \ ][2])[1]
+      \ '6 NeoSolarized',
+      \ '7 PaperColor'  ,
+      \ '8 nord'        ,
+      \ '9 default'     ,
+      \ ][1])[1]
 let g:spacevim_colorscheme_default = 'neodark'
 let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 " let g:spacevim_statusline_bright   = 1

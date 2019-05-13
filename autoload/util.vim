@@ -69,7 +69,7 @@ function! util#help_wrapper(...) abort
   else
     call util#vim_help_wrapper(a:000)
   endif
-endfunc 
+endfun
 
 function! util#vim_help_wrapper(...) abort
     let input = input('Help keyword/Cancel(n): ', '', 'help')
@@ -101,9 +101,9 @@ endfunction
 " highlight wrapper {{{
 function! util#hlight_wrapper(...) abort
   try
-    exec ':highlight '.expand('<cword>')
+    exec 'highlight '. expand('<cword>')
   catch
-    exec ':highlight'
+    exec 'highlight '. (a:0 > 0 ? a:1 : '')
   endtry
 endfunction " }}}
 "}}}

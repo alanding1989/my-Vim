@@ -184,8 +184,10 @@ endfunction
 function! util#statusline#hunks() abort
   let hunks = [0, 0, 0]
   if exists('b:coc_git_status')
+    " current buffer hunks
     return b:coc_git_status
   elseif exists(':GitGutterFold')
+    " the whole project hunks
     let hunks = GitGutterGetHunkSummary()
   elseif exists(':SignifyFold')
     let hunks = sy#repo#get_stats()

@@ -29,25 +29,28 @@ endfunction
 
 
 let s:format_on_save = 0
-function! layers#lang#python#config() abort
-  " heavenshell/vim-pydocstring {{{
-  " If you execute :Pydocstring at no `def`, `class` line.
-  " g:pydocstring_enable_comment enable to put comment.txt value.
-  let g:pydocstring_enable_comment = 0
-  " Disable this option to prevent pydocstring from creating any
-  " key mapping to the `:Pydocstring` command.
-  " Note: this value is overridden if you explicitly create a
-  " mapping in your vimrc, such as if you do:
-  let g:pydocstring_enable_mapping = 0
-  " }}}
-  augroup layer_lang_python
-    autocmd!
-    auto FileType python call s:language_specified_mappings()
-    if s:format_on_save
-      auto BufWritePost *.py Neoformat yapf
-    endif
-  augroup END
-endfunction
+if !g:is_spacevim
+  function! layers#lang#python#config() abort
+    " heavenshell/vim-pydocstring {{{
+    " If you execute :Pydocstring at no `def`, `class` line.
+    " g:pydocstring_enable_comment enable to put comment.txt value.
+    let g:pydocstring_enable_comment = 0
+    " Disable this option to prevent pydocstring from creating any
+    " key mapping to the `:Pydocstring` command.
+    " Note: this value is overridden if you explicitly create a
+    " mapping in your vimrc, such as if you do:
+    let g:pydocstring_enable_mapping = 0
+    " }}}
+    augroup layer_lang_python
+      autocmd!
+      auto FileType python call s:language_specified_mappings()
+      " \ | Semshi enable
+      if s:format_on_save
+        auto BufWritePost *.py Neoformat yapf
+      endif
+    augroup END
+  endfunction
+endif
 
 function! s:language_specified_mappings() abort
   nmap <silent><buffer> gd         :call <sid>go_to_def()<CR>

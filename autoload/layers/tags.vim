@@ -36,11 +36,14 @@ function! layers#tags#config() abort
   call s:gutentags_plus()
 
   augroup layer_tags
-    auto VimEnter *  nnoremap <silent><F2>         :Vista!! \| doautocmd WinEnter<CR>
+    auto VimEnter * nnoremap <silent><F2> :Vista!!  \| doautocmd WinEnter<CR>
+          \ | auto FileType markdown
+          \         nnoremap <silent><F2> :Vista toc\| doautocmd WinEnter<CR>
+    auto FileType vista_kind nnoremap <buffer> <silent> o :<C-u>call vista#cursor#FoldOrJump()<CR>
     auto FileType qf nnoremap <silent><buffer> p   :PreviewQuickfix<cr>
     auto FileType qf nnoremap <silent><buffer> pq  :PreviewClose<cr>
     " auto VimEnter *  nnoremap <F11> :PreviewSignature!<cr>
-  augroup end
+  augroup END
 endfunction
 
 

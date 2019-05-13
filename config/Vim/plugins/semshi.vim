@@ -12,3 +12,4 @@ let s:loaded = 1
 
 
 let g:semshi#mark_selected_nodes = 0
+let g:semshi#error_sign          = v:false

@@ -11,4 +11,6 @@ if !SpaceVim#layers#isLoaded('lsp')
   exec 'so' g:vim_plugindir.'jedi-vim.vim'
 endif
 
-exec 'so' g:vim_plugindir.'semshi.vim'
+if g:is_nvim
+  exec 'so' g:vim_plugindir.'semshi.vim'
+endif
