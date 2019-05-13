@@ -20,7 +20,8 @@ let g:my_cs = split([
       \ '5 OceanicNext' ,
       \ '6 PaperColor'  ,
       \ '7 nord'        ,
-      \ ][2])[1]
+      \ '8 one'         ,
+      \ ][8])[1]
 let g:my_bg = 1 ? 'dark' : 'light'
 "}}}
 
@@ -117,7 +118,7 @@ endif
 if g:autocomplete_method ==# 'coc' " {{{
   let s:se = g:snippet_engine
   let s:se = s:se !=# 'neosnippet' ? 'coc' : s:se
-endif 
+endif
 "}}}
 
 if g:pure_viml || !g:has_py " {{{

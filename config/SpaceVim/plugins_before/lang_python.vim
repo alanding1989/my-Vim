@@ -1,8 +1,8 @@
 "================================================================================
-" File Name    : config/SpaceVim/plugins_before/lang_ipynb.vim
+" File Name    : config/SpaceVim/plugins_before/lang_python.vim
 " Author       : AlanDing
 " mail         : 
-" Created Time : Sun 12 May 2019 08:39:17 PM CST
+" Created Time : Mon 13 May 2019 10:59:05 AM CST
 "================================================================================
 scriptencoding utf-8
 

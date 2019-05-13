@@ -20,8 +20,8 @@ let g:spacevim_colorscheme = split([
       \ '5 OceanicNext' ,
       \ '6 PaperColor'  ,
       \ '7 nord'        ,
-      \ '8 ',
-      \ ][2])[1]
+      \ '8 one'         ,
+      \ ][1])[1]
 let g:spacevim_colorscheme_default = 'neodark'
 let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 let g:spacevim_statusline_bright   = 1
@@ -138,7 +138,7 @@ let g:my_layers = {
       \ 'git'               : 1,
       \ 'github'            : 1,
       \ 'lsp'               : 1,
-      \ 'lang#c'            : 1,
+      \ 'lang#c'            : 0,
       \ 'lang#ipynb'        : 1,
       \ 'lang#java'         : 0,
       \ 'lang#javascript'   : 0,
@@ -228,10 +228,10 @@ endif
 " ================================================================================
 " En/Disabled plugins
 " ============================================================================= {{{
+      " \ 'vim-one'              ,
 let g:spacevim_disabled_plugins = [
       \ 'molokai'              ,
       \ 'jellybeans.vim'       ,
-      \ 'vim-one'              ,
       \ 'vim-hybrid'           ,
       \ 'vim-material'         ,
       \ 'srcery-vim'           ,

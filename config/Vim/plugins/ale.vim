@@ -57,13 +57,10 @@ let g:ale_linters.text   = ['textlint', 'write-good', 'languagetool']
 
 " access pylint, flake8 config file
 function s:lintcfg(name)
-  let confp = g:home . 'extools/conf/'
-  let path1 = expand(confp . a:name)
-  let path2 = expand('~/.vim/linter/'. a:name)
-  if filereadable(path2)
-    return path2
+  let p = g:home . 'extools/conf/' . a:name
+  if util#filereadable(p)
+    return shellescape(p)
   endif
-  return shellescape(filereadable(path2)? path2 : path1)
 endfunc
 
 " set flake8/pylint, c param

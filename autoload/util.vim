@@ -5,6 +5,7 @@ scriptencoding utf-8
 
 
 
+" Help/Echo related {{{
 " echo mapping rhs {{{
 function! util#maparg_wrapper(...) abort
   if a:0 == 1 && a:1 ==# 'vn'
@@ -57,43 +58,6 @@ function! util#maparg_wrapper(...) abort
   endif
 endfunc "}}}
 
-
-" source config/*.vim files {{{
-function! util#so_file(path, ...) abort
-  let gen_p  = glob(g:home.'config/'.a:path)
-  let SPC_p  = glob(g:home.'config/SpaceVim/'.a:path)
-  let Vim_p  = glob(g:home.'config/Vim/'.a:path)
-  let arbi_p = glob(g:home.a:path)
-  let g:home = glob(g:home)
-  if a:1 ==# 'g' && s:filereadable(gen_p)
-    exec 'so ' gen_p
-  elseif a:1 ==# 'SPC' && s:filereadable(SPC_p)
-    exec 'so ' SPC_p
-  elseif a:1 ==# 'Vim' && s:filereadable(Vim_p)
-    exec 'so ' Vim_p
-  elseif s:filereadable(arbi_p)
-    exec 'so ' arbi_p
-  endif
-endfunc
-function! s:filereadable(path) abort
-  if filereadable(a:path)
-    return 1
-  else
-    echohl WarningMsg
-    echo ' invalid file name, please check!'
-    echohl NONE
-    return 0
-  endif
-endfunction
-"}}}
-
-
-" globpath "{{{
-function! util#globpath(path, expr) abort
-  return globpath(a:path, a:expr, 1, 1)
-endfunction "}}}
-
-
 " help wrapper {{{
 function! util#help_wrapper(...) abort
   if &ft !=# 'vim'
@@ -134,7 +98,6 @@ function! util#vim_help_wrapper(...) abort
 endfunction
 "}}}
 
-
 " highlight wrapper {{{
 function! util#hlight_wrapper(...) abort
   try
@@ -143,8 +106,48 @@ function! util#hlight_wrapper(...) abort
     exec ':highlight'
   endtry
 endfunction " }}}
+"}}}
 
 
+" File Manipulate {{{
+" so_file {{{
+function! util#so_file(path, ...) abort
+  let gen_p  = glob(g:home.'config/'.a:path)
+  let SPC_p  = glob(g:home.'config/SpaceVim/'.a:path)
+  let Vim_p  = glob(g:home.'config/Vim/'.a:path)
+  let arbi_p = glob(g:home.a:path)
+  let g:home = glob(g:home)
+  if a:1 ==# 'g' && util#filereadable(gen_p)
+    exec 'so ' gen_p
+  elseif a:1 ==# 'SPC' && util#filereadable(SPC_p)
+    exec 'so ' SPC_p
+  elseif a:1 ==# 'Vim' && util#filereadable(Vim_p)
+    exec 'so ' Vim_p
+  elseif util#filereadable(arbi_p)
+    exec 'so ' arbi_p
+  endif
+endfunc "}}}
+
+" filereadable {{{
+function! util#filereadable(path) abort
+  if filereadable(expand(a:path))
+    return 1
+  else
+    echohl WarningMsg
+    echo ' invalid file name, please check!'
+    echohl NONE
+    return 0
+  endif
+endfunction "}}}
+
+" globpath "{{{
+function! util#globpath(path, expr) abort
+  return globpath(a:path, a:expr, 1, 1)
+endfunction "}}}
+"}}}
+
+
+" Easy Operation {{{
 " open or search websites {{{
 function! util#OpenlinkOrSearch(key, ...) abort
   let url = {
@@ -158,9 +161,10 @@ function! util#OpenlinkOrSearch(key, ...) abort
     exec 'OpenBrowser '.url[a:key]
   endif
 endfunction "}}}
+"}}}
 
 
-" Plugins related {{{
+" Plugins Manipulate {{{
 function! util#update_plugin() abort
   try
     let a_save = @a
@@ -254,6 +258,7 @@ function! s:UpdateStarredRepos()
 endfunction "}}}
 
 
+" SpaceVim related {{{
 " SpaceVim test mode {{{
 function! util#test_SPC() abort
   call system('sh '.g:home.'extools/spacevim/test-SpaceVim.sh')
@@ -267,7 +272,6 @@ function! util#test_SPC() abort
     echohl NONE
   endif
 endfunction "}}}
-
 
 " SpaceVim new PR {{{
 function! util#SPC_PR(...) abort
@@ -294,10 +298,10 @@ function! util#SPC_PR(...) abort
     echohl NONE
   endif
 endfunction "}}}
+"}}}
 
 
 " function() wrapper for memo "{{{
-" change relative s: to abs <SNR>
 if v:version > 703 || v:version == 703 && has('patch1170')
   function! s:_function(fstr) abort
     return function(a:fstr)

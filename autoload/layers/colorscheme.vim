@@ -15,6 +15,7 @@ function! layers#colorscheme#plugins() abort
         \ ]
   if !g:is_spacevim
     let plugins += [
+        \ [ 'rakr/vim-one'                 , {'merged': 0 }],
         \ [ 'morhetz/gruvbox'              , {'merged': 0 }],
         \ [ 'iCyMind/NeoSolarized'         , {'merged': 0 }],
         \ [ 'arcticicestudio/nord-vim'     , {'merged': 0 }],
@@ -64,7 +65,7 @@ function! layers#colorscheme#my_cs() abort "{{{
     let bg = 'light'
   endif
 
-  if bg ==# 'light' && cs !=# 'PaperColor'
+  if bg ==# 'light' && cs !=# 'PaperColor' && cs !=# 'one'
     let cs = 'gruvbox'
   endif
   if cs ==# 'gruvbox'

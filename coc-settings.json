@@ -13,7 +13,8 @@
   ],
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
 
-  "diagnostic.enable"                        : true,
+  
+  "diagnostic.enable"                        : false,
   "diagnostic.virtualText"                   : true,
   "diagnostic.virtualTextPrefix"             : "->>",
   "diagnostic.displayByAle"                  : true,
@@ -46,8 +47,9 @@
 
   // MPLS microsoft
   "python.autoComplete.addBrackets"             : true,
+  //"python.autoComplete.extraPaths              ": [],
   "python.jediEnabled"                          : false,
-  "python.condaPath"                            : "/home/alanding/software/anaconda3/etc/profile.d/conda.sh",
+  //"python.condaPath"                            : "/home/alanding/software/anaconda3/etc/profile.d/conda.sh",
   "python.pythonPath"                           : "/home/alanding/software/anaconda3/envs/py36/bin/python3.6",
   "python.jediPath"                             : "/home/alanding/software/anaconda3/envs/py36/lib/python3.6/site-packages/jedi",
   "python.linting.enabled"                      : false,
@@ -60,6 +62,7 @@
   "python.sortImports.path"                     : "/home/alanding/software/anaconda3/envs/py36/bin/isort",
   "python.formatting.provider"                  : "yapf",
   "python.formatting.yapfPath"                  : "/home/alanding/software/anaconda3/envs/py36/bin/yapf",
+  "python.workspaceSymbols.enabled"             : true,
   "python.workspaceSymbols.ctagsPath"           : "/opt/vim/universal-ctags/bin/ctags",
   "python.workspaceSymbols.tagFilePath"         : "~/.cache/tags",
 

@@ -42,6 +42,7 @@ let g:_spacevim_mappings.e.l = ['call layers#checkers#showlinter()'       , 'sho
 let g:_spacevim_mappings.e.m = ['call feedkeys(":EchoMap ")'              , 'show specific keymap'    ]
 let g:_spacevim_mappings.e.o = ['call feedkeys(":set ")'                  , 'echo options'            ]
 let g:_spacevim_mappings.e.s = ["echo '  '.g:spacevim_snippet_engine"     , 'show snippet engine'     ]
+let g:_spacevim_mappings.e.t = ["echo '  '.g:colors_name"                 , 'show colortheme'         ]
 let g:_spacevim_mappings.e.v = ['version'                                 , 'show neovim/vim version' ]
 if get(g:, 'spacevim_snippet_engine', 'neosnippet') ==# 'neosnippet'
   let g:_spacevim_mappings.e.n = ['call feedkeys(":NeoSnippetEdit -split -vertical ")', 'edit neosnippet snippets']
