@@ -21,10 +21,10 @@ let g:spacevim_colorscheme = split([
       \ '6 PaperColor'  ,
       \ '7 nord'        ,
       \ '8 one'         ,
-      \ ][1])[1]
+      \ ][2])[1]
 let g:spacevim_colorscheme_default = 'neodark'
 let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
-let g:spacevim_statusline_bright   = 1
+" let g:spacevim_statusline_bright   = 1
 "}}}
 
 " ================================================================================
@@ -81,6 +81,9 @@ let g:spacevim_project_rooter_patterns       = uniq(sort(g:spacevim_project_root
 " ================================================================================
 " Variable Setting
 " ============================================================================= {{{
+let g:_colorscheme_var = {
+      \ 'bright_statusline' : 1,
+      \ }
 let g:_checkers_var = {
       \ 'show_cursor_error' : 1,
       \ }
