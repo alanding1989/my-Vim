@@ -6,7 +6,7 @@ scriptencoding utf-8
 
 
 " MyVim layers
-let s:define_my_layers  = ['tags', 'langtools', 'tools#clock', 'defhighligt']
+let s:define_my_layers  = ['tags', 'langtools', 'tools#clock', 'defhighlight']
 
 " SpaceVim embedded layers
 let s:add_plugin_layers = [
