@@ -29,13 +29,14 @@ function! layers#defhighlight#set_variable(var) abort
 endfunction
 
 
+let s:hlcmds = {}
 function! s:highlight_apply(ft, colors) abort
-  let s:hlcmds = {}
-  let s:hlcmds[a:ft] = []
+  let ftcmds = {}
+  let ftcmds[a:ft] = []
   for [group, attr_val] in items(a:colors)
-    call add(s:hlcmds[a:ft], <sid>hl_one(group, attr_val))
+    call add(ftcmds[a:ft], <sid>hl_one(group, attr_val))
   endfor
-  call map(items(a:colors), {key, val -> add(s:hlcmds[a:ft], <sid>hl_one(key, val))})
+  call extend(s:hlcmds, ftcmds)
 endfunction
 
 function! s:hl_one(group, attr_val) abort
@@ -46,48 +47,58 @@ function! s:hl_one(group, attr_val) abort
         \ 'ctermbg' : 3,
         \ 'italic'  : 4
         \ }
-  let cmdlist = []
+  let strlist = []
   for [attr, idx] in reverse(items(attrs))
     if idx != 4
       let cmd = a:attr_val[idx] != -1 ? attr. '=' .a:attr_val[idx] : ''
-      call add(cmdlist, cmd)
+      call add(strlist, cmd)
     else
       let cmdi = a:attr_val[4] ? 'gui=italic cterm=italic' : ''
     endif
   endfor
-  call add(cmdlist, cmdi)
-  let g:statement = 'hi! '. a:group .' '. join(cmdlist, ' ')
-  exec g:statement
-  return g:statement
+  call add(strlist, cmdi)
+  exec 'hi! '. a:group .' '. join(strlist, ' ')
+
+  " format hlcmds
+  let hlcmd = a:group .repeat(' ', 20-len(a:group)). join(strlist, ' ')
+  return hlcmd
 endfunction
 
 function! layers#defhighlight#test_highlightcmds(...) abort
   let hlcmds = get(s:, 'hlcmds', {})
-  if len(hlcmds) > 0
-    let cmds = a:0 > 0 ? hlcmds[a:1] : hlcmds
-  else
+  if len(hlcmds) == 0
     let fts = join(keys(s:hlcolor), ' ')
     echohl WarningMsg
-    echo ' No customized highlight, have you already opened a '. fts .' file ?'
+    echo ' No customized highlight' 
+          \ . (empty(fts) ? '' : ', have you already opened a '. fts .' file ?')
     echohl NONE
     return
   endif
-  topleft vsplit CustomizedHighlightCmds
-  nnoremap <buffer> q :q<cr>
-  nnoremap <silent> <buffer> qd :bd<CR>
+  topleft vsplit _Custom_Highlight_Cmds_
+  nnoremap <silent><buffer> q  :q<CR>
+  nnoremap <silent><buffer> qq :bd<CR>
   setlocal buftype=nofile nolist noswapfile nowrap cursorline nospell
-  if type(cmds) == type([])
-    call setline(1, info + hlcmds)
+  setlocal filetype=defhighlight
+  let str = []
+  if a:0 > 0
+    let ft = toupper(a:1[0]) . a:1[1:]
+    let info = [
+          \ '',
+          \ ft .' Highlight Commands :',
+          \ '',
+          \ ]
+    let str = info + hlcmds[a:1]
   else
-    let line = 1
-    for [ft, list] in items(cmds)
+    for [ft, list] in items(hlcmds)
+      let ft = toupper(ft[0]) . ft[1:]
       let info = [
+            \ '',
             \ ft .' Highlight Commands :',
             \ '',
             \ ]
-      call setline(line, info + list)
-      let line = line + len(info) + len(list) + 1
+      let str = str + info + list
     endfor
   endif
+  call setline(1, str)
   setl nomodifiable
 endfunction

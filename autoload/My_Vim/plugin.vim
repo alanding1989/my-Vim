@@ -107,7 +107,7 @@ endfunction
 
 function! My_Vim#plugin#end() abort " {{{
   filetype plugin indent on
-  syntax on
+  syntax enable
   if s:firstinstall | return | endif
 
   " load leyer config

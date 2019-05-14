@@ -15,8 +15,9 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
   function! mapping#tab#super_tab() abort
     if pumvisible()
       if neosnippet#expandable()
+        let g:dlan = 1
         if g:neosnippet#enable_complete_done == 1
-          if s:cur_char(0, '(')
+          if s:cur_char(0, '(') || s:md ==# 'coc' || s:md ==# 'deoplete'
             return s:md ==# 'asyncomplete' ? asyncomplete#close_popup() : "\<c-y>"
           else
             return "\<c-e>\<plug>(neosnippet_expand)"

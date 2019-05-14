@@ -148,7 +148,7 @@ call deoplete#custom#source('neosnippet', 'rank', 1000)
 " deoplete-tabline
 call deoplete#custom#source('tabline', 'rank', 800)
 call deoplete#custom#var('tabline', {
-      \ 'rank'           : 1000,
+      \ 'rank'           : 800,
       \ 'line_limit'     : 500,
       \ 'max_num_results': 20,
       \ })

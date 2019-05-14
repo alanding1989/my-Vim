@@ -124,6 +124,10 @@ let g:_defhighlight_var = { 'hlcolor' : {
       \ 'python' : {
       \      'pythonSelf'     : [ '#61afef',  -1,  75,  -1,  1 ],
       \      'pythonClassVar' : [ '#61afef',  -1,  75,  -1,  1 ],
+      \ },
+      \ 'vim' : {
+      \      'Self'     : [ '#61afef',  -1,  75,  -1,  1 ],
+      \      'ClassVar' : [ '#61afef',  -1,  75,  -1,  1 ],
       \ }
       \ }}
 if g:is_unix
@@ -236,7 +240,6 @@ endif
 " ================================================================================
 " En/Disabled plugins
 " ============================================================================= {{{
-      " \ 'vim-one'              ,
 let g:spacevim_disabled_plugins = [
       \ 'molokai'              ,
       \ 'jellybeans.vim'       ,
