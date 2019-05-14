@@ -31,7 +31,7 @@ let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 " Preferences
 " ================================================================================
 let g:spacevim_autocomplete_method  = get(['coc'       , 'deoplete' , 'ncm2', 'ycm'], 0)
-let g:spacevim_snippet_engine       = get(['neosnippet', 'ultisnips', 'coc' ], 1)
+let g:spacevim_snippet_engine       = get(['neosnippet', 'ultisnips', 'coc' ], 0)
 let g:spacevim_fuzzyfinder          = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
 let g:spacevim_filemanager          = get(['vimfiler'  , 'nerdtree' , 'defx'], 2)
 let g:spacevim_statusline           = get(['airline'   , 'lightline', ''    ], 0)
@@ -120,15 +120,47 @@ let g:_lsp_var = {'filetypes' : [
       \ 'python',
       \ ]}
       " \ 'javascript',
+" [ guifg, guibg, ctermfg, ctermbg, italic, bold], -1 if None or negative
 let g:_defhighlight_var = { 'hlcolor' : {
       \ 'python' : {
-      \      'pythonSelf'     : [ '#61afef',  -1,  75,  -1,  1 ],
-      \      'pythonClassVar' : [ '#61afef',  -1,  75,  -1,  1 ],
+      \    'Statement'         : ['#f92672', -1, -1, -1, 0, 1],
+      \    'pythonKeyword'     : ['#f92672', -1, -1, -1, 0, 1],
+      \    'pythonImport'      : ['#f92672', -1, -1, -1, 0, 1],
+      \    'pythonInclude'     : ['#f92672', -1, -1, -1, 0, 1],
+      \    'pythonConditional' : ['#f92672', -1, -1, -1, 0, 1],
+      \    'pythonRepeat'      : ['#f92672', -1, -1, -1, 0, 1],
+      \
+      \    'pythonClass'       : ['#14cfcf', -1, -1, -1, 0, 0],
+      \    'semshiImported'    : ['#14cfcf', -1, -1, -1, 0, 0],
+      \    'pythonBuiltin'     : ['#14cfcf', -1, -1, -1, 1, 0],
+      \    'semshiBuiltin'     : ['#14cfcf', -1, -1, -1, 1, 0],
+      \ 
+      \    'Define'            : ['#df5fdb', -1, -1, -1, 1, 0],
+      \    'semshiSelf'        : ['#df5fdb', -1, -1, -1, 1, 0],
+      \    'pythonSelf'        : ['#df5fdb', -1, -1, -1, 1, 0],
+      \    'pythonClassVar'    : ['#df5fdb', -1, -1, -1, 1, 0],
+      \ 
+      \    'function'          : ['#a3e234', -1, -1, -1, 0, 0],
+      \    'pythonFunction'    : ['#a3e234', -1, -1, -1, 0, 0],
+      \    'pythonDecorator'   : ['#a3e234', -1, -1, -1, 1, 0],
+      \
+      \    'semshiLocal'       : ['#fd971f', -1, -1, -1, 1, 0],
+      \    'pythonParam'       : ['#fd971f', -1, -1, -1, 1, 0],
+      \
+      \    'Type'              : ['#607fbf', -1, -1, -1, 0, 0],
+      \    'pythonBuiltinType' : ['#607fbf', -1, -1, -1, 0, 0],
+      \
+      \    'String'            : ['#e6db74', -1, -1, -1, 0, 0],
+      \    'pythonString'      : ['#e6db74', -1, -1, -1, 0, 0],
+      \    'pythonRawString'   : ['#e6db74', -1, -1, -1, 0, 0],
+      \    'pythonStringDelimiter': ['#e6db74', -1, -1, -1, 0, 0],
+      \
+      \    'Operator'          : ['#f92672', -1, -1, -1, 0, 0],
+      \    'pythonOperator'    : ['#f92672', -1, -1, -1, 0, 0],
+      \
+      \    'Number'            : ['#ae81ff', -1, -1, -1, 0, 0],
+      \    'StorageClass'      : ['#aab6e1', -1, -1, -1, 1, 0],
       \ },
-      \ 'vim' : {
-      \      'Self'     : [ '#61afef',  -1,  75,  -1,  1 ],
-      \      'ClassVar' : [ '#61afef',  -1,  75,  -1,  1 ],
-      \ }
       \ }}
 if g:is_unix
   call add(g:_lsp_var['filetypes'], 'sh')

@@ -45,18 +45,21 @@ function! s:hl_one(group, attr_val) abort
         \ 'guibg'   : 1,
         \ 'ctermfg' : 2,
         \ 'ctermbg' : 3,
-        \ 'italic'  : 4
+        \ 'italic'  : 4,
+        \ 'bold'    : 5
         \ }
   let strlist = []
   for [attr, idx] in reverse(items(attrs))
-    if idx != 4
+    if idx != 4 && idx != 5
       let cmd = a:attr_val[idx] != -1 ? attr. '=' .a:attr_val[idx] : ''
       call add(strlist, cmd)
-    else
+    elseif idx == 4
       let cmdi = a:attr_val[4] ? 'gui=italic cterm=italic' : ''
+    elseif idx == 5
+      let cmdb = a:attr_val[5] ? 'gui=bold cterm=bold'     : ''
     endif
   endfor
-  call add(strlist, cmdi)
+  call add(strlist, cmdi) | call add(strlist, cmdb)
   exec 'hi! '. a:group .' '. join(strlist, ' ')
 
   " format hlcmds

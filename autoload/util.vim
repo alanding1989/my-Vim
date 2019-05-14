@@ -72,29 +72,29 @@ function! util#help_wrapper(...) abort
 endfun
 
 function! util#vim_help_wrapper(...) abort
-    let input = input('Help keyword/Cancel(n): ', '', 'help')
-    if input ==# 'n' | return | endif
-    if input ==# 'fl'
-      exec 'help function-list' | exec ':resize'
-      return
-    endif
-    let cword = expand('<cword>')
+  let input = input('Help keyword/Cancel(n): ', '', 'help')
+  if input ==# 'n' | return | endif
+  if input ==# 'fl'
+    exec 'help function-list' | exec ':resize'
+    return
+  endif
+  let cword = expand('<cword>')
 
-    if empty(input) && !empty(cword)
-      exec 'vert bo help '.cword
-    elseif input ==# 'f' && !empty(cword)
-      exec 'help '.cword | exec 'resize'
-    elseif !empty(input)
-      try
-        let input0 = split(input)[0]
-        let input1 = split(input)[1]
-        if input1 ==# 'f'
-          exec 'help '.input0 | exec 'resize'
-        endif
-      catch
-        exec 'vert bo help '.input
-      endtry
-    endif
+  if empty(input) && !empty(cword)
+    exec 'vert bo help '.cword
+  elseif input ==# 'f' && !empty(cword)
+    exec 'help '.cword | exec 'resize'
+  elseif !empty(input)
+    try
+      let input0 = split(input)[0]
+      let input1 = split(input)[1]
+      if input1 ==# 'f'
+        exec 'help '.input0 | exec 'resize'
+      endif
+    catch
+      exec 'vert bo help '.input
+    endtry
+  endif
 endfunction
 "}}}
 
@@ -105,7 +105,8 @@ function! util#hlight_wrapper(...) abort
           \ . 'highlight '. expand('<cword>')
   catch
     exec (a:0 > 0 && a:1 ==# 'v' ? 'verbose ' : '')
-          \ . 'highlight '. (a:0 > 0 && a:1 !=# 'v' ? a:1 : '')
+          \ . 'highlight ' . 
+          \ (a:0 == 0 ? '' : (a:1 !=# 'v' ? a:1 : a:2))
   endtry
 endfunction " }}}
 "}}}
@@ -206,9 +207,9 @@ function! util#Show_curPlugin_log()
         \ 'git --no-pager -C ' 
         \ . plugdir . plug
         \ . ' log -n 15 --oneline']], {'log': 1, 'wrap': 1,'start_insert':0})
-  " exec 'Denite output:!git\ --no-pager\ -C\ '
-        " \ . plugdir . plug
-        " \ . '\ log\ -n\ 15\ --oneline'
+  exec 'Denite output:!git\ --no-pager\ -C\ '
+        \ . plugdir . plug
+        \ . '\ log\ -n\ 15\ --oneline'
   exe "nnoremap <buffer><CR> :call <SID>Opencommit('". plug ."', strpart(split(getline('.'),'[33m')[1],0,7))<CR>"
 endfunction
 function! s:Opencommit(repo, commit)

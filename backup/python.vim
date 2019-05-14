@@ -13,3 +13,16 @@ hi semshiSelected        ctermfg=231 guifg=#ffffff ctermbg=161 guibg=#d7005f
 hi semshiErrorSign       ctermfg=231 guifg=#ffffff ctermbg=160 guibg=#d70000
 hi semshiErrorChar       ctermfg=231 guifg=#ffffff ctermbg=160 guibg=#d70000
 sign define semshiError text=E> texthl=semshiErrorSign
+
+
+" [ guifg, guibg, ctermfg, ctermbg, italic, bold], -1 if None or negative
+let g:_defhighlight_var = { 'hlcolor' : {
+      \ 'python' : {
+      \    'semshiLocal'    : [ '#fd971f',  -1,  -1,  -1, 0, 0],
+      \    'semshiImported' : [ '#f92672',  -1,  -1,  -1, 0, 1],
+      \    'semshiSelf'     : [ '#df5fdb',  -1,  -1,  -1, 1, 0],
+      \    'semshiBuiltin'  : [ '#14cfcf',  -1,  -1,  -1, 0, 0],
+      \    'pythonSelf'     : [ '#df5fdb',  -1,  -1,  -1, 1, 0],
+      \    'pythonClassVar' : [ '#61afef',  -1,  -1,  -1, 0, 0],
+      \ },
+      \ }}

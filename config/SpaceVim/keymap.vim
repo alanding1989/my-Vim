@@ -14,23 +14,16 @@ scriptencoding utf-8
 " need to define after vim enter
 let g:_spacevim_mappings[';'] = ['', 'easyMotion prefix']
 
-let g:_spacevim_mappings.a         = get(g:_spacevim_mappings, 'a', {})
+let g:_spacevim_mappings.a         = get(g:_spacevim_mappings  , 'a'   , {})
 let g:_spacevim_mappings.a['name'] = get(g:_spacevim_mappings.a, 'name', '+@ Session/Setting/Select')
-let g:_spacevim_mappings.a.c       = get(g:_spacevim_mappings.a, 'c', {'name': '+Open config file'})
-" select
-call SpaceVim#mapping#def('nnoremap', '<leader>aa',
-      \ 'ggVG', 'select whole buffer', '', 'select whole buffer')
-call SpaceVim#mapping#def('nnoremap', '<leader>ae',
-      \ 'VG', 'select to the end', '', 'select to the end')
-call SpaceVim#mapping#def('nnoremap', '<leader>az',
-      \ ':call mapping#basic#zzmode()<CR>', 'toggle zzmode', '', 'toggle zzmode')
-call SpaceVim#mapping#def('nnoremap <expr>', '<leader>ap',
-      \ "'`['.strpart(getregtype(), 0, 1).'`]'", 'select last paste section', '', 'select last paste section')
-" call SpaceVim#mapping#def('nnoremap', '<leader>am',
-      " \ ':call util#statusline#pureline()', 'set statusline', '', 'set statusline')
-" call SpaceVim#mapping#def('xnoremap', '<leader>y',
-      " \ '"+y', 'copy selection to system clipboard', '', 'copy selection to system clipboard')
+let g:_spacevim_mappings.a.c       = get(g:_spacevim_mappings.a, 'c'   , {'name': '+Open config file'})
 
+" select
+let g:_spacevim_mappings.a.a = ['ggVG'                                    , 'select whole buffer'      ]
+let g:_spacevim_mappings.a.e = ['VG'                                      , 'select to the end'        ]
+let g:_spacevim_mappings.a.z = ['call mapping#basic#zzmode()'             , 'toggle zzmode'            ]
+let g:_spacevim_mappings.a.p = ['"`[" .strpart(getregtype(), 0, 1) ."`]"' , 'select last paste section']
+let g:_spacevim_mappings.a.m = ['call util#statusline#pureline()'         , 'set statusline'           ]
 
 " echo value/edit snippets
 let g:_spacevim_mappings.e   = {'name':  '+@ Echo value/Edit snippets' }

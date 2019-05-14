@@ -23,7 +23,7 @@ augroup colorscheme_related
         \                       | hi Cursorline  guibg=#2c323c    ctermbg=16         
   autocmd ColorScheme *           hi! MatchParen  gui=italic,bold  cterm=italic,bold  
         \                       | hi! Folded      gui=italic       cterm=italic       
-        \                       | hi! Comment     gui=italic       cterm=italic       
+        \                       | hi! Comment     gui=italic       cterm=italic
 augroup END
 
 
