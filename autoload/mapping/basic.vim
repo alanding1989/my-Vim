@@ -183,8 +183,8 @@ function! mapping#basic#load() abort
   inoremap <expr> :   match(getline('.'), '\v^\s*\zs(let.*\?)') > -1 ? ': ' : ":"
 
   " g related
-  nnoremap go          gf
-  nnoremap g0          *
+  auto VimEnter * nnoremap g0    *
+  auto VimEnter * nnoremap go    gf
   " insert new line
   nnoremap <tab>o      o<ESC>
   nnoremap <tab>p      O<ESC>j

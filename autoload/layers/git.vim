@@ -18,7 +18,7 @@ function! layers#git#plugins() abort
   call add(plugins, ['sodapopcan/vim-twiggy', {'on_cmd': 'Twiggy', 'on': 'Twiggy'}])
   if g:is_spacevim && g:spacevim_filemanager ==# 'defx'
     " call add(plugins, ['kristijanhusak/defx-git', {'merged': 0}])
-  elseif !g:is_spacevim 
+  elseif !g:is_spacevim
     "{{{
     call add(plugins, ['junegunn/gv.vim'       , {'on_cmd': 'GV', 'on': 'GV'}])
     call add(plugins, ['tpope/vim-fugitive'    , {'merged': 0}])
@@ -94,14 +94,9 @@ function! layers#git#config() abort
       nnoremap <Space>gA   :Gita add .<CR>
       nnoremap <Space>gb   :Gina blame<CR>
     endif
-    augroup layer_git
-      autocmd!
-      auto FileType diff nnoremap <buffer><silent> q :bd!<CR>
-      auto FileType gitcommit auto! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
-    augroup END
-    nnoremap <Space>gM     :call <sid>display_last_commit_of_current_line<CR>
-    nnoremap <Space>gV     :GV!<CR>
-    nnoremap <Space>gv     :GV<CR>
+      nnoremap <Space>gM   :call <sid>display_last_commit_of_current_line<CR>
+      nnoremap <Space>gV   :GV!<CR>
+      nnoremap <Space>gv   :GV<CR>
     if !My_Vim#layer#isLoaded('VersionControl')
       nnoremap <Space>gf   :GitGutterFold<CR>
       nmap     <Space>gha  <Plug>GitGutterStageHunk
@@ -110,6 +105,11 @@ function! layers#git#config() abort
     else
       nnoremap <Space>gf   :SignifyFold<CR>
     endif
+    augroup layer_git
+      autocmd!
+      auto FileType diff nnoremap <buffer><silent> q :bd!<CR>
+      auto FileType gitcommit auto! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
+    augroup END
   endif "}}}
 endfunction
 

@@ -13,13 +13,14 @@ let s:default_layers = [
       \ 'edit'          ,
       \ 'format'        ,
       \ 'leaderf'       ,
-      \ 'VersionControl',
+      \ 'denite'        ,
+      \ 'git'           ,
       \ 'ui'            ,
       \ ]
 
 " check manager installation
 " load layers, plugins
-" check installed plugins, if not auto install
+" check uninstalled plugins and auto install
 function! My_Vim#plugin#begin() abort
   let s:enabled_plugins_name = []
   let s:uninstalled_plugins  = []
@@ -35,7 +36,7 @@ endfunction
 function! s:load_plugin() abort "{{{
   for layer in s:enabled_layers_get()
     let plugins = layers#{layer}#plugins()
-    if util#dict#valid(plugins)
+    if util#list#valid(plugins)
       for plugin in plugins
         call s:plugin_add(layer, plugin)
       endfor
@@ -127,15 +128,13 @@ function! My_Vim#plugin#end() abort " {{{
   call map(deepcopy(defaultload), {key, val -> util#so_file('plugins/'.val.'.vim', 'Vim')})
 
   " Hotkey menu
-  call util#so_file('keymap.vim', 'Vim')
+  " call util#so_file('keymap.vim', 'Vim')
 endfunction
 "}}}
 
 
 " util functions {{{
 function! s:check_manager_install() abort "{{{
-  let g:My_Vim_plug_dir = g:is_win ? 'D:/.cache/My_Vim/'.g:plugmanager.'/' :
-        \ '/home/alanding/.cache/My_Vim'.(g:is_root ? '-root/' : '-alan/').g:plugmanager.'/'
   if g:plugmanager ==# 'vim-plug' "{{{
     if glob('~/.vim.d/autoload/plug.vim') ==# ''
       exec '!curl -fLo "'.expand('~/.SpaceVim.d/autoload/plug.vim')

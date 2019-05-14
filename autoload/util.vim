@@ -262,36 +262,6 @@ function! s:UpdateStarredRepos()
   endfor
   return 1
 endfunction "}}}
-
-" plugin syntax Test {{{
-function! util#test_syntaxcmd(...) abort
-  let syntaxcmds = layers#defhighlight#get_variable()['syntaxcmds']
-  if len(syntaxcmds) > 0
-    let cmds = a:0 > 0 ? syntaxcmds[a:1] : syntaxcmds
-  else
-    echohl WarningMsg
-    echo 'no customized highlight'
-    echohl NONE
-    return
-  endif
-  topleft vsplit TestSyntaxCmds
-  nnoremap <buffer> q :q<cr>
-  nnoremap <silent> <buffer> q :bd<CR>
-  setlocal buftype=nofile nolist noswapfile nowrap cursorline nospell nomodifiable
-  if type(cmds) == type([])
-    call setline(1, info + syntaxcmds)
-  else
-    let line = 1
-    for [ft, list] in cmds
-      let info = [
-            \ ft .' Syntax Commands :',
-            \ '',
-            \ ]
-      call setline(line, info + list)
-      let line = line + len(info) + len(list) + 1
-    endfor
-  endif
-endfunction "}}}
 "}}}
 
 
@@ -339,6 +309,10 @@ endfunction "}}}
 
 
 " function() wrapper for memo "{{{
+function! util#valid(type, ...) abort
+  return util#{a:type}#valid(a:000)
+endfunction
+
 if v:version > 703 || v:version == 703 && has('patch1170')
   function! s:_function(fstr) abort
     return function(a:fstr)

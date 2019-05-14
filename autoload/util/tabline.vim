@@ -8,7 +8,6 @@ scriptencoding utf-8
 
 
 
-
 " jump window
 function! util#tabline#winjump(n) abort
   if winnr('$') >= a:n
@@ -18,7 +17,7 @@ endfunction
 
 
 " tabline jump {{{
-let s:_altmoveignoreft = ['Tagbar', 'vimfiler', 'defx']
+let s:_altmoveignoreft = ['Tagbar', 'vimfiler', 'defx', 'vista_kind']
 function! util#tabline#tabjump(num) abort
   if index(get(s:,'_altmoveignoreft',[]), &filetype) == -1
     if a:num ==# 'next'

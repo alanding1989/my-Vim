@@ -33,7 +33,6 @@ let g:autocomplete_method           = get(['coc'       , 'deoplete' , 'ncm2'], 2
 let g:snippet_engine                = get(['neosnippet', 'ultisnips', 'coc' ], 0)
 let g:fuzzyfinder                   = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
 let g:filemanager                   = get(['vimfiler'  , 'nerdtree' , 'defx'], 2)
-let g:plugmanager                   = 1 ? 'dein'    : 'vim-plug'
 let g:checker                       = 1 ? 'ale'     : 'neomake'
 let g:statusline                    = 1 ? 'airline' : 'lightline'
 let g:lint_on_the_fly               = 1
@@ -77,7 +76,7 @@ let g:My_Vim_layers = {
       \ 'colorscheme'       : 1,
       \ 'tags'              : 1,
       \ 'tools'             : 1,
-      \ 'langtools'         : 0,
+      \ 'langtools'         : 1,
       \ 'lsp'               : 1,
       \ 'lang#markdown'     : 1,
       \ 'lang#ipynb'        : 0,
@@ -100,7 +99,6 @@ if g:fuzzyfinder ==# 'leaderf' " {{{
       \ && g:My_Vim_layers['leaderf']
   let g:My_Vim_layers['leaderf'] = 1
   let g:My_Vim_layers['denite']  = 1
-  " let g:My_Vim_layers['unite']   = 1
 elseif g:fuzzyfinder ==# 'denite'
   let g:My_Vim_layers['denite']  = 1
   let g:My_Vim_layers['leaderf'] = 0

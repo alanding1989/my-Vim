@@ -96,7 +96,7 @@ function! s:SpaceVim_add_plugins() abort
   if !s:is_fallback
     for layer in s:define_my_layers
       let plugins = layers#{layer}#plugins()
-      if !empty(layer) && util#dict#valid(plugins)
+      if !empty(layer) && util#list#valid(plugins)
         let g:spacevim_custom_plugins += plugins
       endif
     endfor
@@ -111,7 +111,7 @@ endfunction
 " load layer
 function! s:loadlayers() abort
   for [layer, value] in items(g:My_SpaceVim_layers)
-    let var = get(g:, '_'. layer .'_var')
+    let var = get(g:, '_'. layer .'_var', {})
     if value == 1 && util#dict#valid(var)
       call SpaceVim#layers#load(layer, var)
     elseif value == 1
@@ -135,7 +135,7 @@ function! s:Mylayers_config_load() abort
   endif
   for layer in s:define_my_layers
     if !empty(layer)
-      let var = get(g:, '_'.layer.'_var')
+      let var = get(g:, '_'.layer.'_var', {})
       if util#dict#valid(var)
         call layers#{layer}#set_variable(var)
       endif

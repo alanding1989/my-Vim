@@ -72,9 +72,6 @@ function! layers#core#config() abort
 
     nnoremap <space>ps  :Grepper<CR>
   else
-    " if My_SpaceVim#Main#isfallback()
-      " exec 'set runtimepath+='. g:spacevim_plugin_bundle_dir. 'repos/github.com/Shougo/unite.vim'
-    " endif
     exec 'so '. g:vim_plugindir .'unite.vim'
     unlet g:_spacevim_mappings_space.b.R | nunmap [SPC]bR
     call SpaceVim#mapping#space#def('nnoremap', ['b', 'r'], 'call call('
@@ -701,9 +698,7 @@ function! s:open_plugins_dir(cmd) abort "{{{
     if g:is_spacevim
       if glob(g:spacevim_plugin_bundle_dir.'repos/github.com/'.@a) !=# ''
         exec a:cmd . g:spacevim_plugin_bundle_dir.'repos/github.com/'.@a
-      endif
-    else
-      if glob(g:My_Vim_plug_dir.'repos/github.com/'.@a) !=# ''
+      elseif glob(g:My_Vim_plug_dir.'repos/github.com/'.@a) !=# ''
         exec a:cmd . g:My_Vim_plug_dir.'repos/github.com/'.@a
       endif
     endif
@@ -711,9 +706,7 @@ function! s:open_plugins_dir(cmd) abort "{{{
     if g:is_spacevim
       if glob(g:spacevim_plugin_bundle_dir.'repos/github.com/'.@a) !=# ''
         exec a:cmd . g:spacevim_plugin_bundle_dir . split(@a, '/')[1]
-      endif
-    else
-      if glob(g:My_Vim_plug_dir.'repos/github.com/'.@a) !=# ''
+      elseif glob(g:My_Vim_plug_dir.'repos/github.com/'.@a) !=# ''
         exec a:cmd . g:My_Vim_plug_dir . split(@a, '/')[1]
       endif
     endif

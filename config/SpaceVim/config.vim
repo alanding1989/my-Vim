@@ -120,7 +120,7 @@ let g:_lsp_var = {'filetypes' : [
       \ 'python',
       \ ]}
       " \ 'javascript',
-let g:_defhighlight_var = { 'hicolor' : {
+let g:_defhighlight_var = { 'hlcolor' : {
       \ 'python' : {
       \      'pythonSelf'     : [ '#61afef',  -1,  75,  -1,  1 ],
       \      'pythonClassVar' : [ '#61afef',  -1,  75,  -1,  1 ],

@@ -21,11 +21,10 @@ function! layers#ui#plugins() abort
     endif
   else
     let plugins += [
-          \ ['Yggdroot/indentLine', {'merged': 0}],
-          \ ['t9md/vim-choosewin' , {'merged': 0}],
-          \ ['mhinz/vim-startify' , {'merged': 0}],
-          \ ['junegunn/rainbow_parentheses.vim',
-          \   {'on_cmd': 'RainbowParentheses', 'on': 'RainbowParentheses'}],
+          \ ['Yggdroot/indentLine'             , {'merged': 0}],
+          \ ['t9md/vim-choosewin'              , {'merged': 0}],
+          \ ['mhinz/vim-startify'              , {'merged': 0}],
+          \ ['junegunn/rainbow_parentheses.vim', {'merged': 0}],
           \ ]
     if g:statusline ==# 'airline'
       call add(plugins, ['vim-airline/vim-airline'       , {'merged': 0}])
@@ -47,7 +46,7 @@ function! layers#ui#config() abort
     autocmd!
     autocmd BufWinEnter * RainbowParentheses
     autocmd FileType vimcalc setlocal nonu nornu nofoldenable | inoremap <silent> <buffer> <c-d> <c-[>:q<CR>
-          \ | nnoremap <silent> <buffer> q :bdelete<CR>
+          \ | nnoremap <silent> <buffer> qd :bdelete<CR>
   augroup END
 
   if !g:is_spacevim
