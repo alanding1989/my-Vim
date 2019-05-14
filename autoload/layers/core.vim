@@ -692,23 +692,22 @@ elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# '
 endif
 function! s:open_plugins_dir(cmd) abort "{{{
   let temp = @a | let @a=''
-  norm! mz"ayi'
-  norm! `z
+  normal! mz"ayi'
+  normal! `z
+  let selfp = g:is_vim8  ? g:My_Vim_plug_dir : g:spacevim_plugin_bundle_dir
+  let altp = !g:is_vim8 ? g:My_Vim_plug_dir : g:spacevim_plugin_bundle_dir
   if exists('#dein')
-    if g:is_spacevim
-      if glob(g:spacevim_plugin_bundle_dir.'repos/github.com/'.@a) !=# ''
-        exec a:cmd . g:spacevim_plugin_bundle_dir.'repos/github.com/'.@a
-      elseif glob(g:My_Vim_plug_dir.'repos/github.com/'.@a) !=# ''
-        exec a:cmd . g:My_Vim_plug_dir.'repos/github.com/'.@a
-      endif
+    if glob(selfp .'repos/github.com/'.@a) !=# ''
+      exec a:cmd .selfp .'repos/github.com/' . @a
+    elseif glob(altp .'repos/github.com/' . @a) !=# ''
+      exec a:cmd .altp .'repos/github.com/' . @a
     endif
   else
-    if g:is_spacevim
-      if glob(g:spacevim_plugin_bundle_dir.'repos/github.com/'.@a) !=# ''
-        exec a:cmd . g:spacevim_plugin_bundle_dir . split(@a, '/')[1]
-      elseif glob(g:My_Vim_plug_dir.'repos/github.com/'.@a) !=# ''
-        exec a:cmd . g:My_Vim_plug_dir . split(@a, '/')[1]
-      endif
+    let plugn = split(@a, '/')[1]
+    if glob(selfp .(g:is_vim8 ? '' : 'repos/github.com/') .plugn) !=# ''
+      exec a:cmd .selfp .plugn
+    elseif glob(altp .(g:is_vim8 ? '' : 'repos/github.com/') .plugn) !=# ''
+      exec a:cmd .altp .plugn 
     endif
   endif
   let @a = temp

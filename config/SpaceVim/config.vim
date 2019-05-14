@@ -31,7 +31,7 @@ let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 " Preferences
 " ================================================================================
 let g:spacevim_autocomplete_method  = get(['coc'       , 'deoplete' , 'ncm2', 'ycm'], 0)
-let g:spacevim_snippet_engine       = get(['neosnippet', 'ultisnips', 'coc' ], 0)
+let g:spacevim_snippet_engine       = get(['neosnippet', 'ultisnips', 'coc' ], 1)
 let g:spacevim_fuzzyfinder          = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
 let g:spacevim_filemanager          = get(['vimfiler'  , 'nerdtree' , 'defx'], 2)
 let g:spacevim_statusline           = get(['airline'   , 'lightline', ''    ], 0)

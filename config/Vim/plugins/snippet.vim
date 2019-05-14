@@ -38,8 +38,8 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
   let g:UltiSnipsJumpForwardTrigger              = '<Plug>(ultisnips_expand_jump)'
   let g:UltiSnipsJumpBackwardTrigger             = '<Plug>(ultisnips_prev)'
   let g:UltiSnipsEditSplit                       = 'vertical'
-  " if edit snippets, first search '&ft.snippets' in this dir,
-  " then the following dir, if none create new '&ft.snippets'
+  " if edit snippets, first search '&ft.snippets' in the follow 1th dir,
+  " then the 2nd dir, if none create new '&ft.snippets'
   let g:UltiSnipsSnippetsDir                     = g:is_win ?
         \ expand('D:/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/UltiSnips') :
         \ expand('/home/alanding/.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/UltiSnips')

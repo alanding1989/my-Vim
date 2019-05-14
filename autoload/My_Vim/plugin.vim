@@ -32,6 +32,31 @@ function! My_Vim#plugin#begin() abort
   endif
 endfunction
 
+function! My_Vim#plugin#end() abort " {{{
+  filetype plugin indent on
+  syntax enable
+  if s:firstinstall | return | endif
+
+  " load leyer config
+  call map(deepcopy(g:enabled_layers), {key, val -> layers#{val}#config()})
+  " load enabled_plugins global config variable
+  let enabled_pluglist = map(deepcopy(s:enabled_plugins_name),
+        \ {key, val -> g:vim_plugindir . fnamemodify(val, ':r').'.vim'})
+  let filelist = util#globpath(g:vim_plugindir, '*.vim')
+  for fpath in filelist
+    if index(enabled_pluglist, fpath) > 0
+      exec 'so ' fpath
+    endif
+  endfor
+  " load default_layers global variable
+  let defaultload = ['autocomp_plugins', 'snippet', 'langtools', 'ui' ]
+  call map(deepcopy(defaultload), {key, val -> util#so_file('plugins/'.val.'.vim', 'Vim')})
+
+  " Hotkey menu
+  call util#so_file('keymap.vim', 'Vim')
+endfunction
+"}}}
+
 
 function! s:load_plugin() abort "{{{
   for layer in s:enabled_layers_get()
@@ -53,7 +78,7 @@ endfunction "}}}
 function! s:plugin_add(layer, plugin) abort " {{{
   let repo   = a:plugin[0]
   let config = get(a:plugin, 1, {})
-  let plug_name = split(repo, '/')[-1]
+  let plug_name = split(repo, '/')[1]
   if index(get(g:, 'disabled_plugins', []), repo) == -1
     if g:plugmanager ==# 'vim-plug'
       Plug repo, config
@@ -101,34 +126,6 @@ function! s:check_plugin_install() abort " {{{
       call filter(s:enabled_plugins_name, 'v:val != elem')
     endfor
   endif
-endfunction
-"}}}
-
-
-function! My_Vim#plugin#end() abort " {{{
-  filetype plugin indent on
-  syntax enable
-  if s:firstinstall | return | endif
-
-  " load leyer config
-  call map(deepcopy(g:enabled_layers), {key, val -> layers#{val}#config()})
-
-  " load enabled_plugins global config variable
-  let enabled_pluglist = map(deepcopy(s:enabled_plugins_name),
-        \ {key, val -> g:vim_plugindir . fnamemodify(val, ':r').'.vim'})
-  let filelist = util#globpath(g:vim_plugindir, '*.vim')
-  for fpath in filelist
-    if index(enabled_pluglist, fpath) > 0
-      exec 'so ' fpath
-    endif
-  endfor
-
-  " load default_layers global variable
-  let defaultload = ['autocomp_plugins', 'snippet', 'langtools', 'ui' ]
-  call map(deepcopy(defaultload), {key, val -> util#so_file('plugins/'.val.'.vim', 'Vim')})
-
-  " Hotkey menu
-  " call util#so_file('keymap.vim', 'Vim')
 endfunction
 "}}}
 
