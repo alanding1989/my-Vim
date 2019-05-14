@@ -24,7 +24,8 @@ endfunction
 function! s:codi() abort
   if g:is_spacevim
     let g:_spacevim_mappings.l = {'name': '+@ Language tools' }
-    call SpaceVim#mapping#def('noremap', '<leader>lc', ':Codi!! ', 'toggle codi for current buffer', '', 'toggle codi for current buffer')
+    call SpaceVim#mapping#def('noremap', '<leader>lc', ':Codi!! ',
+          \ 'toggle codi for current buffer', '', 'toggle codi for current buffer')
   else
     noremap <leader>lc :Codi!!
   endif
@@ -32,8 +33,9 @@ endfunction
 
 function! s:far() abort
   if g:is_spacevim
-    call SpaceVim#mapping#def('noremap', '<leader>la', ':Far ', 'Far prefix', '', 'Far prefix')
+    call SpaceVim#custom#SPC('nnoremap', ['s', 'a'], 'call feedkeys(":Far ")', 
+          \ 'replace symbol in multiple files', 1)
   else
-    noremap <leader>lf :call feedkeys(':Far ')<CR>
+    nnoremap <Space>sa :call feedkeys(':Far ')<CR>
   endif
 endfunction
