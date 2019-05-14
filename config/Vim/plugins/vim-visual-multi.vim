@@ -11,6 +11,7 @@ endif
 let s:loaded = 1
 
 
+let g:table_mode_toggle_map = 't'
 
 let g:VM_maps               = {}
 let g:VM_maps['Select All'] = ''

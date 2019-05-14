@@ -195,8 +195,9 @@ endif
 "}}}
 
 if g:spacevim_autocomplete_method ==# 'coc' "{{{
-  let s:se = g:spacevim_snippet_engine
-  let s:se = s:se !=# 'neosnippet' ? 'coc' : s:se
+  let g:spacevim_snippet_engine = 
+        \ g:spacevim_snippet_engine !=# 'neosnippet' 
+        \ ? 'coc' : g:spacevim_snippet_engine
 endif
 "}}}
 
