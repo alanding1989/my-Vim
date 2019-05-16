@@ -8,7 +8,7 @@ scriptencoding utf-8
 
 function! mapping#basic#load() abort
   let g:mapleader       = ';'
-  let g:maplocalleader  = "\<Space>"
+  " let g:maplocalleader  = "\<Space>"
   set timeout
   " set timeoutlen=800
   auto VimEnter * call s:unmap_SPC()
@@ -166,21 +166,7 @@ function! mapping#basic#load() abort
 
 
   " edit related {{{
-  auto FileType sh, inoremap <expr> =   match(getline('.'),
-        \ '\v(\=\s){1}\_$\|(\>\s){1}\_$\|(\<\s){1}\_$\|(\+\s){1}\_$\|(\-\s){1}\_$') > -1 ? "\<bs>=<space>" : '='
-  for char in ['d', 'e', 'f', 'z', 'n']
-    exec 'inoremap <expr> '.char.' matchend(getline("."), "- ") > -1 ? "\<bs>'.char.'<space>" : "'.char.'"'
-  endfor
-  auto FileType vim inoremap <expr> #   match(getline('.'),
-        \ '\v(\=\s){1}\_$\|(\>\s){1}\_$\|(\<\s){1}\_$\|(\~\s){1}\_$\|(s\s){1}\_$') > -1 ? "\<bs>#<space>" : '#'
-  inoremap <expr> =   match(getline('.'),
-        \ '\v(\=\s){1}\_$\|(\>\s){1}\_$\|(\<\s){1}\_$\|(\+\s){1}\_$\|(\-\s){1}\_$') > -1 ? "\<bs>=<space>" : '= '
-  inoremap <expr> +   match(getline('.'), '\v\zs(if\|wh)') > -1 ? '+ ' : '+'
-  inoremap <expr> -   match(getline('.'), '\v\zs(if\|wh)') > -1 ? '- ' : '-'
-  inoremap <expr> >   match(getline('.'), '\v^\s*\zs(if\|wh\|let)') > -1 ? '> '  : ">"
-  inoremap <expr> <   match(getline('.'), '\v^\s*\zs(if\|wh\|let)') > -1 ? '< '  : "<>"
-  inoremap <expr> ?   match(getline('.'), '\v^\s*\zs(let.*\=)') > -1 ? '? ' : "?"
-  inoremap <expr> :   match(getline('.'), '\v^\s*\zs(let.*\?)') > -1 ? ': ' : ":"
+  call <sid>operator()
 
   " g related
   auto VimEnter * nnoremap g0    *
@@ -259,7 +245,7 @@ function! mapping#basic#load() abort
 
   " help
   nnoremap K             :call util#help_wrapper()<CR>
-  nnoremap <space>hh     :call util#vim_help_wrapper()<CR>
+  nnoremap <Space>hh     :EchoHelp 
   " show full path
   nnoremap <c-g>         2<c-g>
   " echo prefix
@@ -326,10 +312,43 @@ function! mapping#basic#load() abort
     nnoremap <leader>acl       :vs ~/.SpaceVim.d/config/SpaceVim/keymap.vim<CR>
     nnoremap <leader>acp       :vs ~/.SpaceVim.d/config/Vim/plugins/
     nnoremap <leader>ac[       :vs ~/.SpaceVim.d/config/SpaceVim/plugins_before/
+  endif
   let g:Lf_CacheDirectory      = expand('~/.cache')
-  endif "}}}
+  "}}}
 endfunction
 
+
+" operator mapping {{{
+function! s:operator() abort
+  auto FileType sh call <sid>bashfix()
+  call s:numfix()
+  inoremap <expr> =   MatchDel('=', '\(=\+\s\)\\|\(>\+\s\)\\|\(<\+\s\)\\|\(+\+\s\)\\|\(-\+\s\)')
+  inoremap <expr> \|  MatchDel('\|', '\|\+\s')
+  inoremap <expr> &   MatchDel('&', '&\+\s')
+  inoremap <expr> #   MatchDel('#', '\(=\+\s\)\\|\(=\~\)')
+  inoremap <expr> ~   MatchDel('~', '\(=\+\s\)')
+  inoremap <expr> >   MatchDel('>', '\(>\+\s\)\\|\(=\s_$\)\\|\(-\s_$\)')
+  inoremap <expr> <   MatchDel('<', '\v^\s*\zs(if\|el\|wh\|let)', '>')
+  inoremap <expr> -   AutoClo('-')
+  inoremap <expr> +   AutoClo('+')
+  inoremap <expr> ?   AutoClo('?')
+  inoremap <expr> (   AutoClo('(',')')
+  inoremap <expr> [   AutoClo('[',']')
+  inoremap <expr> {   AutoClo('{','}')
+  inoremap <expr> '   AutoClo("'","'")
+  inoremap <expr> "   AutoClo('"','"')
+  inoremap <expr> 《   AutoClo('《','》')
+endfunction
+function! s:numfix() abort
+  for num in range(10)
+    exec 'inoremap <expr> '.num.' MatchDel('.string(num).', "-\\s", 1)'
+  endfor
+endfunction
+function! s:bashfix() abort
+  for char in ['d', 'e', 'f', 'z', 'n']
+    exec 'inoremap <expr> '.char.' MatchDel('.string(char).', "-\\s", 1)'
+  endfor
+endfunction "}}}
 
 " quit_preview window {{{
 function! s:close_window() abort
@@ -630,6 +649,13 @@ function! s:unmap_SPC() abort
     nnoremap s <nop>
     nnoremap q <nop>
     try
+      nunmap   \p
+      nunmap   \P
+      nunmap   \qc
+      nunmap   \qr
+      nunmap   \ql
+      nunmap   \qp
+      nunmap   \qn
       nunmap   <F7>
       nunmap   <tab>
       iunmap   jk

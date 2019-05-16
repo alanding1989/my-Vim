@@ -133,3 +133,75 @@ endfunction "}}}
 function! Statusline(name) abort " {{{
   return util#statusline#{a:name}()
 endfunction "}}}
+
+
+" edit enhancement {{{
+function! AutoClo(char, ...) abort
+  " check right operators
+  if CurChar(1, a:char) && a:char != 0
+    return "\<right>"
+  elseif a:0 > 0 && a:1 !=# 1
+    " close pairs
+    return a:char. a:1. "\<left>"
+  elseif a:0 > 0 && a:1 ==# 1
+    return string(a:char)
+  endif
+
+  " check left operators, add Space or not
+  if NearNoSpace()
+    return a:char
+  else
+    return CurChar(0, '\s') ? a:char."\<Space>" : "\<Space>".a:char."\<Space>"
+  endif
+endfunction
+
+function! MatchDel(char, regex, ...) abort
+
+  if match(getline('.'), a:regex) > -1
+     if CurChar(0, '\s')
+       return CurChar(1, '\s') ? "\<BS>".a:char : "\<BS>".a:char."\<Space>" 
+     else
+       return CurChar(1, '\s') ? "\<Space>".a:char : "\<Space>".a:char."\<Space>" 
+     endif
+  else
+    if a:0 == 0 
+      return "\<C-r>=AutoClo(".string(a:char).")\<CR>"
+    else
+      return "\<C-r>=AutoClo(".string(a:char).', '.string(a:0 > 0 ? a:1 : '').")\<CR>"
+    endif
+  endif
+endfunction
+
+function! CurChar(pos, char) abort
+  " left 0, right 1
+  let isregex = a:char[0] ==# '\'
+  if a:pos ==# 0
+    return isregex
+        \ ? getline('.')[col('.')-2] =~# a:char
+        \ : getline('.')[col('.')-2] ==# a:char
+  elseif a:pos ==# 1
+    return isregex
+        \ ? getline('.')[col('.')-1] =~# a:char
+        \ : getline('.')[col('.')-1] ==# a:char
+  endif
+endfunction
+
+function! WithinQuote() abort
+  let temp = @a | let @a = ''
+  for q in ['"', "'", '`']    
+    exec 'normal! va'. q
+    " if
+      " return 1
+    " endif
+  endfor
+endfunction
+
+let s:exclude_char = ['\', '{', '[', '(', '"', "'", '`', '!']
+function! NearNoSpace() abort
+  for q in s:exclude_char
+    if CurChar(0, q) || CurChar(1, q)
+      return 1
+    endif
+  endfor
+endfunction
+"}}}

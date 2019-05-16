@@ -120,9 +120,7 @@ function! layers#autocomplete#config() abort
 
   " delimitMate
   imap <expr> <C-h> pumvisible() ? "\<C-e><BS>" : "\<Plug>delimitMateBS"
-  imap <expr> >     match(getline('.'), '\v^\s*\zs(if\|wh)') > -1 ? '> ' : "\<Plug>delimitMate\>"
-  imap <expr> <     match(getline('.'), '\v^\s*\zs(if\|wh)') > -1 ? '< ' : "\<Plug>delimitMate\<"
-  imap <expr> (     "\<Plug>delimitMate("
+  " imap <expr> (     "\<Plug>delimitMate("
 
   augroup layer_autocmplete
     autocmd!

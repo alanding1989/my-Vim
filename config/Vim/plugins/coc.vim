@@ -23,12 +23,13 @@ let g:coc_filetype_map        = {
       \ 'ipynb'    : 'python',
       \ }
 
+
 augroup my_coc_settings
   auto!
   " show func signature after jump code placehold
   autocmd CursorHoldI,CursorMovedI * silent call CocActionAsync('showSignatureHelp')
   autocmd CursorHold               * silent call CocActionAsync('highlight')
-  autocmd User CocDiagnosticChange AirlineRefresh
+  autocmd User       CocDiagnosticChange  AirlineRefresh
   autocmd VimEnter * call s:g_mappings()
   if findfile(expand($HOME.'/.SpaceVim/coc-settings.json')) ==# ''
     if g:is_unix
@@ -40,6 +41,11 @@ augroup my_coc_settings
             \ exec '!mklink /h "'.expand($HOME.'/.SpaceVim/coc-settings.json')
             \ .'" "'.expand($HOME.'/vimfiles/coc-settings.json').'"'
     endif
+  endif
+  if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) ==# 'neosnippet'
+    autocmd VimEnter * call coc#config('snippets.ultisnips', {
+          \ 'directories' : [ ]
+          \ })
   endif
 augroup END
 

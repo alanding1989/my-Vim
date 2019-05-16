@@ -7,8 +7,11 @@ scriptencoding utf-8
 
 function! layers#core#plugins() abort
   let plugins = [
-        \ ['Shougo/unite.vim', {'merged': 0}],
+        \ ['Shougo/unite.vim'    , {'merged': 0}],
         \ ]
+  " if executable('ctags')
+    " call add(plugins, ['liuchengxu/vista.vim', {'on_cmd': 'Vista!!', 'on': 'Vista!!'}])
+  " endif
   if g:is_win
     call add(plugins, ['Shougo/vimproc.vim', {'build' : '.\mingw32-make.exe', 'do': '.\mingw32-make.exe'}])
   else
@@ -616,7 +619,7 @@ endif "}}}
 " a:num = 1 open last opened dir
 " a:num = 2 open current buffer dir/root dir(when VimEnter)
 " a:num = 3 open my vimrc favourite dir
-" a:num = 4 open current working dir in fullscreen with more infor
+" a:num = 4 inverstigate current working dir (fullscreen)
 " a:num = 5 open my plugins bundle dir
 " a:num = 6 open my dotfile dir
 " a:num = 7 open a new defx buffer in current working dir

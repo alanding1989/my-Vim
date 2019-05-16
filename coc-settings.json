@@ -25,15 +25,15 @@
   "codeLens.enable"                          : true,
 
 
-  // snippets
+  // Snippets
+  // NOTE: UltiSnips dir must be contained, or it will not source it.
   "snippets.shortcut": "Snip",
   "snippets.ultisnips.directories": [
-    "~/.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/snippets",
-    "~/.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/UltiSnips",
+    "/home/alanding/.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/snippets",
+    "/home/alanding/.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/UltiSnips",
     "D:/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/snipeets",
     "D:/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/UltiSnips"
   ],
-  //  "snippets.textmateSnippetsRoots": ["~/.SpaceVim.d/vscode"],
   "snippets.extends" : {
     "ipynb"      : ["python"],
     "sbt"        : ["scala"],

@@ -17,17 +17,19 @@ endif
 let g:Lf_ShortcutF            = '<leader>ff'
 let g:Lf_ShortcutB            = '<leader>fb'
 let g:Lf_DefaultMode          = 'NameOnly'
-let g:Lf_CursorBlink          = 1
-let g:Lf_CacheDirectory       = expand($HOME.'/.cache')
-let g:Lf_ShowRelativePath     = 0
+let g:Lf_PreviewResult        = {'BufTag': 0, 'Function': 0}
 let g:Lf_WindowHeight         = 0.3
+let g:Lf_CursorBlink          = 1
+let g:Lf_ShowRelativePath     = 0
+let g:Lf_HideHelp             = 0
 let g:Lf_StlSeparator         = { 'left': '', 'right': '' }
 
-auto VimEnter *
-      \ let g:Lf_RootMarkers  = deepcopy(g:project_root_marker)
+let g:Lf_GtagsAutoGenerate    = 1
+let g:Lf_Gtagsconf            = expand('~/.globalrc')
+let g:Lf_Gtagslabel           = 'native-pygments'
+let g:Lf_CacheDirectory       = expand('~/.cache')
+let g:Lf_RootMarkers          = deepcopy(g:project_root_marker)
 let g:Lf_WorkingDirectoryMode = 'Ac'
-let g:Lf_PreviewResult        = {'BufTag': 0, 'Function': 0}
-let g:Lf_HideHelp             = 0
 " <C-X> : open in horizontal split window.
 let g:Lf_CommandMap           = {
       \ '<del>'  : ['<c-d>'],

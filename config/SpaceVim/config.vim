@@ -120,48 +120,53 @@ let g:_lsp_var = {'filetypes' : [
       \ 'python',
       \ ]}
       " \ 'javascript',
-" [ guifg, guibg, ctermfg, ctermbg, italic, bold], -1 if None or negative
-let g:_defhighlight_var = { 'hlcolor' : {
-      \ 'python' : {
-      \    'Statement'         : ['#f92672', -1, -1, -1, 0, 1],
-      \    'pythonKeyword'     : ['#f92672', -1, -1, -1, 0, 1],
-      \    'pythonImport'      : ['#f92672', -1, -1, -1, 0, 1],
-      \    'pythonInclude'     : ['#f92672', -1, -1, -1, 0, 1],
-      \    'pythonConditional' : ['#f92672', -1, -1, -1, 0, 1],
-      \    'pythonRepeat'      : ['#f92672', -1, -1, -1, 0, 1],
-      \
-      \    'pythonClass'       : ['#14cfcf', -1, -1, -1, 0, 0],
-      \    'semshiImported'    : ['#14cfcf', -1, -1, -1, 0, 0],
-      \    'pythonBuiltin'     : ['#14cfcf', -1, -1, -1, 1, 0],
-      \    'semshiBuiltin'     : ['#14cfcf', -1, -1, -1, 1, 0],
-      \ 
-      \    'Define'            : ['#df5fdb', -1, -1, -1, 1, 0],
-      \    'semshiSelf'        : ['#df5fdb', -1, -1, -1, 1, 0],
-      \    'pythonSelf'        : ['#df5fdb', -1, -1, -1, 1, 0],
-      \    'pythonClassVar'    : ['#df5fdb', -1, -1, -1, 1, 0],
-      \ 
-      \    'function'          : ['#a3e234', -1, -1, -1, 0, 0],
-      \    'pythonFunction'    : ['#a3e234', -1, -1, -1, 0, 0],
-      \    'pythonDecorator'   : ['#a3e234', -1, -1, -1, 1, 0],
-      \
-      \    'semshiLocal'       : ['#fd971f', -1, -1, -1, 1, 0],
-      \    'pythonParam'       : ['#fd971f', -1, -1, -1, 1, 0],
-      \
-      \    'Type'              : ['#607fbf', -1, -1, -1, 0, 0],
-      \    'pythonBuiltinType' : ['#607fbf', -1, -1, -1, 0, 0],
-      \
-      \    'String'            : ['#e6db74', -1, -1, -1, 0, 0],
-      \    'pythonString'      : ['#e6db74', -1, -1, -1, 0, 0],
-      \    'pythonRawString'   : ['#e6db74', -1, -1, -1, 0, 0],
-      \    'pythonStringDelimiter': ['#e6db74', -1, -1, -1, 0, 0],
-      \
-      \    'Operator'          : ['#f92672', -1, -1, -1, 0, 0],
-      \    'pythonOperator'    : ['#f92672', -1, -1, -1, 0, 0],
-      \
-      \    'Number'            : ['#ae81ff', -1, -1, -1, 0, 0],
-      \    'StorageClass'      : ['#aab6e1', -1, -1, -1, 1, 0],
-      \ },
-      \ }}
+
+" [ guifg, guibg, ctermfg, ctermbg, italic, bold] {{{
+" -1 if None or negative
+" let g:_defhighlight_var = { 'hlcolor' : {
+      " \ 'python' : {
+      " \    'Statement'         : ['#f92672', -1, -1, -1, 0, 1],
+      " \    'pythonKeyword'     : ['#f92672', -1, -1, -1, 0, 1],
+      " \    'pythonImport'      : ['#f92672', -1, -1, -1, 0, 1],
+      " \    'pythonInclude'     : ['#f92672', -1, -1, -1, 0, 1],
+      " \    'pythonConditional' : ['#f92672', -1, -1, -1, 0, 1],
+      " \    'pythonRepeat'      : ['#f92672', -1, -1, -1, 0, 1],
+      " \
+      " \    'pythonClass'       : ['#14cfcf', -1, -1, -1, 0, 0],
+      " \    'semshiImported'    : ['#14cfcf', -1, -1, -1, 0, 0],
+      " \    'pythonBuiltin'     : ['#14cfcf', -1, -1, -1, 1, 0],
+      " \    'semshiBuiltin'     : ['#14cfcf', -1, -1, -1, 1, 0],
+      " \
+      " \    'Define'            : ['#df5fdb', -1, -1, -1, 1, 0],
+      " \    'semshiSelf'        : ['#df5fdb', -1, -1, -1, 1, 0],
+      " \    'pythonSelf'        : ['#df5fdb', -1, -1, -1, 1, 0],
+      " \    'pythonClassVar'    : ['#df5fdb', -1, -1, -1, 1, 0],
+      " \ 
+      " \    'function'          : ['#a3e234', -1, -1, -1, 0, 0],
+      " \    'function'          : ['#56b6c2', -1, 73, -1, 0, 0],
+      " \    'pythonFunction'    : ['#a3e234', -1, -1, -1, 0, 0],
+      " \    'pythonDecorator'   : ['#a3e234', -1, -1, -1, 1, 0],
+      " \
+      " \    'semshiLocal'       : ['#fd971f', -1, -1, -1, 1, 0],
+      " \    'pythonParam'       : ['#fd971f', -1, -1, -1, 1, 0],
+      " \
+      " \    'Type'              : ['#607fbf', -1, -1, -1, 0, 0],
+      " \    'pythonBuiltinType' : ['#607fbf', -1, -1, -1, 0, 0],
+      " \
+      " \    'String'            : ['#', -1, -1, -1, 0, 0],
+      " \    'pythonString'      : ['#e6db74', -1, -1, -1, 0, 0],
+      " \    'pythonRawString'   : ['#e6db74', -1, -1, -1, 0, 0],
+      " \    'pythonStringDelimiter': ['#e6db74', -1, -1, -1, 0, 0],
+      " \
+      " \    'Operator'          : ['#f92672', -1, -1, -1, 0, 0],
+      " \    'pythonOperator'    : ['#f92672', -1, -1, -1, 0, 0],
+      " \
+      " \    'Number'            : ['#ae81ff', -1, -1, -1, 0, 0],
+      " \    'StorageClass'      : ['#aab6e1', -1, -1, -1, 1, 0],
+      " \ },
+      " \ }}
+      " \    'String'            : ['#e6db74', -1, -1, -1, 0, 0],
+"}}}
 if g:is_unix
   call add(g:_lsp_var['filetypes'], 'sh')
 endif
@@ -188,6 +193,7 @@ let g:My_SpaceVim_layers = {
       \ 'lang#java'         : 0,
       \ 'lang#javascript'   : 0,
       \ 'lang#latex'        : 0,
+      \ 'lang#lua'          : 1,
       \ 'lang#markdown'     : 1,
       \ 'lang#python'       : 1,
       \ 'lang#scala'        : 1,

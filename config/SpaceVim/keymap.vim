@@ -12,7 +12,7 @@ scriptencoding utf-8
 " ================================================================================
 " NOTE: if lrh has three keys no need to call func , rhs cmd need to add : and <CR>
 " need to define after vim enter
-let g:_spacevim_mappings[';'] = ['', 'easyMotion prefix']
+let g:_spacevim_mappings[';'] = ['', 'MultiVisul prefix']
 
 let g:_spacevim_mappings.a         = get(g:_spacevim_mappings  , 'a'   , {})
 let g:_spacevim_mappings.a['name'] = get(g:_spacevim_mappings.a, 'name', '+@ Session/Setting/Select')
@@ -21,9 +21,10 @@ let g:_spacevim_mappings.a.c       = get(g:_spacevim_mappings.a, 'c'   , {'name'
 " select
 let g:_spacevim_mappings.a.a = ['ggVG'                                    , 'select whole buffer'      ]
 let g:_spacevim_mappings.a.e = ['VG'                                      , 'select to the end'        ]
-let g:_spacevim_mappings.a.z = ['call mapping#basic#zzmode()'             , 'toggle zzmode'            ]
+let g:_spacevim_mappings.a.h = ['call layers#defhighlight#test()'         , 'test custom highlight def']
 let g:_spacevim_mappings.a.p = ['"`[" .strpart(getregtype(), 0, 1) ."`]"' , 'select last paste section']
 let g:_spacevim_mappings.a.m = ['call util#statusline#pureline()'         , 'set statusline'           ]
+let g:_spacevim_mappings.a.z = ['call mapping#basic#zzmode()'             , 'toggle zzmode'            ]
 
 " echo value/edit snippets
 let g:_spacevim_mappings.e   = {'name':  '+@ Echo value/Edit snippets' }
@@ -39,9 +40,11 @@ let g:_spacevim_mappings.e.s = ["echo '  '.g:spacevim_snippet_engine"     , 'sho
 let g:_spacevim_mappings.e.t = ["echo '  '.g:colors_name"                 , 'show colortheme'         ]
 let g:_spacevim_mappings.e.v = ['version'                                 , 'show neovim/vim version' ]
 if get(g:, 'spacevim_snippet_engine', 'neosnippet') ==# 'neosnippet'
-  let g:_spacevim_mappings.e.n = ['call feedkeys(":NeoSnippetEdit -split -vertical ")', 'edit neosnippet snippets']
+  let g:_spacevim_mappings.e.n = ['call feedkeys(":NeoSnippetEdit -split -vertical ")', 'edit NeoSnippet snippets']
 elseif get(g:, 'spacevim_snippet_engine') ==# 'ultisnips'
-  let g:_spacevim_mappings.e.n = ['call feedkeys(":UltiSnipsEdit ")', 'edit ultisnips snippets']
+  let g:_spacevim_mappings.e.n = ['call feedkeys(":UltiSnipsEdit ")' , 'edit UltiSnips snippets']
+elseif get(g:, 'spacevim_snippet_engine') ==# 'coc'
+  let g:_spacevim_mappings.e.n = ['call feedkeys(":MyCocSnipsEdit ")', 'edit Coc-UltiSnips snippets']
 endif
 
 
@@ -89,7 +92,7 @@ nnoremap <silent><leader><tab> :b#<CR>
 let g:_spacevim_mappings_space_custom += [
       \ ['nmap', ['h', 't'], 'call util#test_SPC()'           , '@ toggle test env of SpaceVim'       , 1],
       \ ['nmap', ['h', 'p'], 'call feedkeys(":SpcPR ")'       , '@ SPC PR environment preparation'    , 1],
-      \ ['nmap', ['h', 'h'], 'call util#help_wrapper()'       , '@ get help docs of input/cursor word', 1],
+      \ ['nmap', ['h', 'h'], 'call feedkeys(":EchoHelp ")'    , '@ get help docs of input/cursor word', 1],
       \ ['nmap', ['q', 'n'], 'call dein#recache_runtimepath()', '@ recache runtime path for plugins'  , 1],
       \ ['nmap', ['q', 'u'], 'call util#update_plugin()'      , '@ update all/input plugins'          , 1],
       \ ['nmap', ['q', 'd'], 'SPDebugInfo!'                   , '@ check SpaceVim debug info'         , 1],

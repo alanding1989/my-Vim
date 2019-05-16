@@ -1,13 +1,12 @@
+#! /usr/bin/env bash
 # ================================================================================
 #  File Name    : extools/plugin-in-up/metals.sh
 #  Author       : AlanDing
-#  mail         :
 #  Created Time : Thu 25 Apr 2019 09:57:36 PM CST
 # ================================================================================
-#!/usr/bin/env bash
 
 # Make sure to use coursier v1.1.0-M9 or newer.
-cd /opt/lang-tools/scala
+cd /opt/lang-tools/scala || return
 rm coursier && rm metals-vim
 curl -L -o coursier https://git.io/coursier
 chmod +x coursier

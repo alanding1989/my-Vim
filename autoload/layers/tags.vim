@@ -6,19 +6,19 @@ scriptencoding utf-8
 
 
 function! layers#tags#plugins() abort
+  let plugins = []
   if !executable('ctags')
     echohl WarningMsg
     echo ' ctags is not executable, you need to install ctags first!'
     echohl NONE
-    return
+    return plugins
   endif
   let plugins = [
-        \ [ 'ludovicchabant/vim-gutentags'   ,              {'merged' : 0}],
-        \ [ 'skywind3000/gutentags_plus'     ,              {'merged' : 0}],
-        \ [ 'skywind3000/vim-preview'        , {'on_cmd': 'PreviewQuickfix',
-        \ 'on': 'PreviewQuickfix'}],
-        \ [ 'liuchengxu/vista.vim', {'merged': 0, 'on_cmd': 'Vista!!', 'on': 'Vista!!'}],
+        \ [ 'ludovicchabant/vim-gutentags',                                          {'merged': 0}],
+        \ [ 'skywind3000/gutentags_plus'  , {'on_cmd': 'GscopeFind'     , 'on': 'GscopeFind'     }],
+        \ [ 'skywind3000/vim-preview'     , {'on_cmd': 'PreviewQuickfix', 'on': 'PreviewQuickfix'}],
         \ ]
+  call add(plugins, ['liuchengxu/vista.vim', {'on_cmd': 'Vista!!', 'on': 'Vista!!'}])
   return plugins
 endfunction
 
@@ -40,9 +40,9 @@ function! layers#tags#config() abort
           \ | auto FileType markdown
           \         nnoremap <silent><F2> :Vista toc\| doautocmd WinEnter<CR>
     auto FileType vista_kind nnoremap <buffer> <silent> o :<C-u>call vista#cursor#FoldOrJump()<CR>
-    auto FileType qf nnoremap <silent><buffer> p   :PreviewQuickfix<cr>
-    auto FileType qf nnoremap <silent><buffer> pq  :PreviewClose<cr>
-    " auto VimEnter *  nnoremap <F11> :PreviewSignature!<cr>
+    auto FileType qf nnoremap <silent><buffer> p   :PreviewQuickfix<CR>
+    auto FileType qf nnoremap <silent><buffer> pq  :PreviewClose<CR>
+    " auto VimEnter *  nnoremap <F11> :PreviewSignature!<CR>
   augroup END
 endfunction
 
@@ -51,33 +51,33 @@ endfunction
 function! s:gutentags_plus() abort
   if g:is_spacevim
     let g:_spacevim_mappings.g  = {'name': '+@ Gtags' }
-    call SpaceVim#mapping#def('nnoremap', '<leader>gs', ":GscopeFind s \<C-R>\<C-W><cr>"                 , 'find symbol (reference)'           , '', 'find symbol (reference)')
-    call SpaceVim#mapping#def('nnoremap', '<leader>gg', ":GscopeFind g \<C-R>\<C-W><cr>"                 , 'goto definition'                   , '', 'goto definition ')
-    call SpaceVim#mapping#def('nnoremap', '<leader>gd', ":GscopeFind d \<C-R>\<C-W><cr>"                 , 'find funcs called by this func'    , '', 'find funcs called by this func')
-    call SpaceVim#mapping#def('nnoremap', '<leader>gc', ":GscopeFind c \<C-R>\<C-W><cr>"                 , 'find funcs calling this func'      , '', 'find funcs calling this func')
-    call SpaceVim#mapping#def('nnoremap', '<leader>gt', ":GscopeFind t \<C-R>\<C-W><cr>"                 , 'find text string'                  , '', 'find text string')
-    call SpaceVim#mapping#def('nnoremap', '<leader>ge', ":GscopeFind e \<C-R>\<C-W><cr>"                 , 'find egrep pattern'                , '', 'find egrep pattern')
-    call SpaceVim#mapping#def('nnoremap', '<leader>gf', ":GscopeFind f \<C-R>=expand('\<cfile>')<cr><cr>", 'goto file'                         , '', 'goto file')
-    call SpaceVim#mapping#def('nnoremap', '<leader>gi', ":GscopeFind i \<C-R>=expand('\<cfile>')<cr><cr>", 'find files including the file name', '', 'find files including the file name')
-    call SpaceVim#mapping#def('nnoremap', '<leader>ga', ":GscopeFind a \<C-R>\<C-W><cr>"                 , 'goto symbol assigned place'        , '', 'goto symbol assigned place')
+    call SpaceVim#mapping#def('nnoremap', '<leader>gs', ":GscopeFind s \<C-R>\<C-W><CR>"                 , 'find symbol (reference)'           , '', 'find symbol (reference)')
+    call SpaceVim#mapping#def('nnoremap', '<leader>gg', ":GscopeFind g \<C-R>\<C-W><CR>"                 , 'goto definition'                   , '', 'goto definition ')
+    call SpaceVim#mapping#def('nnoremap', '<leader>gd', ":GscopeFind d \<C-R>\<C-W><CR>"                 , 'find funcs called by this func'    , '', 'find funcs called by this func')
+    call SpaceVim#mapping#def('nnoremap', '<leader>gc', ":GscopeFind c \<C-R>\<C-W><CR>"                 , 'find funcs calling this func'      , '', 'find funcs calling this func')
+    call SpaceVim#mapping#def('nnoremap', '<leader>gt', ":GscopeFind t \<C-R>\<C-W><CR>"                 , 'find text string'                  , '', 'find text string')
+    call SpaceVim#mapping#def('nnoremap', '<leader>ge', ":GscopeFind e \<C-R>\<C-W><CR>"                 , 'find egrep pattern'                , '', 'find egrep pattern')
+    call SpaceVim#mapping#def('nnoremap', '<leader>gf', ":GscopeFind f \<C-R>=expand('\<cfile>')<CR><CR>", 'goto file'                         , '', 'goto file')
+    call SpaceVim#mapping#def('nnoremap', '<leader>gi', ":GscopeFind i \<C-R>=expand('\<cfile>')<CR><CR>", 'find files including the file name', '', 'find files including the file name')
+    call SpaceVim#mapping#def('nnoremap', '<leader>ga', ":GscopeFind a \<C-R>\<C-W><CR>"                 , 'goto symbol assigned place'        , '', 'goto symbol assigned place')
   else
     " Find symbol (reference) under cursor
-    nnoremap <silent> <leader>gs :GscopeFind s <C-R><C-W><cr>
+    nnoremap <silent> <leader>gs :GscopeFind s <C-R><C-W><CR>
     " Find symbol definition under cursor
-    nnoremap <silent> <leader>gg :GscopeFind g <C-R><C-W><cr>
+    nnoremap <silent> <leader>gg :GscopeFind g <C-R><C-W><CR>
     " Functions called by this function
-    nnoremap <silent> <leader>gd :GscopeFind d <C-R><C-W><cr>
+    nnoremap <silent> <leader>gd :GscopeFind d <C-R><C-W><CR>
     " Functions calling this function
-    nnoremap <silent> <leader>gc :GscopeFind c <C-R><C-W><cr>
+    nnoremap <silent> <leader>gc :GscopeFind c <C-R><C-W><CR>
     " Find text string under cursor
-    nnoremap <silent> <leader>gt :GscopeFind t <C-R><C-W><cr>
+    nnoremap <silent> <leader>gt :GscopeFind t <C-R><C-W><CR>
     " Find egrep pattern under cursor
-    nnoremap <silent> <leader>ge :GscopeFind e <C-R><C-W><cr>
+    nnoremap <silent> <leader>ge :GscopeFind e <C-R><C-W><CR>
     " Find file name under cursor
-    nnoremap <silent> <leader>gf :GscopeFind f <C-R>=expand("<cfile>")<cr><cr>
+    nnoremap <silent> <leader>gf :GscopeFind f <C-R>=expand("<cfile>")<CR><CR>
     " Find files including the file name under cursor
-    nnoremap <silent> <leader>gi :GscopeFind i <C-R>=expand("<cfile>")<cr><cr>
+    nnoremap <silent> <leader>gi :GscopeFind i <C-R>=expand("<cfile>")<CR><CR>
     " Find places where current symbol is assigned
-    nnoremap <silent> <leader>ga :GscopeFind a <C-R><C-W><cr>
+    nnoremap <silent> <leader>ga :GscopeFind a <C-R><C-W><CR>
   endif
 endfunction "}}}

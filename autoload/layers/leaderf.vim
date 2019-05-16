@@ -66,8 +66,8 @@ function! layers#leaderf#config() abort
           \ 'fuzzy find tag cursor word in all buffer'  , '', 'fuzzy find tag cursor word in all buffer'  )
     call SpaceVim#mapping#def('nnoremap', '<leader>fi', ':Leaderf self<cr>',
           \ 'fuzzy finder interactive'  , '', 'fuzzy finder interactive')
-    call SpaceVim#mapping#def('nnoremap', '<leader>fg', ':Leaderf help<cr>',
-          \ 'fuzzy find help docs'      , '', 'fuzzy find help docs')
+    call SpaceVim#mapping#def('nnoremap', '<leader>fg', ':Leaderf gtags<cr>',
+          \ 'fuzzy find gtags'      , '', 'fuzzy find gtags')
 
   else
     nnoremap <silent><c-p>       :call feedkeys(':LeaderfFile ')<CR>
@@ -91,7 +91,7 @@ function! layers#leaderf#config() abort
     nnoremap <silent><leader>fT  :LeaderfTagCword<cr>
     nnoremap <silent><leader>fhc :LeaderfHistoryCmd<cr>
     nnoremap <silent><leader>fhs :LeaderfHistorySearch<cr>
-    nnoremap <silent><leader>fg  :LeaderfHelp<cr>
+    nnoremap <silent><leader>fg  :Leaderf gtags<cr>
     nnoremap <silent><leader>fi  :Leaderf self<cr>
   endif
 endfunction

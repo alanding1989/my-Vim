@@ -15,9 +15,8 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
   function! mapping#tab#super_tab() abort
     if pumvisible()
       if neosnippet#expandable()
-        let g:dlan = 1
         if g:neosnippet#enable_complete_done == 1
-          if s:cur_char(0, '(') || s:md ==# 'coc' || s:md ==# 'deoplete'
+          if CurChar(0, '(') || s:md ==# 'deoplete'
             return s:md ==# 'asyncomplete' ? asyncomplete#close_popup() : "\<c-y>"
           else
             return "\<c-e>\<plug>(neosnippet_expand)"
@@ -25,7 +24,7 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
         else
           return "\<plug>(neosnippet_expand)"
         endif
-      elseif neosnippet#jumpable() && s:cur_char(1, '(')
+      elseif neosnippet#jumpable() && CurChar(1, '(')
         return "\<plug>(neosnippet_jump)"
       elseif delimitMate#WithinEmptyPair()
         return "\<right>"
@@ -33,10 +32,10 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
         return s:md ==# 'asyncomplete' ? asyncomplete#close_popup() : "\<c-y>"
       endif
     else
-      if neosnippet#expandable() && !s:cur_char(0, '(')
+      if neosnippet#expandable() && !CurChar(0, '(')
         return "\<plug>(neosnippet_expand)"
       elseif !neosnippet#jumpable() && delimitMate#ShouldJump()
-            \ && s:check_bs() && !s:cur_char(1, '')
+            \ && s:check_bs() && !CurChar(1, '')
         return "\<right>"
       elseif neosnippet#jumpable()
         return "\<plug>(neosnippet_jump)"
@@ -74,34 +73,34 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
 elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisnips'
   function! mapping#tab#super_tab() abort
     if pumvisible()
-      return "\<c-r>=mapping#tab#popup()\<cr>"
+      return "\<C-r>=mapping#tab#popup()\<CR>"
     else
-      return "\<c-r>=mapping#tab#no_popup()\<cr>"
+      return "\<C-r>=mapping#tab#no_popup()\<CR>"
     endif
   endfunction
   function! mapping#tab#popup() abort
     let snip = UltiSnips#ExpandSnippetOrJump()
     if g:ulti_expand_or_jump_res == 1
       return snip
-    elseif g:ulti_expand_or_jump_res == 2 && s:cur_char(0, '(')
+    elseif g:ulti_expand_or_jump_res == 2 && CurChar(0, '(')
       return snip
     elseif delimitMate#WithinEmptyPair()
       return "\<right>"
-    elseif s:cur_char(0, '(') && s:cur_char(1, '\s')
+    elseif CurChar(0, '(') && CurChar(1, '\s')
       return ")\<left>"
     else
       return s:md ==# 'asyncomplete' ? asyncomplete#close_popup() : "\<c-y>"
     endif
   endfunction
   function! mapping#tab#no_popup() abort
-    if s:cur_char(0, '(') && s:cur_char(1, '\s')
+    if CurChar(0, '(') && CurChar(1, '\s')
       return ")\<left>"
     endif
     let sni = UltiSnips#ExpandSnippetOrJump()
     if g:ulti_expand_or_jump_res == 1
       return sni
     elseif g:ulti_expand_or_jump_res != 2 && delimitMate#ShouldJump()
-          \ && s:check_bs() && !s:cur_char(1,  '')
+          \ && s:check_bs() && !CurChar(1,  '')
       return "\<right>"
     elseif g:ulti_expand_or_jump_res == 2
       return sni
@@ -139,7 +138,7 @@ elseif s:md ==# 'coc'
     if pumvisible()
       if coc#expandable()
         return "\<Plug>(coc-snippets-expand)"
-      elseif coc#jumpable() && s:cur_char(1, '(')
+      elseif coc#jumpable() && CurChar(1, '(')
         return "\<Plug>(coc-snippets-expand-jump)"
       elseif delimitMate#WithinEmptyPair()
         return "\<right>"
@@ -150,7 +149,7 @@ elseif s:md ==# 'coc'
       if coc#expandable()
         return "\<Plug>(coc-snippets-expand)"
       elseif !coc#jumpable() && delimitMate#ShouldJump()
-            \ && s:check_bs() && !s:cur_char(1, '')
+            \ && s:check_bs() && !CurChar(1, '')
         return "\<right>"
       elseif coc#jumpable()
         return "\<Plug>(coc-snippets-expand-jump)"
@@ -173,13 +172,4 @@ endif
 function! s:check_bs() abort
   let col = col('.') - 1
   return col > 0 && getline('.')[col('.')-2] !~# '\s'
-endfunction
-
-function! s:cur_char(pos, char) abort
-  " left 0, right 1
-  if a:pos ==# 0
-    return getline('.')[col('.')-2] ==# a:char
-  elseif a:pos ==# 1
-    return getline('.')[col('.')-1] ==# a:char
-  endif
 endfunction

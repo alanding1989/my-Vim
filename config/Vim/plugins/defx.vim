@@ -266,15 +266,15 @@ function! DefxExeShell(_) abort "{{{
     let filepath = defx#get_candidate()['action__path']
     let ext = fnamemodify(filepath, ':e')
     if ext ==# 'sh' && g:is_unix
-      let g:job = jobstart('sh '.filepath)
+      let job = jobstart('sh '.filepath)
     elseif (ext ==# 'bat' || ext ==# 'ps1') && g:is_win
-      let g:job = jobstart('powershell '.filepath)
+      let job = jobstart('powershell '.filepath)
     else
       echohl WarningMsg
       echo ' Candidate is not a shell script'
       echohl NONE
     endif
-    if g:job > 0
+    if job > 0
       echo 'Successfully run stript'
     endif
   end

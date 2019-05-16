@@ -40,7 +40,7 @@ endif
 " ================================================================================
 
 " help
-" nnoremap <space>hh  :call utile#help()<CR>
+" nnoremap <space>hh  :EchoHelp 
 
 nnoremap <space>qu  :call util#update_plugin()<CR>
 

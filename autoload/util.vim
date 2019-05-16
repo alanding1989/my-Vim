@@ -5,7 +5,7 @@ scriptencoding utf-8
 
 
 
-" Help/Echo related {{{
+" Help/Echo Related {{{
 " echo mapping rhs {{{
 function! util#maparg_wrapper(...) abort
   if a:0 == 1 && a:1 ==# 'vn'
@@ -67,47 +67,31 @@ function! util#help_wrapper(...) abort
       call LanguageClient_textDocument_hover()
     endif
   else
-    call util#vim_help_wrapper(a:000)
+    call feedkeys(':EchoHelp ')
   endif
 endfun
 
 function! util#vim_help_wrapper(...) abort
-  let input = input('Help keyword/Cancel(n): ', '', 'help')
-  if input ==# 'n' | return | endif
-  if input ==# 'fl'
+  if a:0 > 0 && a:1 ==# 'fl'
     exec 'help function-list' | exec ':resize'
     return
   endif
-  let cword = expand('<cword>')
 
-  if empty(input) && !empty(cword)
+  let cword = expand('<cword>')
+  if a:0 == 0 && !empty(cword)
     exec 'vert bo help '.cword
-  elseif input ==# 'f' && !empty(cword)
-    exec 'help '.cword | exec 'resize'
-  elseif !empty(input)
-    try
-      let input0 = split(input)[0]
-      let input1 = split(input)[1]
-      if input1 ==# 'f'
-        exec 'help '.input0 | exec 'resize'
-      endif
-    catch
-      exec 'vert bo help '.input
-    endtry
+  elseif a:0 > 0
+    exec 'vert bo help '.a:1
   endif
 endfunction
 "}}}
 
 " highlight wrapper {{{
 function! util#hlight_wrapper(...) abort
-  try
-    exec (a:0 > 0 && a:1 ==# 'v' ? 'verbose ' : '')
-          \ . 'highlight '. expand('<cword>')
-  catch
-    exec (a:0 > 0 && a:1 ==# 'v' ? 'verbose ' : '')
-          \ . 'highlight ' . 
-          \ (a:0 == 0 ? '' : (a:1 !=# 'v' ? a:1 : a:2))
-  endtry
+  
+  exec (a:0 > 0 && a:1 ==# 'v' ? 'verbose ' : '') . 'highlight ' .
+        \ (!empty(expand('<cword>')) ? expand('<cword>') :
+        \ (a:0 == 0 ? '' : (a:1 !=# 'v' ? a:1 : a:2)))
 endfunction " }}}
 "}}}
 
@@ -266,7 +250,7 @@ endfunction "}}}
 "}}}
 
 
-" SpaceVim related {{{
+" SpaceVim Related {{{
 " SpaceVim test mode {{{
 function! util#test_SPC() abort
   call system('sh '.g:home.'extools/spacevim/test-SpaceVim.sh')
@@ -307,6 +291,28 @@ function! util#SPC_PR(...) abort
   endif
 endfunction "}}}
 "}}}
+
+
+" Plug Enhancement {{{
+function! util#coc_editsnips(...) abort
+  let ultisnips_dirpath = (g:is_win ? 
+        \ expand('D:/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/UltiSnips/') :
+        \ expand('~/.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/UltiSnips/')) 
+  let ft  = a:0 > 0 ? a:1 : expand('%:e')
+  let ext = '.snippets'
+  let onelpath = ultisnips_dirpath. ft. ext
+  if glob(onelpath) !=# ''
+    exec 'topleft vsplit '. onelpath
+    return
+  else
+    let seclpath = ultisnips_dirpath. ext.'/'. ft. ext
+    if glob(seclpath) !=# ''
+      exec 'topleft vsplit '. seclpath
+      return
+    endif
+  endif
+  exec 'topleft vsplit '. onelpath
+endfunction "}}}
 
 
 " function() wrapper for memo "{{{

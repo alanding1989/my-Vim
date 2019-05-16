@@ -67,7 +67,7 @@ function! s:hl_one(group, attr_val) abort
   return hlcmd
 endfunction
 
-function! layers#defhighlight#test_highlightcmds(...) abort
+function! layers#defhighlight#test(...) abort
   let hlcmds = get(s:, 'hlcmds', {})
   if len(hlcmds) == 0
     let fts = join(keys(s:hlcolor), ' ')
