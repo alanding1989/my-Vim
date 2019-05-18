@@ -38,14 +38,15 @@ let g:spacevim_statusline           = get(['airline'   , 'lightline', ''    ], 0
 let g:spacevim_enable_ale           = 1
 let g:spacevim_enable_neomake       = !g:spacevim_enable_ale
 let g:spacevim_lint_on_the_fly      = 1
-let g:enable_deotabline             = 1
+let g:spacevim_autocomplete_parens  = 0
+let g:enable_deotabline             = 0
 let g:enable_googlesuggest          = 0
-
+  
 " Ui {{{
 let g:enable_fat_statusline                  = 1
 let g:statusline_separator                   = get(['fire', 'arrow', 'curve', 'slant'], 1)
 let g:spacevim_statusline_left_sections      = ['winnr', 'filename', 'syntax checking', 'minor mode lighters']
-let g:spacevim_statusline_right_sections     += ['time', 'date']
+let g:spacevim_statusline_right_sections     += ['time', 'date', 'whitespace']
 let g:spacevim_enable_cursorcolumn           = 0
 let g:spacevim_buffer_index_type             = 1
 let g:spacevim_enable_tabline_filetype_icon  = 1

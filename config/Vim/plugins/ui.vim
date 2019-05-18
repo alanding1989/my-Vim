@@ -166,7 +166,6 @@ if get(g:, 'statusline', 'airline') ==# 'airline'
   "@ extendtion integrations {{{
   let g:airline_highlighting_cache            = 1
   let g:airline_skip_empty_sections           = 1
-  " let airline#extensions#fugitiveline#enabled = 0
 
   " LanguageClient-neovim
   let g:airline#extensions#languageclient#error_symbol   = '✖ :'

@@ -90,17 +90,20 @@ function! layers#autocomplete#plugins() abort
     if g:snippet_engine ==# 'neosnippet'
       call add(plugins, ['Shougo/neosnippet.vim', {'on_event': 'InsertEnter',
             \ 'on_ft': 'neosnippet', 'on_cmd': 'NeoSnippetEdit'}])
-      call add(plugins, ['Shougo/neopairs.vim' , {'on_event': 'InsertEnter'}])
+      call add(plugins, ['Shougo/neopairs.vim'  , {'on_event': 'InsertEnter'}])
     elseif g:snippet_engine ==# 'ultisnips'
-      call add(plugins, ['SirVer/ultisnips'   , {'merged'  : 0}])
+      call add(plugins, ['SirVer/ultisnips'     , {'merged'  : 0}])
     endif
 
     if g:autocomplete_method ==# 'coc'
-      call add(plugins, ['neoclide/coc.nvim',  {'merged': 0, 'build': 'yarn install --frozen-lockfile',
+      call add(plugins, ['neoclide/coc.nvim'     , {'merged': 0, 'build': 'yarn install --frozen-lockfile',
             \ 'do': { -> coc#util#install() }}])
     elseif g:autocomplete_method ==# 'deoplete'
-      call add(plugins, ['Shougo/deoplete.nvim', {'merged'  : 0}])
-      call add(plugins, ['ujihisa/neco-look'   , {'on_event': 'InsertEnter'}])
+      call add(plugins, ['Shougo/deoplete.nvim'  , {'merged'  : 0}])
+      call add(plugins, ['ujihisa/neco-look'     , {'on_event': 'InsertEnter'}])
+    elseif g:autocomplete_method ==# 'ycm'
+      call add(plugins, ['Valloric/YouCompleteMe', {'merged': 0,
+            \ 'build': './install.py --clang-completer'}])
     elseif g:autocomplete_method ==# 'asyncomplete'
       call add(plugins, ['prabirshrestha/asyncomplete.vim'       , {'merged': 0, }])
       call add(plugins, ['prabirshrestha/asyncomplete-buffer.vim', {'merged': 0, }])
@@ -112,16 +115,14 @@ endfunction
 
 
 function! layers#autocomplete#config() abort
-  imap <silent><expr><Tab>   mapping#tab#super_tab()
-  imap <silent><expr><CR>    mapping#enter#super_enter()
-  call mapping#tab#S_tab()
-  call mapping#space#c_space()
+  imap <silent><expr><Tab>   mapping#tab#Super_Tab()
+  imap <silent><expr><CR>    mapping#enter#Super_Enter()
+  imap <silent><expr><C-h>   pumvisible() ? "\<C-e><BS>" : DelEmptyPair()
+  inoremap <expr> <Space>    ExpandEmptyPair()
+  call mapping#tab#S_Tab()
+  call mapping#space#C_Space()
+
   call s:snip_source()
-
-  " delimitMate
-  imap <expr> <C-h> pumvisible() ? "\<C-e><BS>" : "\<Plug>delimitMateBS"
-  " imap <expr> (     "\<Plug>delimitMate("
-
   augroup layer_autocmplete
     autocmd!
     auto CompleteDone * silent! pclose

@@ -151,6 +151,12 @@ function! util#statusline#curtime() abort
   endif
 endfunction
 
+function! util#statusline#whitespace() abort
+  let line = search('\s\+$', 'nw')
+  return line !=# 0 ? 
+        \ 'trailing [ '.line.' ]' : ''
+endfunction
+
 " set statusline
 function! util#statusline#pureline() abort
   try

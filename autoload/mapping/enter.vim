@@ -11,11 +11,11 @@ let s:md = get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method'
 " neosnippet
 " ============================================================================= {{{
 if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) ==# 'neosnippet'
-  function! mapping#enter#super_enter() abort
+  function! mapping#enter#Super_Enter() abort
     if pumvisible()
       if neosnippet#expandable()
         if g:neosnippet#enable_complete_done == 1
-          if getline('.')[col('.')-2] ==# '('
+          if CurChar(0, '(')
             return s:md ==# 'asyncomplete' ? asyncomplete#close_popup() : "\<c-y>"
           else
             return "\<c-e>\<plug>(neosnippet_expand)"
@@ -23,9 +23,9 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
         else
           return "\<plug>(neosnippet_expand)"
         endif
-      elseif !delimitMate#WithinEmptyPair() && getline('.')[col('.')-1] ==# '}'
+      elseif !WithinEmptyPair() && CurChar(1, '}')
         return "\<c-y>\<CR>"
-      elseif getline('.')[col('.')-1] !=# '}'
+      elseif !CurChar(1, '}')
         if empty(v:completed_item)
           return "\<c-e>"
         else
@@ -35,16 +35,14 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
     elseif !pumvisible()
       if neosnippet#jumpable()
         return "\<plug>(neosnippet_jump)"
-      elseif getline('.')[col('.')-2] =~# '\s' || getline('.')[col('.')-1] ==# '\s'
-            \ || getline('.')[col('.')-1] =~# '\w'
+      elseif CurChar(0, '\s') || CurChar(1, '\s') || CurChar(1, '\w') 
         return "\<CR>"
-      elseif getline('.')[col('.')-1] !=# ']' && getline('.')[col('.')-1] !=# '}'
-            \ && getline('.')[col('.')+1] !=# ''
+      elseif !CurChar(1, ']') && !CurChar(1, '}') && !CurChar(1, '', 1)
         return "\<esc>o"
-      elseif getline('.')[col('.')-2] =~# '\d'
+      elseif CurChar(0, '\d')
         return "\<esc>o"
-      elseif getline('.')[col('.')-1] ==# '}' || getline('.')[col('.')-1] ==# ']'
-        return "\<CR>\<esc>ko"
+      elseif CurChar(1, '}') || CurChar(1, ']')
+        return "\<CR>\\\<Space>\<Esc>ko\\\<Space>"
       else
         return "\<CR>"
       endif
@@ -57,7 +55,7 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
 " ============================================================================= {{{
 " NOTE: g:ulti_expand_or_jump_res (0: fail, 1: expand, 2: jump)
 elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisnips'
-  function! mapping#enter#super_enter() abort
+  function! mapping#enter#Super_Enter() abort
     if pumvisible()
       return "\<c-r>=mapping#enter#popup()\<CR>"
     elseif !pumvisible()
@@ -68,9 +66,9 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
     let sni = UltiSnips#ExpandSnippetOrJump()
     if g:ulti_expand_or_jump_res > 0
       return sni
-    elseif !delimitMate#WithinEmptyPair() && getline('.')[col('.')-1] ==# '}'
+    elseif !WithinEmptyPair() && CurChar(1, '}')
       return "\<c-y>\<CR>"
-    elseif getline('.')[col('.')-1] !=# '}'
+    elseif !CurChar(1, '}')
       if empty(v:completed_item)
         return "\<c-e>"
       elseif g:ulti_expand_or_jump_res == 2
@@ -84,16 +82,14 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
     let sni = UltiSnips#ExpandSnippetOrJump()
     if g:ulti_expand_or_jump_res == 2
       return sni
-    elseif getline('.')[col('.')-2] =~# '\s' || getline('.')[col('.')-1] ==# ' '
-          \ || getline('.')[col('.')-1] =~# '\w'
+    elseif CurChar(0, '\s') || CurChar(1, '\s') || CurChar(1, '\w') 
       return "\<CR>"
-    elseif getline('.')[col('.')-1] !=# ']' && getline('.')[col('.')-1] !=# '}'
-          \ && getline('.')[col('.')+1] !=# ''
+    elseif !CurChar(1, ']') && !CurChar(1, '}') && !CurChar(1, '', 1)
       return "\<esc>o"
-    elseif getline('.')[col('.')-2] =~# '\d'
+    elseif CurChar(0, '\d')
       return "\<esc>o"
-    elseif getline('.')[col('.')-1] ==# '}' || getline('.')[col('.')-1] ==# ']'
-      return "\<CR>\<esc>ko"
+    elseif CurChar(1, '}') || CurChar(1, ']')
+      return "\<CR>\\\<Space>\<Esc>ko\\\<Space>"
     else
       return "\<CR>"
     endif
@@ -104,13 +100,13 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
 " coc
 " ============================================================================= {{{
 elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'coc'
-  function! mapping#enter#super_enter() abort
+  function! mapping#enter#Super_Enter() abort
     if pumvisible()
       if coc#expandable()
         return "\<plug>(coc-snippets-expand)"
-      elseif !delimitMate#WithinEmptyPair() && getline('.')[col('.')-1] ==# '}'
+      elseif !WithinEmptyPair() && CurChar(1, '}')
         return "\<c-y>\<CR>"
-      elseif getline('.')[col('.')-1] !=# '}'
+      elseif !CurChar(1, '}')
         if empty(v:completed_item)
           return "\<c-e>"
         else
@@ -118,16 +114,14 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'coc'
         endif
       endif
     elseif !pumvisible()
-      if getline('.')[col('.')-2] =~# '\s' || getline('.')[col('.')-1] =~# '\s'
-            \ || getline('.')[col('.')-1] =~# '\w'
+      if CurChar(0, '\s') || CurChar(1, '\s') || CurChar(1, '\w') 
         return "\<CR>"
-      elseif getline('.')[col('.')-1] !=# ']' && getline('.')[col('.')-1] !=# '}'
-            \ && getline('.')[col('.')+1] !=# ''
+      elseif !CurChar(1, ']') && !CurChar(1, '}') && !CurChar(1, '', 1)
         return "\<esc>o"
-      elseif getline('.')[col('.')-2] =~# '\d'
+      elseif CurChar(0, '\d')
         return "\<esc>o"
-      elseif getline('.')[col('.')-1] ==# '}' || getline('.')[col('.')-1] ==# ']'
-        return "\<CR>\<esc>ko"
+      elseif CurChar(1, '}') || CurChar(1, ']')
+        return "\<CR>\\\<Space>\<Esc>ko\\\<Space>"
       else
         return "\<CR>"
       endif

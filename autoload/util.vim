@@ -73,15 +73,15 @@ endfun
 
 function! util#vim_help_wrapper(...) abort
   if a:0 > 0 && a:1 ==# 'fl'
-    exec 'help function-list' | exec ':resize'
+    exec 'help function-list@cn' | exec ':resize'
     return
   endif
 
   let cword = expand('<cword>')
   if a:0 == 0 && !empty(cword)
-    exec 'vert bo help '.cword
+    exec 'vert bo help '.cword.'@cn'
   elseif a:0 > 0
-    exec 'vert bo help '.a:1
+    exec 'vert bo help '.a:1.'@cn'
   endif
 endfunction
 "}}}

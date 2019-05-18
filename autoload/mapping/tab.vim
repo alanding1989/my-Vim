@@ -5,14 +5,13 @@
 scriptencoding utf-8
 
 
-
 let s:md = get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method', 'asyncomplete'))
 
 " ================================================================================
 " neosnippet
 " ============================================================================= {{{
 if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) ==# 'neosnippet'
-  function! mapping#tab#super_tab() abort
+  function! mapping#tab#Super_Tab() abort
     if pumvisible()
       if neosnippet#expandable()
         if g:neosnippet#enable_complete_done == 1
@@ -24,20 +23,32 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
         else
           return "\<plug>(neosnippet_expand)"
         endif
-      elseif neosnippet#jumpable() && CurChar(1, '(')
-        return "\<plug>(neosnippet_jump)"
-      elseif delimitMate#WithinEmptyPair()
+        " TODO: check works
+      elseif RightPair() && !empty(v:completed_item)
         return "\<right>"
+      elseif neosnippet#jumpable() && CurChar(1, '(')
+        if empty(v:completed_item)
+          return "\<C-y>"
+        else
+          return "\<plug>(neosnippet_jump)"
+        endif
       else
-        return s:md ==# 'asyncomplete' ? asyncomplete#close_popup() : "\<c-y>"
+        if WithinEmptyPair() " fix ncm2
+          return "\<c-y>\<Del>\<Right>"
+        else
+          return s:md ==# 'asyncomplete' ? asyncomplete#close_popup() : "\<c-y>"
+        endif
       endif
     else
       if neosnippet#expandable() && !CurChar(0, '(')
         return "\<plug>(neosnippet_expand)"
-      elseif !neosnippet#jumpable() && delimitMate#ShouldJump()
-            \ && s:check_bs() && !CurChar(1, '')
+      elseif !neosnippet#jumpable() && s:check_bs() && !CurChar(1, '') && RightPair()
         return "\<right>"
       elseif neosnippet#jumpable()
+        call mapping#util#jback('CurChar', {
+              \ "\<Esc>hviwc"     : [1 ,'('],
+              \ "\<left>,\<Space>": [1 ,')'],
+              \ })
         return "\<plug>(neosnippet_jump)"
       elseif !s:check_bs()
         return "\<tab>"
@@ -57,7 +68,7 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
     endif
   endfunction
 
-  function! mapping#tab#S_tab() abort
+  function! mapping#tab#S_Tab() abort
     smap <expr><TAB>
           \ neosnippet#expandable_or_jumpable() ?
           \ "\<Plug>(neosnippet_expand_or_jump)" :
@@ -71,7 +82,7 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
 " ============================================================================= {{{
 " NOTE: g:ulti_expand_or_jump_res (0: fail, 1: expand, 2: jump)
 elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisnips'
-  function! mapping#tab#super_tab() abort
+  function! mapping#tab#Super_Tab() abort
     if pumvisible()
       return "\<C-r>=mapping#tab#popup()\<CR>"
     else
@@ -84,7 +95,7 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
       return snip
     elseif g:ulti_expand_or_jump_res == 2 && CurChar(0, '(')
       return snip
-    elseif delimitMate#WithinEmptyPair()
+    elseif RightPair() && !empty(v:completed_item)
       return "\<right>"
     elseif CurChar(0, '(') && CurChar(1, '\s')
       return ")\<left>"
@@ -99,8 +110,7 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
     let sni = UltiSnips#ExpandSnippetOrJump()
     if g:ulti_expand_or_jump_res == 1
       return sni
-    elseif g:ulti_expand_or_jump_res != 2 && delimitMate#ShouldJump()
-          \ && s:check_bs() && !CurChar(1,  '')
+    elseif g:ulti_expand_or_jump_res != 2 && RightPair() && s:check_bs() && !CurChar(1,  '')
       return "\<right>"
     elseif g:ulti_expand_or_jump_res == 2
       return sni
@@ -134,13 +144,13 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
 " coc
 " ============================================================================= {{{
 elseif s:md ==# 'coc'
-  function! mapping#tab#super_tab() abort
+  function! mapping#tab#Super_Tab() abort
     if pumvisible()
       if coc#expandable()
         return "\<Plug>(coc-snippets-expand)"
       elseif coc#jumpable() && CurChar(1, '(')
         return "\<Plug>(coc-snippets-expand-jump)"
-      elseif delimitMate#WithinEmptyPair()
+      elseif RightPair() && !empty(v:completed_item)
         return "\<right>"
       else
         return "\<c-y>"
@@ -148,8 +158,7 @@ elseif s:md ==# 'coc'
     else
       if coc#expandable()
         return "\<Plug>(coc-snippets-expand)"
-      elseif !coc#jumpable() && delimitMate#ShouldJump()
-            \ && s:check_bs() && !CurChar(1, '')
+      elseif !coc#jumpable() && RightPair() && s:check_bs() && !CurChar(1, '')
         return "\<right>"
       elseif coc#jumpable()
         return "\<Plug>(coc-snippets-expand-jump)"
@@ -173,3 +182,4 @@ function! s:check_bs() abort
   let col = col('.') - 1
   return col > 0 && getline('.')[col('.')-2] !~# '\s'
 endfunction
+

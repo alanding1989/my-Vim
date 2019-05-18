@@ -10,9 +10,9 @@ command! -nargs=*  EchoMap          call util#maparg_wrapper(<f-args>)
 command! -nargs=+  OpenlinkOrSearch call util#OpenlinkOrSearch(<f-args>)
 command! -nargs=?  SpcPR            call util#SPC_PR(<f-args>)
 command! -nargs=?  MyCocSnipsEdit   call util#coc_editsnips(<f-args>)
-command! -nargs=?  -complete=highlight 
+command! -nargs=?  -complete=highlight
                  \ EchoHlight       call util#hlight_wrapper(<f-args>)
-command! -nargs=?  -complete=help 
+command! -nargs=?  -complete=help
                  \ EchoHelp         call util#vim_help_wrapper(<f-args>)
 
 

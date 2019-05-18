@@ -21,7 +21,7 @@ let g:vista_sidebar_width = 0 ? g:sidebar_width : 30
 
 
 let g:vista_echo_strategy                 = 'floating_win'
-let g:vista_stay_on_open                  = 1
+let g:vista_stay_on_open                  = 0
 
 let g:vista_icon_indent                   = 1 ? ['', ''] : ['╰─▸ ', '├─▸ ']
 let g:vista_fzf_preview                   = ['right:50%']

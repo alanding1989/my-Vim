@@ -46,7 +46,7 @@ function! layers#edit#plugins() abort "{{{
 endfunction " }}}
 
 
-" mappings 
+" mappings
 function! layers#edit#config() abort
   call s:vim_edgemotion()
   call s:vim_quickhl()

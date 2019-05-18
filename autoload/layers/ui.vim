@@ -41,6 +41,7 @@ function! layers#ui#config() abort
   " general
   call s:startify()
   call s:indent_line()
+  call s:better_whitespace()
 
   augroup rainbow_lisp
     autocmd!
@@ -49,9 +50,6 @@ function! layers#ui#config() abort
           \ | nnoremap <silent> <buffer> qd :bdelete<CR>
   augroup END
 
-  if !g:is_spacevim
-    nnoremap <silent><space>tw  :call <sid>toggle_whitespace()<CR>
-  endif
 endfunction
 
 
@@ -78,6 +76,15 @@ function! s:indent_line() abort
   else
     noremap <silent><space>ti  :IndentLinesToggle<CR>
     noremap <silent><space>tl  :call <sid>toggle_indent_length()<CR>
+  endif
+endfunction
+
+
+function! s:better_whitespace() abort
+  let g:better_whitespace_ctermcolor = '114'
+  let g:better_whitespace_guicolor   = '#98c379'
+  if !g:is_spacevim
+    nnoremap <silent><space>tw  :call <sid>toggle_whitespace()<CR>
   endif
 endfunction
 

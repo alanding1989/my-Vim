@@ -8,7 +8,7 @@ scriptencoding utf-8
 
 function! mapping#basic#load() abort
   let g:mapleader       = ';'
-  " let g:maplocalleader  = "\<Space>"
+  let g:maplocalleader  = "\<Space>"
   set timeout
   " set timeoutlen=800
   auto VimEnter * call s:unmap_SPC()
@@ -166,7 +166,7 @@ function! mapping#basic#load() abort
 
 
   " edit related {{{
-  call <sid>operator()
+  call <sid>Delimitor_init()
 
   " g related
   auto VimEnter * nnoremap g0    *
@@ -318,37 +318,60 @@ function! mapping#basic#load() abort
 endfunction
 
 
-" operator mapping {{{
-function! s:operator() abort
-  auto FileType sh call <sid>bashfix()
-  call s:numfix()
-  inoremap <expr> =   MatchDel('=', '\(=\+\s\)\\|\(>\+\s\)\\|\(<\+\s\)\\|\(+\+\s\)\\|\(-\+\s\)')
-  inoremap <expr> \|  MatchDel('\|', '\|\+\s')
-  inoremap <expr> &   MatchDel('&', '&\+\s')
-  inoremap <expr> #   MatchDel('#', '\(=\+\s\)\\|\(=\~\)')
+" Delimit mapping {{{
+function! s:Delimitor_init() abort
+  " inoremap <expr> =   MatchDel('=', '\(=\+\s\)\\|\(>\+\s\)\\|\(<\+\s\)\\|\(+\+\s\)\\|\(-\+\s\)')
+  inoremap <expr> =   MatchDel('=', '\v(\=+\s\_$)\|(\>+\s\_$)\|(\<+\s\_$)\|(\++\s\_$)\|(-+\s\_$)')
+  inoremap <expr> \|  MatchDel('\|', '\|\+\s$')
+  inoremap <expr> &   MatchDel('&', '&\+\s$')
+  inoremap <expr> #   MatchDel('#', '\v(\=+\s)\|(\=\~)\|(!\=)\|(!\~)')
   inoremap <expr> ~   MatchDel('~', '\(=\+\s\)')
-  inoremap <expr> >   MatchDel('>', '\(>\+\s\)\\|\(=\s_$\)\\|\(-\s_$\)')
-  inoremap <expr> <   MatchDel('<', '\v^\s*\zs(if\|el\|wh\|let)', '>')
-  inoremap <expr> -   AutoClo('-')
-  inoremap <expr> +   AutoClo('+')
-  inoremap <expr> ?   AutoClo('?')
-  inoremap <expr> (   AutoClo('(',')')
-  inoremap <expr> [   AutoClo('[',']')
-  inoremap <expr> {   AutoClo('{','}')
-  inoremap <expr> '   AutoClo("'","'")
-  inoremap <expr> "   AutoClo('"','"')
-  inoremap <expr> 《   AutoClo('《','》')
+  inoremap <expr> >   MatchDel('>', '\v(\>+\s)\|(\=\s\_$)\|(-\s\_$)')
+  inoremap <expr> <   MatchDel('<', '\v^\s*(if\|el\|wh\|let)', '>')
+  inoremap <expr> ,   CurChar(0, '\s') ? "\<BS>,\<Space>" : (CurChar(1, '') ? "," : ",\<Space>")
+  call s:AutoClose()
+  call s:AutoPairs()
+  call s:Numfix()
+  auto FileType sh  call <sid>Bashfix()
+  auto FileType vim inoremap <expr> " 
+        \ MatchCl('\v(^\_$)\|(^\s*\w*\s\_$)\|(^\s+\_$)')
+        \ ? "\"\<Space>" : AutoClo('"', '"')
 endfunction
-function! s:numfix() abort
-  for num in range(10)
-    exec 'inoremap <expr> '.num.' MatchDel('.string(num).', "-\\s", 1)'
+function! s:AutoClose() abort " {{{
+  let autoclose = [
+        \ ')', ']', '}', '-', '+', '?',
+        \ ]
+  for r in autoclose
+    exec 'inoremap <expr> '.r.' AutoClo('.string(r).')'
   endfor
-endfunction
-function! s:bashfix() abort
+endfunction " }}}
+function! s:AutoPairs() abort " {{{
+  let autopairs = get(b:, 'autopairs', get(g:, 'autopairs', {
+        \ '('  : ')' ,
+        \ '['  : ']' ,
+        \ '{'  : '}' ,
+        \ "'"  : "'" ,
+        \ '"'  : '"' ,
+        \ '`'  : '`' ,
+        \ '*'  : '*' ,
+        \ '《' : '》',
+        \ }))
+  for [l, r] in items(autopairs)
+    exec 'inoremap <expr> '.l.' AutoClo('.string(l).', '.string(r).')'
+  endfor
+endfunction " }}} 
+function! s:Numfix() abort " {{{
+  for num in range(1, 9)
+    exec 'inoremap <expr> '.num.' MatchDel('.num.",
+          \ '\\v\\zs(match.*\\W\\s\-\\s)\\|(index.*\\W\\s\-\\s)$')"
+  endfor
+endfunction " }}} 
+function! s:Bashfix() abort " {{{
   for char in ['d', 'e', 'f', 'z', 'n']
-    exec 'inoremap <expr> '.char.' MatchDel('.string(char).', "-\\s", 1)'
+    exec 'inoremap <expr> '.char.' MatchDel('.string(char).', "-\\s_$", 1)'
   endfor
 endfunction "}}}
+" }}} 
 
 " quit_preview window {{{
 function! s:close_window() abort
