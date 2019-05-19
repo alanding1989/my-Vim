@@ -54,7 +54,7 @@ function! layers#edit#config() abort
   call s:vim_table_mode()
 
   if g:is_spacevim " {{{
-
+    let g:_spacevim_mappings[';'] = ['', 'MultiVisul prefix']
     " chang case
     call SpaceVim#mapping#space#def('nnoremap', ['x', 'i', 'l'], 'silent call call('
           \ . string(s:_function('s:lowerCamelCase')) . ', [])',

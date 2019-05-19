@@ -86,8 +86,6 @@ function! mapping#basic#load() abort
   nnoremap <silent>qq   :call <sid>close_window()<CR>
   nnoremap <silent>qn   :clo<C-r>=winnr()+1<CR><CR>
   nnoremap <silent>qp   :clo<C-r>=winnr()-1<CR><CR>
-  " nnoremap <silent>qu   :winc z<CR>
-  nnoremap <silent>qu   :call <sid>safe_revert_buffer()<CR>
   nnoremap <silent>qo   :only<CR>
   nnoremap <silent>qh   :q<CR>
   nnoremap <silent>qd   :try\|bd\|catch\|endtry<CR>
@@ -95,6 +93,7 @@ function! mapping#basic#load() abort
   nnoremap <silent>qf   :call <sid>delete_current_buffer_file()<CR>
   nnoremap <silent>qe   :call <sid>safe_erase_buffer()<CR>
   nnoremap <silent>qr   :call <sid>rename_file()<CR>
+  nnoremap <silent>quu  :call <sid>safe_revert_buffer()<CR>
   nnoremap <silent>qkk  :qa!<CR>
 
   nnoremap <silent>so   :call feedkeys(':vs ')<CR> 
@@ -319,16 +318,19 @@ function! mapping#basic#load() abort
 endfunction
 
 
-function! s:definePlug() abort
-  " <Plug> use in g:home . config/SpaceVim/keymap.vim
-  nnoremap <Plug>(EasyCopy-inPairs) :call <sid>EasyCopy_inPairs()<CR>
-  nnoremap <plug>(Toggle-ZZMode)    :call <sid>Toggle_ZZMode()<cr>
-  " <Plug> use in edit layer
-  nnoremap <Plug>(SetFileHead)      :call <sid>SetFileHead()<CR>
-  nnoremap <Plug>(Insert-EqualBox)  :call <sid>EqualBox()<CR>
-  nnoremap <Plug>(Insert-MinusBox)  :call <sid>MinusBox()<CR>
-endfunction
+" Define Plugin Mappings  {{{
+function! s:definePlug() abort 
+  " <Plug> use in core layer
+  nnoremap <Plug>(EasyCopy-inPairs)     :call <sid>EasyCopy_inPairs()<CR>
+  nnoremap <Plug>(Toggle-ZZMode)        :call <sid>Toggle_ZZMode()<cr>
+  nnoremap <Plug>(Safe-Erase-Buffer)    :call <sid>safe_erase_buffer()<cr>
+  nnoremap <Plug>(Safe-Revert-Buffer)   :call <sid>safe_revert_buffer()<cr>
 
+  " <Plug> use in edit layer
+  nnoremap <Plug>(SetFileHead)          :call <sid>SetFileHead()<CR>
+  nnoremap <Plug>(Insert-EqualBox)      :call <sid>EqualBox()<CR>
+  nnoremap <Plug>(Insert-MinusBox)      :call <sid>MinusBox()<CR>
+endfunction " }}}
 
 " Delimit Mapping {{{
 function! s:Delimitor_init() abort
@@ -462,20 +464,22 @@ let s:zzmodekey = {
       \ '}'      : '}zz',
       \ '[{'     : '[{zz',
       \ ']}'     : ']}zz',
+      \ '[['     : '[[zz',
+      \ ']]'     : ']]zz',
       \ } " }}}
 function! s:Toggle_ZZMode() abort
   if s:zzmode == 0
     exec 'normal! M'
     for [lhs, rhs] in items(s:zzmodekey)
       let s:save_rhs[lhs] = maparg(lhs, 'n')
-      exec 'nnoremap ' lhs rhs
+      exec 'nmap ' lhs rhs
     endfor
     let s:zzmode = 1
     echo '  zzmode now is on!'
   else
     for [lhs, rhs] in items(s:save_rhs)
       if !empty(rhs)
-        exec 'nnoremap ' lhs rhs
+        exec 'nmap ' lhs rhs
       else
         exec 'nunmap ' lhs
       endif
@@ -501,23 +505,25 @@ function! s:killotherBuffers() abort
   endif
 endfunction
 " }}}
-" }}}
-
-" File Manipulate {{{
-" rename file {{{
+"
+" Rename File {{{
 function! s:rename_file() abort
+  let save_cursor = getpos('.')
   let curbufnr = bufnr('%')
   let newn = input('New name: '.expand('%:p').' -> ', expand('%:p'))
   if glob(newn) !=# ''
     call util#echohl(' The file already exists !', 'n')
     return
   endif
-  call rename(expand('%'), newn)
+  if rename(expand('%'), newn) == 0
+    call util#echohl(' Sucessfully rename file !', 'n')
+  endif
   exec 'e ' newn
   exec 'bd' curbufnr
+  call setpos('.', save_cursor)
 endfunction " }}}
 
-" safe erase buffer {{{
+" Safe Erase Buffer {{{
 let s:MESSAGE = SpaceVim#api#import('vim#message')
 let s:BUFFER  = SpaceVim#api#import('vim#buffer')
 function! s:safe_erase_buffer() abort
@@ -528,7 +534,15 @@ function! s:safe_erase_buffer() abort
   endif
 endfunction " }}}
 
-" delete current buffer file {{{
+" Safe Reload Buffer File from Disk {{{
+function! <sid>safe_revert_buffer() abort
+  if s:MESSAGE.confirm('Revert buffer form ' . expand('%:p'))
+    edit!
+  endif
+  redraw!
+endfunction " }}}
+
+" Delete Current Buffer File {{{
 function! s:delete_current_buffer_file() abort
   if s:MESSAGE.confirm('Are you sure you want to delete this file')
     let f = expand('%')

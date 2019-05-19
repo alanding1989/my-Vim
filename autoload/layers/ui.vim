@@ -55,11 +55,10 @@ endfunction
 
 function! s:startify() abort
   if g:is_spacevim
-    let g:_spacevim_mappings.a   = {'name': '+@ Session/Settings' }
-    let g:_spacevim_mappings.a.c = {'name': '+Open config file'   }
     call SpaceVim#mapping#def('noremap', '<leader>al', ':SLoad! '  , 'load a session'  , '', 'load a session'  )
     call SpaceVim#mapping#def('noremap', '<leader>as', ':SSave! '  , 'save a session'  , '', 'save a session'  )
     call SpaceVim#mapping#def('noremap', '<leader>ad', ':SDelete! ', 'delete a session', '', 'delete a session')
+    let g:_spacevim_mappings.a.m = ['call util#statusline#pureline()', 'set statusline']
   else
     nnoremap <silent><space>bh   :Startify<CR>
     nnoremap <leader>al          :call feedkeys(':SLoad! ')<CR>

@@ -261,6 +261,7 @@ endfunction "}}}
 
 " SpaceVim new PR {{{
 function! util#SPC_PR(...) abort
+  " a:i git branch name
   if a:0 == 1
     call system('sh '.g:home.'extools/spacevim/SPC-pr.sh '.a:1)
   else

@@ -59,27 +59,40 @@ function! layers#core#config() abort
   if g:is_spacevim
     exec 'so '. g:vim_plugindir .'unite.vim'
     unlet g:_spacevim_mappings_space.b.R | nunmap [SPC]bR
-    call SpaceVim#mapping#space#def('nnoremap', ['b', 'r'], 'call call('
-          \ . string(s:_function('s:safe_revert_buffer')) . ', [])',
-          \ 'safe revert buffer', 1)
+    call SpaceVim#mapping#space#def('nmap'    , ['b', 'r'], '<Plug>(Safe-Revert-Buffer)', 'safe revert buffer', 0)
+    call SpaceVim#mapping#space#def('nnoremap', ['p', 's'], ':Grepper', 'safe revert buffer', 1)
+
+    let g:_spacevim_mappings.a   = {'name' : '+@ Session/Setting/Select'}
+    let g:_spacevim_mappings.a.c = {'name': '+Open config file'}
+    let g:_spacevim_mappings.a.a = ['normal! ggVG'                           , 'select whole buffer'      ]
+    let g:_spacevim_mappings.a.e = ['normal! VG'                             , 'select to the end'        ]
+    call SpaceVim#mapping#def('nmap', '<leader>y'   , '<Plug>(EasyCopy-inPairs)',
+          \ 'copy text in pairs to system clipboard', '', 'copy text in pairs to system clipboard')
+    call SpaceVim#mapping#def('nmap', '<leader>az'  , '<Plug>(Toggle-ZZMode)',
+          \ 'toggle zzmode'                         , '', 'toggle zzmode')
+
   else
     let g:matchup_matchparen_status_offscreen = 0
-    nnoremap <space>be  :call <sid>safe_erase_buffer()<CR>
-    nnoremap <space>br  :call <sid>safe_revert_buffer()<CR>
-    nnoremap <space>bm  :call <sid>open_message_buffer()<CR>
-    nnoremap <space>b.  :call <sid>buffer_transient_state()<CR>
 
-    nnoremap <space>n=  :call <sid>number_transient_state('+')<CR>
-    nnoremap <space>n-  :call <sid>number_transient_state('-')<CR>
+    nmap     <leader>y    <Plug>(EasyCopy-inPairs)
+    nmap     <leader>az   <plug>(Toggle-ZZMode)   
 
-    nnoremap <space>jn  i<CR><Esc>
-    nnoremap <space>jo  i<CR><Esc>k$
-    nnoremap <space>js  :call <sid>split_string(0)<CR>i
-    nnoremap <space>jS  :call <sid>split_string(1)<CR>
+    nmap     <Space>be    <plug>(Safe-Erase-Buffer) 
+    nmap     <Space>br    <plug>(Safe-Revert-Buffer)
+    nnoremap <Space>bm    :call <sid>open_message_buffer()<CR>
+    nnoremap <Space>b.    :call <sid>buffer_transient_state()<CR>
 
-    nnoremap <space>ju  :call <sid>jump_to_url()<CR>
+    nnoremap <Space>n=    :call <sid>number_transient_state('+')<CR>
+    nnoremap <Space>n-    :call <sid>number_transient_state('-')<CR>
 
-    nnoremap <space>ps  :Grepper<CR>
+    nnoremap <Space>jn    i<CR><Esc>
+    nnoremap <Space>jo    i<CR><Esc>k$
+    nnoremap <Space>js    :call <sid>split_string(0)<CR>i
+    nnoremap <Space>jS    :call <sid>split_string(1)<CR>
+
+    nnoremap <Space>ju    :call <sid>jump_to_url()<CR>
+
+    nnoremap <Space>ps    :Grepper<CR>
   endif
 endfunction
 
@@ -119,13 +132,13 @@ function! s:filetree() abort " {{{
           \ . ', [7])', '@ open new file window in current working dir', 1)
   else
     nnoremap <silent><F3>         :call <SID>open_filetree(0)<CR>
-    nnoremap <silent><space>fo    :call <SID>open_filetree(1)<CR>
-    nnoremap <silent><space><tab> :call <SID>open_filetree(2)<CR>
-    nnoremap <silent><space>fa    :call <SID>open_filetree(3)<CR>
-    nnoremap <silent><space>fi    :call <SID>open_filetree(4)<CR>
-    nnoremap <silent><space>fp    :call <SID>open_filetree(5)<CR>
-    nnoremap <silent><space>f.    :call <SID>open_filetree(6)<CR>
-    nnoremap <silent><space>fn    :call <SID>open_filetree(7)<CR>
+    nnoremap <silent><Space>fo    :call <SID>open_filetree(1)<CR>
+    nnoremap <silent><Space><tab> :call <SID>open_filetree(2)<CR>
+    nnoremap <silent><Space>fa    :call <SID>open_filetree(3)<CR>
+    nnoremap <silent><Space>fi    :call <SID>open_filetree(4)<CR>
+    nnoremap <silent><Space>fp    :call <SID>open_filetree(5)<CR>
+    nnoremap <silent><Space>f.    :call <SID>open_filetree(6)<CR>
+    nnoremap <silent><Space>fn    :call <SID>open_filetree(7)<CR>
   endif
 endfunction
 
@@ -238,14 +251,14 @@ function! s:comment() abort " {{{
 
   else
     " NOTE: below 3 shoudn`t be noremap
-    map <space>cl <plug>NERDCommenterInvert
-    map <space>cL <plug>NERDCommenterComment
-    map <space>cc <plug>NERDCommenterInvert
-    map <space>cC <plug>NERDCommenterComment
+    map <Space>cl <plug>NERDCommenterInvert
+    map <Space>cL <plug>NERDCommenterComment
+    map <Space>cc <plug>NERDCommenterInvert
+    map <Space>cC <plug>NERDCommenterComment
 
-    map      <space>ct <plug>CommentToLineInvert
-    map      <space>cp <plug>CommentParagraphsInvert
-    map      <space>;  <plug>CommentOperator
+    map      <Space>ct <plug>CommentToLineInvert
+    map      <Space>cp <plug>CommentParagraphsInvert
+    map      <Space>;  <plug>CommentOperator
     nnoremap <silent>  <Plug>CommentToLineInvert     : call <SID>comment_to_line(1)<CR>
     nnoremap <silent>  <Plug>CommentParagraphsInvert : call <SID>comment_paragraphs(1)<CR>
     nnoremap <silent>  <Plug>CommentOperator         : set opfunc=<SID>commentOperator<CR>g@
@@ -303,26 +316,26 @@ function! s:flygrep() abort " {{{
   else
     let g:spacevim_debug_level = 1
     " Searching in current buffer
-    nnoremap<space>ss  :call SpaceVim#plugins#flygrep#open({'input': input("grep pattern:"), 'files': bufname("%")})<CR>
-    nnoremap<space>sS  :call SpaceVim#plugins#flygrep#open({'input': expand("<cword>")     , 'files': bufname("%")})<CR>
+    nnoremap<Space>ss  :call SpaceVim#plugins#flygrep#open({'input': input("grep pattern:"), 'files': bufname("%")})<CR>
+    nnoremap<Space>sS  :call SpaceVim#plugins#flygrep#open({'input': expand("<cword>")     , 'files': bufname("%")})<CR>
     " Searching in all loaded buffers
-    nnoremap<space>sb  :call SpaceVim#plugins#flygrep#open({'input': input("grep pattern:"), 'files': '@buffers'})<CR>
-    nnoremap<space>sB  :call SpaceVim#plugins#flygrep#open({'input': expand("<cword>")     , 'files': '@buffers'})<CR>
+    nnoremap<Space>sb  :call SpaceVim#plugins#flygrep#open({'input': input("grep pattern:"), 'files': '@buffers'})<CR>
+    nnoremap<Space>sB  :call SpaceVim#plugins#flygrep#open({'input': expand("<cword>")     , 'files': '@buffers'})<CR>
     " Searching in buffer directory
-    nnoremap<space>sd  :call SpaceVim#plugins#flygrep#open({'input': input("grep pattern:"), 'dir'  : fnamemodify(expand('%'), ':p:h')})<CR>
-    nnoremap<space>sD  :call SpaceVim#plugins#flygrep#open({'input': expand("<cword>")     , 'dir'  : fnamemodify(expand('%'), ':p:h')})<CR>
+    nnoremap<Space>sd  :call SpaceVim#plugins#flygrep#open({'input': input("grep pattern:"), 'dir'  : fnamemodify(expand('%'), ':p:h')})<CR>
+    nnoremap<Space>sD  :call SpaceVim#plugins#flygrep#open({'input': expand("<cword>")     , 'dir'  : fnamemodify(expand('%'), ':p:h')})<CR>
     " Searching in files in an arbitrary directory
-    nnoremap<space>sf  :call SpaceVim#plugins#flygrep#open({'input': input("grep pattern:"), 'dir'  : input("arbitrary dir:", '', 'dir')})<CR>
-    nnoremap<space>sF  :call SpaceVim#plugins#flygrep#open({'input': expand("<cword>")     , 'dir'  : input("arbitrary dir:", '', 'dir')})<CR>
+    nnoremap<Space>sf  :call SpaceVim#plugins#flygrep#open({'input': input("grep pattern:"), 'dir'  : input("arbitrary dir:", '', 'dir')})<CR>
+    nnoremap<Space>sF  :call SpaceVim#plugins#flygrep#open({'input': expand("<cword>")     , 'dir'  : input("arbitrary dir:", '', 'dir')})<CR>
     " Searching in project
-    nnoremap<space>sp  :call SpaceVim#plugins#flygrep#open({'input': input("grep pattern:"), 'dir'  : get(b:, "rootDir", getcwd())})<CR>
-    nnoremap<space>sP  :call SpaceVim#plugins#flygrep#open({'input': expand("<cword>")     , 'dir'  : get(b:, "rootDir", getcwd())})<CR>
+    nnoremap<Space>sp  :call SpaceVim#plugins#flygrep#open({'input': input("grep pattern:"), 'dir'  : get(b:, "rootDir", getcwd())})<CR>
+    nnoremap<Space>sP  :call SpaceVim#plugins#flygrep#open({'input': expand("<cword>")     , 'dir'  : get(b:, "rootDir", getcwd())})<CR>
     " Searching background
-    nnoremap<space>sj  :call SpaceVim#plugins#searcher#find(""                             , SpaceVim#mapping#search#default_tool()[0])<CR>
-    nnoremap<space>sJ  :call SpaceVim#plugins#searcher#find(expand("<cword>")              , SpaceVim#mapping#search#default_tool()[0])<CR>
-    nnoremap<space>sl  :call SpaceVim#plugins#searcher#list()<CR>
-    " <space>s/
-    nnoremap<space>so  :call SpaceVim#plugins#flygrep#open({})<CR>
+    nnoremap<Space>sj  :call SpaceVim#plugins#searcher#find(""                             , SpaceVim#mapping#search#default_tool()[0])<CR>
+    nnoremap<Space>sJ  :call SpaceVim#plugins#searcher#find(expand("<cword>")              , SpaceVim#mapping#search#default_tool()[0])<CR>
+    nnoremap<Space>sl  :call SpaceVim#plugins#searcher#list()<CR>
+    " <Space>s/
+    nnoremap<Space>so  :call SpaceVim#plugins#flygrep#open({})<CR>
   endif
 endfunction " }}}
 
@@ -415,11 +428,9 @@ function! s:number_transient_state(n) abort
   call state.open()
 endfunction
 
-
 let s:file = SpaceVim#api#import('file')
 let s:MESSAGE = SpaceVim#api#import('vim#message')
 let s:CMP = SpaceVim#api#import('vim#compatible')
-
 function! s:next_file() abort
   let dir = expand('%:p:h')
   let f = expand('%:t')
@@ -490,13 +501,6 @@ function! s:jump_to_url() abort
   call feedkeys("\<Plug>(easymotion-jumptoanywhere)")
 endfunction
 
-function! s:safe_erase_buffer() abort
-  if s:MESSAGE.confirm('Erase content of buffer ' . expand('%:t'))
-    normal! ggdG
-  endif
-  redraw!
-endfunction
-
 function! s:open_message_buffer() abort
   vertical topleft edit __Message_Buffer__
   setlocal buftype=nofile bufhidden=wipe nobuflisted nolist noswapfile nowrap cursorline nospell nonumber norelativenumber
@@ -505,26 +509,7 @@ function! s:open_message_buffer() abort
   silent put =s:CMP.execute(':message')
   normal! G
   setlocal nomodifiable
-  nnoremap <silent> <buffer> q :silent bd<CR>
-endfunction
-
-function! <sid>safe_revert_buffer() abort
-  if s:MESSAGE.confirm('Revert buffer form ' . expand('%:p'))
-    edit!
-  endif
-  redraw!
-endfunction
-
-function! s:delete_current_buffer_file() abort
-  if s:MESSAGE.confirm('Are you sure you want to delete this file')
-    let f = expand('%')
-    if delete(f) == 0
-      call SpaceVim#mapping#close_current_buffer()
-      echo "File '" . f . "' successfully deleted!"
-    else
-      call s:MESSAGE.warn('Failed to delete file:' . f)
-    endif
-  endif
+  nnoremap <silent> <buffer> qq :silent bd<CR>
 endfunction
 
 function! s:swap_buffer_with_nth_win(nr) abort
@@ -550,7 +535,7 @@ function! s:move_buffer_to_nth_win(nr) abort
   endif
 endfunction
 
-function! s:buffer_transient_state() abort
+function! s:buffer_transient_state() abort " {{{
   let state = SpaceVim#api#import('transient_state')
   call state.set_title('Buffer Selection Transient State')
   call state.defind_keys(
@@ -654,7 +639,7 @@ function! s:buffer_transient_state() abort
         \ }
         \ )
   call state.open()
-endfunction
+endfunction " }}}
 
 function! s:commentOperator(type, ...) abort
   let sel_save = &selection

@@ -10,23 +10,6 @@ scriptencoding utf-8
 " ================================================================================
 " NOTE: if use command no need to call func, use <Plug> need to call func.
 "       rhs cmd need to add : and <CR>
-let g:_spacevim_mappings[';'] = ['', 'MultiVisul prefix']
-
-" select
-let g:_spacevim_mappings.a         = get(g:_spacevim_mappings  , 'a'   , {})
-let g:_spacevim_mappings.a['name'] = get(g:_spacevim_mappings.a, 'name', '+@ Session/Setting/Select')
-let g:_spacevim_mappings.a.c       = get(g:_spacevim_mappings.a, 'c'   , {'name': '+Open config file'})
-
-let g:_spacevim_mappings.a.a = ['ggVG'                                    , 'select whole buffer'      ]
-let g:_spacevim_mappings.a.e = ['VG'                                      , 'select to the end'        ]
-let g:_spacevim_mappings.a.h = ['call layers#defhighlight#test()'         , 'test custom highlight def']
-let g:_spacevim_mappings.a.p = ['"`[" .strpart(getregtype(), 0, 1) ."`]"' , 'select last paste section']
-let g:_spacevim_mappings.a.m = ['call util#statusline#pureline()'         , 'set statusline'           ]
-let g:_spacevim_mappings.a.z = ['<Plug>(Toggle-ZZMode)'                   , 'toggle zzmode'            ]
-let g:_spacevim_mappings.a.y = ['<Plug>(EasyCopy-inPairs)'                , 'copy text in pairs to system clipboard']
-
-call SpaceVim#mapping#def('nmap', '<leader>y' , '<Plug>(EasyCopy-inPairs)', '', '', 'toggle zzmode')
-call SpaceVim#mapping#def('nmap', '<leader>az', '<Plug>(Toggle-ZZMode)'   , '', '', 'toggle zzmode')
 
 " echo value/edit snippets
 let g:_spacevim_mappings.e         = get(g:_spacevim_mappings, 'e'   , {})

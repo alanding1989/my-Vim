@@ -19,6 +19,12 @@ function! layers#defhighlight#config() abort
       exec 'auto FileType '.ft.' call s:highlight_apply('.string(ft).', '.string(colors).')'
     endfor
   endif
+  if g:is_spacevim
+    call SpaceVim#mapping#def('nnoremap', '<leader>ah', ':call layers#defhighlight#test()<CR>',
+          \ 'test custom highlight def', '', 'test custom highlight def')
+  else
+    nnoremap <silent><leader>ah :call layers#defhighlight#test()<CR>
+  endif
 endfunction
 
 

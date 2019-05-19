@@ -82,6 +82,7 @@ function! DirecJumpCR() abort
   endif
 endfunction
 
+" AutoClo {{{
 function! AutoClo(char, ...) abort
   if a:0
     return a:char. a:1. "\<left>"
@@ -112,15 +113,7 @@ function! AutoClo(char, ...) abort
   " \ : ( CurChar(1, '\s') ? a:char : a:char."\<Space>" )
   " \ )
   return a:char
-endfunction
-
-" if CurChar(1, '\w')
-"   call mapping#util#jback()
-"   echohl WarningMsg
-"   echo ' JumpBack Mapping is ready!'
-"   echohl NONE
-"   return a:char."\<End>".a:1
-" endif
+endfunction " }}}
 
 " MatchDel function " {{{
 function! MatchDel(char, regex, ...) abort
