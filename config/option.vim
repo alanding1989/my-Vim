@@ -42,6 +42,7 @@ set statusline=\%<\ \ %F\ [%1*%m%*%n%R%H]%=\ %Y.\ \ \ %0(%{&ff}\|%{&fenc}\ \ %l:
 " search
 set hlsearch incsearch ignorecase smartcase
 set showmatch matchtime=0
+set matchpairs+=<:>,=:;
 
 " autocomplete
 set complete=.,w,b,u,t
@@ -114,10 +115,10 @@ hi! PmenuSel guibg=gray guifg=brown ctermbg=brown ctermfg=gray
 
 " gui setting for vim {{{
 if has('gui_running')
-  hi! SpellBad  gui=undercurl guisp=red
-  hi! SpellCap  gui=undercurl guisp=blue
-  hi! SpellRare gui=undercurl guisp=magenta
-  hi! SpellRare gui=undercurl guisp=cyan
+  hi! SpellBad   gui=undercurl  guisp=red
+  hi! SpellCap   gui=undercurl  guisp=blue
+  hi! SpellRare  gui=undercurl  guisp=magenta
+  hi! SpellRare  gui=undercurl  guisp=cyan
 else
   hi! SpellBad   term=underline cterm=underline term=standout ctermfg=1
   hi! SpellCap   term=underline cterm=underline

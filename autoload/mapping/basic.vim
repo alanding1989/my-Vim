@@ -5,7 +5,6 @@
 scriptencoding utf-8
 
 
-
 function! mapping#basic#load() abort
   let g:mapleader       = ';'
   let g:maplocalleader  = "\<Space>"
@@ -18,74 +17,74 @@ function! mapping#basic#load() abort
   nnoremap  --          @a
   nnoremap  s           <nop>
   nnoremap  q           <nop>
-  nnoremap  ,           <space>l
+  nnoremap  ,           <Space>l
   " NOTE: below 4 used in edgemotion, tmux-navigate
-  nnoremap <c-k>        <c-w>k
-  nnoremap <c-j>        <c-w>j
-  nnoremap <c-h>        <c-w>h
-  nnoremap <c-l>        <c-w>l
-  nnoremap <c-a>        ^
-  " NOTE: trailing space may in eol, use $ to move
-  noremap  <c-e>        $
-  nmap     <bs>         <Plug>(matchup-%)
+  nnoremap <C-k>        <C-w>k
+  nnoremap <C-j>        <C-w>j
+  nnoremap <C-h>        <C-w>h
+  nnoremap <C-l>        <C-w>l
+  nnoremap <C-a>        ^
+  noremap  <C-e>        $
 
   " insert mode
-  inoremap <expr><c-j>  pumvisible() ? "\<c-n>" : "\<down>"
-  inoremap <expr><c-k>  pumvisible() ? "\<c-p>" : "\<up>"
-  inoremap <expr><c-e>  pumvisible() ? (!g:has_py ?
-        \ asyncomplete#cancel_popup() : "\<c-e>") : "\<end>"
-  inoremap <c-a>        <esc>^i
-  inoremap <c-b>        <left>
-  inoremap <c-f>        <right>
-  inoremap <c-l>        <right>
-  inoremap <c-p>        <c-left>
-  inoremap <c-n>        <c-right>
-  inoremap <m-b>        <c-left>
-  inoremap <m-f>        <c-right>
-  " NOTE: <C-h> will be overwritten in <Plug>delimitMateBS
-  " if plug loaded successfully
-  inoremap <expr><c-h>  pumvisible() ? "\<c-e><bs>" : "\<bs>"
-  inoremap <c-d>        <del>
-  inoremap <c-q>        <esc>ld$a
-  inoremap <c-u>        <c-g>u<c-u>
-  inoremap <c-_>        <c-k>
+  inoremap <expr><C-j>  pumvisible() ? "\<C-n>" : "\<down>"
+  inoremap <expr><C-k>  pumvisible() ? "\<C-p>" : "\<up>"
+  inoremap <expr><C-e>  pumvisible() ? (!g:has_py ?
+        \ asyncomplete#cancel_popup() : "\<C-e>") : "\<End>"
+  inoremap <C-a>        <Esc>^i
+  inoremap <C-b>        <left>
+  inoremap <C-f>        <right>
+  inoremap <C-l>        <right>
+  inoremap <C-p>        <C-left>
+  inoremap <C-n>        <C-right>
+  inoremap <m-b>        <C-left>
+  inoremap <m-f>        <C-right>
+  inoremap <expr><C-h>  pumvisible() ? "\<C-e><BS>" : DelEmptyPair()
+  inoremap <C-d>        <Del>
+  inoremap <C-q>        <Esc>ld$a
+  inoremap <C-u>        <C-g>u<C-u>
+  inoremap <C-_>        <C-k>
+  map  <expr> <BS>      exists('loaded_matchup') ? "\<Plug>(matchup-%)"  : "\<BS>"
+  xmap <expr>i<BS>      exists('loaded_matchup') ? "\<Plug>(matchup-i%)" : "\<BS>"
+  omap <expr>i<BS>      exists('loaded_matchup') ? "\<Plug>(matchup-i%)" : "\<BS>"
+  xmap <expr>a<BS>      exists('loaded_matchup') ? "\<Plug>(matchup-a%)" : "\<BS>"
+  omap <expr>a<BS>      exists('loaded_matchup') ? "\<Plug>(matchup-a%)" : "\<BS>"
 
   " command line mode
-  cnoremap qw           <esc>
-  cnoremap <c-h>        <bs>
-  cnoremap <c-j>        <down>
-  cnoremap <c-k>        <up>
-  cnoremap <c-b>        <left>
-  cnoremap <c-f>        <right>
-  cnoremap <c-l>        <right>
-  cnoremap <m-b>        <c-left>
-  cnoremap <m-f>        <c-right>
-  cnoremap <c-a>        <home>
-  cnoremap <c-e>        <end>
-  cnoremap <c-d>        <del>
-  cnoremap <c-_>        <c-k>
-  cnoremap <c-v>        <c-r>=expand('%:p:h') <CR>
+  cnoremap qw           <Esc>
+  cnoremap <C-h>        <BS>
+  cnoremap <C-j>        <down>
+  cnoremap <C-k>        <up>
+  cnoremap <C-b>        <left>
+  cnoremap <C-f>        <right>
+  cnoremap <C-l>        <right>
+  cnoremap <m-b>        <C-left>
+  cnoremap <m-f>        <C-right>
+  cnoremap <C-a>        <Home>
+  cnoremap <C-e>        <End>
+  cnoremap <C-d>        <Del>
+  cnoremap <C-_>        <C-k>
+  cnoremap <C-v>        <C-r>=expand('%:p:h') <CR>
 
   " terminal mode
-  tnoremap <esc>        <C-\><C-n>
+  tnoremap <Esc>        <C-\><C-n>
   tnoremap <m-tab>      <C-\><C-n>:b#<CR>
 
   " fast save
-  inoremap qw           <esc>
+  inoremap qw           <Esc>
   nnoremap qw           :w<CR>
-  nnoremap <c-s>        :w<CR>
-  inoremap <c-s>        <c-o>:w<CR>
+  nnoremap <C-s>        :w<CR>
+  inoremap <C-s>        <C-o>:w<CR>
   nnoremap qwe          :wall<CR>
   nnoremap qww          :w !sudo tee % >/dev/null<CR>
   nnoremap qs           :saveas 
   nnoremap <m-s>        :saveas 
-  inoremap <m-s>        <c-o>:saveas 
+  inoremap <m-s>        <C-o>:saveas 
   nnoremap qr           :call <sid>rename()<CR>
   "}}}
 
-
   " window and buffer management {{{
-  nnoremap <expr>  qq   <sid>close_window()
+  nnoremap <silent>qq   :call <sid>close_window()<CR>
   nnoremap <silent>qn   :clo<C-r>=winnr()+1<CR><CR>
   nnoremap <silent>qp   :clo<C-r>=winnr()-1<CR><CR>
   nnoremap <silent>qu   :winc z<CR>
@@ -93,12 +92,11 @@ function! mapping#basic#load() abort
   nnoremap <silent>qh   :q<CR>
   nnoremap <silent>qd   :try\|bd\|catch\|endtry<CR>
   nnoremap <silent>qb   :call <sid>killotherBuffers()<CR>
-  nnoremap <silent>qf   :call <sid>delete_buffer_file()<CR>
-  nnoremap <silent>qe   ggdG
+  nnoremap <silent>qf   :call <sid>delete_current_buffer_file()<CR>
+  nnoremap <silent>qe   :call <sid>safe_erase_buffer()<CR>
   nnoremap <silent>qkk  :qa!<CR>
-  nnoremap <silent>q0   :vert rightb new<CR>
 
-  nnoremap so           :vs 
+  nnoremap <silent>so   :call feedkeys(':vs ')<CR> 
   nnoremap <silent>sv   :vs<CR><C-w>w
   nnoremap <silent>ss   :sp<CR><C-w>w
   nnoremap <silent>sp   :vs +bp<CR>
@@ -106,27 +104,28 @@ function! mapping#basic#load() abort
   nnoremap <silent>sn   :vs +bn<CR>
   nnoremap <silent>s]   :sp +bn<CR>
   nnoremap <silent>sb   :b#<CR>
-  nnoremap <silent>si   <c-w>x<C-w>w
-  nnoremap <silent>s-   <c-w>K
-  nnoremap <silent>s\   <c-w>L
-  nnoremap <silent>sm   :res\|vert res<CR>
+  nnoremap <silent>si   <C-w>x<C-w>w
+  nnoremap <silent>s-   <C-w>K
+  nnoremap <silent>s\   <C-w>L
+  nnoremap <silent>sm   :res\|vert res<CR>zz
   nnoremap <silent>s=   :winc =<CR>
   nnoremap <silent>st   :tabnew<CR>
   nnoremap <silent>s3   :vs\|vs\|<CR>
+  nnoremap <silent>s0   :vert rightb new<CR>
   nnoremap <silent>su   :nohl<CR>
   " last edit buffer
   nnoremap <silent><leader><tab>   :b#<CR>
 
   " hotkey for buf and tab selection, no need plugins {{{
   " select window
-  nnoremap <silent><space>1       :call Winjump(1)<CR>
-  nnoremap <silent><space>2       :call Winjump(2)<CR>
-  nnoremap <silent><space>3       :call Winjump(3)<CR>
-  nnoremap <silent><space>4       :call Winjump(4)<CR>
-  nnoremap <silent><space>5       :call Winjump(5)<CR>
-  nnoremap <silent><space>6       :call Winjump(6)<CR>
-  nnoremap <silent><space>7       :call Winjump(7)<CR>
-  nnoremap <silent><space>8       :call Winjump(8)<CR>
+  nnoremap <silent><Space>1       :call Winjump(1)<CR>
+  nnoremap <silent><Space>2       :call Winjump(2)<CR>
+  nnoremap <silent><Space>3       :call Winjump(3)<CR>
+  nnoremap <silent><Space>4       :call Winjump(4)<CR>
+  nnoremap <silent><Space>5       :call Winjump(5)<CR>
+  nnoremap <silent><Space>6       :call Winjump(6)<CR>
+  nnoremap <silent><Space>7       :call Winjump(7)<CR>
+  nnoremap <silent><Space>8       :call Winjump(8)<CR>
   " select tabline
   nnoremap <silent>sh             :call Tabjump("prev")<CR>
   nnoremap <silent>sl             :call Tabjump("next")<CR>
@@ -151,103 +150,94 @@ function! mapping#basic#load() abort
 
   " improve window scroll
   auto VimEnter * noremap 
-        \ <expr> zz            <sid>win_scroll(1, 'z')
-  noremap <expr> <C-f>         <sid>win_scroll(1, 'f')
-  noremap <expr> <C-b>         <sid>win_scroll(0, 'f')
-  noremap <expr> <C-d>         <sid>win_scroll(1, 'd')
-  noremap <expr> <C-u>         <sid>win_scroll(0, 'd')
+        \  <expr> zz           <sid>win_scroll(1, 'z')
+  nnoremap <expr> <C-f>        <sid>win_scroll(1, 'f')
+  nnoremap <expr> <C-b>        <sid>win_scroll(0, 'f')
+  nnoremap <expr> <C-d>        <sid>win_scroll(1, 'd')
+  nnoremap <expr> <C-u>        <sid>win_scroll(0, 'd')
 
-  " Toggle zz mode
-  nnoremap <leader>az          :call <sid>toggle_zzmode()<CR>
   " Toggle fold
-  nnoremap <CR>                za
-  nnoremap <s-CR>              zMza
+  nnoremap <expr> <CR>         <sid>OpenFoldOrGotoMiddle(1)
+  nnoremap <expr> <S-CR>       <sid>OpenFoldOrGotoMiddle(0)
+  " Toggle zz mode
+  nnoremap <leader>az          :call mapping#basic#zzmode()<CR>
   " }}}
-
 
   " edit related {{{
   call <sid>Delimitor_init()
 
-  " g related
-  auto VimEnter * nnoremap g0    *
-  auto VimEnter * nnoremap go    gf
   " insert new line
-  nnoremap <tab>o      o<ESC>
-  nnoremap <tab>p      O<ESC>j
+  nnoremap <tab>o      o<Esc>
+  nnoremap <tab>p      O<Esc>j
   " inset empty box
-  nnoremap <space>iee  :call Insert_emptybox()<CR>
-  nnoremap <space>ieh  :call Insert_headbox()<CR>
+  nnoremap <Space>iee  :call mapping#basic#minusbox()<CR>
+  nnoremap <Space>ieh  :call mapping#basic#equalbox()<CR>
   " insert file head
-  nnoremap <space>ih   :call SetFileHead()<CR>
+  nnoremap <Space>ih   :call mapping#basic#SetFileHead()<CR>
 
-  " Select blocks after indenting
-  nnoremap >           >>_
-  nnoremap <           <<_
   " indenting in visual mode
   xnoremap >           >gv|
   xnoremap <           <gv
   xnoremap <C-l>       >gv|
   xnoremap <C-h>       <gv
+  " select blocks after indenting
+  nnoremap >           >>_
+  nnoremap <           <<_
 
   " format
   nnoremap g=          :call <sid>format()<CR>
+
   " Remove spaces at the end of lines
   nnoremap <silent> d<Space> :<C-u>silent! keeppatterns %substitute/\s\+$//e<CR>
-
-  " C-r: Easier search and replace
-  xnoremap <C-r>    :<C-u>call <SID>VSetSearch()<CR>:,$s/<C-R>=@/<CR>//gc<left><left><left>
-  function! s:VSetSearch() abort
-    let temp = @s
-    norm! gv"sy
-    let @/ = '\V' . substitute(escape(@s, '/\'), '\n', '\\n', 'g')
-    let @s = temp
-  endfunction
 
   " Select
   noremap  vv          V
   nnoremap <leader>aa  ggVG
   nnoremap <leader>ae  VG
   " Select last paste
-  nnoremap <silent><expr> <leader>ap '`['.strpart(getregtype(), 0, 1).'`]'
+  nnoremap <silent><expr> <leader>ap  '`['.strpart(getregtype(), 0, 1).'`]'
+  " C-r: Easier search and replace
+  xnoremap <C-r>    :<C-u>call <sid>VSetSearch()<CR>:,$s/<C-R>=@/<CR>//gc<left><left><left>
 
-  " yank and paste {{
+  " yank and paste {{{
   if has('unnamedplus')
-    xnoremap <Leader>y   "+y
-    xnoremap <Leader>d   "+d
+    nnoremap <leader>y   :call <sid>easy_copy()<CR>
+    xnoremap <leader>y   "+y
+    xnoremap <leader>d   "+d
     " lower case paste after
-    nnoremap <Leader>p   "+p
-    xnoremap <Leader>p   "+p
+    nnoremap <leader>p   "+p
+    xnoremap <leader>p   "+p
     " upper case paste before
-    nnoremap <Leader>P   "+P
-    xnoremap <Leader>P   "+P
+    nnoremap <leader>P   "+P
+    xnoremap <leader>P   "+P
   else
-    xnoremap <Leader>y   "*y
-    xnoremap <Leader>d   "*d
+    xnoremap <leader>y   "*y
+    xnoremap <leader>d   "*d
     " lower case paste after
-    nnoremap <Leader>p   "*p
-    xnoremap <Leader>p   "*p
+    nnoremap <leader>p   "*p
+    xnoremap <leader>p   "*p
     " upper case paste before
-    nnoremap <Leader>P   "*P
-    xnoremap <Leader>P   "*P
+    nnoremap <leader>P   "*P
+    xnoremap <leader>P   "*P
   endif
 
   " Copy buffer absolute path to X11 clipboard'
   nnoremap <C-c>          :call <sid>CopyToClipboard()<CR>
-  " }} }}
-
+  " }}}
+  " }}}
 
   " misc {{{
   " quickfix list movement
-  nnoremap <Leader>qn    :cnext<CR>
-  nnoremap <Leader>qp    :cprev<CR>
-  nnoremap <Leader>ql    :copen<CR>
-  nnoremap <Leader>qc    :call setqflist([])<CR>
+  nnoremap <leader>qn    :cnext<CR>
+  nnoremap <leader>qp    :cprev<CR>
+  nnoremap <leader>ql    :copen<CR>
+  nnoremap <leader>qc    :call setqflist([])<CR>
 
   " help
   nnoremap K             :call util#help_wrapper()<CR>
   nnoremap <Space>hh     :EchoHelp 
   " show full path
-  nnoremap <c-g>         2<c-g>
+  nnoremap <C-g>         2<C-g>
   " echo prefix
   nnoremap <leader>ee    :echo 
   " call function
@@ -267,11 +257,17 @@ function! mapping#basic#load() abort
   nnoremap <leader>dw    :lcd<CR>
   nnoremap <leader>dp    :pwd<CR>
 
-  if has('nvim')
-    nnoremap <space>qh   :checkhealth<CR>
-  endif
-  "}}
+  " g related
+  auto VimEnter *
+        \ nnoremap g0    g*   |
+        \ nnoremap go    gf   |
+        \ nnoremap gm    ga   |
+        \ nnoremap gc    :call util#echohl('col number: ', col('.'))<CR>
 
+  if has('nvim')
+    nnoremap <Space>qh   :checkhealth<CR>
+  endif
+  " }}}
 
   " Open config files {{{
   nnoremap <leader>aci         :vs ~/.SpaceVim.d/init.vim<CR>
@@ -283,14 +279,14 @@ function! mapping#basic#load() abort
   if !g:has_py
     nnoremap <leader>acm       :exec 'Unite file_rec/'.(has('nvim') ?
           \ 'neovim' : 'async').' -path=~/.SpaceVim.d'<CR>
-    nnoremap <leader>ac<space> :exec 'Unite file_rec/'.(has('nvim') ?
+    nnoremap <leader>ac<Space> :exec 'Unite file_rec/'.(has('nvim') ?
           \ 'neovim' : 'async').' -path=~/.SpaceVim'<CR>
   elseif glob(g:home.'init.toml') !=# ''
     nnoremap <leader>acm       :Denite file/rec -path=~/.SpaceVim.d<CR>
-    nnoremap <leader>ac<space> :Denite file/rec -path=~/.SpaceVim<CR>
+    nnoremap <leader>ac<Space> :Denite file/rec -path=~/.SpaceVim<CR>
   else
     nnoremap <leader>acm       :LeaderfFile ~/.SpaceVim.d<CR>
-    nnoremap <leader>ac<space> :LeaderfFile ~/.SpaceVim<CR>
+    nnoremap <leader>ac<Space> :LeaderfFile ~/.SpaceVim<CR>
   endif
   if g:is_spacevim
     nnoremap <leader>aca       :vs ~/.SpaceVim.d/autoload/My_SpaceVim/Main.vim<CR>
@@ -318,7 +314,7 @@ function! mapping#basic#load() abort
 endfunction
 
 
-" Delimit mapping {{{
+" Delimit Mapping {{{
 function! s:Delimitor_init() abort
   " inoremap <expr> =   MatchDel('=', '\(=\+\s\)\\|\(>\+\s\)\\|\(<\+\s\)\\|\(+\+\s\)\\|\(-\+\s\)')
   inoremap <expr> =   MatchDel('=', '\v(\=+\s\_$)\|(\>+\s\_$)\|(\<+\s\_$)\|(\++\s\_$)\|(-+\s\_$)')
@@ -328,7 +324,7 @@ function! s:Delimitor_init() abort
   inoremap <expr> ~   MatchDel('~', '\(=\+\s\)')
   inoremap <expr> >   MatchDel('>', '\v(\>+\s)\|(\=\s\_$)\|(-\s\_$)')
   inoremap <expr> <   MatchDel('<', '\v^\s*(if\|el\|wh\|let)', '>')
-  inoremap <expr> ,   CurChar(0, '\s') ? "\<BS>,\<Space>" : (CurChar(1, '') ? "," : ",\<Space>")
+  inoremap <expr> ,   CurChar(0, '\s') && Within('pair')[0] ? "\<BS>,\<Space>" : (CurChar(1, '') ? "," : ",\<Space>")
   call s:AutoClose()
   call s:AutoPairs()
   call s:Numfix()
@@ -363,7 +359,7 @@ endfunction " }}}
 function! s:Numfix() abort " {{{
   for num in range(1, 9)
     exec 'inoremap <expr> '.num.' MatchDel('.num.",
-          \ '\\v\\zs(match.*\\W\\s\-\\s)\\|(index.*\\W\\s\-\\s)$')"
+          \ '\\v.*\\s\\W\\s\-\\s$')"
   endfor
 endfunction " }}} 
 function! s:Bashfix() abort " {{{
@@ -373,24 +369,38 @@ function! s:Bashfix() abort " {{{
 endfunction "}}}
 " }}} 
 
-" quit_preview window {{{
+" Window and Buffer Manipulate {{{
+" Open fold or goto line middle {{{
+function! s:OpenFoldOrGotoMiddle(mode) abort
+  if a:mode
+    return foldclosed('.') > -1 ? 'zazz' : (
+          \ col('.') + 1 >= col('$') || col('.') == (winwidth(0) - 4)/2 )
+          \ ? 'zazz' : 'gmzz'
+  else
+    return foldclosed('.') > -1 ? 'zMzazz' : (
+          \ col('.') + 1 >= col('$') || col('.') == (winwidth(0) - 4)/2 )
+          \ ? 'zMzazz' : 'gmzz'
+  endif
+endfunction " }}}
+
+" Quit_preview Window {{{
 function! s:close_window() abort
   let winnr = 0
   for i in range(1, winnr('$'))
-    if getwinvar(i, '$previewwindow')
+    if getwinvar(i, '&ft') ==# 'diff'
       let winnr = i
     endif
   endfor
   let key = "\<C-w>c"
   if winnr
-    return winnr."\<C-w>w".key."\<C-w>p"
+    exe 'normal!' winnr "\<C-w>w" key
   else
-    return key
+    exe 'normal!' key
   endif
 endfunction "}}}
 
-" window scroll {{{
-function! s:win_scroll(forward, mode)
+" Window Scroll {{{
+function! <sid>win_scroll(forward, mode)
   let winnr = 0
   for i in range(1, winnr('$'))
     if getwinvar(i, 'float') || getwinvar(i, '$previewwindow')
@@ -416,91 +426,51 @@ function! s:win_scroll(forward, mode)
   endif
 endfunction "}}}
 
-" rename file {{{
-function! s:rename() abort
-  let curbufnr = bufnr('%')
-  let newn = input('New name: '.expand('%:p').' -> ', expand('%:p'))
-  if glob(newn) !=# ''
-    call feedkeys(":echohl WarningMsg |
-          \ echo ' The file exists !' | 
-          \ echohl NONE\<CR>")
-    return
-  endif
-  call rename(expand('%'), newn)
-  exec 'e ' newn
-  exec 'bd' curbufnr
-endfunction
-"}}}
-
-" toggle zzmode {{
-function! mapping#basic#zzmode() abort
-  call s:toggle_zzmode()
-endfunction
+" Toggle zzmode {{{
+ " param init {{{
 let s:zzmode = 0
-function! s:toggle_zzmode() abort
+let s:save_rhs = {}
+let s:zzmodekey = {
+      \ 'dd'     : 'ddzz',
+      \ 'd'      : 'dzz',
+      \ '#'      : '#zz',
+      \ '*'      : '*zz',
+      \ 'j'      : 'jzz',
+      \ 'k'      : 'kzz',
+      \ 'G'      : 'Gzz',
+      \ 'H'      : 'Hzz',
+      \ 'L'      : 'Lzz',
+      \ '('      : '(zz',
+      \ ')'      : ')zz',
+      \ '{'      : '{zz',
+      \ '}'      : '}zz',
+      \ '[{'     : '[{zz',
+      \ ']}'     : ']}zz',
+      \ } " }}}
+function! mapping#basic#zzmode() abort
   if s:zzmode == 0
     exec 'normal! M'
-    call s:Zmap()
+    for [lhs, rhs] in items(s:zzmodekey)
+      let s:save_rhs[lhs] = maparg(lhs, 'n')
+      exec 'nnoremap ' lhs rhs
+    endfor
     let s:zzmode = 1
     echo '  zzmode now is on!'
   else
-    call s:undoZmap()
+    for [lhs, rhs] in items(s:save_rhs)
+      if !empty(rhs)
+        exec 'nnoremap ' lhs rhs
+      else
+        exec 'nunmap ' lhs
+      endif
+    endfor
     let s:zzmode = 0
     echo '  zzmode now is off!'
   endif
 endfunction
+" }}}
 
-function! s:Zmap() abort
-  " Normal
-  nnoremap dd ddzz
-  " Visual
-  vnoremap d dzz
-  " Normal + Visual
-  noremap # #zz
-  noremap * *zz
-  noremap j jzz
-  noremap k kzz
-  noremap G Gzz
-  noremap H Hzz
-  noremap L Lzz
-  noremap ( (zz
-  noremap ) )zz
-  noremap { {zz
-  noremap } }zz
-  noremap [{ [{zz
-  noremap ]} ]}zz
-  noremap <c-f> <c-f>zz
-  noremap <c-b> <c-b>zz
-  noremap <c-d> <c-d>zz
-  noremap <c-u> <c-u>zz
-endfunction
-
-function! s:undoZmap() abort
-  " Normal
-  nunmap dd
-  " Visual
-  vunmap d
-  " Normal + Visual
-  unmap #
-  unmap *
-  unmap j
-  unmap k
-  unmap G
-  unmap H
-  unmap L
-  unmap (
-  unmap )
-  unmap {
-  unmap }
-  unmap [{
-  unmap ]}
-  unmap <c-f>
-  unmap <c-b>
-  unmap <c-d>
-  unmap <c-u>
-endfunction "}}
-
-" local funcs   {{
+" Kill other Buffers {{{
 function! s:killotherBuffers() abort
   if confirm('Kill all other buffers?', "&Yes\n&No\n&Cancel") == 1
     let blisted = filter(range(1, bufnr('$')), 'buflisted(v:val)')
@@ -514,16 +484,36 @@ function! s:killotherBuffers() abort
     endfor
   endif
 endfunction
+" }}}
+" }}}
 
-function! s:format() abort
-  let save_cursor = getpos('.')
-  normal! gg=G
-  call setpos('.', save_cursor)
-endfunction
+" File Manipulate {{{
+" rename file {{{
+function! s:rename() abort
+  let curbufnr = bufnr('%')
+  let newn = input('New name: '.expand('%:p').' -> ', expand('%:p'))
+  if glob(newn) !=# ''
+    call util#echohl(' The file already exists !', 'n')
+    return
+  endif
+  call rename(expand('%'), newn)
+  exec 'e ' newn
+  exec 'bd' curbufnr
+endfunction " }}}
 
+" safe erase buffer {{{
 let s:MESSAGE = SpaceVim#api#import('vim#message')
 let s:BUFFER  = SpaceVim#api#import('vim#buffer')
-function! s:delete_buffer_file() abort
+function! s:safe_erase_buffer() abort
+  if s:MESSAGE.confirm('Erase content of buffer ' . expand('%:t'))
+    normal! ggdG
+  else
+    echo 'canceled!'
+  endif
+endfunction " }}}
+
+" delete current buffer file {{{
+function! s:delete_current_buffer_file() abort
   if s:MESSAGE.confirm('Are you sure you want to delete this file')
     let f = expand('%')
     if delete(f) == 0
@@ -534,7 +524,7 @@ function! s:delete_buffer_file() abort
     endif
   endif
 endfunction
-function! s:close_current_buffer(...) abort
+function! s:close_current_buffer(...) abort " {{{
   let buffers = s:BUFFER.listed_buffers()
   let bn = bufnr('%')
   let f = ''
@@ -590,9 +580,102 @@ function! s:close_current_buffer(...) abort
       endif
     endif
   endif
-endfunction
+endfunction " }}}
+" }}}
+"}}}
 
-" Copy buffer absolute path to X11 clipboard'
+" Easy Edit {{{
+" insert nice box " {{{
+function! mapping#basic#equalbox() abort
+  if &ft ==# 'vim'
+    call s:inshbox('"', '=')
+  elseif &ft ==# 'sh' || &ft ==# 'python' || &ft ==# 'ps1'
+    call s:inshbox('# ', '=')
+  elseif &ft ==# 'scala' || &ft ==# 'cpp' || &ft ==# 'c'
+    call s:inshbox('//', '=')
+  endif
+endfunc
+function! mapping#basic#minusbox() abort
+  if &ft ==# 'vim'
+    call s:inshbox('"', '-')
+  elseif &ft ==# 'sh' || &ft ==# 'python' || &ft ==# 'ps1'
+    call s:inshbox('# ', '-')
+  elseif &ft ==# 'scala' || &ft ==# 'cpp' || &ft ==# 'c'
+    call s:inshbox('//', '-')
+  endif
+endfunc
+function! s:inshbox(cmsign, reptsign) abort
+  call setline(line('.')   , a:cmsign.repeat(a:reptsign, 80))
+  call  append(line('.')   , a:cmsign)
+  call  append(line('.')+1 , a:cmsign.repeat(a:reptsign, 80))
+  call  append(line('.')+2 , '')
+  silent exec 'normal! 03j'
+endfun
+"}}}
+
+" insert file head {{{
+function! mapping#basic#SetFileHead() abort
+  if &filetype ==# 'vim'
+    call s:insfhead('"', 'scriptencoding utf-8', '')
+
+  elseif &filetype ==# 'sh'
+    call s:insfhead('#', '#! /usr/bin/env bash', '')
+
+  elseif &filetype ==# 'ps1'
+    call s:insfhead('#', '', '')
+
+  elseif &filetype ==# 'python' || &filetype ==# 'ipynb'
+    call s:insfhead('#', '#! /usr/bin/env python3', '# -*- coding: utf-8 -*-')
+
+  elseif &filetype ==# 'scala'
+    call s:insfhead('#', '', '', '/*')
+
+  elseif &filetype ==# 'cpp'
+    call s:insfhead('#', '#include <iostream>', 'using namespace std;', '/*')
+
+  elseif &filetype ==# 'c'
+    call s:insfhead('#', '#include <stdio.h>', '', '/*')
+  endif
+endfun
+function! s:insfhead(cmsign, head1, head2, ...) abort
+  if a:0 == 0
+    let head = [
+          \ a:cmsign. repeat('=', 80),
+          \ a:cmsign. ' File Name    : '. expand('%'),
+          \ a:cmsign. ' Author       : AlanDing',
+          \ a:cmsign. ' Created Time : '. strftime('%c'),
+          \ a:cmsign. repeat('=', 80),
+          \ ]
+    let head = &ft ==# 'sh' ? insert(head, a:head1, 0) : head
+  elseif a:0 == 1
+    let head = [
+          \ a:1     . repeat('=', 80),
+          \ a:cmsign. ' File Name    : '. expand('%'),
+          \ a:cmsign. ' Author       : AlanDing',
+          \ a:cmsign. ' Created Time : '. strftime('%c'),
+          \ a:cmsign. repeat('=', 80). join(reverse(split(a:1)), ''),
+          \ ]
+  endif
+  if a:head1 !=# '' && a:head2 ==# ''
+    let shit = &ft ==# 'sh' ? ['', ''] : [a:head1, '', '']
+    call map(shit, {key, val -> add(head, val)})
+  elseif a:head2 !=# ''
+    call map([a:head1, a:head2, '', ''], {key, val -> add(head, val)})
+  else
+    call map(['', ''], {key, val -> add(head, val)})
+  endif
+  call append(0, head)
+  call setpos('.', [0, len(head), 1])
+endfunc "}}}
+
+" format {{{
+function! s:format() abort
+  let save_cursor = getpos('.')
+  normal! gg=G
+  call setpos('.', save_cursor)
+endfunction " }}}
+
+" copy buffer absolute path to X11 clipboard {{{
 function! s:CopyToClipboard(...) abort
   if a:0
     echom 1
@@ -665,8 +748,35 @@ func! s:findDirInParent(what, where) abort
   let dir = finddir(a:what, escape(a:where, ' ') . ';')
   let &suffixesadd = old_suffixesadd
   return dir
-endf
+endf " }}}
 
+" copy text in pairs to system clipboard {{{
+function! s:easy_copy() abort
+  let within = Within('pair', 1)
+  if within[0]
+    try
+      let a_save = @+
+      let @+=''
+      exec 'normal! mx"+yi'. within[1]
+      if len(@+) > 1
+        call util#echohl('Sucessfully yank text in pairs to system clipboard !')
+      endif
+    finally
+      normal! `x
+      let @+ = a_save
+    endtry
+  endif
+endfunction " }}}
+
+function! s:VSetSearch() abort " {{{
+  let temp = @s
+  normal! gv"sy
+  let @/ = '\V' . substitute(escape(@s, '/\'), '\n', '\\n', 'g')
+  let @s = temp
+endfunction " }}}
+" }}}
+
+" Unmap SpaceVim mappings {{{
 function! s:unmap_SPC() abort
   if g:is_spacevim
     nnoremap s <nop>
@@ -679,6 +789,7 @@ function! s:unmap_SPC() abort
       nunmap   \ql
       nunmap   \qp
       nunmap   \qn
+      unmap    g%
       nunmap   <F7>
       nunmap   <tab>
       iunmap   jk
@@ -714,6 +825,6 @@ function! s:unmap_SPC() abort
     catch
     endtry
   endif
-endfunction " }}
+endfunction " }}}
 
-" vim: set sw=2 ts=2 sts=2 et tw=78 foldmarker={{,}} foldmethod=marker:
+" vim: set sw=2 ts=2 sts=2 et tw=78 fdm=marker:

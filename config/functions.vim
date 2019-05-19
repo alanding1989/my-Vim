@@ -6,91 +6,6 @@
 scriptencoding utf-8
 
 
-function! Insert_headbox() abort " {{{
-  if &ft ==# 'vim'
-    call s:inshbox('"', '=')
-  elseif &ft ==# 'sh' || &ft ==# 'python' || &ft ==# 'ps1'
-    call s:inshbox('# ', '=')
-  elseif &ft ==# 'scala' || &ft ==# 'cpp' || &ft ==# 'c'
-    call s:inshbox('//', '=')
-  endif
-endfunc
-function! Insert_emptybox() abort
-  if &ft ==# 'vim'
-    call s:inshbox('"', '-')
-  elseif &ft ==# 'sh' || &ft ==# 'python' || &ft ==# 'ps1'
-    call s:inshbox('# ', '-')
-  elseif &ft ==# 'scala' || &ft ==# 'cpp' || &ft ==# 'c'
-    call s:inshbox('//', '-')
-  endif
-endfunc
-
-function! s:inshbox(cmsign, reptsign) abort
-  call setline(line('.')   , a:cmsign.repeat(a:reptsign, 80))
-  call  append(line('.')   , a:cmsign)
-  call  append(line('.')+1 , a:cmsign.repeat(a:reptsign, 80))
-  call  append(line('.')+2 , '')
-  silent exec 'normal! 03j'
-endfunc
-"}}}
-
-
-function! SetFileHead() abort " {{{
-  if &filetype ==# 'vim'
-    call s:insfhead('"', 'scriptencoding utf-8', '')
-
-  elseif &filetype ==# 'sh'
-    call s:insfhead('#', '#! /usr/bin/env bash', '')
-
-  elseif &filetype ==# 'ps1'
-    call s:insfhead('#', '', '')
-
-  elseif &filetype ==# 'python' || &filetype ==# 'ipynb'
-    call s:insfhead('#', '#! /usr/bin/env python3', '# -*- coding: utf-8 -*-')
-
-  elseif &filetype ==# 'scala'
-    call s:insfhead('#', '', '', '/*')
-
-  elseif &filetype ==# 'cpp'
-    call s:insfhead('#', '#include <iostream>', 'using namespace std;', '/*')
-
-  elseif &filetype ==# 'c'
-    call s:insfhead('#', '#include <stdio.h>', '', '/*')
-  endif
-endfunc
-
-function! s:insfhead(cmsign, head1, head2, ...) abort
-  if a:0 == 0
-    let head = [
-          \ a:cmsign. repeat('=', 80),
-          \ a:cmsign. ' File Name    : '. expand('%'),
-          \ a:cmsign. ' Author       : AlanDing',
-          \ a:cmsign. ' Created Time : '. strftime('%c'),
-          \ a:cmsign. repeat('=', 80),
-          \ ]
-    let head = &ft ==# 'sh' ? insert(head, a:head1, 0) : head
-  elseif a:0 == 1
-    let head = [
-          \ a:1     . repeat('=', 80),
-          \ a:cmsign. ' File Name    : '. expand('%'),
-          \ a:cmsign. ' Author       : AlanDing',
-          \ a:cmsign. ' Created Time : '. strftime('%c'),
-          \ a:cmsign. repeat('=', 80). join(reverse(split(a:1)), ''),
-          \ ]
-  endif
-  if a:head1 !=# '' && a:head2 ==# ''
-    let lst = &ft ==# 'sh' ? ['', ''] : [a:head1, '', '']
-    call map(lst, {key, val -> add(head, val)})
-  elseif a:head2 !=# ''
-    call map([a:head1, a:head2, '', ''], {key, val -> add(head, val)})
-  else
-    call map(['', ''], {key, val -> add(head, val)})
-  endif
-  call setline(1, head)
-  call setpos('.', [0, len(head), 1])
-endfunc "}}}
-
-
 function! Foldtext() abort " {{{
   " get first non-blank line
   let fs = v:foldstart
@@ -126,9 +41,9 @@ function! Winjump(n) abort
 endfunction "}}}
 
 
-" Delimter edit Enhancement {{{
+" Delimter edit Enhancement " {{{
 
-" Params init {{{ 
+" Params init {{{
 let s:withinpairs = get(b:, 'autopairs', get(g:, 'autopairs', {
       \ '('  : ')' ,
       \ '['  : ']' ,
@@ -140,6 +55,7 @@ let s:withinpairs = get(b:, 'autopairs', get(g:, 'autopairs', {
       \ '*'  : '*' ,
       \ '《' : '》',
       \ }))
+let s:emptypairs = extend(deepcopy(s:withinpairs), {'\':'\', '\s':'\s'}) 
 
 let s:withinquotes = get(b:, 'withinquotes', get(g:, 'autopairs', {
       \ "'"  : "'" ,
@@ -147,18 +63,16 @@ let s:withinquotes = get(b:, 'withinquotes', get(g:, 'autopairs', {
       \ '`'  : '`' ,
       \ '*'  : '*' ,
       \ }))
-let s:emptypairs = extend(deepcopy(s:withinpairs), {'\':'\'}) 
 
 let s:exc_rchar = ['}', ']', ')']
-"}}}
+" }}}
 
 function! DelEmptyPair() abort
-  return (WithinEmptyPair() || (CurChar(0, '\s') && CurChar(1, '\s')))
-        \ ? "\<Right>\<BS>\<BS>" : "\<BS>"
+  return Within('emptypair') ? "\<Right>\<BS>\<BS>" : "\<BS>"
 endfunction
 
 function! ExpandEmptyPair() abort
-  return WithinEmptyPair() ? "\<Space>\<Space>\<left>" : "\<Space>"
+  return Within('emptypair') ? "\<Space>\<Space>\<left>" : "\<Space>"
 endfunction
 
 let s:jumpsign = []
@@ -173,7 +87,7 @@ function! AutoClo(char, ...) abort
     return a:char. a:1. "\<left>"
   elseif CurChar(1, a:char)
     return "\<Right>"
-  elseif WithinWhat('pairs')
+  elseif Within('pair')[0]
     return a:char
   endif
   " if CurChar(1, '\w')
@@ -225,7 +139,7 @@ inoremap <expr> &   MatchDel('&', '&\+\s$')
 
 " MatchDel function " {{{
 function! MatchDel(char, regex, ...) abort
-  if WithinWhat('quotes')
+  if Within('quote')
     return a:0 ? a:char.a:1."\<left>" : a:char
   endif
 
@@ -305,10 +219,16 @@ function! CurChar(pos, char, ...) abort
 endfunction " }}}
 
 " check if cusor within pairs or quotes {{{
-" param a:mode can be pairs and quotes
-function! WithinWhat(mode) abort
-  let pairs = a:mode ==# 'pairs'
-        \ ? s:withinpairs : s:withinquotes
+function! Within(mode, ...)abort
+  " param a:mode can be pair and quote
+  let pairs = a:mode ==# 'pair' ? s:withinpairs
+        \   : a:mode ==# 'emptypair' ? s:emptypairs
+        \   : s:withinquotes
+
+  if a:mode ==# 'emptypair'
+    return <sid>WithinEmptyPair()
+  endif
+    
   let ln  = getline('.')
   let col = col('.')
   for [key, val] in items(pairs)
@@ -316,29 +236,30 @@ function! WithinWhat(mode) abort
       let idxstart = match(   ln, '\'.key.'.*'.val) + 1
       let idxend   = matchend(ln, '\'.key.'.*'.val)
     elseif key ==# "'"
+      " FIXME: do not work
       let idxstart = match(   ln, '"'.key.'.*'.val.'"') + 1
       let idxend   = matchend(ln, '"'.key.'.*'.val.'"')
     elseif key ==# '*'
       let idxstart = match(   ln, "'".key.'.*\'.val."'") + 1
       let idxend   = matchend(ln, "'".key.'.*\'.val."'")
     else
-      " exec 'imap <expr> gh  match('.ln.', '. key .'.*'.val.')'
       let idxstart = match(   ln, key.'.*'.val) + 1
       let idxend   = matchend(ln, key.'.*'.val)
     endif
-    while idxstart <= col && col <= idxend
-      return 1
-    endwhile
+    if idxstart <= col && col <= idxend
+      return a:0 && a:1 == 1 ? [1, key] : 1
+    else
+      return a:0 && a:1 == 1 ? [0, key] : 0
+    endif
   endfor
-  return 0
 endfunction " }}}
 
 " check pairs around cursor {{{
-function! WithinEmptyPair() abort
+function! s:WithinEmptyPair() abort
   for [key, val] in items(s:emptypairs)
-    while CurChar(0, key) && CurChar(1 , val)
+    if CurChar(0, key) && CurChar(1 , val)
       return 1
-    endwh
+    endif
   endfor
   return 0
 endfunction
@@ -349,6 +270,7 @@ function! RightPair(...) abort
   if index(a:0 ? a:1 : values(s:emptypairs), r) > -1
     return 1
   endif
+  return 0
 endfunction
 
 function! LeftPair(...) abort
@@ -360,6 +282,7 @@ function! LeftPair(...) abort
   if index(a:0 ? a:1 : keys(s:emptypairs), l) > -1
     return 1
   endif
+  return 0
 endfunction
 
 function! s:NearPair() abort

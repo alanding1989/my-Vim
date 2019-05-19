@@ -14,30 +14,21 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
   function! mapping#tab#Super_Tab() abort
     if pumvisible()
       if neosnippet#expandable()
-        if g:neosnippet#enable_complete_done == 1
-          if CurChar(0, '(') || s:md ==# 'deoplete'
-            return s:md ==# 'asyncomplete' ? asyncomplete#close_popup() : "\<c-y>"
-          else
-            return "\<c-e>\<plug>(neosnippet_expand)"
-          endif
-        else
-          return "\<plug>(neosnippet_expand)"
-        endif
+        return g:neosnippet#enable_complete_done
+              \ ? ( s:md ==# 'deoplete' ? "\<C-y>"
+              \ : CurChar(0, '(') ? ( s:md ==# 'asyncomplete' ? asyncomplete#close_popup() : "\<c-y>" ) 
+              \ :  "\<c-e>\<plug>(neosnippet_expand)" )
+              \ : "\<plug>(neosnippet_expand)"
         " TODO: check works
       elseif RightPair() && !empty(v:completed_item)
         return "\<right>"
       elseif neosnippet#jumpable() && CurChar(1, '(')
-        if empty(v:completed_item)
-          return "\<C-y>"
-        else
-          return "\<plug>(neosnippet_jump)"
-        endif
-      else
-        if WithinEmptyPair() " fix ncm2
-          return "\<c-y>\<Del>\<Right>"
-        else
-          return s:md ==# 'asyncomplete' ? asyncomplete#close_popup() : "\<c-y>"
-        endif
+        return empty(v:completed_item) 
+              \ ? "\<C-y>" : "\<plug>(neosnippet_jump)"
+      else " fix ncm2
+        return Within('emptypair') ? "\<c-y>\<Del>\<Right>"
+              \ : s:md ==# 'asyncomplete' ? asyncomplete#close_popup() 
+              \ : "\<c-y>"
       endif
     else
       if neosnippet#expandable() && !CurChar(0, '(')
@@ -53,17 +44,12 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
       elseif !s:check_bs()
         return "\<tab>"
       else
-        if s:md ==# 'coc'
-          return coc#refresh()
-        elseif s:md ==# 'deoplete'
-          return deoplete#manual_complete()
-        elseif s:md ==# 'ncm2'
-          return "\<c-r>=ncm2#manual_trigger()\<cr>"
-        elseif s:md ==# 'asyncomplete'
-          return asyncomplete#force_refresh()
-        elseif s:md ==# 'ycm'
-          return "\<tab>"
-        endif
+        return    s:md ==# 'coc'          ? coc#refresh()
+              \ : s:md ==# 'deoplete'     ? deoplete#manual_complete()
+              \ : s:md ==# 'ncm2'         ? "\<C-r>=ncm2#manual_trigger()\<CR>"
+              \ : s:md ==# 'ycm'          ? "\<tab>"
+              \ : s:md ==# 'asyncomplete' ? asyncomplete#force_refresh()
+              \ : ''
       endif
     endif
   endfunction
@@ -83,11 +69,9 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
 " NOTE: g:ulti_expand_or_jump_res (0: fail, 1: expand, 2: jump)
 elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisnips'
   function! mapping#tab#Super_Tab() abort
-    if pumvisible()
-      return "\<C-r>=mapping#tab#popup()\<CR>"
-    else
-      return "\<C-r>=mapping#tab#no_popup()\<CR>"
-    endif
+    return pumvisible()
+          \ ? "\<c-r>=mapping#enter#popup()\<CR>"
+          \ : "\<c-r>=mapping#enter#no_popup()\<CR>"
   endfunction
   function! mapping#tab#popup() abort
     let snip = UltiSnips#ExpandSnippetOrJump()
@@ -108,6 +92,7 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
       return ")\<left>"
     endif
     let sni = UltiSnips#ExpandSnippetOrJump()
+
     if g:ulti_expand_or_jump_res == 1
       return sni
     elseif g:ulti_expand_or_jump_res != 2 && RightPair() && s:check_bs() && !CurChar(1,  '')
@@ -117,21 +102,16 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
     elseif !s:check_bs()
       return "\<tab>"
     else
-      if s:md ==# 'coc'
-        return coc#refresh()
-      elseif s:md ==# 'deoplete'
-        return deoplete#manual_complete()
-      elseif s:md ==# 'ncm2'
-        return "\<c-r>=ncm2#manual_trigger()\<cr>"
-      elseif s:md ==# 'asyncomplete'
-        return asyncomplete#force_refresh()
-      elseif s:md ==# 'ycm'
-        return "\<tab>"
-      endif
+      return    s:md ==# 'coc'          ? coc#refresh()
+            \ : s:md ==# 'deoplete'     ? deoplete#manual_complete()
+            \ : s:md ==# 'ncm2'         ? "\<C-r>=ncm2#manual_trigger()\<CR>"
+            \ : s:md ==# 'ycm'          ? "\<tab>"
+            \ : s:md ==# 'asyncomplete' ? asyncomplete#force_refresh()
+            \ : ''
     endif
   endfunction
 
-  function! mapping#tab#S_tab() abort
+  function! mapping#tab#S_Tab() abort
     snoremap <silent><tab>  <Esc>:call UltiSnips#ExpandSnippetOrJump()<CR>
     inoremap <silent><c-o>  <ESC>:call UltiSnips#JumpBackwards()<CR>
     snoremap <silent><c-o>  <ESC>:call UltiSnips#JumpBackwards()<CR>

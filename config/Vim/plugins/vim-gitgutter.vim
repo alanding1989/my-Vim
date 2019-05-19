@@ -1,7 +1,6 @@
 "================================================================================
 " File Name    : config/Vim/plugins/vim-gitgutter.vim
 " Author       : AlanDing
-" mail         :
 " Created Time : Sat 04 May 2019 02:49:19 AM CST
 "================================================================================
 scriptencoding utf-8
@@ -11,10 +10,14 @@ endif
 let s:loaded = 1
 
 
+
 let g:gitgutter_map_keys = 0
-nmap  [g  <Plug>GitGutterPrevHunk
-nmap  ]g  <Plug>GitGutterNextHunk
-nmap  gp  <Plug>GitGutterPreviewHunk
+nmap     [g  <Plug>GitGutterPrevHunk
+nmap     ]g  <Plug>GitGutterNextHunk
+if !hasmapto('<Plug>(coc-git-chunkinfo)', 'n')
+  exec 'nmap  gp  <Plug>GitGutterPreviewHunk'
+endif
+
 
 if g:is_vim8
   let g:gtgutter_highlight_lines = 1

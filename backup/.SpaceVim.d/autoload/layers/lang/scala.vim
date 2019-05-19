@@ -132,7 +132,7 @@ function! layers#lang#scala#config() abort
     let g:scala_use_default_keymappings = 0
     augroup my_lang#scala
       autocmd!
-      autocmd FileType scala call s:language_specified_mappings() 
+      autocmd FileType scala silent call s:language_specified_mappings() 
       autocmd BufWritePost *.scala silent :EnTypeCheck
     augroup END
   endif

@@ -8,54 +8,40 @@ scriptencoding utf-8
 " Help/Echo Related {{{
 " echo mapping rhs {{{
 function! util#maparg_wrapper(...) abort
-  if a:0 == 1 && a:1 ==# 'vn'
-    call feedkeys(':verbose nmap ')
-  elseif a:0 == 1 && a:1 ==# 'vi'
-    call feedkeys(':verbose imap ')
-  elseif a:0 == 1 && a:1 ==# 'vv'
-    call feedkeys(':verbose vmap ')
-  elseif a:0 == 1 && a:1 ==# 'vx'
-    call feedkeys(':verbose xmap ')
-    " try
-    "   " Scriptease plugin
-    "   call feedkeys(':Verbose map ')
-    " catch
-    " endtry
-  elseif a:0 == 1
-    " n mode
-    " c-..., m-... mappings
-    " gd, gg ... mappings
-    if !empty(maparg('<'.a:1.'>'))
-      exec "echo maparg('<".a:1.">')"
-    else
-      exec "echo maparg('".a:1."')"
-    endif
-  elseif a:0 == 2 && a:1 !=# 'leader' && a:2 !=# 'spc'
-    " support specify mode
-    " <c- >..., <m- >... mappings
-    " gd, gg ... mappings
-    if !empty(maparg('<'.a:1.'>', a:2))
-      exec "echo maparg('<".a:1.">', '".a:2."')"
-    elseif !empty(maparg(a:1, a:2))
-      exec "echo maparg('".a:1."', '".a:2."')"
-    endif
-  elseif a:0 == 2 && a:1 ==# 'leader'
-    " n mode
-    " <leader> mappings
-    exec "echo maparg('<".a:1.'>'.a:2."', 'n')"
-  elseif a:0 == 2 && a:2 ==# 'spc'
-    " n mode
-    " [SPC] mappings
-    exec "echo maparg('[SPC]".a:1."', 'n')"
-  elseif a:0 == 3 && a:3 ==# 'spc'
-    " support specify mode
-    " [SPC] mappings
-    exec "echo maparg('[SPC]".a:1."', '".a:2."')"
-  elseif a:0 == 3
-    " need to specify mode
-    " <c- >.., <m- >.., <space>.., <leader>.. mappings
-    exec "echo maparg('<".a:1.'>'.a:2."', '".a:3."')"
+  if a:0 == 1 " {{{
+    " n mode c-..., m-..., gd, gg ... mappings
+    echo len( maparg('<'.a:1.'>'))
+          \ ? maparg('<'.a:1.'>')
+          \ : maparg(a:1)
   endif
+  " }}}
+
+  if a:0 == 2 " {{{
+    if a:1 =~# 'v\w'
+      exec 'verbose '.a:1[1].'map '.a:2
+
+    elseif a:1 !=# 'leader' && a:2 !=# 'spc'
+      " support specified mode
+      " <c- >..., <m- >..., gd, gg ... mappings
+      echo len(maparg('<'.a:1.'>', a:2))
+            \ ? maparg('<'.a:1.'>', a:2)
+            \ : maparg(a:1, a:2) 
+    else
+      " n mode <leader>, [SPC] mappings
+      echo    a:1 ==# 'leader' ? maparg('<'.a:1.'>'.a:2, 'n') : 
+            \ a:2 ==# 'spc'    ? maparg('[SPC]'.a:1, 'n') : ''
+    endif
+  endif
+  " }}}
+
+  if a:0 == 3 " {{{
+    " support specify mode
+    " <c- >.., <m- >.., <space>.., <leader>.. mappings
+    echo a:3 ==# 'spc' 
+          \ ? maparg('[SPC]'.a:1, a:2)
+          \ : maparg('<'.a:1.'>'.a:2, a:3)
+  endif
+  " }}}
 endfunc "}}}
 
 " help wrapper {{{
@@ -88,15 +74,42 @@ endfunction
 
 " highlight wrapper {{{
 function! util#hlight_wrapper(...) abort
-  
-  exec (a:0 > 0 && a:1 ==# 'v' ? 'verbose ' : '') . 'highlight ' .
-        \ (!empty(expand('<cword>')) ? expand('<cword>') :
-        \ (a:0 == 0 ? '' : (a:1 !=# 'v' ? a:1 : a:2)))
+  exec    ( a:0 > 0 && a:1 ==# 'v' ? 'verbose ' : '' )
+        \ . 'highlight ' .
+        \ ( !empty(expand('<cword>')) ? expand('<cword>') :
+        \ ( a:0 ? (a:1 !=# 'v' ? a:1 : a:2) : '' )
+        \ )
+endfunction " }}}
+
+" echohl wrapper {{{
+function! util#echohl(str, ...) abort
+  echohl WarningMsg
+  if a:0
+    if a:0 == 1 && a:1 ==# 'n'
+      exec 'echo "\n '.a:str.'"'
+    else
+      if a:000[-1] ==# 'n'
+        exec 'echo "\n '.a:str. join(a:000[:-2], ' ').'"'
+      else
+        echo a:str join(a:000, ' ')
+      endif
+    endif
+  else
+    echo a:str
+  endif
+  echohl NONE
+endfunction " }}}
+
+" confirm {{{
+function! util#confirm(msg) abort
+  if confirm(a:msg, "&Yes\n&No\n&Cancel") == 1
+    return 1
+  endif
 endfunction " }}}
 "}}}
 
 
-" File Manipulate {{{
+" File/Path Manipulate {{{
 " so_file {{{
 function! util#so_file(path, ...) abort
   let gen_p  = glob(g:home.'config/'.a:path)
@@ -120,9 +133,7 @@ function! util#filereadable(path) abort
   if filereadable(expand(a:path))
     return 1
   else
-    echohl WarningMsg
-    echo ' invalid file name, please check!'
-    echohl NONE
+    call util#echohl(' invalid file name, please check !')
     return 0
   endif
 endfunction "}}}
@@ -134,24 +145,7 @@ endfunction "}}}
 "}}}
 
 
-" Easy Operation {{{
-" open or search websites {{{
-function! util#OpenlinkOrSearch(key, ...) abort
-  let url = {
-        \ 'scala': 'https://www.scala-lang.org/api/current/index.html?search=',
-        \ 'arec' : 'https://asciinema.org/~alanding',
-        \ 'spc'  : 'https://spacevim.org/cn/layers',
-        \ }
-  if a:0 > 0
-    exec 'OpenBrowser '.url[a:key].a:1
-  else
-    exec 'OpenBrowser '.url[a:key]
-  endif
-endfunction "}}}
-"}}}
-
-
-" Plugins Manipulate {{{
+" Manipulate Vim Plugins {{{
 " update plugin {{{
 function! util#update_plugin() abort
   try
@@ -250,6 +244,23 @@ endfunction "}}}
 "}}}
 
 
+" Easy Operate Website {{{
+" open or search websites {{{
+function! util#OpenlinkOrSearch(key, ...) abort
+  let url = {
+        \ 'scala': 'https://www.scala-lang.org/api/current/index.html?search=',
+        \ 'arec' : 'https://asciinema.org/~alanding',
+        \ 'spc'  : 'https://spacevim.org/cn/layers',
+        \ }
+  if a:0 > 0
+    exec 'OpenBrowser '.url[a:key].a:1
+  else
+    exec 'OpenBrowser '.url[a:key]
+  endif
+endfunction "}}}
+"}}}
+
+
 " SpaceVim Related {{{
 " SpaceVim test mode {{{
 function! util#test_SPC() abort
@@ -293,29 +304,7 @@ endfunction "}}}
 "}}}
 
 
-" Plug Enhancement {{{
-function! util#coc_editsnips(...) abort
-  let ultisnips_dirpath = (g:is_win ? 
-        \ expand('D:/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/UltiSnips/') :
-        \ expand('~/.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/UltiSnips/')) 
-  let ft  = a:0 > 0 ? a:1 : expand('%:e')
-  let ext = '.snippets'
-  let onelpath = ultisnips_dirpath. ft. ext
-  if glob(onelpath) !=# ''
-    exec 'topleft vsplit '. onelpath
-    return
-  else
-    let seclpath = ultisnips_dirpath. ext.'/'. ft. ext
-    if glob(seclpath) !=# ''
-      exec 'topleft vsplit '. seclpath
-      return
-    endif
-  endif
-  exec 'topleft vsplit '. onelpath
-endfunction "}}}
-
-
-" function() wrapper for memo "{{{
+" function() wrapper "{{{
 function! util#valid(type, ...) abort
   return util#{a:type}#valid(a:000)
 endfunction

@@ -7,7 +7,7 @@ scriptencoding utf-8
 
 augroup edit_related
   auto!
-  autocmd BufNewFile * call SetFileHead()
+  autocmd BufNewFile * call mapping#basic#SetFileHead()
   " put cursor at last edit position when open file
   autocmd BufReadPost *
         \ if line("'\"") > 1 && line("'\"") <= line("$")

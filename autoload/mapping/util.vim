@@ -17,14 +17,14 @@ function! mapping#util#jback(...) abort
       exec 'let g:_save_curpos'.i.' = getpos(".")'
       exec 'let g:motion'.i.' = motion'
       if call(a:1, condition)
-        exec 'inoremap <buffer><expr><C-o> mapping#util#setpos(g:_save_curpos'.i.', b:savemap, g:motion'.i.')'
+        exec 'inoremap <buffer><expr><C-o> <sid>setpos(g:_save_curpos'.i.', b:savemap, g:motion'.i.')'
         let i += 1
       endif
     endfor
   endif
 endfunction
-function! mapping#util#setpos(pos, premap, motion) abort
-" function! <sid>setpos(pos, premap, motion) abort
+" function! mapping#util#setpos(pos, premap, motion) abort
+function! <sid>setpos(pos, premap, motion) abort
   call setpos('.', a:pos)
   if !empty(a:premap)
     exec 'inoremap <buffer><C-o> '.a:premap

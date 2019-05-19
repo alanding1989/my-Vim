@@ -104,13 +104,13 @@ function! layers#edit#config() abort
     " insert
     let g:_spacevim_mappings_space.i.e = {'name' : '+@ Insert nice box'}
     call SpaceVim#mapping#space#def('nnoremap', ['i', 'e', 'e'],
-          \ 'call Insert_emptybox()',
+          \ 'call mapping#basic#minusbox()',
           \ '@ empty box', 1)
     call SpaceVim#mapping#space#def('nnoremap', ['i', 'e', 'h'],
-          \ 'call Insert_headbox()',
-          \ '@ file head box', 1)
+          \ 'call mapping#basic#equalbox()',
+          \ '@ ==== head box', 1)
     call SpaceVim#mapping#space#def('nnoremap', ['i', 'h'],
-          \ 'call SetFileHead()',
+          \ 'call mapping#basic#SetFileHead()',
           \ '@ file head template', 1)
     call SpaceVim#mapping#space#def('nnoremap', ['i', 'd'],
           \ 'call setline(line("."), strftime("%a %d %b %Y %H:%M"))', '@ datetime', 1)
@@ -177,9 +177,9 @@ function! layers#edit#config() abort
 
     " insert
     nnoremap <silent><space>id        :call setline(line('.'), strftime('%a %d %b %Y %H:%M'))<CR>
-    nnoremap <silent><space>iee       :call Insert_emptybox()<CR>
-    nnoremap <silent><space>ieh       :call Insert_headbox()<CR>
-    nnoremap <silent><space>ih        :call SetFileHead()<CR>
+    nnoremap <silent><space>iee       :call mapping#basic#minusbox()<CR>
+    nnoremap <silent><space>ieh       :call mapping#basic#equalbox()<CR>
+    nnoremap <silent><space>ih        :call mapping#basic#SetFileHead()<CR>
   endif "}}}
 endfunction
 

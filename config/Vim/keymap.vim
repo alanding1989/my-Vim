@@ -22,11 +22,6 @@ nnoremap <leader>es        :echo ' '.g:snippet_engine<CR>
 nnoremap <leader>el        :call layers#checkers#showlinter()<CR>
 " nnoremap <leader>em        :EchoMap
 " nnoremap <leader>ev        :version<CR>
-if get(g:, 'snippet_engine', 'neosnippet') ==# 'neosnippet'
-  noremap <leader>en       :call feedkeys(':NeoSnippetEdit -split -vertical ')<CR>
-elseif get(g:, 'snippet_engine') ==# 'ultisnips'
-  noremap <leader>en       :call feedkeys(':UltiSnipsEdit ')<CR>
-endif
 
 " " directory operatios
 " nnoremap <leader>db        :lcd %:p:h<CR>
