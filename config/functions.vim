@@ -90,13 +90,6 @@ function! AutoClo(char, ...) abort
   elseif Within('pair')[0]
     return a:char
   endif
-  " if CurChar(1, '\w')
-  "   call mapping#util#jback()
-  "   echohl WarningMsg
-  "   echo ' JumpBack Mapping is ready!'
-  "   echohl NONE
-  "   return a:char."\<End>".a:1
-  " endif
   "
   " " add Space or not
   " return  CurChar(0, '\') ? a:char : CurChar(0, '\s') ? a:char
@@ -109,37 +102,30 @@ function! AutoClo(char, ...) abort
   "       \ ? ( RightPair() ? "\<Space>".a:char : "\<Space>".a:char."\<Space>" )
   "       \ : ( RightPair() ? a:char : a:char."\<Space>" )
   "       \ )
-  let autoclose = get(b:, 'autoclose', get(g:, 'autoclose', [
-        \ ')' , ']' , '}' , '-' , '+' , '?' ,
-        \ ]))
-  return  CurChar(0, '\') ? a:char : CurChar(0, '\s')
-        \ ? ( CurChar(1, '\s') ? a:char : a:char."\<Space>" )
-        \ : ( index(s:exc_rchar, getline('.')[col('.')-2]) > -1
-        \ ? ( CurChar(1, '\s') ? "\<Space>".a:char : "\<Space>".a:char."\<Space>" )
-        \ : ( CurChar(1, '\s') ? a:char : a:char."\<Space>" )
-        \ )
+  " let autoclose = get(b:, 'autoclose', get(g:, 'autoclose', [
+  " \ ')' , ']' , '}' , '-' , '+' , '?' ,
+  " \ ]))
+  " return  CurChar(0, '\') ? a:char : CurChar(0, '\s')
+  " \ ? ( CurChar(1, '\s') ? a:char : a:char."\<Space>" )
+  " \ : ( index(s:exc_rchar, getline('.')[col('.')-2]) > -1
+  " \ ? ( CurChar(1, '\s') ? "\<Space>".a:char : "\<Space>".a:char."\<Space>" )
+  " \ : ( CurChar(1, '\s') ? a:char : a:char."\<Space>" )
+  " \ )
+  return a:char
 endfunction
 
-" Default
-" +, -, add Space after
-"
-" num           : done
-" MatchDel char :
-" AutoClo char  :
-" -,
-inoremap <expr> =   MatchDel('=', '\v(\=+\s\_$)\|(\>+\s\_$)\|(\<+\s\_$)\|(\++\s\_$)\|(-+\s\_$)')
-inoremap <expr> #   MatchDel('#', '\v(\=+\s)\|(\=\~)\|(!\=)\|(!\~)')
-inoremap <expr> >   MatchDel('>', '\v(\>+\s)\|(\=\s\_$)\|(-\s\_$)')
-inoremap <expr> <   MatchDel('<', '\v^\s*(if\|el\|wh\|let)', '>')
-inoremap <expr> ~   MatchDel('~', '\(=\+\s\)$')
-
-inoremap <expr> \|  MatchDel('\|', '\|\+\s$')
-inoremap <expr> &   MatchDel('&', '&\+\s$')
-
+" if CurChar(1, '\w')
+"   call mapping#util#jback()
+"   echohl WarningMsg
+"   echo ' JumpBack Mapping is ready!'
+"   echohl NONE
+"   return a:char."\<End>".a:1
+" endif
 
 " MatchDel function " {{{
 function! MatchDel(char, regex, ...) abort
-  if Within('quote')
+  if Within('pair')
+    let g:zlan = 1
     return a:0 ? a:char.a:1."\<left>" : a:char
   endif
 
@@ -164,7 +150,7 @@ function! MatchDel(char, regex, ...) abort
   echohl NONE
   " for debug using
   " if 1
-    " return a:char
+  " return a:char
   " endif "}}}
 
   " nomatch, but extra param " {{{
@@ -177,7 +163,7 @@ function! MatchDel(char, regex, ...) abort
   endif " }}}
 
   " char specify " {{{
-  if a:char ==# '#' && match(expand('%'), 'autoload') && &ft ==# 'vim'
+  if a:char =~# '#' && matchend(expand('%'), 'autoload') && &ft ==# 'vim'
     return '#'
   endif " }}}
 
@@ -203,55 +189,54 @@ function! CurChar(pos, char, ...) abort
   let isregex = a:char[0] ==# '\'
   if a:pos ==# 0
     return !a:0 ? ( isregex
-        \ ? getline('.')[col('.')-2] =~# a:char
-        \ : getline('.')[col('.')-2] ==# a:char )
-        \ : ( isregex
-        \ ? getline('.')[col('.')+a:1] =~# a:char
-        \ : getline('.')[col('.')+a:1] ==# a:char )
+          \ ? getline('.')[col('.')-2] =~# a:char
+          \ : getline('.')[col('.')-2] ==# a:char )
+          \ : ( isregex
+          \ ? getline('.')[col('.')+a:1] =~# a:char
+          \ : getline('.')[col('.')+a:1] ==# a:char )
   elseif a:pos ==# 1
     return !a:0 ? ( isregex
-        \ ? getline('.')[col('.')-1] =~# a:char
-        \ : getline('.')[col('.')-1] ==# a:char )
-        \ : ( isregex
-        \ ? getline('.')[col('.')+a:1] =~# a:char
-        \ : getline('.')[col('.')+a:1] ==# a:char )
+          \ ? getline('.')[col('.')-1] =~# a:char
+          \ : getline('.')[col('.')-1] ==# a:char )
+          \ : ( isregex
+          \ ? getline('.')[col('.')+a:1] =~# a:char
+          \ : getline('.')[col('.')+a:1] ==# a:char )
   endif
 endfunction " }}}
 
 " check if cusor within pairs or quotes {{{
 function! Within(mode, ...)abort
   " param a:mode can be pair and quote
-  let pairs = a:mode ==# 'pair' ? s:withinpairs
+  let g:pairs = a:mode ==# 'pair' ? s:withinpairs
         \   : a:mode ==# 'emptypair' ? s:emptypairs
         \   : s:withinquotes
 
   if a:mode ==# 'emptypair'
     return <sid>WithinEmptyPair()
   endif
-    
+
   let ln  = getline('.')
   let col = col('.')
-  for [key, val] in items(pairs)
+  for [key, val] in items(g:pairs)
     if key ==# '['
-      let idxstart = match(   ln, '\'.key.'.*'.val) + 1
-      let idxend   = matchend(ln, '\'.key.'.*'.val)
-    elseif key ==# "'"
-      " FIXME: do not work
-      let idxstart = match(   ln, '"'.key.'.*'.val.'"') + 1
-      let idxend   = matchend(ln, '"'.key.'.*'.val.'"')
+      let g:idxstart = match(   ln, '\'.key.'.*'.val) + 1
+      let g:idxend   = matchend(ln, '\'.key.'.*'.val)
     elseif key ==# '*'
-      let idxstart = match(   ln, "'".key.'.*\'.val."'") + 1
-      let idxend   = matchend(ln, "'".key.'.*\'.val."'")
+      let g:idxstart = match(   ln, '\'.key.'.*\'.val) + 1
+      let g:idxend   = matchend(ln, '\'.key.'.*\'.val)
     else
-      let idxstart = match(   ln, key.'.*'.val) + 1
-      let idxend   = matchend(ln, key.'.*'.val)
+      let g:idxstart = match(   ln, key.'.*'.val) + 1
+      let g:idxend   = matchend(ln, key.'.*'.val)
     endif
-    if idxstart <= col && col <= idxend
+    while g:idxstart <= col && col <= g:idxend
       return a:0 && a:1 == 1 ? [1, key] : 1
-    else
-      return a:0 && a:1 == 1 ? [0, key] : 0
-    endif
+    endwhile
   endfor
+  return a:0 && a:1 == 1 ? [0, key] : 0
+  " debug use
+  " inoremap <expr> g9 Within('pair', 1)[0] ? 'within' : '0000'
+  " inoremap g7 <esc>:echo match(   getline('.'), '.*\')+1
+  " inoremap g8 <esc>:echo matchend(getline('.'), '.*\')
 endfunction " }}}
 
 " check pairs around cursor {{{
@@ -297,7 +282,6 @@ function! MatchCl(reg, ...) abort
     echo 'match'
     return 1
   endif
-
   return a:0 
         \ ? match(getline(a:1), a:reg) > -1
         \ : match(getline('.'), a:reg) > -1

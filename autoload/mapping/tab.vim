@@ -19,7 +19,6 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
               \ : CurChar(0, '(') ? ( s:md ==# 'asyncomplete' ? asyncomplete#close_popup() : "\<c-y>" ) 
               \ :  "\<c-e>\<plug>(neosnippet_expand)" )
               \ : "\<plug>(neosnippet_expand)"
-        " TODO: check works
       elseif RightPair() && !empty(v:completed_item)
         return "\<right>"
       elseif neosnippet#jumpable() && CurChar(1, '(')
@@ -36,10 +35,11 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
       elseif !neosnippet#jumpable() && s:check_bs() && !CurChar(1, '') && RightPair()
         return "\<right>"
       elseif neosnippet#jumpable()
-        call mapping#util#jback('CurChar', {
-              \ "\<Esc>hviwc"     : [1 ,'('],
-              \ "\<left>,\<Space>": [1 ,')'],
-              \ })
+
+        " call mapping#util#jback('CurChar', {
+              " \ "\<Esc>hviwc"     : [1 ,'('],
+              " \ "\<left>,\<Space>": [1 ,')'],
+              " \ })
         return "\<plug>(neosnippet_jump)"
       elseif !s:check_bs()
         return "\<tab>"
@@ -60,6 +60,8 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
           \ "\<Plug>(neosnippet_expand_or_jump)" :
           \ "\<TAB>"
     xmap <TAB> <Plug>(neosnippet_expand_target)
+    inoremap <C-o> <Esc>:call mapping#util#JumpBack()<CR>
+    snoremap <C-o> <Esc>:call mapping#util#JumpBack()<CR>
   endfunction
   "}}}
 

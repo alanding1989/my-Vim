@@ -6,33 +6,47 @@
 scriptencoding utf-8
 
 
+function! mapping#util#JumpBack(...) abort
+  let sel_save = &selection
+  let &selection = 'exclusive'
+  let reg_save = @@
 
-function! mapping#util#jback(...) abort
-  " a;1 funcref
-  " a:2 motion, fparam
-  let b:savemap = maparg('<C-o>', 'i')
-  if a:0 == 2 && type(a:2) == type({})
-    let i = 1
-    for [motion, condition] in items(a:2)
-      exec 'let g:_save_curpos'.i.' = getpos(".")'
-      exec 'let g:motion'.i.' = motion'
-      if call(a:1, condition)
-        exec 'inoremap <buffer><expr><C-o> <sid>setpos(g:_save_curpos'.i.', b:savemap, g:motion'.i.')'
-        let i += 1
-      endif
-    endfor
-  endif
-endfunction
-" function! mapping#util#setpos(pos, premap, motion) abort
-function! <sid>setpos(pos, premap, motion) abort
-  call setpos('.', a:pos)
-  if !empty(a:premap)
-    exec 'inoremap <buffer><C-o> '.a:premap
+  if a:0
+    silent exe 'normal! gvh'
   else
-    iunmap <buffer><C-o>
+    silent exe 'normal! `[v`]h'
   endif
-  return a:motion
+
+  let &selection = sel_save
+  let @@ = reg_save
 endfunction
+
+" function! mapping#util#jback(...) abort
+"   " a;1 funcref
+"   " a:2 motion, fparam
+"   let b:savemap = maparg('<C-o>', 'i')
+"   if a:0 == 2 && type(a:2) == type({})
+"     let i = 1
+"     for [motion, condition] in items(a:2)
+"       exec 'let g:_save_curpos'.i.' = getpos(".")'
+"       exec 'let g:motion'.i.' = motion'
+"       if call(a:1, condition)
+"         exec 'inoremap <buffer><expr><C-o> <sid>setpos(g:_save_curpos'.i.', b:savemap, g:motion'.i.')'
+"         let i += 1
+"       endif
+"     endfor
+"   endif
+" endfunction
+" function! mapping#util#setpos(pos, premap, motion) abort
+" function! <sid>setpos(pos, premap, motion) abort
+  " call setpos('.', a:pos)
+  " if !empty(a:premap)
+    " exec 'inoremap <buffer><C-o> '.a:premap
+  " else
+    " iunmap <buffer><C-o>
+  " endif
+  " return a:motion
+" endfunction
 
 function! mapping#util#check_bs() abort
   let col = col('.') - 1

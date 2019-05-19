@@ -71,7 +71,7 @@ function! mapping#basic#load() abort
   tnoremap <m-tab>      <C-\><C-n>:b#<CR>
 
   " fast save
-  inoremap qw           <Esc>
+  inoremap qw           <Esc>:w<CR>
   nnoremap qw           :w<CR>
   nnoremap <C-s>        :w<CR>
   inoremap <C-s>        <C-o>:w<CR>
@@ -80,20 +80,21 @@ function! mapping#basic#load() abort
   nnoremap qs           :saveas 
   nnoremap <m-s>        :saveas 
   inoremap <m-s>        <C-o>:saveas 
-  nnoremap qr           :call <sid>rename()<CR>
   "}}}
 
   " window and buffer management {{{
   nnoremap <silent>qq   :call <sid>close_window()<CR>
   nnoremap <silent>qn   :clo<C-r>=winnr()+1<CR><CR>
   nnoremap <silent>qp   :clo<C-r>=winnr()-1<CR><CR>
-  nnoremap <silent>qu   :winc z<CR>
+  " nnoremap <silent>qu   :winc z<CR>
+  nnoremap <silent>qu   :call <sid>safe_revert_buffer()<CR>
   nnoremap <silent>qo   :only<CR>
   nnoremap <silent>qh   :q<CR>
   nnoremap <silent>qd   :try\|bd\|catch\|endtry<CR>
   nnoremap <silent>qb   :call <sid>killotherBuffers()<CR>
   nnoremap <silent>qf   :call <sid>delete_current_buffer_file()<CR>
   nnoremap <silent>qe   :call <sid>safe_erase_buffer()<CR>
+  nnoremap <silent>qr   :call <sid>rename_file()<CR>
   nnoremap <silent>qkk  :qa!<CR>
 
   nnoremap <silent>so   :call feedkeys(':vs ')<CR> 
@@ -160,7 +161,7 @@ function! mapping#basic#load() abort
   nnoremap <expr> <CR>         <sid>OpenFoldOrGotoMiddle(1)
   nnoremap <expr> <S-CR>       <sid>OpenFoldOrGotoMiddle(0)
   " Toggle zz mode
-  nnoremap <leader>az          :call mapping#basic#zzmode()<CR>
+  nnoremap <leader>az          :call <sid>Toggle_ZZMode()<cr>
   " }}}
 
   " edit related {{{
@@ -170,10 +171,10 @@ function! mapping#basic#load() abort
   nnoremap <tab>o      o<Esc>
   nnoremap <tab>p      O<Esc>j
   " inset empty box
-  nnoremap <Space>iee  :call mapping#basic#minusbox()<CR>
-  nnoremap <Space>ieh  :call mapping#basic#equalbox()<CR>
+  nnoremap <Space>iee  :call <sid>MinusBox()<CR>
+  nnoremap <Space>ieh  :call <sid>EqualBox()<CR>
   " insert file head
-  nnoremap <Space>ih   :call mapping#basic#SetFileHead()<CR>
+  nnoremap <Space>ih   :call <sid>SetFileHead()<CR>
 
   " indenting in visual mode
   xnoremap >           >gv|
@@ -201,12 +202,13 @@ function! mapping#basic#load() abort
 
   " yank and paste {{{
   if has('unnamedplus')
-    nnoremap <leader>y   :call <sid>easy_copy()<CR>
+    nnoremap <leader>y   :call <sid>EasyCopy_inPairs()<CR>
     xnoremap <leader>y   "+y
     xnoremap <leader>d   "+d
     " lower case paste after
     nnoremap <leader>p   "+p
     xnoremap <leader>p   "+p
+    inoremap <C-v>       "+p
     " upper case paste before
     nnoremap <leader>P   "+P
     xnoremap <leader>P   "+P
@@ -216,6 +218,7 @@ function! mapping#basic#load() abort
     " lower case paste after
     nnoremap <leader>p   "*p
     xnoremap <leader>p   "*p
+    inoremap <C-v>       "+p
     " upper case paste before
     nnoremap <leader>P   "*P
     xnoremap <leader>P   "*P
@@ -267,6 +270,8 @@ function! mapping#basic#load() abort
   if has('nvim')
     nnoremap <Space>qh   :checkhealth<CR>
   endif
+
+  call <sid>definePlug()
   " }}}
 
   " Open config files {{{
@@ -311,6 +316,17 @@ function! mapping#basic#load() abort
   endif
   let g:Lf_CacheDirectory      = expand('~/.cache')
   "}}}
+endfunction
+
+
+function! s:definePlug() abort
+  " <Plug> use in g:home . config/SpaceVim/keymap.vim
+  nnoremap <Plug>(EasyCopy-inPairs) :call <sid>EasyCopy_inPairs()<CR>
+  nnoremap <plug>(Toggle-ZZMode)    :call <sid>Toggle_ZZMode()<cr>
+  " <Plug> use in edit layer
+  nnoremap <Plug>(SetFileHead)      :call <sid>SetFileHead()<CR>
+  nnoremap <Plug>(Insert-EqualBox)  :call <sid>EqualBox()<CR>
+  nnoremap <Plug>(Insert-MinusBox)  :call <sid>MinusBox()<CR>
 endfunction
 
 
@@ -400,7 +416,7 @@ function! s:close_window() abort
 endfunction "}}}
 
 " Window Scroll {{{
-function! <sid>win_scroll(forward, mode)
+function! s:win_scroll(forward, mode)
   let winnr = 0
   for i in range(1, winnr('$'))
     if getwinvar(i, 'float') || getwinvar(i, '$previewwindow')
@@ -447,7 +463,7 @@ let s:zzmodekey = {
       \ '[{'     : '[{zz',
       \ ']}'     : ']}zz',
       \ } " }}}
-function! mapping#basic#zzmode() abort
+function! s:Toggle_ZZMode() abort
   if s:zzmode == 0
     exec 'normal! M'
     for [lhs, rhs] in items(s:zzmodekey)
@@ -489,7 +505,7 @@ endfunction
 
 " File Manipulate {{{
 " rename file {{{
-function! s:rename() abort
+function! s:rename_file() abort
   let curbufnr = bufnr('%')
   let newn = input('New name: '.expand('%:p').' -> ', expand('%:p'))
   if glob(newn) !=# ''
@@ -586,7 +602,7 @@ endfunction " }}}
 
 " Easy Edit {{{
 " insert nice box " {{{
-function! mapping#basic#equalbox() abort
+function! <sid>EqualBox() abort
   if &ft ==# 'vim'
     call s:inshbox('"', '=')
   elseif &ft ==# 'sh' || &ft ==# 'python' || &ft ==# 'ps1'
@@ -595,7 +611,7 @@ function! mapping#basic#equalbox() abort
     call s:inshbox('//', '=')
   endif
 endfunc
-function! mapping#basic#minusbox() abort
+function! <sid>MinusBox() abort
   if &ft ==# 'vim'
     call s:inshbox('"', '-')
   elseif &ft ==# 'sh' || &ft ==# 'python' || &ft ==# 'ps1'
@@ -614,7 +630,7 @@ endfun
 "}}}
 
 " insert file head {{{
-function! mapping#basic#SetFileHead() abort
+function! <sid>SetFileHead() abort
   if &filetype ==# 'vim'
     call s:insfhead('"', 'scriptencoding utf-8', '')
 
@@ -751,19 +767,20 @@ func! s:findDirInParent(what, where) abort
 endf " }}}
 
 " copy text in pairs to system clipboard {{{
-function! s:easy_copy() abort
+function! s:EasyCopy_inPairs() abort
   let within = Within('pair', 1)
   if within[0]
     try
       let a_save = @+
-      let @+=''
+      let @+ = ''
       exec 'normal! mx"+yi'. within[1]
       if len(@+) > 1
         call util#echohl('Sucessfully yank text in pairs to system clipboard !')
       endif
+    catch
+      let @+ = a_save
     finally
       normal! `x
-      let @+ = a_save
     endtry
   endif
 endfunction " }}}

@@ -280,13 +280,13 @@ endif
 " ================================================================================
 " En/Disabled plugins
 " ============================================================================= {{{
+      " \ 'vim-grepper'          ,
 let g:spacevim_disabled_plugins = [
       \ 'molokai'              ,
       \ 'jellybeans.vim'       ,
       \ 'vim-hybrid'           ,
       \ 'vim-material'         ,
       \ 'srcery-vim'           ,
-      \ 'vim-grepper'          ,
       \ 'neosnippet-snippets'  ,
       \ 'vim-snippets'         ,
       \ 'CompleteParameter.vim',

@@ -244,23 +244,6 @@ endfunction "}}}
 "}}}
 
 
-" Easy Operate Website {{{
-" open or search websites {{{
-function! util#OpenlinkOrSearch(key, ...) abort
-  let url = {
-        \ 'scala': 'https://www.scala-lang.org/api/current/index.html?search=',
-        \ 'arec' : 'https://asciinema.org/~alanding',
-        \ 'spc'  : 'https://spacevim.org/cn/layers',
-        \ }
-  if a:0 > 0
-    exec 'OpenBrowser '.url[a:key].a:1
-  else
-    exec 'OpenBrowser '.url[a:key]
-  endif
-endfunction "}}}
-"}}}
-
-
 " SpaceVim Related {{{
 " SpaceVim test mode {{{
 function! util#test_SPC() abort

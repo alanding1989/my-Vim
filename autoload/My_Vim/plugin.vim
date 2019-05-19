@@ -44,12 +44,12 @@ function! My_Vim#plugin#end() abort " {{{
         \ {key, val -> g:vim_plugindir . fnamemodify(val, ':r').'.vim'})
   let filelist = util#globpath(g:vim_plugindir, '*.vim')
   for fpath in filelist
-    if index(enabled_pluglist, fpath) > 0
+    if index(enabled_pluglist, fpath) > -1
       exec 'so ' fpath
     endif
   endfor
   " load default_layers global variable
-  let defaultload = ['autocomp_plugins', 'snippet', 'langtools', 'ui' ]
+  let defaultload = ['autocomp_plugins', 'snippet', 'langtools', 'ui']
   call map(deepcopy(defaultload), {key, val -> util#so_file('plugins/'.val.'.vim', 'Vim')})
 
   " Hotkey menu

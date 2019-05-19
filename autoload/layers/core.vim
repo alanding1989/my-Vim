@@ -56,7 +56,13 @@ function! layers#core#config() abort
   call s:unimpaired()
   call s:open_browser()
 
-  if !g:is_spacevim
+  if g:is_spacevim
+    exec 'so '. g:vim_plugindir .'unite.vim'
+    unlet g:_spacevim_mappings_space.b.R | nunmap [SPC]bR
+    call SpaceVim#mapping#space#def('nnoremap', ['b', 'r'], 'call call('
+          \ . string(s:_function('s:safe_revert_buffer')) . ', [])',
+          \ 'safe revert buffer', 1)
+  else
     let g:matchup_matchparen_status_offscreen = 0
     nnoremap <space>be  :call <sid>safe_erase_buffer()<CR>
     nnoremap <space>br  :call <sid>safe_revert_buffer()<CR>
@@ -66,26 +72,20 @@ function! layers#core#config() abort
     nnoremap <space>n=  :call <sid>number_transient_state('+')<CR>
     nnoremap <space>n-  :call <sid>number_transient_state('-')<CR>
 
-    nnoremap <space>jn  i<cr><esc>
-    nnoremap <space>jo  i<cr><esc>k$
+    nnoremap <space>jn  i<CR><Esc>
+    nnoremap <space>jo  i<CR><Esc>k$
     nnoremap <space>js  :call <sid>split_string(0)<CR>i
     nnoremap <space>jS  :call <sid>split_string(1)<CR>
 
     nnoremap <space>ju  :call <sid>jump_to_url()<CR>
 
     nnoremap <space>ps  :Grepper<CR>
-  else
-    exec 'so '. g:vim_plugindir .'unite.vim'
-    unlet g:_spacevim_mappings_space.b.R | nunmap [SPC]bR
-    call SpaceVim#mapping#space#def('nnoremap', ['b', 'r'], 'call call('
-          \ . string(s:_function('s:safe_revert_buffer')) . ', [])',
-          \ 'safe revert buffer', 1)
   endif
 endfunction
 
 
 " plugin funcs {{{
-function! s:filetree() abort
+function! s:filetree() abort " {{{
   if g:is_spacevim
     " a:num = 0 open root dir
     " a:num = 1 open last opened dir
@@ -129,8 +129,109 @@ function! s:filetree() abort
   endif
 endfunction
 
+" open filemanager {{{
+" a:num = 0 open root dir
+" a:num = 1 open last opened dir
+" a:num = 2 open current buffer dir/root dir(when VimEnter)
+" a:num = 3 open my vimrc favourite dir
+" a:num = 4 inverstigate current working dir (fullscreen)
+" a:num = 5 open my plugins bundle dir
+" a:num = 6 open my dotfile dir
+" a:num = 7 open a new defx buffer in current working dir
+let g:_my_vimrc_dir   = g:home
+let g:_my_dotfile_dir = g:is_win ? 'E:\my-Dotfile' : '/mnt/fun+downloads/my-Dotfile'
+if get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'vimfiler'
 
-function! s:comment() abort
+  function! s:open_filetree(num) abort "{{{
+    if a:num == 0
+      exec 'VimFiler '.getcwd()
+    elseif a:num == 1
+      VimFiler
+    elseif a:num == 2
+      VimFilerBufferDir
+    elseif a:num == 3
+      exec 'VimFiler '.expand(g:_my_vimrc_dir)
+    elseif a:num == 4
+      let g:_spacevim_autoclose_filetree = 0
+      VimFilerCurrentDir -no-split -columns=type:size:time
+      let g:_spacevim_autoclose_filetree = 1
+    elseif a:num == 5
+      call <sid>open_plugins_dir('VimFiler ')
+    elseif a:num == 6
+      exec 'VimFiler '.expand(g:_my_dotfile_dir)
+    endif
+    doautocmd WinEnter
+  endfunction "}}}
+elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'defx'
+
+  function! s:open_filetree(num) abort "{{{
+    if a:num == 0
+      Defx `getcwd()`
+    elseif a:num == 1
+      Defx
+    elseif a:num == 2
+      Defx `expand('%:p:h')`
+    elseif a:num == 3
+      Defx `expand(g:_my_vimrc_dir)`
+    elseif a:num == 4
+      let g:_spacevim_autoclose_filetree = 0
+      Defx -split=no -columns=git:mark:indent:filename:type:size:time `getcwd()`
+      let g:_spacevim_autoclose_filetree = 1
+    elseif a:num == 5
+      call <sid>open_plugins_dir('Defx ')
+    elseif a:num == 6
+      Defx `expand(g:_my_dotfile_dir)`
+    elseif a:num == 7
+      Defx -new `getcwd()`
+    endif
+    if &ft ==# 'defx' | setl conceallevel=3 | endif
+    doautocmd WinEnter
+  endfunction "}}}
+elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'nerdtree'
+
+  function! s:open_filetree(num) abort "{{{
+    if a:num == 0
+      exec 'e '.getcwd()
+    elseif a:num == 1
+      NERDTreeToggle
+    elseif a:num == 2
+      NERDTree %
+    elseif a:num == 3
+      exec 'NERDTree '.expand(g:_my_vimrc_dir)
+    elseif a:num == 4
+      exec 'e '.getcwd()
+    elseif a:num == 5
+      call <sid>open_plugins_dir('NERDTree ')
+    elseif a:num == 6
+      exec 'NERDTree '.expand(g:_my_dotfile_dir)
+    endif
+    doautocmd WinEnter
+  endfunction "}}}
+endif
+function! s:open_plugins_dir(cmd) abort "{{{
+  let temp = @a | let @a=''
+  normal! mz"ayi'
+  normal! `z
+  let selfp = g:is_vim8  ? g:My_Vim_plug_dir : g:spacevim_plugin_bundle_dir
+  let altp = !g:is_vim8 ? g:My_Vim_plug_dir : g:spacevim_plugin_bundle_dir
+  if exists('#dein')
+    if glob(selfp .'repos/github.com/'.@a) !=# ''
+      exec a:cmd .selfp .'repos/github.com/' . @a
+    elseif glob(altp .'repos/github.com/' . @a) !=# ''
+      exec a:cmd .altp .'repos/github.com/' . @a
+    endif
+  else
+    let plugn = split(@a, '/')[1]
+    if glob(selfp .(g:is_vim8 ? '' : 'repos/github.com/') .plugn) !=# ''
+      exec a:cmd .selfp .plugn
+    elseif glob(altp .(g:is_vim8 ? '' : 'repos/github.com/') .plugn) !=# ''
+      exec a:cmd .altp .plugn 
+    endif
+  endif
+  let @a = temp
+endfunction "}}} }}} }}}
+
+function! s:comment() abort " {{{
   if g:is_spacevim
     call SpaceVim#mapping#space#def('nmap', ['c' , 'c'], '<Plug>NERDCommenterInvert' , '@ toggle comment lines', 0 )
     call SpaceVim#mapping#space#def('nmap', ['c' , 'C'], '<Plug>NERDCommenterComment', '@ comment lines'       , 0 )
@@ -145,26 +246,25 @@ function! s:comment() abort
     map      <space>ct <plug>CommentToLineInvert
     map      <space>cp <plug>CommentParagraphsInvert
     map      <space>;  <plug>CommentOperator
-    nnoremap <silent>  <Plug>CommentToLineInvert     : call <SID>comment_to_line(1)<Cr>
-    nnoremap <silent>  <Plug>CommentParagraphsInvert : call <SID>comment_paragraphs(1)<Cr>
-    nnoremap <silent>  <Plug>CommentOperator         : set opfunc=<SID>commentOperator<Cr>g@
+    nnoremap <silent>  <Plug>CommentToLineInvert     : call <SID>comment_to_line(1)<CR>
+    nnoremap <silent>  <Plug>CommentParagraphsInvert : call <SID>comment_paragraphs(1)<CR>
+    nnoremap <silent>  <Plug>CommentOperator         : set opfunc=<SID>commentOperator<CR>g@
   endif
-endfunction
+endfunction " }}}
 
-
-function! s:unimpaired() abort
+function! s:unimpaired() abort " {{{
   " Unimpaired bindings
   " ]e or [e move current line ,count can be useed
-  nnoremap <silent> [a  :<c-u>execute 'move -1-'. v:count1<cr>
-  nnoremap <silent> ]a  :<c-u>execute 'move +'. v:count1<cr>
+  nnoremap <silent> [a  :<c-u>execute 'move -1-'. v:count1<CR>
+  nnoremap <silent> ]a  :<c-u>execute 'move +'. v:count1<CR>
 
   " [f or ]f go to next or previous file in dir
-  nnoremap <silent> [f  :<c-u>call <SID>previous_file()<cr>
-  nnoremap <silent> ]f  :<c-u>call <SID>next_file()<cr>
+  nnoremap <silent> [f  :<c-u>call <SID>previous_file()<CR>
+  nnoremap <silent> ]f  :<c-u>call <SID>next_file()<CR>
 
   " [l or ]l go to next and previous error(location list)
-  nnoremap <silent> [l  :lprevious<cr>
-  nnoremap <silent> ]l  :lnext<cr>
+  nnoremap <silent> [l  :lprevious<CR>
+  nnoremap <silent> ]l  :lnext<CR>
 
   " [p or ]p for p and P
   nnoremap <silent> [p  P
@@ -183,10 +283,9 @@ function! s:unimpaired() abort
   " coc
 
   " [g or ]g go to next or previous vcs hunk
-endfunction
+endfunction " }}}
 
-
-function! s:flygrep() abort
+function! s:flygrep() abort " {{{
   if g:is_spacevim
     try
       unlet g:_spacevim_mappings_space.s.a
@@ -225,10 +324,9 @@ function! s:flygrep() abort
     " <space>s/
     nnoremap<space>so  :call SpaceVim#plugins#flygrep#open({})<CR>
   endif
-endfunction
+endfunction " }}}
 
-
-function! s:open_browser() abort
+function! s:open_browser() abort " {{{
   let g:openbrowser_default_search = 'baidu'
   if g:is_spacevim
     let g:_spacevim_mappings.o          = {'name': '+@ OpenBrowser'}
@@ -266,7 +364,21 @@ function! s:open_browser() abort
     augroup END
   endif
 endfunction
+" open or search websites {{{
+function! layers#core#OpenlinkOrSearch(key, ...) abort
+  let url = {
+        \ 'scala': 'https://www.scala-lang.org/api/current/index.html?search=',
+        \ 'arec' : 'https://asciinema.org/~alanding',
+        \ 'spc'  : 'https://spacevim.org/cn/layers',
+        \ }
+  if a:0 > 0
+    exec 'OpenBrowser '.url[a:key].a:1
+  else
+    exec 'OpenBrowser '.url[a:key]
+  endif
+endfunction "}}} }}}
 "}}}
+
 
 " local funcs {{{
 function! s:number_transient_state(n) abort
@@ -396,7 +508,7 @@ function! s:open_message_buffer() abort
   nnoremap <silent> <buffer> q :silent bd<CR>
 endfunction
 
-function! s:safe_revert_buffer() abort
+function! <sid>safe_revert_buffer() abort
   if s:MESSAGE.confirm('Revert buffer form ' . expand('%:p'))
     edit!
   endif
@@ -614,105 +726,3 @@ else
 endif "}}}
 "}}}
 
-" open filemanager {{{
-" a:num = 0 open root dir
-" a:num = 1 open last opened dir
-" a:num = 2 open current buffer dir/root dir(when VimEnter)
-" a:num = 3 open my vimrc favourite dir
-" a:num = 4 inverstigate current working dir (fullscreen)
-" a:num = 5 open my plugins bundle dir
-" a:num = 6 open my dotfile dir
-" a:num = 7 open a new defx buffer in current working dir
-let g:_my_vimrc_dir   = g:home
-let g:_my_dotfile_dir = g:is_win ? 'E:\my-Dotfile' : '/mnt/fun+downloads/my-Dotfile'
-if get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'vimfiler'
-
-  function! s:open_filetree(num) abort "{{{
-    if a:num == 0
-      exec 'VimFiler '.getcwd()
-    elseif a:num == 1
-      VimFiler
-    elseif a:num == 2
-      VimFilerBufferDir
-    elseif a:num == 3
-      exec 'VimFiler '.expand(g:_my_vimrc_dir)
-    elseif a:num == 4
-      let g:_spacevim_autoclose_filetree = 0
-      VimFilerCurrentDir -no-split -columns=type:size:time
-      let g:_spacevim_autoclose_filetree = 1
-    elseif a:num == 5
-      call <sid>open_plugins_dir('VimFiler ')
-    elseif a:num == 6
-      exec 'VimFiler '.expand(g:_my_dotfile_dir)
-    endif
-    doautocmd WinEnter
-  endfunction "}}}
-elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'defx'
-
-  function! s:open_filetree(num) abort "{{{
-    if a:num == 0
-      Defx `getcwd()`
-    elseif a:num == 1
-      Defx
-    elseif a:num == 2
-      Defx `expand('%:p:h')`
-    elseif a:num == 3
-      Defx `expand(g:_my_vimrc_dir)`
-    elseif a:num == 4
-      let g:_spacevim_autoclose_filetree = 0
-      Defx -split=no -columns=git:mark:indent:filename:type:size:time `getcwd()`
-      let g:_spacevim_autoclose_filetree = 1
-    elseif a:num == 5
-      call <sid>open_plugins_dir('Defx ')
-    elseif a:num == 6
-      Defx `expand(g:_my_dotfile_dir)`
-    elseif a:num == 7
-      Defx -new `getcwd()`
-    endif
-    if &ft ==# 'defx' | setl conceallevel=3 | endif
-    doautocmd WinEnter
-  endfunction "}}}
-elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'nerdtree'
-
-  function! s:open_filetree(num) abort "{{{
-    if a:num == 0
-      exec 'e '.getcwd()
-    elseif a:num == 1
-      NERDTreeToggle
-    elseif a:num == 2
-      NERDTree %
-    elseif a:num == 3
-      exec 'NERDTree '.expand(g:_my_vimrc_dir)
-    elseif a:num == 4
-      exec 'e '.getcwd()
-    elseif a:num == 5
-      call <sid>open_plugins_dir('NERDTree ')
-    elseif a:num == 6
-      exec 'NERDTree '.expand(g:_my_dotfile_dir)
-    endif
-    doautocmd WinEnter
-  endfunction "}}}
-endif
-function! s:open_plugins_dir(cmd) abort "{{{
-  let temp = @a | let @a=''
-  normal! mz"ayi'
-  normal! `z
-  let selfp = g:is_vim8  ? g:My_Vim_plug_dir : g:spacevim_plugin_bundle_dir
-  let altp = !g:is_vim8 ? g:My_Vim_plug_dir : g:spacevim_plugin_bundle_dir
-  if exists('#dein')
-    if glob(selfp .'repos/github.com/'.@a) !=# ''
-      exec a:cmd .selfp .'repos/github.com/' . @a
-    elseif glob(altp .'repos/github.com/' . @a) !=# ''
-      exec a:cmd .altp .'repos/github.com/' . @a
-    endif
-  else
-    let plugn = split(@a, '/')[1]
-    if glob(selfp .(g:is_vim8 ? '' : 'repos/github.com/') .plugn) !=# ''
-      exec a:cmd .selfp .plugn
-    elseif glob(altp .(g:is_vim8 ? '' : 'repos/github.com/') .plugn) !=# ''
-      exec a:cmd .altp .plugn 
-    endif
-  endif
-  let @a = temp
-endfunction "}}}
-"}}}

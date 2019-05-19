@@ -7,11 +7,12 @@ scriptencoding utf-8
 
 augroup edit_related
   auto!
-  autocmd BufNewFile * call mapping#basic#SetFileHead()
+  autocmd BufNewFile * normal <Space>ih
   " put cursor at last edit position when open file
   autocmd BufReadPost *
         \ if line("'\"") > 1 && line("'\"") <= line("$")
-        \ | exec "normal! g`\"" | endif
+        \ | exec "normal! g`\"" 
+        \ | endif
 augroup END
 
 
