@@ -121,12 +121,14 @@ endfunction
 
 
 function! layers#autocomplete#config() abort
-  imap <silent><expr><Tab>   mapping#tab#Super_Tab()
-  imap <silent><expr><CR>    mapping#enter#Super_Enter()
-  imap <silent><expr><C-h>   pumvisible() ? "\<C-e><BS>" : DelEmptyPair()
-  inoremap  <expr><Space>    ExpandEmptyPair()
+  imap     <silent><expr><Tab>   mapping#tab#Super_Tab()
+  imap     <silent><expr><CR>    mapping#enter#Super_Enter()
   call mapping#tab#S_Tab()
   call mapping#space#C_Space()
+  inoremap <expr><Space>         ExpandEmptyPair()
+  inoremap <silent><expr><C-h>   pumvisible() ? "\<C-e><BS>" : 
+        \ CurChar(0, '\s') && CurChar(0, '\S', -3) && CurChar(0, '\s', -4) 
+        \ ? "\<BS>\<left>\<BS>\<right>" : DelEmptyPair()
 
   call s:editsnippet()
   " augroup layer_autocmplete

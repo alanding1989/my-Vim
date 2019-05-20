@@ -25,7 +25,7 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
         return empty(v:completed_item) 
               \ ? "\<C-y>" : "\<plug>(neosnippet_jump)"
       else " fix ncm2
-        return Within('emptypair') ? "\<c-y>\<Del>\<Right>"
+        return WithinEmptyPair() ? "\<c-y>\<Del>\<Right>"
               \ : s:md ==# 'asyncomplete' ? asyncomplete#close_popup() 
               \ : "\<c-y>"
       endif
@@ -35,7 +35,6 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
       elseif !neosnippet#jumpable() && s:check_bs() && !CurChar(1, '') && RightPair()
         return "\<right>"
       elseif neosnippet#jumpable()
-
         " call mapping#util#jback('CurChar', {
               " \ "\<Esc>hviwc"     : [1 ,'('],
               " \ "\<left>,\<Space>": [1 ,')'],
@@ -55,11 +54,11 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
   endfunction
 
   function! mapping#tab#S_Tab() abort
-    smap <expr><TAB>
+    smap <expr> <TAB>
           \ neosnippet#expandable_or_jumpable() ?
           \ "\<Plug>(neosnippet_expand_or_jump)" :
           \ "\<TAB>"
-    xmap <TAB> <Plug>(neosnippet_expand_target)
+    xmap <TAB>  <Plug>(neosnippet_expand_target)
     inoremap <C-o> <Esc>:call mapping#util#JumpBack()<CR>
     snoremap <C-o> <Esc>:call mapping#util#JumpBack()<CR>
   endfunction
@@ -72,8 +71,8 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
 elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisnips'
   function! mapping#tab#Super_Tab() abort
     return pumvisible()
-          \ ? "\<c-r>=mapping#enter#popup()\<CR>"
-          \ : "\<c-r>=mapping#enter#no_popup()\<CR>"
+          \ ? "\<c-r>=mapping#tab#popup()\<CR>"
+          \ : "\<c-r>=mapping#tab#no_popup()\<CR>"
   endfunction
   function! mapping#tab#popup() abort
     let snip = UltiSnips#ExpandSnippetOrJump()
@@ -83,15 +82,17 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
       return snip
     elseif RightPair() && !empty(v:completed_item)
       return "\<right>"
-    elseif CurChar(0, '(') && CurChar(1, '\s')
-      return ")\<left>"
+    elseif CurChar(0, '(') && !CurChar(1, ')')
+      return CurChar(1, '')
+            \ ? ")\<left>" : ")\<Space>\<left>\<left>"
     else
       return s:md ==# 'asyncomplete' ? asyncomplete#close_popup() : "\<c-y>"
     endif
   endfunction
   function! mapping#tab#no_popup() abort
-    if CurChar(0, '(') && CurChar(1, '\s')
-      return ")\<left>"
+    if CurChar(0, '(') && !CurChar(1, ')')
+      return CurChar(1, '')
+            \ ? ")\<left>" : ")\<Space>\<left>\<left>"
     endif
     let sni = UltiSnips#ExpandSnippetOrJump()
 
@@ -117,7 +118,7 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
     snoremap <silent><tab>  <Esc>:call UltiSnips#ExpandSnippetOrJump()<CR>
     inoremap <silent><c-o>  <ESC>:call UltiSnips#JumpBackwards()<CR>
     snoremap <silent><c-o>  <ESC>:call UltiSnips#JumpBackwards()<CR>
-    xnoremap <silent><tab>  :call UltiSnips#SaveLastVisualSelection()<cr>gvs"
+    xnoremap <silent><tab>  :call UltiSnips#SaveLastVisualSelection()<cr>gvs
     inoremap <silent><c-t>  <C-R>=UltiSnips#ListSnippets()<cr>
   endfunction
   "}}}

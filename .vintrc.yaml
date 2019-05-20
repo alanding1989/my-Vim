@@ -11,9 +11,11 @@ cmdargs:
 
 policies:
   # Disable a violation
-  ProhibitImplicitScopeVariable:
-    enabled: false
+  # ProhibitImplicitScopeVariable:
+    # enabled: false
   ProhibitAbbreviationOption:
     enabled: false
   ProhibitSetNoCompatible:
+    enabled: false
+  ProhibitUnnecessaryDoubleQuote:
     enabled: false

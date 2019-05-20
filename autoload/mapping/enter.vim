@@ -19,7 +19,7 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
               \ : CurChar(0, '(') ? ( s:md ==# 'asyncomplete' ? asyncomplete#close_popup() : "\<C-y>" ) 
               \ :  "\<C-e>\<plug>(neosnippet_expand)" )
               \ : "\<plug>(neosnippet_expand)"
-      elseif !Within('emptypair') && CurChar(1, '}')
+      elseif !WithinEmptyPair() && CurChar(1, '}')
         return "\<C-y>\<CR>"
       elseif !CurChar(1, '}')
         return empty(v:completed_item) ? "\<C-e>" : "\<Esc>o"
@@ -64,6 +64,7 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
       return "\<Esc>o"
     endif
   endfunction
+
   function! mapping#enter#no_popup() abort
     let sni = UltiSnips#ExpandSnippetOrJump()
     if g:ulti_expand_or_jump_res == 2
@@ -90,7 +91,7 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'coc'
     if pumvisible()
       if coc#expandable()
         return "\<plug>(coc-snippets-expand)"
-      elseif !Within('emptypair') && CurChar(1, '}')
+      elseif !WithinEmptyPair() && CurChar(1, '}')
         return "\<C-y>\<CR>"
       elseif !CurChar(1, '}')
         if empty(v:completed_item)

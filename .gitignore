@@ -35,5 +35,5 @@ build/
 jdt.ls-java-project/
 .metals
 .bloop
-.mypy_cache
+.mypy_cache/
 .idea

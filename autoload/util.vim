@@ -65,9 +65,17 @@ function! util#vim_help_wrapper(...) abort
 
   let cword = expand('<cword>')
   if a:0 == 0 && !empty(cword)
-    exec 'vert bo help '.cword.'@cn'
+    try
+      exec 'vert bo help '.cword.'@cn'
+    catch /^Vim\%((\a\+)\)\=:E661/
+      exec 'vert bo help '.cword
+    endtry
   elseif a:0 > 0
-    exec 'vert bo help '.a:1.'@cn'
+    try
+      exec 'vert bo help '.a:1.'@cn'
+    catch /^Vim\%((\a\+)\)\=:E661/
+      exec 'vert bo help '.cword
+    endtry
   endif
 endfunction
 "}}}

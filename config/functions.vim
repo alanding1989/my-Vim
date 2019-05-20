@@ -6,6 +6,15 @@
 scriptencoding utf-8
 
 
+function! Tabjump(n) abort " {{{
+  call util#tabline#tabjump(a:n)
+endfunction
+
+function! Winjump(n) abort
+  call util#tabline#winjump(a:n)
+endfunction "}}}
+
+
 function! Foldtext() abort " {{{
   " get first non-blank line
   let fs = v:foldstart
@@ -32,18 +41,10 @@ function! Foldtext() abort " {{{
 endfunction "}}}
 
 
-function! Tabjump(n) abort " {{{
-  call util#tabline#tabjump(a:n)
-endfunction
-
-function! Winjump(n) abort
-  call util#tabline#winjump(a:n)
-endfunction "}}}
-
-
-" Delimter edit Enhancement " {{{
+" Delimiter edit Enhancement " {{{
 
 " Params init {{{
+let s:autodelimiter_debug = get(g:, 'autodelimiter_debug', 1)
 let s:withinpairs = get(b:, 'autopairs', get(g:, 'autopairs', {
       \ '('  : ')' ,
       \ '['  : ']' ,
@@ -68,18 +69,11 @@ let s:exc_rchar = ['}', ']', ')']
 " }}}
 
 function! DelEmptyPair() abort
-  return Within('emptypair') ? "\<Right>\<BS>\<BS>" : "\<BS>"
+  return WithinEmptyPair() ? "\<Right>\<BS>\<BS>" : "\<BS>"
 endfunction
 
 function! ExpandEmptyPair() abort
-  return Within('emptypair') ? "\<Space>\<Space>\<left>" : "\<Space>"
-endfunction
-
-let s:jumpsign = []
-function! DirecJumpCR() abort
-  if index(s:jumpsign, getline('.')[col('.')-1]) > -1
-
-  endif
+  return WithinEmptyPair() ? "\<Space>\<Space>\<left>" : "\<Space>"
 endfunction
 
 " AutoClo {{{
@@ -91,41 +85,25 @@ function! AutoClo(char, ...) abort
   elseif Within('pair')[0]
     return a:char
   endif
-  "
-  " " add Space or not
-  " return  CurChar(0, '\') ? a:char : CurChar(0, '\s') ? a:char
-  "       \ : ( !LeftPair() || index(s:exc_rchar, getline('.')[col('.')-2]) > -1
-  "       \ ? "\<Space>".a:char : a:char )
-  " return  CurChar(0, '\') ? a:char : CurChar(0, '\s')
-  "       \ ? ( RightPair() ? a:char : a:char."\<Space>" )
-  "       \ : ( CurChar(0, '\w') || CurChar(0, '\d') ||
-  "       \ index(s:exc_rchar, getline('.')[col('.')-2]) > -1
-  "       \ ? ( RightPair() ? "\<Space>".a:char : "\<Space>".a:char."\<Space>" )
-  "       \ : ( RightPair() ? a:char : a:char."\<Space>" )
-  "       \ )
-  " let autoclose = get(b:, 'autoclose', get(g:, 'autoclose', [
-  " \ ')' , ']' , '}' , '-' , '+' , '?' ,
-  " \ ]))
-  " return  CurChar(0, '\') ? a:char : CurChar(0, '\s')
-  " \ ? ( CurChar(1, '\s') ? a:char : a:char."\<Space>" )
-  " \ : ( index(s:exc_rchar, getline('.')[col('.')-2]) > -1
-  " \ ? ( CurChar(1, '\s') ? "\<Space>".a:char : "\<Space>".a:char."\<Space>" )
-  " \ : ( CurChar(1, '\s') ? a:char : a:char."\<Space>" )
-  " \ )
   return a:char
 endfunction " }}}
 
 " MatchDel function " {{{
 function! MatchDel(char, regex, ...) abort
+  " this func just for orperator which need to 
+  " follow othor sign use. e.g. &&, +=, =~
   if Within('pair')
-    let g:zlan = 1
-    return a:0 ? a:char.a:1."\<left>" : a:char
+    echo 'within pair'
+    return a:0 && a:1 !~? '\d' ? a:char.a:1."\<left>" : a:char
   endif
 
+  " Matched {{{
   if match(getline('.'), a:regex) > -1
-    echohl WarningMsg "{{{
-    echo ' Matched'
-    echohl NONE "}}}
+    if s:autodelimiter_debug "{{{
+      echohl WarningMsg
+      echo ' Matched'
+      echohl NONE
+    endif "}}}
     if a:char =~# '\d'
       return "\<BS>".a:char
     endif
@@ -135,50 +113,44 @@ function! MatchDel(char, regex, ...) abort
     else
       return CurChar(1, a:char) ? a:char."\<Right>" : "\<Space>".a:char."\<Space>"
     endif
+  endif " }}}
+
+  " Nomatch Echo reminder {{{
+  if s:autodelimiter_debug
+    echohl WarningMsg
+    echo ' Nomatch'
+    echohl NONE
+  endif
+  "}}}
+
+  if a:0 && a:1
+    return "\<C-r>=AutoClo(".string(a:char).', '.string(a:1).")\<CR>"
+  elseif CurChar(0, '\')
+    return a:char
   endif
 
-  " Echo reminder {{{
-  echohl WarningMsg
-  echo ' Nomatch'
-  echohl NONE
-  " for debug using
-  " if 1
-  " return a:char
-  " endif "}}}
-
-  " nomatch, but extra param " {{{
-  if a:0 
-    " return AutoClo(a:char, a:1)
-    return "\<C-r>=AutoClo(".string(a:char).', '.string(a:1).")\<CR>"
-  elseif a:char =~#  '\d' || CurChar(0, '\')
-        \ || index(get(b:, 'NoAutoSpaceChar', get(g:, 'NoAutoSpaceChar', [])), a:char) > -1
-    return a:char
-  endif " }}}
-
-  " char specify " {{{
-  if a:char =~# '#' && matchend(expand('%'), 'autoload') && &ft ==# 'vim'
-    return '#'
-  endif " }}}
-
-  " nomatch, noextra param " {{{
-  if CurChar(0, a:char, -3)
-    return "\<BS>".a:char."\<Space>"
-  elseif CurChar(0, '\s')
-    return RightPair() ? a:char : a:char."\<Space>"
-  else
-    let lchar = getline('.')[col('.') - 2]
-    let exc_rchar = ['}', ']', ')']
-    if CurChar(0, '\w') || CurChar(0, '\d') || index(exc_rchar, lchar) > -1
-      return RightPair() ? "\<Space>".a:char : "\<Space>".a:char."\<Space>"
+  " Nomatch, noextra param " {{{
+  if CurChar(0, '\s')
+    " before is space
+    if CurChar(0, a:char, -3)
+      return "\<BS>".a:char."\<Space>"
     else
-      return RightPair() ? a:char : a:char."\<Space>"
+      return CurChar(1, '\s') ? a:char : a:char."\<Space>"
     endif
+  elseif CurChar(0, a:char)
+    " before is operator itself
+    return CurChar(1, '\s') ? a:char : a:char."\<Space>"
+  elseif a:0 && !a:1
+    return a:char
+  else
+    " before is not itself
+    return CurChar(1, '\s') ? "\<Space>".a:char : "\<Space>".a:char."\<Space>"
   endif " }}}
 endfunction " }}}
 
 " check char before or after cursor {{{
 function! CurChar(pos, char, ...) abort 
-  " left 0, right 1
+  " left 0, right 1, a:1 pos
   let isregex = a:char[0] ==# '\'
   if a:pos ==# 0
     return !a:0 ? ( isregex
@@ -203,41 +175,90 @@ function! Within(mode, ...)abort
   let g:pairs = a:mode ==# 'pair' ? s:withinpairs
         \   : a:mode ==# 'emptypair' ? s:emptypairs
         \   : s:withinquotes
-
-  if a:mode ==# 'emptypair'
-    return <sid>WithinEmptyPair()
-  endif
-
   let ln  = getline('.')
   let col = col('.')
-  for [key, val] in items(g:pairs)
-    if key ==# '['
-      let g:idxstart = match(   ln, '\'.key.'.*'.val) + 1
-      let g:idxend   = matchend(ln, '\'.key.'.*'.val)
-    elseif key ==# '*'
-      let g:idxstart = match(   ln, '\'.key.'.*\'.val) + 1
-      let g:idxend   = matchend(ln, '\'.key.'.*\'.val)
+  if col == 1
+    return a:0 && a:1 == 1 ? [0, 0] : 0
+  endif
+  for [l, r] in items(g:pairs)
+    if l ==# '['
+      let str   = matchstrpos(ln, '\'.l.'.*'.r)
+      let idxstart = str[1]
+      let idxend   = str[2]
+    elseif l ==# '*'
+      let str   = matchstrpos(ln, '\'.l.'.*\'.r)
+      let idxstart = str[1]
+      let idxend   = str[2]
     else
-      let g:idxstart = match(   ln, key.'.*'.val) + 1
-      let g:idxend   = matchend(ln, key.'.*'.val)
+      let str   = matchstrpos(ln, l.'.*'.r)
+      let idxstart = str[1]
+      let idxend   = str[2]
     endif
-    while g:idxstart <= col && col <= g:idxend
-      return a:0 && a:1 == 1 ? [1, key] : 1
+    while idxstart < col && col < idxend
+    " FIXME:
+      return a:0 && a:1 == 1 ? [1, l]: 1
     endwhile
   endfor
-  return a:0 && a:1 == 1 ? [0, key] : 0
+  return a:0 && a:1 == 1 ? [0, 0] : 0
+endfunction
+
+if s:autodelimiter_debug
   " debug use
-  " inoremap <expr> g9 Within('pair', 1)[0] ? 'within' : '0000'
-  " inoremap g7 <esc>:echo match(   getline('.'), '.*\')+1
-  " inoremap g8 <esc>:echo matchend(getline('.'), '.*\')
-endfunction " }}}
+  inoremap <expr> g9 Within('pair', 1)[0] ? 'within' : '0000'
+  inoremap g7 <esc>:echo matchstrpos(   getline('.'), '(.*)')<CR> 
+  inoremap g8 <esc>:echo matchend(getline('.'), '.*\')
+endif 
+" function! Within(mode, ...)abort " {{{
+"   " param a:mode can be pair and quote
+"   let g:pairs = a:mode ==# 'pair' ? s:withinpairs
+"         \   : a:mode ==# 'emptypair' ? s:emptypairs
+"         \   : s:withinquotes
+"   let ln  = getline('.')
+"   let g:col = col('.')
+"   if g:col == 1
+"     return a:0 && a:1 == 1 ? [0, 0] : 0
+"   endif
+"   for [l, r] in items(g:pairs)
+"     if l ==# '['
+"       let g:str   = matchstrpos(ln, '\'.l.'.*'.r)
+"       let g:idxstart = g:str[1]
+"       let g:idxend   = g:str[2]
+"     elseif l ==# '*'
+"       let g:str   = matchstrpos(ln, '\'.l.'.*\'.r)
+"       let g:idxstart = g:str[1]
+"       let g:idxend   = g:str[2]
+"     else
+"       let g:str   = matchstrpos(ln, l.'.*'.r)
+"       let g:idxstart = g:str[1]
+"       let g:idxend   = g:str[2]
+"     endif
+"     if g:idxstart < g:col && g:col < g:idxend
+"       let g:strl = split(g:str[0][:g:col-g:idxstart-2], '\zs')
+"       let g:countl = count(g:strl, l)
+"       let g:countr = count(g:strl, r)
+"       let g:mod    = fmod(count(g:str, l), 2)
+"       if g:countl != g:countr && g:mod == 0
+"         let g:within = [1, l]
+"         break
+"       endif
+"     endif
+"   endfor
+"   if get(g:, 'within', [0, 0])[0]
+"     let g:zlan = 1
+"     return a:0 && a:1 == 1 ? g:within : 1
+"   else
+"     return a:0 && a:1 == 1 ? [0, 0] : 0
+"   endif
+" endfunction
+"  " }}}
+"  " }}}
 
 " check pairs around cursor {{{
-function! s:WithinEmptyPair() abort
-  for [key, val] in items(s:emptypairs)
-    if CurChar(0, key) && CurChar(1 , val)
+function! WithinEmptyPair() abort
+  for [l, r] in items(s:emptypairs)
+    while CurChar(0, l) && CurChar(1 , r)
       return 1
-    endif
+    endwh
   endfor
   return 0
 endfunction
@@ -269,15 +290,19 @@ endfunction "}}}
 
 " check curline if match pattern {{{
 function! MatchCl(reg, ...) abort
-  if a:0
-    return match(getline(a:1), a:reg) > -1
+  if a:0 && a:1 ==# 'e'
+    let res = matchend(getline('.'), a:reg)
+    if s:autodelimiter_debug
+      echo res
+    endif
+    return res
   elseif match(getline('.'), a:reg) > -1
-    echo 'match'
+    if s:autodelimiter_debug
+      echo 'matched'
+    endif
     return 1
   endif
-  return a:0 
-        \ ? match(getline(a:1), a:reg) > -1
-        \ : match(getline('.'), a:reg) > -1
+  return 0
 endfunction " }}}
 
 " get current line char {{{
