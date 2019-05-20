@@ -62,7 +62,7 @@ function! layers#core#config() abort
     call SpaceVim#mapping#space#def('nmap'    , ['b', 'r'], '<Plug>(Safe-Revert-Buffer)', 'safe revert buffer', 0)
     call SpaceVim#mapping#space#def('nnoremap', ['p', 's'], ':Grepper', 'safe revert buffer', 1)
 
-    let g:_spacevim_mappings.a   = {'name' : '+@ Session/Setting/Select'}
+    let g:_spacevim_mappings.a   = get(g:_spacevim_mappings, 'a', {'name' : '+@ Session/Setting/Select'})
     let g:_spacevim_mappings.a.c = {'name': '+Open config file'}
     let g:_spacevim_mappings.a.a = ['normal! ggVG'                           , 'select whole buffer'      ]
     let g:_spacevim_mappings.a.e = ['normal! VG'                             , 'select to the end'        ]
@@ -197,7 +197,7 @@ elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# '
     elseif a:num == 7
       Defx -new `getcwd()`
     endif
-    if &ft ==# 'defx' | setl conceallevel=3 | endif
+    if &ft ==# 'defx' | setl conceallevel=2 | endif
     doautocmd WinEnter
   endfunction "}}}
 elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'nerdtree'

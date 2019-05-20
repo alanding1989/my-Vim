@@ -1,7 +1,6 @@
 "================================================================================
 " File Name    : autoload/layers/defhighlight.vim
 " Author       : AlanDing
-" mail         : 
 " Created Time : Mon 13 May 2019 09:37:00 PM CST
 "================================================================================
 scriptencoding utf-8
@@ -9,7 +8,8 @@ scriptencoding utf-8
 
 
 function! layers#defhighlight#plugins() abort
-  return
+  let plugins = []
+  return plugins
 endfunction
 
 
@@ -20,6 +20,8 @@ function! layers#defhighlight#config() abort
     endfor
   endif
   if g:is_spacevim
+    " let g:_spacevim_mappings.a = get(g:_spacevim_mappings, 'a', {'name' : '+@ Session/Setting/Select'})
+    let g:_spacevim_mappings.a = {'name' : '+@ Session/Setting/Select'}
     call SpaceVim#mapping#def('nnoremap', '<leader>ah', ':call layers#defhighlight#test()<CR>',
           \ 'test custom highlight def', '', 'test custom highlight def')
   else
@@ -78,7 +80,7 @@ function! layers#defhighlight#test(...) abort
   if len(hlcmds) == 0
     let fts = join(keys(s:hlcolor), ' ')
     echohl WarningMsg
-    echo ' No customized highlight' 
+    echo ' No customized highlight'
           \ . (empty(fts) ? '' : ', have you already opened a '. fts .' file ?')
     echohl NONE
     return

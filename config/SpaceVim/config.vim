@@ -23,7 +23,7 @@ let g:spacevim_colorscheme = split([
       \ '8 nord'        ,
       \ '9 default'     ,
       \ ][1])[1]
-let g:spacevim_colorscheme_default = 'nord'
+let g:spacevim_colorscheme_default = 'neodark'
 let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 "}}}
 
@@ -41,12 +41,12 @@ let g:spacevim_lint_on_the_fly      = 1
 let g:spacevim_autocomplete_parens  = 0
 let g:enable_deotabline             = 0
 let g:enable_googlesuggest          = 0
-  
+
 " Ui {{{
 let g:enable_fat_statusline                  = 1
 let g:statusline_separator                   = get(['fire', 'arrow', 'curve', 'slant'], 1)
-let g:spacevim_statusline_left_sections      = ['winnr', 'filename', 'syntax checking', 'minor mode lighters']
-let g:spacevim_statusline_right_sections     += ['time', 'date', 'whitespace']
+let g:spacevim_statusline_left_sections      =  ['winnr', 'filename', 'syntax checking', 'minor mode lighters']
+let g:spacevim_statusline_right_sections     += ['time', 'date']
 let g:spacevim_enable_cursorcolumn           = 0
 let g:spacevim_buffer_index_type             = 1
 let g:spacevim_enable_tabline_filetype_icon  = 1
@@ -124,49 +124,50 @@ let g:_lsp_var = {'filetypes' : [
 
 " [ guifg, guibg, ctermfg, ctermbg, italic, bold] {{{
 " -1 if None or negative
-" let g:_defhighlight_var = { 'hlcolor' : {
-      " \ 'python' : {
-      " \    'Statement'         : ['#f92672', -1, -1, -1, 0, 1],
-      " \    'pythonKeyword'     : ['#f92672', -1, -1, -1, 0, 1],
-      " \    'pythonImport'      : ['#f92672', -1, -1, -1, 0, 1],
-      " \    'pythonInclude'     : ['#f92672', -1, -1, -1, 0, 1],
-      " \    'pythonConditional' : ['#f92672', -1, -1, -1, 0, 1],
-      " \    'pythonRepeat'      : ['#f92672', -1, -1, -1, 0, 1],
-      " \
-      " \    'pythonClass'       : ['#14cfcf', -1, -1, -1, 0, 0],
-      " \    'semshiImported'    : ['#14cfcf', -1, -1, -1, 0, 0],
-      " \    'pythonBuiltin'     : ['#14cfcf', -1, -1, -1, 1, 0],
-      " \    'semshiBuiltin'     : ['#14cfcf', -1, -1, -1, 1, 0],
-      " \
-      " \    'Define'            : ['#df5fdb', -1, -1, -1, 1, 0],
-      " \    'semshiSelf'        : ['#df5fdb', -1, -1, -1, 1, 0],
-      " \    'pythonSelf'        : ['#df5fdb', -1, -1, -1, 1, 0],
-      " \    'pythonClassVar'    : ['#df5fdb', -1, -1, -1, 1, 0],
-      " \ 
-      " \    'function'          : ['#a3e234', -1, -1, -1, 0, 0],
-      " \    'function'          : ['#56b6c2', -1, 73, -1, 0, 0],
-      " \    'pythonFunction'    : ['#a3e234', -1, -1, -1, 0, 0],
-      " \    'pythonDecorator'   : ['#a3e234', -1, -1, -1, 1, 0],
-      " \
-      " \    'semshiLocal'       : ['#fd971f', -1, -1, -1, 1, 0],
-      " \    'pythonParam'       : ['#fd971f', -1, -1, -1, 1, 0],
-      " \
-      " \    'Type'              : ['#607fbf', -1, -1, -1, 0, 0],
-      " \    'pythonBuiltinType' : ['#607fbf', -1, -1, -1, 0, 0],
-      " \
-      " \    'String'            : ['#', -1, -1, -1, 0, 0],
-      " \    'pythonString'      : ['#e6db74', -1, -1, -1, 0, 0],
-      " \    'pythonRawString'   : ['#e6db74', -1, -1, -1, 0, 0],
-      " \    'pythonStringDelimiter': ['#e6db74', -1, -1, -1, 0, 0],
-      " \
-      " \    'Operator'          : ['#f92672', -1, -1, -1, 0, 0],
-      " \    'pythonOperator'    : ['#f92672', -1, -1, -1, 0, 0],
-      " \
-      " \    'Number'            : ['#ae81ff', -1, -1, -1, 0, 0],
-      " \    'StorageClass'      : ['#aab6e1', -1, -1, -1, 1, 0],
-      " \ },
-      " \ }}
-      " \    'String'            : ['#e6db74', -1, -1, -1, 0, 0],
+let g:_defhighlight_var = { 'hlcolor' : {
+      \ 'python' : {
+      \    'Statement'            : ['#f92672', -1, -1, -1, 0, 1],
+      \    'pythonKeyword'        : ['#f92672', -1, -1, -1, 0, 1],
+      \    'pythonImport'         : ['#f92672', -1, -1, -1, 0, 1],
+      \    'pythonInclude'        : ['#f92672', -1, -1, -1, 0, 1],
+      \    'pythonConditional'    : ['#f92672', -1, -1, -1, 0, 1],
+      \    'pythonRepeat'         : ['#f92672', -1, -1, -1, 0, 1],
+      \
+      \    'pythonClass'          : ['#14cfcf', -1, -1, -1, 0, 0],
+      \    'semshiImported'       : ['#14cfcf', -1, -1, -1, 0, 0],
+      \    'pythonBuiltin'        : ['#14cfcf', -1, -1, -1, 1, 0],
+      \    'semshiBuiltin'        : ['#14cfcf', -1, -1, -1, 1, 0],
+      \
+      \    'Define'               : ['#df5fdb', -1, -1, -1, 1, 0],
+      \    'semshiSelf'           : ['#df5fdb', -1, -1, -1, 1, 0],
+      \    'pythonSelf'           : ['#df5fdb', -1, -1, -1, 1, 0],
+      \    'pythonClassVar'       : ['#df5fdb', -1, -1, -1, 1, 0],
+      \
+      \    'function'             : ['#56b6c2', -1, 73, -1, 0, 0],
+      \    'pythonFunction'       : ['#a3e234', -1, -1, -1, 0, 0],
+      \    'pythonDecorator'      : ['#a3e234', -1, -1, -1, 1, 0],
+      \
+      \    'semshiLocal'          : ['#fd971f', -1, -1, -1, 1, 0],
+      \    'pythonParam'          : ['#fd971f', -1, -1, -1, 1, 0],
+      \
+      \    'Type'                 : ['#607fbf', -1, -1, -1, 0, 0],
+      \    'pythonBuiltinType'    : ['#607fbf', -1, -1, -1, 0, 0],
+      \
+      \    'String'               : ['#98c379', -1, -1, -1, 0, 0],
+      \    'pythonString'         : ['#e6db74', -1, -1, -1, 0, 0],
+      \    'pythonRawString'      : ['#e6db74', -1, -1, -1, 0, 0],
+      \    'pythonStringDelimiter': ['#e6db74', -1, -1, -1, 0, 0],
+      \
+      \    'Operator'             : ['#f92672', -1, -1, -1, 0, 0],
+      \    'pythonOperator'       : ['#f92672', -1, -1, -1, 0, 0],
+      \
+      \    'Number'               : ['#ae81ff', -1, -1, -1, 0, 0],
+      \    'StorageClass'         : ['#aab6e1', -1, -1, -1, 1, 0],
+      \ },
+      \ }}
+      " \    'String'               : ['#e6db74', -1, -1, -1, 0, 0],
+      " \    'Statement'            : ['#c678dd', -1, -1, -1, 0, 1],
+      " \    'function'             : ['#a3e234', -1, -1, -1, 0, 0],
 "}}}
 if g:is_unix
   call add(g:_lsp_var['filetypes'], 'sh')
@@ -194,7 +195,7 @@ let g:My_SpaceVim_layers = {
       \ 'lang#java'         : 0,
       \ 'lang#javascript'   : 0,
       \ 'lang#latex'        : 0,
-      \ 'lang#lua'          : 1,
+      \ 'lang#lua'          : 0,
       \ 'lang#markdown'     : 1,
       \ 'lang#python'       : 1,
       \ 'lang#scala'        : 1,

@@ -42,12 +42,15 @@ endfunction
 " Main {{{
 function! s:Mainbegin() abort
   call s:SpaceVim_load_layers()
-  " add custom plugins
+  " add custom plugins list
   call s:SpaceVim_add_plugins()
 
   " My addon config
+  " load befoere SpaceVim source plugins
   call s:Mylayers_config_load()
   call s:VimEnter_layers_GlobalVar_load()
+
+  " VimEnter config to override SpaceVim`s
   auto VimEnter * call s:VimEnter_config()
 endfunction
 

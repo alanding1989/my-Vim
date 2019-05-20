@@ -9,7 +9,7 @@ function! mapping#basic#load() abort
   let g:mapleader       = ';'
   let g:maplocalleader  = "\<Space>"
   set timeout
-  " set timeoutlen=800
+  set timeoutlen=400
   call <sid>defPlug()
   call <sid>Delimitor_init()
   auto VimEnter * call s:unmap_SPC()

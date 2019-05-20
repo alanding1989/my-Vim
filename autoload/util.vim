@@ -82,11 +82,17 @@ endfunction
 
 " highlight wrapper {{{
 function! util#hlight_wrapper(...) abort
-  exec    ( a:0 > 0 && a:1 ==# 'v' ? 'verbose ' : '' )
-        \ . 'highlight ' .
-        \ ( !empty(expand('<cword>')) ? expand('<cword>') :
-        \ ( a:0 ? (a:1 !=# 'v' ? a:1 : a:2) : '' )
-        \ )
+  try
+    exec    ( a:0 > 0 && a:1 ==# 'v' ? 'verbose ' : '' )
+          \ . 'highlight ' .
+          \ ( !empty(expand('<cword>')) ? expand('<cword>') :
+          \ ( a:0 ? (a:1 !=# 'v' ? a:1 : a:2) : '' )
+          \ )
+  catch
+    exec    ( a:0 > 0 && a:1 ==# 'v' ? 'verbose ' : '' )
+          \ . 'highlight ' .
+          \ ( a:0 ? (a:1 !=# 'v' ? a:1 : a:2) : '' )
+  endtry
 endfunction " }}}
 
 " echohl wrapper {{{
