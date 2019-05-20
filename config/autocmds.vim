@@ -25,7 +25,6 @@ augroup colorscheme_related
   autocmd ColorScheme *           hi! MatchParen  gui=italic,bold  cterm=italic,bold
         \                       | hi! Folded      gui=italic       cterm=italic
         \                       | hi! Comment     gui=italic       cterm=italic
-        " \                       | hi! link ExtraWhitespace LeaderGuiderPrompt
 augroup END
 
 
