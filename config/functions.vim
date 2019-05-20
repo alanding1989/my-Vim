@@ -6,6 +6,7 @@
 scriptencoding utf-8
 
 
+
 function! Tabjump(n) abort " {{{
   call util#tabline#tabjump(a:n)
 endfunction
@@ -284,9 +285,10 @@ function! LeftPair(...) abort
   return 0
 endfunction
 
-function! s:NearPair() abort
-  return RightPair() || LeftPair() ? 1 : 0
-endfunction "}}}
+" function! s:NearPair() abort
+  " return RightPair() || LeftPair() ? 1 : 0
+" endfunction
+"}}}
 
 " check curline if match pattern {{{
 function! MatchCl(reg, ...) abort

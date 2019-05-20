@@ -35,10 +35,10 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
       elseif !neosnippet#jumpable() && s:check_bs() && !CurChar(1, '') && RightPair()
         return "\<right>"
       elseif neosnippet#jumpable()
-        " call mapping#util#jback('CurChar', {
-              " \ "\<Esc>hviwc"     : [1 ,'('],
-              " \ "\<left>,\<Space>": [1 ,')'],
-              " \ })
+        call mapping#util#jumpback('CurChar', {
+              \ "\<Esc>hviwc"     : [1 ,'('],
+              \ "\<left>,\<Space>": [1 ,')'],
+              \ })
         return "\<plug>(neosnippet_jump)"
       elseif !s:check_bs()
         return "\<tab>"
