@@ -34,9 +34,9 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
 " ================================================================================
 elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisnips'
   " NOTE: inoremap don`t use this
-  let g:UltiSnipsExpandTrigger                   = '<Plug>(ultisnips_expand_jump)'
-  let g:UltiSnipsJumpForwardTrigger              = '<Plug>(ultisnips_expand_jump)'
-  let g:UltiSnipsJumpBackwardTrigger             = '<Plug>(ultisnips_prev)'
+  let g:UltiSnipsExpandTrigger                   = '<Plug>(UltiSnips_Expand_Jump)'
+  let g:UltiSnipsJumpForwardTrigger              = '<Plug>(UltiSnips_Expand_Jump)'
+  let g:UltiSnipsJumpBackwardTrigger             = '<Plug>(UltiSnips_JumpBackwards)'
   let g:UltiSnipsEditSplit                       = 'vertical'
   " if edit snippets, first search '&ft.snippets' in the follow 1th dir,
   " then the 2nd dir, if none create new '&ft.snippets'

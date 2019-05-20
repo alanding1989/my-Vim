@@ -194,8 +194,8 @@ function! Within(mode, ...)abort
       let idxstart = str[1]
       let idxend   = str[2]
     endif
-    while idxstart < col && col < idxend
-    " FIXME:
+    while idxstart<= col && col<= idxend
+
       return a:0 && a:1 == 1 ? [1, l]: 1
     endwhile
   endfor
@@ -204,9 +204,9 @@ endfunction
 
 if s:autodelimiter_debug
   " debug use
-  inoremap <expr> g9 Within('pair', 1)[0] ? 'within' : '0000'
-  inoremap g7 <esc>:echo matchstrpos(   getline('.'), '(.*)')<CR> 
-  inoremap g8 <esc>:echo matchend(getline('.'), '.*\')
+  " inoremap <expr> g9 Within('pair', 1)[0] ? 'within' : '0000'
+  " inoremap g7 <esc>:echo matchstrpos(   getline('.'), '(.*)')<CR>
+  " inoremap g8 <esc>:echo matchend(getline('.'), '.*\')
 endif 
 " function! Within(mode, ...)abort " {{{
 "   " param a:mode can be pair and quote

@@ -116,10 +116,10 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
 
   function! mapping#tab#S_Tab() abort
     snoremap <silent><tab>  <Esc>:call UltiSnips#ExpandSnippetOrJump()<CR>
-    inoremap <silent><c-o>  <ESC>:call UltiSnips#JumpBackwards()<CR>
-    snoremap <silent><c-o>  <ESC>:call UltiSnips#JumpBackwards()<CR>
-    xnoremap <silent><tab>  :call UltiSnips#SaveLastVisualSelection()<cr>gvs
-    inoremap <silent><c-t>  <C-R>=UltiSnips#ListSnippets()<cr>
+    inoremap <silent><C-o>  <C-R>=UltiSnips#JumpBackwards()<CR>
+    snoremap <silent><C-o>  <ESC>:call UltiSnips#JumpBackwards()<CR>
+    xnoremap <silent><tab>  :call UltiSnips#SaveLastVisualSelection()<CR>gvs
+    inoremap <silent><c-t>  <C-R>=UltiSnips#ListSnippets()<CR>
   endfunction
   "}}}
 
@@ -154,8 +154,8 @@ elseif s:md ==# 'coc'
   endfunction
 
   function! mapping#tab#S_tab() abort
-    snoremap <silent><tab> <Esc>:call coc#rpc#request('snippetNext', [])<cr>
-    snoremap <silent><c-o> <Esc>:call coc#rpc#request('snippetPrev', [])<cr>
+    snoremap <silent><tab> <Esc>:call coc#rpc#request('snippetNext', [])<CR>
+    snoremap <silent><c-o> <Esc>:call coc#rpc#request('snippetPrev', [])<CR>
     xmap <tab> <Plug>(coc-snippets-select)
   endfunction
 endif
