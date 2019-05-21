@@ -20,7 +20,6 @@ function! layers#defhighlight#config() abort
     endfor
   endif
   if g:is_spacevim
-    " let g:_spacevim_mappings.a = get(g:_spacevim_mappings, 'a', {'name' : '+@ Session/Setting/Select'})
     let g:_spacevim_mappings.a = {'name' : '+@ Session/Setting/Select'}
     call SpaceVim#mapping#def('nnoremap', '<leader>ah', ':call layers#defhighlight#test()<CR>',
           \ 'test custom highlight def', '', 'test custom highlight def')
