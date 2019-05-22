@@ -36,6 +36,7 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
       elseif CurChar(1, '}') || CurChar(1, ']')
         return "\<CR>\\\<Space>\<Esc>ko\\\<Space>"
       elseif winline() != winheight(0)/2 && line('$') > winheight(0)/2
+            \ && g:is_nvim
         return "\<Esc>zza\<CR>"
       else
         return "\<CR>"

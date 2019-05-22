@@ -26,8 +26,44 @@ function! layers#lsp#plugins() abort
   return plugins
 endfunction
 
+
 function! layers#lsp#config() abort
-  let g:serverCommands = {
+  call layers#lsp#reg_server(g:enabled_serverCommands)
+endfunction
+
+
+function! layers#lsp#checkft(ft) abort
+  return has_key(g:enabled_serverCommands, a:ft)
+endfunction
+
+
+if get(g:, 'autocomplete_method') ==# 'coc'
+  " nop
+
+elseif has('nvim') && has('python3')
+  function! layers#lsp#reg_server(serverCommands) abort
+    let g:LanguageClient_serverCommands = {}
+    for [ft, cmds] in items(a:serverCommands)
+      let g:LanguageClient_serverCommands[ft] = cmds
+    endfor
+  endfunction
+
+else
+  function! layers#lsp#reg_server(serverCommands) abort
+    for [ft, cmds] in items(a:serverCommands)
+      exec 'au User lsp_setup call lsp#register_server({'
+            \ . "'name': 'LSP',"
+            \ . "'cmd': {server_info -> " . string(cmds) . '},'
+            \ . "'whitelist': ['" .  ft . "' ],"
+            \ . '})'
+      exec 'autocmd FileType ' . ft . ' setlocal omnifunc=lsp#complete'
+    endfor
+  endfunction
+endif
+
+
+if g:is_nvim
+  let s:serverCommands = {
         \ 'c'          : ['clangd'],
         \ 'cpp'        : ['clangd'],
         \ 'css'        : ['css-languageserver', '--stdio'],
@@ -45,7 +81,32 @@ function! layers#lsp#config() abort
         \ 'typescript' : ['typescript-language-server', '--stdio'],
         \ 'vim'        : ['vim-language-server', '--stdio']
         \ }
-  return
+else
+  let s:serverCommands = {
+        \ 'c'          : ['clangd'],
+        \ 'cpp'        : ['clangd'],
+        \ 'css'        : ['css-languageserver', '--stdio'],
+        \ 'dockerfile' : ['docker-langserver', '--stdio'],
+        \ 'go'         : ['go-langserver', '-mode', 'stdio'],
+        \ 'haskell'    : ['hie-wrapper', '--lsp'],
+        \ 'html'       : ['html-languageserver', '--stdio'],
+        \ 'javascript' : ['javascript-typescript-stdio'],
+        \ 'objc'       : ['clangd'],
+        \ 'objcpp'     : ['clangd'],
+        \ 'php'        : ['php', expand($HOME.'/.cache/Vim/dein-plug/repos/github.com/felixfbecker/php-language-server/bin/php-language-server.php')],
+        \ 'python'     : ['pyls'],
+        \ 'scala'      : ['metals-vim'],
+        \ 'typescript' : ['typescript-language-server', '--stdio'],
+        \ }
+endif
+function! layers#lsp#set_variable(var) abort
+  let s:enable_lsp_ft = get(a:var, 'ft', [])
+  let g:enabled_serverCommands = {}
+  for ft in s:enable_lsp_ft
+    if has_key(s:serverCommands, ft)
+      let g:enabled_serverCommands[ft] = s:serverCommands[ft]
+    endif
+  endfor
 endfunction
 
 

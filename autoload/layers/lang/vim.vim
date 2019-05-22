@@ -10,20 +10,20 @@ let s:SID = SpaceVim#api#import('vim#sid')
 
 function! layers#lang#vim#plugins() abort
   let plugins = []
-  if !My_Vim#layer#isLoaded('lsp') || !SpaceVim#layers#lsp#check_filetype('vim')
+  if (!g:is_spacevim && !layers#lsp#checkft('vim')) || (g:is_spacevim && !SpaceVim#layers#lsp#check_filetype('vim'))
     if get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method', 'deoplete')) ==# 'ncm2'
-      call add(plugins, ['ncm2/ncm2-vim', {'merged': 0, 'on_event': 'InsertEnter'}])
+      call add(plugins, ['ncm2/ncm2-vim', {'on_event': 'InsertEnter'}])
     endif
   endif
   if !g:is_spacevim
-    if !My_Vim#layer#isLoaded('lsp')
+    if !layers#lsp#checkft('vim')
       let plugins += [
             \ ['wsdjeg/vim-lookup',                                   {'merged' : 0}],
             \ ['tweekmonster/exception.vim',                          {'merged' : 0}],
             \ ['syngan/vim-vimlint',                 {'on_ft' : 'vim', 'for': 'vim'}],
             \ ['ynkdir/vim-vimlparser',              {'on_ft' : 'vim', 'for': 'vim'}],
             \ ['todesking/vint-syntastic',           {'on_ft' : 'vim', 'for': 'vim'}],
-            \ ['Shougo/neco-vim',           {'merged': 0, 'on_event': 'InsertEnter'}],
+            \ ['Shougo/neco-vim',           {'merged': 0 , 'on_event': 'InsertEnter'}],
             \ ]
       if g:autocomplete_method ==# 'coc'
         call add(plugins, ['neoclide/coc-neco', {'merged': 0}])

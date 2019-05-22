@@ -18,15 +18,3 @@ let g:lsp_diagnostics_enabled  = get(g:, 'g:lsp_diagnostics_enabled', 0)
 " let g:lsp_virtual_text_enabled = 1
 " let g:lsp_use_event_queue      = 1
 let g:lsp_async_completion       = 1
-
-
-for [ft, cmds] in items(g:serverCommands)
-  if index(g:My_Vim_lsp_ft, ft) > -1
-    exec 'au User lsp_setup call lsp#register_server({'
-          \ . "'name': 'LSP',"
-          \ . "'cmd': {server_info -> " . string(cmds) . '},'
-          \ . "'whitelist': ['" .  ft . "' ],"
-          \ . '})'
-    exec 'autocmd FileType ' . ft . ' setlocal omnifunc=lsp#complete'
-  endif
-endfor

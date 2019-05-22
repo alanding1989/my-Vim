@@ -12,8 +12,8 @@ let s:loaded = 1
 let g:neosnippet#enable_complete_done = 1
 let g:tmuxcomplete#trigger = ''
 
-let g:deoplete#enable_at_startup = 0
-auto InsertEnter * call deoplete#enable()
+let g:deoplete#enable_at_startup = 1
+" auto InsertEnter * call deoplete#enlble()
 
 
 " deoplete options
@@ -83,7 +83,7 @@ call deoplete#custom#source('typescript', 'rank', 9999)
 
 
 " php two types, 1. phpcd (default)  2. lsp
-if index(g:My_Vim_lsp_ft, 'php') > 0
+if layers#lsp#checkft('php')
   if has('nvim')
     call deoplete#custom#option('ignore_sources', {'php': ['omni', 'around', 'member']})
   else

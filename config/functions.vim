@@ -142,7 +142,7 @@ function! MatchDel(char, regex, ...) abort
       return a:char
     endif
   elseif a:0 && a:0 == 2 && CurChar(0, '\w')
-    " before is not space
+    " before is word character
     if a:2 ==# '11'
       return CurChar(1, '\s') ? "\<Space>".a:char : "\<Space>".a:char."\<Space>"
     elseif a:2 ==# '10'
@@ -153,6 +153,7 @@ function! MatchDel(char, regex, ...) abort
       return a:char
     endif
   else
+    " before is sign operator
     return CurChar(0, '\W') && !CurChar(0, '!')
           \ ? CurChar(1, '\s') ? "\<Space>".a:char : "\<Space>".a:char."\<Space>"
           \ : CurChar(1, '\s') ? a:char : a:char."\<Space>"

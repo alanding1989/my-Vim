@@ -76,13 +76,3 @@ elseif g:checker ==# 'ale'
   let g:LanguageClient_diagnosticsDisplay[4].signTexthl = 'ALEInfoSign'
 endif
 "}}}
-
-
-let g:LanguageClient_serverCommands = {}
-
-
-for [ft, cmds] in items(g:serverCommands)
-  if index(g:My_Vim_lsp_ft, ft) > -1
-    let g:LanguageClient_serverCommands[ft] = cmds
-  endif
-endfor

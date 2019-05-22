@@ -52,6 +52,8 @@ function! util#help_wrapper(...) abort
       call CocActionAsync('doHover')
     elseif exists(':LanguageClientStart')
       call LanguageClient_textDocument_hover()
+    else
+      LspHover
     endif
   catch
     call feedkeys(':EchoHelp ')

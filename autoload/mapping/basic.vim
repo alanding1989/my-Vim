@@ -341,16 +341,16 @@ function! s:Delimitor_init() abort
   " inoremap <expr> =   MatchDel('=', '\(=\+\)\\|\(>\+\)\\|\(<\+\)\\|\(+\+\)\\|\(-\+\)\\|\(!\+\)\s$')
   inoremap <expr> =   MatchDel('=', '\v(\=+)\|(\>+)\|(\<+)\|(\++)\|(-+)\|(!+)\s$', 1, 11)
   inoremap <expr> \|  MatchDel('\|', '\|\+\s$', 1, 11)
-  inoremap <expr> &   MatchDel('&', '&\+\s$', 0)
-  inoremap <expr> #   MatchDel('#', '\v(\=+\s)\|(\=\~)\|(!\=)\|(!\~)', 0)
+  inoremap <expr> &   MatchDel('&', '&\+\s$', 0, 00)
+  inoremap <expr> #   MatchDel('#', '\v(\=+\s)\|(\=\~)\|(!\=)\|(!\~)', 0, 00)
   inoremap <expr> ?   MatchDel('?', '\v^\s*(let)\|(:\s).*\S\_$', 1, 01)
   inoremap <expr> ~   MatchDel('~', '\v(\=+)\|(!)\s', 1, 11)
   inoremap <expr> >   MatchDel('>', '\v(\>+)\|(\=)\|(-)\|(\<\w*)\s$', 1, 11)
   " match add space before 
-  inoremap <expr> -   MatchDel('-', '\v^\s*(if\|el\|wh\|let\|val\|var).*\S$', 1)
+  inoremap <expr> -   MatchDel('-', '\v^\s*(if\|el\|wh\|let\|val\|var).*\S$', 1, 00)
   inoremap <expr> +   MatchDel('+', '0000', 1, 11)
   inoremap <expr> !   MatchDel('!', '\v^\s*(if\|el\|wh\|let\|val\|var).*\S$', 1, 01)
-  inoremap <expr> :   CurChar(0, '\s') ? ': ' : ' : '
+  inoremap <expr> :   CurChar(0, '\s') ? ': ' : CurChar(0, '\w') ? ': ' : ' : '
   inoremap <expr> <   MatchDel('<', '\v^\s*(if\|el\|wh\|let).*\S$', '>')
   inoremap <expr> ,   CurChar(0, '\s') ? "\<BS>,\<Space>" : (CurChar(1, '\s') ? "," : ",\<Space>")
   call s:AutoClose()

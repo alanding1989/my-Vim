@@ -22,7 +22,7 @@ let g:my_cs = split([
       \ '7 PaperColor'  ,
       \ '8 nord'        ,
       \ '9 default'     ,
-      \ ][5])[1]
+      \ ][4])[1]
 let g:my_bg = 1 ? 'dark' : 'light'
 "}}}
 
@@ -54,12 +54,13 @@ if g:autocomplete_method ==# 'coc'
   let g:snippet_engine = 'coc'
 endif
 
-let g:My_Vim_lsp_ft = [
+let g:_lsp_var = { 'ft' : [
       \ 'sh',
       \ 'python',
       \ 'ipynb',
       \ 'javascript',
-      \ ]
+      \ 'vim',
+      \ ]}
 "}}}
 
 

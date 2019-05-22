@@ -153,7 +153,7 @@ elseif s:md ==# 'coc'
     endif
   endfunction
 
-  function! mapping#tab#S_tab() abort
+  function! mapping#tab#S_Tab() abort
     snoremap <silent><tab> <Esc>:call coc#rpc#request('snippetNext', [])<CR>
     snoremap <silent><c-o> <Esc>:call coc#rpc#request('snippetPrev', [])<CR>
     xmap <tab> <Plug>(coc-snippets-select)

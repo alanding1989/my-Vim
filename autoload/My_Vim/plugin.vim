@@ -170,7 +170,7 @@ function! s:enabled_layers_get() abort
       let var = get(g:, '_'. layer .'_var', {})
       if value == 1 && util#dict#valid(var)
         call add(s:default_layers, layer)
-        call layers#{layer}#set_option(var)
+        call layers#{layer}#set_variable(var)
       elseif value == 1
         call add(s:default_layers, layer)
       else
