@@ -77,27 +77,11 @@ elseif g:checker ==# 'ale'
 endif
 "}}}
 
-let s:serverCommands = {
-      \ 'c'          : ['clangd'],
-      \ 'cpp'        : ['clangd'],
-      \ 'css'        : ['css-languageserver', '--stdio'],
-      \ 'dockerfile' : ['docker-langserver', '--stdio'],
-      \ 'go'         : ['go-langserver', '-mode', 'stdio'],
-      \ 'haskell'    : ['hie-wrapper', '--lsp'],
-      \ 'html'       : ['html-languageserver', '--stdio'],
-      \ 'javascript' : ['javascript-typescript-stdio'],
-      \ 'objc'       : ['clangd'],
-      \ 'objcpp'     : ['clangd'],
-      \ 'php'        : ['php', expand($HOME.'/.cache/Vim/dein-plug/repos/github.com/felixfbecker/php-language-server/bin/php-language-server.php')],
-      \ 'python'     : ['pyls'],
-      \ 'ipynb'      : ['pyls'],
-      \ 'sh'         : ['bash-language-server', 'start'],
-      \ 'scala'      : ['metals-vim'],
-      \ 'typescript' : ['typescript-language-server', '--stdio'],
-      \ }
+
 let g:LanguageClient_serverCommands = {}
 
-for [ft, cmds] in items(s:serverCommands)
+
+for [ft, cmds] in items(g:serverCommands)
   if index(g:My_Vim_lsp_ft, ft) > -1
     let g:LanguageClient_serverCommands[ft] = cmds
   endif

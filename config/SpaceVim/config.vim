@@ -30,7 +30,7 @@ let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 " ================================================================================
 " Preferences
 " ================================================================================
-let g:spacevim_autocomplete_method  = get(['coc'       , 'deoplete' , 'ncm2', 'ycm'], 1)
+let g:spacevim_autocomplete_method  = get(['coc'       , 'deoplete' , 'ncm2', 'ycm'], 0)
 let g:spacevim_snippet_engine       = get(['neosnippet', 'ultisnips', 'coc' ], 0)
 let g:spacevim_fuzzyfinder          = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
 let g:spacevim_filemanager          = get(['vimfiler'  , 'nerdtree' , 'defx'], 2)
@@ -119,6 +119,7 @@ let g:_lsp_var = {'filetypes' : [
       \ 'c',
       \ 'cpp',
       \ 'python',
+      \ 'vim',
       \ ]}
       " \ 'javascript',
 if g:is_unix
@@ -316,7 +317,7 @@ if g:spacevim_autocomplete_method !=# 'deoplete'
 endif
 if g:spacevim_snippet_engine !=# 'neosnippet'
   let g:spacevim_disabled_plugins += [
-        \ 'neopairs.vim'   ,
+        \ 'neopairs.vim',
         \ ]
 endif
 if g:My_SpaceVim_layers['git'] == 1 && g:My_SpaceVim_layers['VersionControl'] == 1

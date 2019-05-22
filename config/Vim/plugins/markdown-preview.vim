@@ -7,6 +7,11 @@ endif
 let s:loaded = 1
 
 
+let g:markdown_fenced_languages = [
+      \ 'vim',
+      \ 'help',
+      \ ]
+
 " " set to 1, the vim will open the preview window once enter the markdown buffer
 " let g:mkdp_auto_start = 1
 "

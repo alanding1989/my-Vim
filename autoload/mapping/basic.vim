@@ -360,8 +360,8 @@ function! s:Delimitor_init() abort
     autocmd!
     auto FileType sh  call <sid>Bash()
     auto FileType vim 
-          \ inoremap <expr> "  MatchCl('\v(^\_$)\|(^\s*\w*\s\_$)\|(^\s+\_$)') ? "\"\<Space>" : AutoClo('"', '"') |
-          \ inoremap <expr> :  MatchCl('\v\s(s)\|(g)\|(a)\|(l)\|(\S\W\s)$') ? ':' : CurChar(0, '\s') ? ': ' : ' : '
+          \ inoremap <buffer><expr> "  MatchCl('\v(^\_$)\|(^\s*\w*\s\_$)\|(^\s+\_$)') ? "\"\<Space>" : AutoClo('"', '"') |
+          \ inoremap <buffer><expr> :  MatchCl('\v\s(s)\|(g)\|(a)\|(l)\|(\S\W\s)$') ? ':' : CurChar(0, '\s') ? ': ' : ' : '
   augroup END
 endfunction
 
@@ -390,12 +390,12 @@ function! s:AutoPairs() abort " {{{
 endfunction " }}}
 function! s:Numfix() abort " {{{
   for num in range(1, 9)
-    exec 'inoremap <expr> '.num.' MatchDel('.num.", '\\v.*\\s\\W*\\s\-\\s$', '0', '00')"
+    exec 'inoremap <expr> '.num.' MatchDel('.num.", '\\v.*\\s\\W*\\s\-\\s$', 0, 00)"
   endfor
 endfunction " }}}
 function! s:Bash() abort " {{{
   for char in ['d', 'e', 'f', 'z', 'n']
-    exec 'inoremap <expr> '.char.' MatchDel('.string(char).', "-\\s_$", 0)'
+    exec 'inoremap <buffer><expr> '.char.' MatchDel('.string(char).', "-\\s_$", 0, 00)'
   endfor
 endfunction "}}}
 " }}}
@@ -435,6 +435,7 @@ function! s:win_scroll(forward, mode)
   let winnr = 0
   for i in range(1, winnr('$'))
     if getwinvar(i, 'float') || getwinvar(i, '$previewwindow')
+          \ || match(getwinvar(i, 'netrw_prvfile'), 'LanguageClient') > -1
       let winnr = i
     endif
   endfor
@@ -451,7 +452,8 @@ function! s:win_scroll(forward, mode)
     let key = (winline() == (winheight(0)+1) / 2) ? 'zt' : (winline() == &scrolloff + 1) ? 'zb' : 'zz'
   endif
   if winnr
-    return winnr."\<C-w>w".'zn'.key."\<C-w>p"
+    return winnr."\<C-w>w\<C-w>L".'zn'.key."\<C-w>p"
+    " return winnr."\<C-w>w".'zn'.key."\<C-w>p"
   else
     return key
   endif

@@ -27,6 +27,24 @@ function! layers#lsp#plugins() abort
 endfunction
 
 function! layers#lsp#config() abort
+  let g:serverCommands = {
+        \ 'c'          : ['clangd'],
+        \ 'cpp'        : ['clangd'],
+        \ 'css'        : ['css-languageserver', '--stdio'],
+        \ 'dockerfile' : ['docker-langserver', '--stdio'],
+        \ 'go'         : ['go-langserver', '-mode', 'stdio'],
+        \ 'haskell'    : ['hie-wrapper', '--lsp'],
+        \ 'html'       : ['html-languageserver', '--stdio'],
+        \ 'javascript' : ['javascript-typescript-stdio'],
+        \ 'objc'       : ['clangd'],
+        \ 'objcpp'     : ['clangd'],
+        \ 'php'        : ['php', expand($HOME.'/.cache/Vim/dein-plug/repos/github.com/felixfbecker/php-language-server/bin/php-language-server.php')],
+        \ 'python'     : ['pyls'],
+        \ 'sh'         : ['bash-language-server', 'start'],
+        \ 'scala'      : ['metals-vim'],
+        \ 'typescript' : ['typescript-language-server', '--stdio'],
+        \ 'vim'        : ['vim-language-server', '--stdio']
+        \ }
   return
 endfunction
 

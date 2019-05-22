@@ -35,7 +35,7 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
         return "\<Esc>o"
       elseif CurChar(1, '}') || CurChar(1, ']')
         return "\<CR>\\\<Space>\<Esc>ko\\\<Space>"
-      elseif winline() != winheight(0)/2
+      elseif winline() != winheight(0)/2 && line('$') > winheight(0)/2
         return "\<Esc>zza\<CR>"
       else
         return "\<CR>"
@@ -79,7 +79,7 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
       return "\<Esc>o"
     elseif CurChar(1, '}') || CurChar(1, ']')
       return "\<CR>\\\<Space>\<Esc>ko\\\<Space>"
-    elseif winline() != winheight(0)/2
+    elseif winline() != winheight(0)/2 && line('$') > winheight(0)/2
       return "\<Esc>zza\<CR>"
     else
       return "\<CR>"
@@ -113,7 +113,7 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'coc'
         return "\<Esc>o"
       elseif CurChar(1, '}') || CurChar(1, ']')
         return "\<CR>\\\<Space>\<Esc>ko\\\<Space>"
-      elseif winline() != winheight(0)/2
+      elseif winline() != winheight(0)/2 && line('$') > winheight(0)/2
         return "\<Esc>zza\<CR>"
       else
         return "\<CR>"

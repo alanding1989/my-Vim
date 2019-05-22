@@ -46,15 +46,16 @@ endfunc "}}}
 
 " help wrapper {{{
 function! util#help_wrapper(...) abort
-  if &ft !=# 'vim'
+  let g:dlan = 1
+  try
     if exists(':CocConfig')
       call CocActionAsync('doHover')
-    else
+    elseif exists(':LanguageClientStart')
       call LanguageClient_textDocument_hover()
     endif
-  else
+  catch
     call feedkeys(':EchoHelp ')
-  endif
+  endtry
 endfun
 
 function! util#vim_help_wrapper(...) abort

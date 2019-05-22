@@ -54,7 +54,7 @@ augroup END
 " let g:coc_global_extensions = [
 " \ 'coc-diagnostic' , 
 " \ 'coc-json'       ,
-" \ ' '
+" \ 'coc-vimlsp'     , 
 " \ 'coc-tsserver'   ,
 " \ 'coc-html'       ,
 " \ 'coc-css'        ,
@@ -84,6 +84,7 @@ augroup END
 
 function! s:g_mappings() abort
   vnoremap  <silent>ga  :call CocActionAsync('codeAction',     visualmode())<CR>
+  nnoremap  <silent>gd  :call CocActionAsync('jumpDefinition'    )<CR>
   nnoremap  <silent>gt  :call CocActionAsync('jumpTypeDefinition')<CR>
   nnoremap  <silent>gi  :call CocActionAsync('jumpImplementation')<CR>
   nnoremap  <silent>gr  :call CocActionAsync('jumpReferences'    )<CR>
@@ -93,7 +94,6 @@ function! s:g_mappings() abort
   nnoremap  <silent>gs  :call CocActionAsync('documentSymbols'   )<CR>
   nnoremap  <silent>gS  :call CocActionAsync('workspaceSymbols'  )<CR>
   nnoremap  <silent>gl  :call CocActionAsync('diagnosticInfo'    )<CR>
-  auto BufEnter if &ft !=# 'vim' | nmap  gd  <Plug>(coc-definition) | endif
   nmap  gp  <Plug>(coc-git-chunkinfo)
   nmap  [g  <Plug>(coc-git-prevchunk)
   nmap  ]g  <Plug>(coc-git-nextchunk)

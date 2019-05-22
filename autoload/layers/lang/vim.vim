@@ -10,24 +10,28 @@ let s:SID = SpaceVim#api#import('vim#sid')
 
 function! layers#lang#vim#plugins() abort
   let plugins = []
-  if get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method', 'deoplete')) ==# 'ncm2'
-    call add(plugins, ['ncm2/ncm2-vim', {'merged': 0, 'on_event': 'InsertEnter'}])
+  if !My_Vim#layer#isLoaded('lsp') || !SpaceVim#layers#lsp#check_filetype('vim')
+    if get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method', 'deoplete')) ==# 'ncm2'
+      call add(plugins, ['ncm2/ncm2-vim', {'merged': 0, 'on_event': 'InsertEnter'}])
+    endif
   endif
   if !g:is_spacevim
-    let plugins = [
-          \ ['wsdjeg/vim-lookup',                                   {'merged' : 0}],
-          \ ['tweekmonster/exception.vim',                          {'merged' : 0}],
-          \ ['syngan/vim-vimlint',                 {'on_ft' : 'vim', 'for': 'vim'}],
-          \ ['ynkdir/vim-vimlparser',              {'on_ft' : 'vim', 'for': 'vim'}],
-          \ ['todesking/vint-syntastic',           {'on_ft' : 'vim', 'for': 'vim'}],
-          \ ['Shougo/neco-vim',           {'merged': 0, 'on_event': 'InsertEnter'}],
-          \ ['tweekmonster/helpful.vim', {'on_cmd': 'HelpfulVersion', 'on': 'HelpfulVersion'}],
-          \ ]
-    if g:autocomplete_method ==# 'coc'
-      call add(plugins, ['neoclide/coc-neco', {'merged': 0}])
-    elseif g:autocomplete_method ==# 'asyncomplete'
-      call add(plugins, ['prabirshrestha/asyncomplete-necovim.vim', {'merged': 0}])
+    if !My_Vim#layer#isLoaded('lsp')
+      let plugins += [
+            \ ['wsdjeg/vim-lookup',                                   {'merged' : 0}],
+            \ ['tweekmonster/exception.vim',                          {'merged' : 0}],
+            \ ['syngan/vim-vimlint',                 {'on_ft' : 'vim', 'for': 'vim'}],
+            \ ['ynkdir/vim-vimlparser',              {'on_ft' : 'vim', 'for': 'vim'}],
+            \ ['todesking/vint-syntastic',           {'on_ft' : 'vim', 'for': 'vim'}],
+            \ ['Shougo/neco-vim',           {'merged': 0, 'on_event': 'InsertEnter'}],
+            \ ]
+      if g:autocomplete_method ==# 'coc'
+        call add(plugins, ['neoclide/coc-neco', {'merged': 0}])
+      elseif g:autocomplete_method ==# 'asyncomplete'
+        call add(plugins, ['prabirshrestha/asyncomplete-necovim.vim', {'merged': 0}])
+      endif
     endif
+    call add(plugins,['tweekmonster/helpful.vim',      {'on_cmd': 'HelpfulVersion'}])
   endif
   return plugins
 endfunction
