@@ -103,15 +103,22 @@ function! layers#edit#config() abort
 
     " insert
     let g:_spacevim_mappings_space.i.e = {'name' : '+@ Insert nice box'}
-    call SpaceVim#mapping#space#def('nnoremap', ['i', 'e', 'e'],
-          \ 'call mapping#basic#minusbox()',
-          \ '@ empty box', 1)
-    call SpaceVim#mapping#space#def('nnoremap', ['i', 'e', 'h'],
-          \ 'call mapping#basic#equalbox()',
-          \ '@ ==== head box', 1)
-    call SpaceVim#mapping#space#def('nnoremap', ['i', 'h'],
-          \ 'call mapping#basic#SetFileHead()',
-          \ '@ file head template', 1)
+    let g:_spacevim_mappings_space.i.h = {'name' : '+@ Insert file head template'}
+    call SpaceVim#mapping#space#def('nmap', ['i', 'e', 'm'],
+          \ '<Plug>(InsertMinusbox)',
+          \ '@ ---- empty box', 0)
+    call SpaceVim#mapping#space#def('nmap', ['i', 'e', 'e'],
+          \ '<Plug>(InsertEqualbox)',
+          \ '@ ==== empty box', 0)
+    call SpaceVim#mapping#space#def('nnoremap', ['i', 'h', 'n'],
+          \ 'SetFileHead',
+          \ 'without info', 1)
+    call SpaceVim#mapping#space#def('nnoremap', ['i', 'h', 'e'],
+          \ 'SetFileHead info1',
+          \ 'with = box info', 1)
+    call SpaceVim#mapping#space#def('nnoremap', ['i', 'h', 'h'],
+          \ 'SetFileHead info0',
+          \ 'with no box info', 1)
     call SpaceVim#mapping#space#def('nnoremap', ['i', 'd'],
           \ 'call setline(line("."), strftime("%a %d %b %Y %H:%M"))', '@ datetime', 1)
     " }}}
@@ -230,8 +237,8 @@ endfunction
 
 
 function! s:vim_edgemotion() abort
-  nmap <c-j> <Plug>(edgemotion-j)
-  nmap <c-k> <Plug>(edgemotion-k)
+  nmap <c-j> <Plug>(edgemotion-j)zz
+  nmap <c-k> <Plug>(edgemotion-k)zz
 endfunction " }}}
 
 

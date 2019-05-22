@@ -197,7 +197,7 @@ let g:My_SpaceVim_layers = {
       \ 'git'               : 1,
       \ 'github'            : 1,
       \ 'lsp'               : 1,
-      \ 'lang#c'            : 0,
+      \ 'lang#c'            : 1,
       \ 'lang#ipynb'        : 1,
       \ 'lang#java'         : 0,
       \ 'lang#javascript'   : 0,

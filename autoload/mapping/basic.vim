@@ -79,9 +79,8 @@ function! mapping#basic#load() abort
   inoremap <C-s>        <C-o>:w<CR>
   nnoremap qwe          :wall<CR>
   nnoremap qww          :w !sudo tee % >/dev/null<CR>
-  nnoremap qs           :saveas
-  nnoremap <M-s>        :saveas
-  inoremap <M-s>        <C-o>:saveas
+  nnoremap qld          :call feedkeys(':saveas '.expand(expand('%:p:h').'/'))<CR>
+  nnoremap qla          :call feedkeys(':saveas ')<CR>
   "}}}
 
   " window and buffer management {{{
@@ -157,10 +156,16 @@ function! mapping#basic#load() abort
   nnoremap <expr> <C-b>        <sid>win_scroll(0, 'f')
   nnoremap <expr> <C-d>        <sid>win_scroll(1, 'd')
   nnoremap <expr> <C-u>        <sid>win_scroll(0, 'd')
+  nnoremap <expr> i            winline() != winheight(0) ? "zzi" : "i"
+  nnoremap <expr> a            winline() != winheight(0) ? "zza" : "a"
 
-  " Toggle fold
+  " improve fold mapping
+  auto VimEnter * 
+        \ nnoremap zj  zjzz |
+        \ nnoremap zk  zkzz
   nnoremap <expr> <CR>         <sid>OpenFoldOrGotoMiddle(1)
   nnoremap <expr> <S-CR>       <sid>OpenFoldOrGotoMiddle(0)
+
   " Toggle zz mode
   nnoremap <leader>az          :call <sid>Toggle_ZZMode()<CR>
   " }}}
@@ -173,7 +178,9 @@ function! mapping#basic#load() abort
   nnoremap <Space>iee  :call <sid>MinusBox()<CR>
   nnoremap <Space>ieh  :call <sid>EqualBox()<CR>
   " insert file head
-  nnoremap <Space>ih   :call <sid>SetFileHead()<CR>
+  nnoremap <Space>ihn   :call <sid>SetFileHead()<CR>
+  nnoremap <Space>ihe   :call <sid>SetFileHead('info1')<CR>
+  nnoremap <Space>ihh   :call <sid>SetFileHead('info0')<CR>
 
   " indenting in visual mode
   xnoremap >           >gv|
@@ -321,38 +328,43 @@ function! s:defPlug() abort
   nnoremap <Plug>(Toggle-ZZMode)        :call <sid>Toggle_ZZMode()<cr>
   nnoremap <Plug>(Safe-Erase-Buffer)    :call <sid>safe_erase_buffer()<cr>
   nnoremap <Plug>(Safe-Revert-Buffer)   :call <sid>safe_revert_buffer()<cr>
-
   " use in edit layer
-  nnoremap <Plug>(SetFileHead)          :call <sid>SetFileHead()<CR>
   nnoremap <Plug>(Insert-EqualBox)      :call <sid>EqualBox()<CR>
   nnoremap <Plug>(Insert-MinusBox)      :call <sid>MinusBox()<CR>
+  command! -nargs=?   SetFileHead       call <sid>SetFileHead(<f-args>)
 endfunction " }}}
-
+ 
 " Delimit Mapping {{{
 function! s:Delimitor_init() abort
-  " inoremap <expr> =   MatchDel('=', '\(=\+\s$\)\\|\(>\+\s$\)\\|\(<\+\s$\)\\|\(+\+\s$\)\\|\(-\+\s$\)')
-  inoremap <expr> =   MatchDel('=', '\v(\=+\s\_$)\|(\>+\s\_$)\|(\<+\s\_$)\|(\++\s\_$)\|(-+\s\_$)')
-  inoremap <expr> \|  MatchDel('\|', '\|\+\s$')
-  inoremap <expr> &   MatchDel('&', '&\+\s$')
+  " -= += != =~ == <= >= -> => ==# ==? || &&
+  " match del space before
+  " inoremap <expr> =   MatchDel('=', '\(=\+\)\\|\(>\+\)\\|\(<\+\)\\|\(+\+\)\\|\(-\+\)\\|\(!\+\)\s$')
+  inoremap <expr> =   MatchDel('=', '\v(\=+)\|(\>+)\|(\<+)\|(\++)\|(-+)\|(!+)\s$', 1, 11)
+  inoremap <expr> \|  MatchDel('\|', '\|\+\s$', 1, 11)
+  inoremap <expr> &   MatchDel('&', '&\+\s$', 0)
   inoremap <expr> #   MatchDel('#', '\v(\=+\s)\|(\=\~)\|(!\=)\|(!\~)', 0)
-  inoremap <expr> ~   MatchDel('~', '\(=\+\s\)')
-  inoremap <expr> >   MatchDel('>', '\v(\>+\s)\|(\=\s\_$)\|(-\s\_$)\|(\<\w*\_$)')
-  inoremap <expr> <   MatchDel('<', '\v^\s*(if\|el\|wh\|let)', '>')
-  inoremap <expr> -   MatchDel('-', '\v^\s*(if\|el\|wh\|let\|val\|var).*\w\_$', 0)
-  inoremap <expr> +   MatchDel('+', '\v^\s*(if\|el\|wh\|let\|val\|var).*\w\_$')
-  inoremap <expr> ?   MatchDel('?', '\v^\s*(let).*\S\_$', 0)
+  inoremap <expr> ?   MatchDel('?', '\v^\s*(let)\|(:\s).*\S\_$', 1, 01)
+  inoremap <expr> ~   MatchDel('~', '\v(\=+)\|(!)\s', 1, 11)
+  inoremap <expr> >   MatchDel('>', '\v(\>+)\|(\=)\|(-)\|(\<\w*)\s$', 1, 11)
+  " match add space before 
+  inoremap <expr> -   MatchDel('-', '\v^\s*(if\|el\|wh\|let\|val\|var).*\S$', 1)
+  inoremap <expr> +   MatchDel('+', '0000', 1, 11)
+  inoremap <expr> !   MatchDel('!', '\v^\s*(if\|el\|wh\|let\|val\|var).*\S$', 1, 01)
+  inoremap <expr> :   CurChar(0, '\s') ? ': ' : ' : '
+  inoremap <expr> <   MatchDel('<', '\v^\s*(if\|el\|wh\|let).*\S$', '>')
   inoremap <expr> ,   CurChar(0, '\s') ? "\<BS>,\<Space>" : (CurChar(1, '\s') ? "," : ",\<Space>")
   call s:AutoClose()
   call s:AutoPairs()
   call s:Numfix()
   augroup Delimitor_init
     autocmd!
-    auto FileType sh  call <sid>Bashfix()
+    auto FileType sh  call <sid>Bash()
     auto FileType vim 
           \ inoremap <expr> "  MatchCl('\v(^\_$)\|(^\s*\w*\s\_$)\|(^\s+\_$)') ? "\"\<Space>" : AutoClo('"', '"') |
-          \ inoremap <expr> :  MatchDel(':', '\v\S+\s\?\s\S+$', 0)
+          \ inoremap <expr> :  MatchCl('\v\s(s)\|(g)\|(a)\|(l)\|(\S\W\s)$') ? ':' : CurChar(0, '\s') ? ': ' : ' : '
   augroup END
 endfunction
+
 function! s:AutoClose() abort " {{{
   let autoclose = [
         \ ')', ']', '}',
@@ -378,12 +390,12 @@ function! s:AutoPairs() abort " {{{
 endfunction " }}}
 function! s:Numfix() abort " {{{
   for num in range(1, 9)
-    exec 'inoremap <expr> '.num.' MatchDel('.num.", '\\v.*\\s\\W*\\s\-\\s$', '0')"
+    exec 'inoremap <expr> '.num.' MatchDel('.num.", '\\v.*\\s\\W*\\s\-\\s$', '0', '00')"
   endfor
 endfunction " }}}
-function! s:Bashfix() abort " {{{
+function! s:Bash() abort " {{{
   for char in ['d', 'e', 'f', 'z', 'n']
-    exec 'inoremap <expr> '.char.' MatchDel('.string(char).', "-\\s_$", 1)'
+    exec 'inoremap <expr> '.char.' MatchDel('.string(char).', "-\\s_$", 0)'
   endfor
 endfunction "}}}
 " }}}
@@ -456,6 +468,8 @@ let s:zzmodekey = {
       \ '*'      : '*zz',
       \ 'j'      : 'jzz',
       \ 'k'      : 'kzz',
+      \ 'zj'     : 'zjzz',
+      \ 'zk'     : 'zkzz',
       \ 'G'      : 'Gzz',
       \ 'H'      : 'Hzz',
       \ 'L'      : 'Lzz',
@@ -506,12 +520,26 @@ function! s:killotherBuffers() abort
   endif
 endfunction
 " }}}
-"
+
 " Rename File {{{
 function! s:rename_file() abort
   let save_cursor = getpos('.')
   let curbufnr = bufnr('%')
-  let newn = input('New name: '.expand('%:p').' -> ', expand('%:p'))
+  try
+    let newn = input({
+          \ 'prompt'  : 'New name: ', 
+          \ 'default' : expand('%:p'). ' -> '. expand('%:p'), 
+          \ 'completion' : 'file', 
+          \ 'cancelreturn' : 1})
+    if newn == 1 | return | endif
+  catch
+    let newn = input( 
+          \ 'New name/Cancel(n): ',
+          \ expand('%:p').' -> '. expand('%:p'), 
+          \ 'file'
+          \ )
+    if newn ==# 'n' | return | endif
+  endtry
   if glob(newn) !=# ''
     call util#echohl(' The file already exists !', 'n')
     return
@@ -645,59 +673,62 @@ endfun
 "}}}
 
 " insert file head {{{
-function! <sid>SetFileHead() abort
-  if &filetype ==# 'vim'
-    call s:insfhead('"', 'scriptencoding utf-8', '')
+function! <sid>SetFileHead(...) abort
+  let info = a:0 ? a:1 : ''
+  if &filetype ==# 'vim' || &filetype ==# ''
+    call s:insfhead('"', 'scriptencoding utf-8', info)
 
   elseif &filetype ==# 'sh'
-    call s:insfhead('#', '#! /usr/bin/env bash', '')
+    call s:insfhead('#', '#! /usr/bin/env bash', info)
 
   elseif &filetype ==# 'ps1'
-    call s:insfhead('#', '', '')
+    call s:insfhead('#', '', info)
 
   elseif &filetype ==# 'python' || &filetype ==# 'ipynb'
-    call s:insfhead('#', '#! /usr/bin/env python3', '# -*- coding: utf-8 -*-')
+    call s:insfhead('#', '#! /usr/bin/env python3', '# -*- coding: utf-8 -*-', info)
 
   elseif &filetype ==# 'scala'
-    call s:insfhead('#', '', '', '/*')
+    call s:insfhead('#', '', '/*', info)
 
   elseif &filetype ==# 'cpp'
-    call s:insfhead('#', '#include <iostream>', 'using namespace std;', '/*')
+    call s:insfhead('#', '#include <iostream>', 'using namespace std;', '/*', info)
 
   elseif &filetype ==# 'c'
-    call s:insfhead('#', '#include <stdio.h>', '', '/*')
+    call s:insfhead('#', '#include <stdio.h>', '/*', info)
   endif
 endfun
-function! s:insfhead(cmsign, head1, head2, ...) abort
-  if a:0 == 0
-    let head = [
-          \ a:cmsign. repeat('=', 80),
-          \ a:cmsign. ' File Name    : '. expand('%'),
-          \ a:cmsign. ' Author       : AlanDing',
-          \ a:cmsign. ' Created Time : '. strftime('%c'),
-          \ a:cmsign. repeat('=', 80),
-          \ ]
-    let head = &ft ==# 'sh' ? insert(head, a:head1, 0) : head
-  elseif a:0 == 1
-    let head = [
-          \ a:1     . repeat('=', 80),
-          \ a:cmsign. ' File Name    : '. expand('%'),
-          \ a:cmsign. ' Author       : AlanDing',
-          \ a:cmsign. ' Created Time : '. strftime('%c'),
-          \ a:cmsign. repeat('=', 80). join(reverse(split(a:1)), ''),
-          \ ]
-  endif
-  if a:head1 !=# '' && a:head2 ==# ''
-    let shit = &ft ==# 'sh' ? ['', ''] : [a:head1, '', '']
-    call map(shit, {key, val -> add(head, val)})
-  elseif a:head2 !=# ''
-    call map([a:head1, a:head2, '', ''], {key, val -> add(head, val)})
-  else
-    call map(['', ''], {key, val -> add(head, val)})
-  endif
+function! s:insfhead(cmsign, ...) abort
+  let head = []
+  let head += a:000[-2] ==# '/*' ? a:000[0:-3] : a:000[0:-2]
+  let head += (len(a:000[-1]) ? ['', ''] : [])
+  let head += a:000[-1] ==# 'info0' ? <sid>insinfo(a:cmsign, 0, a:000[-2])
+        \ :   a:000[-1] ==# 'info1' ? <sid>insinfo(a:cmsign, 1, a:000[-2])
+        \ :   ['', '']
   call append(0, head)
-  call setpos('.', [0, len(head), 1])
-endfunc "}}}
+  call setpos('.', [0, len(head)+1, 1])
+endfunc
+function! s:insinfo(cmsign, hasEqual, ...) abort
+  if a:0 && a:1 ==# '/*'
+    let head = [
+          \ '/*'. (a:hasEqual ? repeat('=', 80) : ''),
+          \ a:cmsign . ' File Name    : '. expand('%'),
+          \ a:cmsign . ' Author       : AlanDing',
+          \ a:cmsign . ' Created Time : '. strftime('%c'),
+          \ (a:hasEqual ? a:cmsign . repeat('=', 80) : ''). '*/',
+          \ ''
+          \ ]
+  else
+    let head = [
+          \ a:hasEqual ? a:cmsign. repeat('=', 80) : '',
+          \ a:cmsign. ' File Name    : '. expand('%'),
+          \ a:cmsign. ' Author       : AlanDing',
+          \ a:cmsign. ' Created Time : '. strftime('%c'),
+          \ a:hasEqual ? a:cmsign. repeat('=', 80) : '',
+          \ ''
+          \ ]
+  endif
+  return head
+endfunction "}}}
 
 " format {{{
 function! s:format() abort
@@ -811,8 +842,8 @@ endfunction " }}}
 " Unmap SpaceVim mappings {{{
 function! s:unmap_SPC() abort
   if g:is_spacevim
-    nnoremap s <nop>
-    nnoremap q <nop>
+    nnoremap s   <nop>
+    nnoremap q   <nop>
     try
       nunmap   \p
       nunmap   \P

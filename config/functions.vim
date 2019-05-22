@@ -91,8 +91,6 @@ endfunction " }}}
 
 " MatchDel function " {{{
 function! MatchDel(char, regex, ...) abort
-  " this func just for orperator which need to 
-  " follow othor sign use. e.g. &&, +=, =~
   if Within('pair')
     echo 'within pair'
     return a:0 && a:1 !~? '\d' ? a:char.a:1."\<left>" : a:char
@@ -124,28 +122,40 @@ function! MatchDel(char, regex, ...) abort
   endif
   "}}}
 
-  if a:0 && a:1
+  if a:0 && a:1 !~# '\d'
     return "\<C-r>=AutoClo(".string(a:char).', '.string(a:1).")\<CR>"
   elseif CurChar(0, '\')
     return a:char
   endif
 
   " Nomatch, noextra param " {{{
-  if CurChar(0, '\s')
+  if CurChar(0, a:char)
+    " before is operator itself
+    return CurChar(1, '\s') ? a:char : a:char."\<Space>"
+  elseif CurChar(0, '\s')
     " before is space
     if CurChar(0, a:char, -3)
       return "\<BS>".a:char."\<Space>"
-    else
+    elseif a:0 && a:1 ==# '1'
       return CurChar(1, '\s') ? a:char : a:char."\<Space>"
+    elseif a:0 && a:1 ==# '0'
+      return a:char
     endif
-  elseif CurChar(0, a:char)
-    " before is operator itself
-    return CurChar(1, '\s') ? a:char : a:char."\<Space>"
-  elseif a:0 && !a:1
-    return a:char
+  elseif a:0 && a:0 == 2 && CurChar(0, '\w')
+    " before is not space
+    if a:2 ==# '11'
+      return CurChar(1, '\s') ? "\<Space>".a:char : "\<Space>".a:char."\<Space>"
+    elseif a:2 ==# '10'
+      return "\<Space>".a:char
+    elseif a:2 ==# '01'
+      return CurChar(1, '\s') ? a:char : a:char."\<Space>"
+    elseif a:2 ==# '00'
+      return a:char
+    endif
   else
-    " before is not itself
-    return CurChar(1, '\s') ? "\<Space>".a:char : "\<Space>".a:char."\<Space>"
+    return CurChar(0, '\W') && !CurChar(0, '!')
+          \ ? CurChar(1, '\s') ? "\<Space>".a:char : "\<Space>".a:char."\<Space>"
+          \ : CurChar(1, '\s') ? a:char : a:char."\<Space>"
   endif " }}}
 endfunction " }}}
 
@@ -245,7 +255,6 @@ endif
 "     endif
 "   endfor
 "   if get(g:, 'within', [0, 0])[0]
-"     let g:zlan = 1
 "     return a:0 && a:1 == 1 ? g:within : 1
 "   else
 "     return a:0 && a:1 == 1 ? [0, 0] : 0

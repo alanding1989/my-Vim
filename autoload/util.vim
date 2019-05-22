@@ -74,7 +74,7 @@ function! util#vim_help_wrapper(...) abort
     try
       exec 'vert bo help '.a:1.'@cn'
     catch /^Vim\%((\a\+)\)\=:E661/
-      exec 'vert bo help '.cword
+      exec 'vert bo help '.a:1
     endtry
   endif
 endfunction
