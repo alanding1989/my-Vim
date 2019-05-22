@@ -144,17 +144,15 @@ let g:deoplete#sources#jedi#python_path = g:python3_host_prog
 call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
 call deoplete#custom#source('_', 'filters' , ['matcher_head'])
 call deoplete#custom#source('_', 'converters', ['converter_auto_delimiter', 'remove_overlap'])
-call deoplete#custom#source('_', 'max_menu_width', 60)
-call deoplete#custom#source('_', 'max_abbr_width', 30)
 
 call deoplete#custom#source('buffer', 'mark', '*')
-call deoplete#custom#source('buffer', 'rank', 9999)
+call deoplete#custom#source('buffer', 'rank', 800)
 
 call deoplete#custom#source('file/include' , 'matchers', ['matcher_head'])
 
 " snippet
-call deoplete#custom#source('neosnippet', 'rank', 1000)
-call deoplete#custom#source('ultisnips' , 'rank', 1000)
+call deoplete#custom#source('neosnippet', 'rank', 9999)
+call deoplete#custom#source('ultisnips' , 'rank', 9999)
 call deoplete#custom#source('neosnippet', 'matchers', ['matcher_head'])
 call deoplete#custom#source('ultisnips' , 'matchers', ['matcher_head'])
 

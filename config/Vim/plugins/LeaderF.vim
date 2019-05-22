@@ -24,7 +24,7 @@ let g:Lf_ShowRelativePath     = 0
 let g:Lf_HideHelp             = 0
 let g:Lf_StlSeparator         = { 'left': '', 'right': '' }
 
-let g:Lf_GtagsAutoGenerate    = 1
+let g:Lf_GtagsAutoGenerate    = g:is_nvim ? 1 : 0
 let g:Lf_Gtagsconf            = expand('~/.globalrc')
 let g:Lf_Gtagslabel           = 'native-pygments'
 let g:Lf_CacheDirectory       = expand('~/.cache')
