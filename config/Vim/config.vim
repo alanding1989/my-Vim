@@ -66,11 +66,8 @@ let g:_lsp_var = { 'ft' : [
 "   autocomplete,  checkers,  core,  edit,  format,  leaderf
 "   代码补全，检错、修改比较，编辑辅助，文件搜索
 " ============================================================================= {{{
-
-" finished ~
 let g:My_Vim_layers = {
       \ 'chinese'           : 1,
-      \ 'colorscheme'       : 1,
       \ 'tags'              : 1,
       \ 'tools'             : 1,
       \ 'langtools'         : 1,
@@ -82,7 +79,6 @@ let g:My_Vim_layers = {
       \ 'lang#scala'        : 0,
       \ 'lang#vim'          : 1,
       \ 'tools#clock'       : 1,
-      \ 'ui'                : 1,
       \ 'git'               : 1,
       \ 'VersionControl'    : 0,
       \
@@ -112,9 +108,7 @@ endif
 "}}}
 
 if g:autocomplete_method ==# 'coc' " {{{
-  let g:snippet_engine =
-        \ g:snippet_engine !=# 'neosnippet'
-        \ ? 'coc' : g:snippet_engine
+  let g:snippet_engine = 'coc'
 endif
 "}}}
 

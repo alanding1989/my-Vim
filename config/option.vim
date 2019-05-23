@@ -61,7 +61,7 @@ set hidden
 " endif
 " speed up
 set lazyredraw
-set synmaxcol=200
+set synmaxcol=300
 
 " set updatetime=500
 

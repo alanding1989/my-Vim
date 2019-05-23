@@ -23,7 +23,7 @@ function! layers#lang#markdown#plugins() abort
     call add(plugins, ['mzlogin/vim-markdown-toc'           , {'on_ft': 'markdown', 'for': 'markdown'}])
     call add(plugins, ['iamcco/mathjax-support-for-mkdp'    , {'on_ft': 'markdown', 'for': 'markdown'}])
     call add(plugins, ['iamcco/markdown-preview.nvim'       , {'on_ft': 'markdown', 'for': 'markdown',
-          \ 'depends': 'open-browser.vim', 'build' : 'cd app & yarn install', 'do': {-> mkdp#util#install()}}])
+          \ 'build' : 'cd app & yarn install', 'do': 'cd app & yarn install'}])
   endif
   return plugins
 endfunction
@@ -62,7 +62,6 @@ function! layers#lang#markdown#config() abort
           \ 'args': ['--no-color', '--silent'] + (empty(remarkrc) ?  [] : ['-r', remarkrc]),
           \ 'stdin': 1,
           \ }
-
     " iamcco/markdown-preview.vim {{{
     " let g:mkdp_browserfunc = 'openbrowser#open'
     " }}}
@@ -75,7 +74,6 @@ function! layers#lang#markdown#config() abort
       autocmd FileType markdown setlocal omnifunc=htmlcomplete#CompleteTags |
             \ call s:mappings()
     augroup END
-
   endif
 endfunction
 

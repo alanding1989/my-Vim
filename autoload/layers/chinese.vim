@@ -35,13 +35,12 @@ function! layers#chinese#config() abort
   else
     let g:loaded_vimcdoc = 1
     nmap <space>lc    :CheckChinese<CR>
-    nmap <space>xgi   :call feedkeys(':Translate ')<CR>
-    nmap <space>xgt   :Translate<CR>
-    vmap <space>xgt   <Plug>TranslateV
+    nmap <space>xgi   :call feedkeys(':TranslateW ')<CR>
+    nmap <space>xgt   :TranslateW<CR>
+    vmap <space>xgt   <Plug>TranslateWV
     nmap <space>xgr   :TranslateR<CR>
     vmap <space>xgr   <Plug>TranslateRV
-    nmap <c-q>        <Plug>Translate
-    vmap <c-q>        <Plug>TranslateV
-    let g:vtm_preview_position = 'to'
+    nmap <c-q>        <Plug>TranslateW
+    vmap <c-q>        <Plug>TranslateWV
   endif
 endfunction

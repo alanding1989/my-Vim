@@ -131,11 +131,10 @@ function! layers#autocomplete#config() abort
         \ ? "\<BS>\<left>\<BS>\<right>" : DelEmptyPair()
 
   call s:editsnippet()
-  " augroup layer_autocmplete
-    " autocmd!
-    " auto CompleteDone * silent! pclose
-    " auto InsertLeave  * silent! pclose
-  " augroup END
+  augroup layer_autocmplete
+    autocmd!
+    auto InsertLeave,CompleteDone * silent! pclose
+  augroup END
 endfunction
 
 

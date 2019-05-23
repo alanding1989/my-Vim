@@ -419,14 +419,15 @@ function! s:close_window() abort
   let winnr = 0
   for i in range(1, winnr('$'))
     if getwinvar(i, '&ft') ==# 'diff'
+          \ || match(getwinvar(i, 'netrw_prvfile'), 'coc.*document') > -1
       let winnr = i
     endif
   endfor
   let key = "\<C-w>c"
   if winnr
-    exe 'normal!' winnr "\<C-w>w" key
+    exe 'normal! '. winnr. key
   else
-    exe 'normal!' key
+    exe 'normal! '. key
   endif
 endfunction "}}}
 
@@ -436,6 +437,7 @@ function! s:win_scroll(forward, mode)
   for i in range(1, winnr('$'))
     if getwinvar(i, 'float') || getwinvar(i, '$previewwindow')
           \ || match(getwinvar(i, 'netrw_prvfile'), 'LanguageClient') > -1
+          \ || match(getwinvar(i, 'netrw_prvfile'), 'coc.*document') > -1
       let winnr = i
     endif
   endfor

@@ -11,12 +11,7 @@ endif
 let s:loaded = 1
 
 
-let g:table_mode_tableize_map     = '<leader>tc'
-let g:table_mode_toggle_map       = '<leader>tt'
-let g:table_mode_add_formula_map  = '<Leader>ta'
-let g:table_mode_eval_formula_map = '<Leader>te'
-let g:table_mode_realign_map      = '<Leader>tf'
-
+let g:table_mode_toggle_map       = 't'
 
 " diable easymotion leader
 auto VimEnter * unmap ;;

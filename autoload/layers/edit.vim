@@ -276,12 +276,12 @@ function! s:vim_table_mode() abort "{{{
   if g:is_spacevim
     let g:_spacevim_mappings.t      = {'name': '+@ Table mode'}
     let g:_spacevim_mappings.t.d    = {'name': '+@ Delete cells'}
-    let g:_spacevim_mappings.t.t    = ['TableModeToggle'                 , 'toggle tablemode']
-    let g:_spacevim_mappings.t.c    = ['Tableize'                        , 'convert current/select line to table']
-    let g:_spacevim_mappings.t.f    = ['TableModeRealign'                , 'format table columns']
-    let g:_spacevim_mappings.t.a    = ['TableAddFormula'                 , 'add/define a formula']
-    let g:_spacevim_mappings.t.e    = ['TableEvalFormulaLine'            , 'eval formula and update table']
-    let g:_spacevim_mappings.t.s    = ['TableSort'                       , 'sort cursor column']
+    let g:_spacevim_mappings.t.t    = ['TableModeToggle'                  , 'toggle tablemode']
+    let g:_spacevim_mappings.t.c    = ['Tableize'                         , 'convert current/select line to table']
+    let g:_spacevim_mappings.t.f    = ['TableModeRealign'                 , 'format table columns']
+    let g:_spacevim_mappings.t.a    = ['TableAddFormula'                  , 'add/define a formula']
+    let g:_spacevim_mappings.t.e    = ['TableEvalFormulaLine'             , 'eval formula and update table']
+    let g:_spacevim_mappings.t.s    = ['TableSort'                        , 'sort cursor column']
     let g:_spacevim_mappings.t.d.d  = ['\<Plug>(table-mode-delete-row)'   , 'delete cursor/select row']
     let g:_spacevim_mappings.t.d.c  = ['\<Plug>(table-mode-delete-column)', 'delete cursor/select column']
     let g:_spacevim_mappings.t['?'] = ['\<Plug>(table-mode-echo-cell)'    , 'echo formula result']

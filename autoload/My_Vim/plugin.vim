@@ -7,20 +7,15 @@ scriptencoding utf-8
 
 let s:default_layers = [
       \ 'autocomplete'  ,
-      \ 'colorscheme'   ,
-      \ 'checkers'      ,
       \ 'core'          ,
+      \ 'checkers'      ,
+      \ 'colorscheme'   ,
       \ 'edit'          ,
       \ 'format'        ,
-      \ 'leaderf'       ,
-      \ 'denite'        ,
-      \ 'git'           ,
       \ 'ui'            ,
       \ ]
 
-" check manager installation
-" load layers, plugins
-" check uninstalled plugins and auto install
+
 function! My_Vim#plugin#begin() abort
   let s:enabled_plugins_name = []
   let s:uninstalled_plugins  = []

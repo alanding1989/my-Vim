@@ -28,12 +28,12 @@ endfunction
 
 
 function! layers#lsp#config() abort
-  call layers#lsp#reg_server(g:enabled_serverCommands)
+  call layers#lsp#reg_server(s:enabled_serverCommands)
 endfunction
 
 
 function! layers#lsp#checkft(ft) abort
-  return has_key(g:enabled_serverCommands, a:ft)
+  return has_key(s:enabled_serverCommands, a:ft)
 endfunction
 
 
@@ -63,7 +63,7 @@ else
   endfunction
 endif
 
-
+" serverCommands {{{
 if g:is_nvim
   let s:serverCommands = {
         \ 'c'          : ['clangd'],
@@ -100,13 +100,13 @@ else
         \ 'scala'      : ['metals-vim'],
         \ 'typescript' : ['typescript-language-server', '--stdio'],
         \ }
-endif
+endif " }}}
+let s:enabled_serverCommands = {}
 function! layers#lsp#set_variable(var) abort
-  let s:enable_lsp_ft = get(a:var, 'ft', [])
-  let g:enabled_serverCommands = {}
-  for ft in s:enable_lsp_ft
+  let enable_lsp_ft = get(a:var, 'ft', [])
+  for ft in enable_lsp_ft
     if has_key(s:serverCommands, ft)
-      let g:enabled_serverCommands[ft] = s:serverCommands[ft]
+      let s:enabled_serverCommands[ft] = s:serverCommands[ft]
     endif
   endfor
 endfunction

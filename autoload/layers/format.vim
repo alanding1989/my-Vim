@@ -15,6 +15,7 @@ endfunction
 function! layers#format#config() abort
 
   nnoremap <space>bf  :Neoformat<CR>
+  nnoremap <space>gf  :Neoformat<CR>
 
   " augroup layer_format
     " autocmd!

@@ -54,7 +54,7 @@ function! s:language_specified_mappings() abort
     nnoremap <buffer><silent> <space>lv   :call <sid>helpversion_cursor()<CR>
     nnoremap <buffer><silent> <space>lf   :call exception#trace()<CR>
     if g:autocomplete_method ==# 'coc'
-      nnoremap <buffer><silent> gd        :layers#lsp#go_to_def()<CR>
+      nnoremap <buffer><silent> gd        :call layers#lsp#go_to_def()<CR>
     else
       nnoremap <buffer><silent> gd        :call lookup#lookup()<CR>
     endif
