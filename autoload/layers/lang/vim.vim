@@ -44,6 +44,7 @@ function! layers#lang#vim#config() abort
 endfunction
 
 function! s:language_specified_mappings() abort
+  nnoremap <buffer> <F1> :update<CR>:source %<CR>
   if g:is_spacevim
     call SpaceVim#mapping#space#def('nnoremap', ['i', 't'],
           \ 'call setline(line("."), "\" vim:set sw=2 ts=2 sts=2 et tw=78 fmd=marker")',
