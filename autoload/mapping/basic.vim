@@ -353,6 +353,7 @@ function! s:Delimitor_init() abort
   inoremap <expr> :   CurChar(0, '\s') ? ': ' : CurChar(0, '\w') ? ': ' : ' : '
   inoremap <expr> <   MatchDel('<', '\v^\s*(if\|el\|wh\|let).*\S$', '>')
   inoremap <expr> ,   CurChar(0, '\s') ? "\<BS>,\<Space>" : (CurChar(1, '\s') ? "," : ",\<Space>")
+  inoremap <expr><Plug>AlanCR  exists('b:eol_marker') && MatchCl('^$') == -1 ? b:eol_marker."\<CR>" : "\<CR>"
   call s:AutoClose()
   call s:AutoPairs()
   call s:Numfix()
@@ -362,6 +363,7 @@ function! s:Delimitor_init() abort
     auto FileType vim 
           \ inoremap <buffer><expr> "  MatchCl('\v(^\_$)\|(^\s*\w*\s\_$)\|(^\s+\_$)') ? "\"\<Space>" : AutoClo('"', '"') |
           \ inoremap <buffer><expr> :  MatchCl('\v\s(s)\|(g)\|(a)\|(l)\|(\S\W\s)$') ? ':' : CurChar(0, '\s') ? ': ' : ' : '
+    auto FileType c,cpp let b:eol_marker = ';' 
   augroup END
 endfunction
 
@@ -420,6 +422,7 @@ function! s:close_window() abort
   for i in range(1, winnr('$'))
     if getwinvar(i, '&ft') ==# 'diff'
           \ || match(getwinvar(i, 'netrw_prvfile'), 'coc.*document') > -1
+          \ || match(getwinvar(i, 'netrw_prvfile'), '__runner__') > -1
       let winnr = i
     endif
   endfor

@@ -13,28 +13,28 @@ let s:loaded = 1
 "--------------------------------------------------------------------------------
 " delimitMate settings
 "--------------------------------------------------------------------------------
-let g:delimitMate_autoclose = 1
-let g:delimitMate_expand_cr = 2
-let g:delimitMate_expand_space = 1
-let g:delimitMate_expand_inside_quotes = 1
-let g:delimitMate_jump_expansion = 1
-let g:delimitMate_balance_matchpairs = 1
-" let g:delimitMate_excluded_regions = 'Comment,String'
-" let g:delimitMate_excluded_ft = "mail,txt"
-
-let g:delimitMate_matchpairs = '(:),[:],{:},<:>'
-let g:delimitMate_quotes = "\" ' `"
-let g:delimitMate_nesting_quotes = ['"','`']
-" let delimitMate_smart_quotes = '\w\%#'
-
-augroup my_delimitMate
-  autocmd!
-  auto FileType c,cpp,perl    let b:delimitMate_insert_eol_marker = 2
-  auto FileType c,cpp,perl    let b:delimitMate_eol_marker = ";"
-  auto FileType python        let b:delimitMate_nesting_quotes = ['"',"'"]
-  auto FileType markdown,txt  let b:delimitMate_matchpairs = "(:),[:],{:},<:>,《:》"
-        \ | let b:delimitMate_quotes = "\" ' ` *"
-augroup END
+" let g:delimitMate_autoclose = 1
+" let g:delimitMate_expand_cr = 2
+" let g:delimitMate_expand_space = 1
+" let g:delimitMate_expand_inside_quotes = 1
+" let g:delimitMate_jump_expansion = 1
+" let g:delimitMate_balance_matchpairs = 1
+" " let g:delimitMate_excluded_regions = 'Comment,String'
+" " let g:delimitMate_excluded_ft = "mail,txt"
+"
+" let g:delimitMate_matchpairs = '(:),[:],{:},<:>'
+" let g:delimitMate_quotes = "\" ' `"
+" let g:delimitMate_nesting_quotes = ['"','`']
+" " let delimitMate_smart_quotes = '\w\%#'
+"
+" augroup my_delimitMate
+"   autocmd!
+"   auto FileType c,cpp,perl    let b:delimitMate_insert_eol_marker = 2
+"   auto FileType c,cpp,perl    let b:delimitMate_eol_marker = ";"
+"   auto FileType python        let b:delimitMate_nesting_quotes = ['"',"'"]
+"   auto FileType markdown,txt  let b:delimitMate_matchpairs = "(:),[:],{:},<:>,《:》"
+"         \ | let b:delimitMate_quotes = "\" ' ` *"
+" augroup END
 
 
 "--------------------------------------------------------------------------------

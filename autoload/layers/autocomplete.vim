@@ -90,9 +90,9 @@ function! layers#autocomplete#plugins() abort
           \ ['Shougo/neco-syntax'              , {'on_event': 'InsertEnter'}],
           \ ['Shougo/neoinclude.vim'           , {'on_event': 'InsertEnter'}],
           \ ['Shougo/context_filetype.vim'     , {'on_event': 'InsertEnter'}],
-          \ ['Raimondi/delimitMate'            , {'merged'  : 0}],
           \ ['Shougo/echodoc.vim', {'on_event' : 'CompleteDone'}]
           \ ]
+          " \ ['Raimondi/delimitMate'            , {'merged'  : 0}],
     if g:snippet_engine ==# 'neosnippet'
       call add(plugins, ['Shougo/neosnippet.vim', {'on_event': 'InsertEnter',
             \ 'on_ft': 'neosnippet', 'on_cmd': 'NeoSnippetEdit'}])
