@@ -108,7 +108,7 @@
 //    "ccls": {
 //      "command": "ccls",
 //      "filetypes": ["c", "cpp", "objc", "objcpp"],
-//      "rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
+//      "rootPatterns": [".ccls", "compile_commands.json", ".root", ".git/", ".hg/"],
 //      "initializationOptions": {
 //        "cache": {
 //          "directory": "/tmp/ccls"
@@ -117,7 +117,7 @@
 //    },
     "clangd": {
       "command": "clangd",
-      "rootPatterns": ["compile_flags.txt", "compile_commands.json", ".vim/", ".git/", ".hg/"],
+      "rootPatterns": [".clangd", "compile_commands.json", ".root", ".git/", ".hg/"],
       "filetypes": ["c", "cpp", "objc", "objcpp"]
     },
 //    "metals" : {

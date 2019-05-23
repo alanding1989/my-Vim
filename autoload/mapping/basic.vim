@@ -25,7 +25,7 @@ function! mapping#basic#load() abort
   nnoremap <C-j>        <C-w>j
   nnoremap <C-h>        <C-w>h
   nnoremap <C-l>        <C-w>l
-  nnoremap <C-a>        ^
+  noremap  <C-a>        ^
   noremap  <C-e>        $
 
   " insert mode
