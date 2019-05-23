@@ -37,8 +37,8 @@ function! mapping#basic#load() abort
   inoremap <C-b>        <left>
   inoremap <C-f>        <right>
   inoremap <C-l>        <right>
-  inoremap <C-p>        <C-left>
-  inoremap <C-n>        <C-right>
+  " inoremap <C-p>        <C-left>
+  " inoremap <C-n>        <C-right>
   inoremap <M-b>        <C-left>
   inoremap <M-f>        <C-right>
   inoremap <expr><C-h>  pumvisible() ? "\<C-e><BS>" : DelEmptyPair()

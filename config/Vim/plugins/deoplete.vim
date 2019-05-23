@@ -15,9 +15,12 @@ let g:tmuxcomplete#trigger = ''
 let g:deoplete#enable_at_startup = 1
 " auto InsertEnter * call deoplete#enlble()
 
+call deoplete#custom#option('profile', v:true)
+call deoplete#enable_logging("DEBUG", g:home.'deoplete.log')
 
 " deoplete options
 call deoplete#custom#option({
+      \ 'auto_complete'       : v:true,
       \ 'auto_complete_delay' :  50,
       \ 'ignore_case'         :  get(g:, 'deoplete#enable_ignore_case', 1),
       \ 'smart_case'          :  get(g:, 'deoplete#enable_smart_case', 1),

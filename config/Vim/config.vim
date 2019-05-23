@@ -50,10 +50,6 @@ let g:enable_checkinstall          = 1
 "}}}
 
 " Var {{{
-if g:autocomplete_method ==# 'coc'
-  let g:snippet_engine = 'coc'
-endif
-
 let g:_lsp_var = { 'ft' : [
       \ 'sh',
       \ 'python',
@@ -116,8 +112,9 @@ endif
 "}}}
 
 if g:autocomplete_method ==# 'coc' " {{{
-  let s:se = g:snippet_engine
-  let s:se = s:se !=# 'neosnippet' ? 'coc' : s:se
+  let g:snippet_engine =
+        \ g:snippet_engine !=# 'neosnippet'
+        \ ? 'coc' : g:snippet_engine
 endif
 "}}}
 
@@ -145,7 +142,6 @@ if g:pure_viml || !g:has_py " {{{
         \ 'unite'           : 1,
         \ }
 endif "}}}
-
 "}}}
 
 

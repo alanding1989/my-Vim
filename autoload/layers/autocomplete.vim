@@ -126,8 +126,8 @@ function! layers#autocomplete#config() abort
   call mapping#tab#S_Tab()
   call mapping#space#C_Space()
   inoremap <expr><Space>         ExpandEmptyPair()
-  inoremap <silent><expr><C-h>   pumvisible() ? "\<C-e><BS>" : 
-        \ CurChar(0, '\s') && CurChar(0, '\S', -3) && CurChar(0, '\s', -4) 
+  inoremap <silent><expr><C-h>   pumvisible() ? "\<C-e><BS>" :
+        \ CurChar(0, '\s') && CurChar(0, '\S', -3) && CurChar(0, '\s', -4)
         \ ? "\<BS>\<left>\<BS>\<right>" : DelEmptyPair()
 
   call s:editsnippet()
@@ -162,14 +162,14 @@ else
     elseif s:snippet_engine ==# 'coc'
       nnoremap <leader>en  :call feedkeys(':MyCocSnipsEdit ')<CR>
     endif
-  endfunction 
+  endfunction
 endif
 "}}}
 
 function! layers#autocomplete#coc_editsnips(...) abort " Plug functionality enhancement {{{
-  let ultisnips_dirpath = (g:is_win ? 
+  let ultisnips_dirpath = (g:is_win ?
         \ expand('D:/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/UltiSnips/') :
-        \ expand('~/.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/UltiSnips/')) 
+        \ expand('~/.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/UltiSnips/'))
   let ft  = a:0 > 0 ? a:1 : expand('%:e')
   let ext = '.snippets'
   let onelooppath = ultisnips_dirpath. ft. ext
