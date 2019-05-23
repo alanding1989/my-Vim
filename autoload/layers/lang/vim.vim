@@ -49,10 +49,15 @@ function! s:language_specified_mappings() abort
           \ 'call setline(line("."), "\" vim:set sw=2 ts=2 sts=2 et tw=78 fmd=marker")',
           \ 'insert Vim file tail', 1)
   else
-    nmap <buffer><silent> <space>le :call <sid>eval_cursor()<CR>
-    nmap <buffer><silent> <space>lv :call <sid>helpversion_cursor()<CR>
-    nmap <buffer><silent> <space>lf :call exception#trace()<CR>
-    nnoremap <buffer><silent> gd    :call lookup#lookup()<CR>
+    nnoremap <buffer><silent> <Space>it   :call append(line('.'), ' vim:set sw=2 ts=2 sts=2 et tw=78 fmd=marker')<CR>
+    nnoremap <buffer><silent> <space>le   :call <sid>eval_cursor()<CR>
+    nnoremap <buffer><silent> <space>lv   :call <sid>helpversion_cursor()<CR>
+    nnoremap <buffer><silent> <space>lf   :call exception#trace()<CR>
+    if g:autocomplete_method ==# 'coc'
+      nnoremap <buffer><silent> gd        :layers#lsp#go_to_def()<CR>
+    else
+      nnoremap <buffer><silent> gd        :call lookup#lookup()<CR>
+    endif
   endif
 endfunction
 

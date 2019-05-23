@@ -38,7 +38,9 @@ endfunction
 
 
 if get(g:, 'autocomplete_method') ==# 'coc'
-  " nop
+  function! layers#lsp#reg_server(serverCommands) abort
+    return
+  endfunction
 
 elseif has('nvim') && has('python3')
   function! layers#lsp#reg_server(serverCommands) abort
