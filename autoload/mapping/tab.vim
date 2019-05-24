@@ -59,8 +59,8 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
           \ "\<Plug>(neosnippet_expand_or_jump)" :
           \ "\<TAB>"
     xmap <TAB>  <Plug>(neosnippet_expand_target)
-    inoremap <C-o> <Esc>:call mapping#util#JumpBack()<CR>
-    snoremap <C-o> <Esc>:call mapping#util#JumpBack()<CR>
+    " inoremap <C-o> <Esc>:call mapping#util#JumpBack()<CR>
+    " snoremap <C-o> <Esc>:call mapping#util#JumpBack()<CR>
   endfunction
   "}}}
 

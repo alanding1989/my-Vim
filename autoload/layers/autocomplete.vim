@@ -108,8 +108,7 @@ function! layers#autocomplete#plugins() abort
       call add(plugins, ['Shougo/deoplete.nvim'  , {'merged'  : 0}])
       call add(plugins, ['ujihisa/neco-look'     , {'on_event': 'InsertEnter'}])
     elseif g:autocomplete_method ==# 'ycm'
-      call add(plugins, ['Valloric/YouCompleteMe', {'merged': 0,
-            \ 'build': './install.py --clang-completer'}])
+      call add(plugins, ['Valloric/YouCompleteMe', {'merged': 0, 'build': './install.py --clang-completer'}])
     elseif g:autocomplete_method ==# 'asyncomplete'
       call add(plugins, ['prabirshrestha/asyncomplete.vim'       , {'merged': 0, }])
       call add(plugins, ['prabirshrestha/asyncomplete-buffer.vim', {'merged': 0, }])

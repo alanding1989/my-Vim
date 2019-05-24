@@ -64,7 +64,7 @@ else
 endif
 
 " serverCommands {{{
-  let s:serverCommands = {
+  let s:serverCommands = extend({
         \ 'c'          : ['clangd'],
         \ 'cpp'        : ['clangd'],
         \ 'css'        : ['css-languageserver', '--stdio'],
@@ -80,11 +80,12 @@ endif
         \ 'ipynb'      : ['pyls'],
         \ 'scala'      : ['metals-vim'],
         \ 'typescript' : ['typescript-language-server', '--stdio'],
-        \ }
-        \ + g:is_nvim ? {
+        \ },
+        \ g:is_nvim ? {
         \ 'sh'         : ['bash-language-server', 'start'],
-        \ 'vim'        : ['vim-language-server' , '--stdio']
+        \ 'vim'        : ['vim-language-server' , '--stdio'],
         \ } : {}
+        \ )
 " }}}
 let s:enabled_serverCommands = {}
 function! layers#lsp#set_variable(var) abort

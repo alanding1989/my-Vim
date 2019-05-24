@@ -46,7 +46,6 @@ endfunc "}}}
 
 " help wrapper {{{
 function! util#help_wrapper(...) abort
-  let g:dlan = 1
   try
     if exists(':CocConfig')
       call CocActionAsync('doHover')

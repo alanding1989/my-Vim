@@ -126,7 +126,7 @@ function! MatchDel(char, regex, ...) abort
 
   if a:0 && a:1 !~# '\d'
     return "\<C-r>=AutoClo(".string(a:char).', '.string(a:1).")\<CR>"
-  elseif CurChar(0, '\') || a:char =~# '\d'
+  elseif CurChar(0, '\') || a:char =~# '\d' || a:char =~# '\w'
     return a:char
   endif
 

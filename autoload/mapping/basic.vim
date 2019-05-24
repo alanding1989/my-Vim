@@ -721,6 +721,7 @@ function! s:insinfo(cmsign, hasEqual, ...) abort
           \ a:cmsign . ' File Name    : '. expand('%'),
           \ a:cmsign . ' Author       : AlanDing',
           \ a:cmsign . ' Created Time : '. strftime('%c'),
+          \ a:cmsign . ' Description  : ',
           \ (a:hasEqual ? a:cmsign . repeat('=', 80) : ''). '*/',
           \ ''
           \ ]
@@ -730,6 +731,7 @@ function! s:insinfo(cmsign, hasEqual, ...) abort
           \ a:cmsign. ' File Name    : '. expand('%'),
           \ a:cmsign. ' Author       : AlanDing',
           \ a:cmsign. ' Created Time : '. strftime('%c'),
+          \ a:cmsign . ' Description  : ',
           \ a:hasEqual ? a:cmsign. repeat('=', 80) : '',
           \ ''
           \ ]
