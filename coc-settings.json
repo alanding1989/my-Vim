@@ -39,7 +39,6 @@
   "snippets.extends" : {
     "ipynb"      : ["python"],
     "sbt"        : ["scala"],
-    "cpp"        : ["c"],
     "typescript" : ["javascript"]
   },
   "emmet.showSuggestionsAsSnippets" : true ,
@@ -47,7 +46,6 @@
 
   // languageserver
 
-  // MPLS microsoft
   "python.autoComplete.addBrackets"             : true,
   //"python.autoComplete.extraPaths              ": [],
   "python.jediEnabled"                          : false,
@@ -68,43 +66,28 @@
   "python.workspaceSymbols.ctagsPath"           : "/opt/vim/universal-ctags/bin/ctags",
   "python.workspaceSymbols.tagFilePath"         : "~/.cache/tags",
 
-  // "pyls.enable"                              : true,
-  // "pyls.plugins.preload.enabled"             : true,
-  // "pyls.plugins.rope_completion.enabled"     : true,
-  // "pyls.plugins.jedi_completion.enabled"     : true,
-  // "pyls.plugins.jedi_hover.enabled"          : true,
-  // "pyls.plugins.jedi_symbols.enabled"        : true,
-  // "pyls.plugins.jedi_references.enabled"     : true,
-  // "pyls.plugins.jedi_signature_help.enabled" : true,
-  // "pyls.plugins.pyflakes.enabled"            : true,
-  // "pyls.plugins.mccabe.enabled"              : true,
-  // "pyls.plugins.pycodestyle.enabled"         : true,
-  // "pyls.plugins.pydocstyle.enabled"          : true,
-  // "pyls.plugins.yapf.enabled"                : true,
-  // "pyls.configurationSources"                : ["pycodestyle"],
-  // "pyls.commandPath"                         : "/home/alanding/software/anaconda3/envs/py36/bin/pyls",
+  "java.home"                                   : "/opt/lang-tools/java/jdk",
+  "java.completion.enabled"                     : true,
+  "java.format.enabled"                         : true,
+  "java.signatureHelp.enabled"                  : true,
+  "java.referencesCodeLens.enabled"             : false,
+  "java.import.maven.enabled"                   : true,
+  "java.format.comments.enabled"                : true,
 
-  "java.home"                                : "/opt/lang-tools/java/jdk",
-  "java.completion.enabled"                  : true,
-  "java.format.enabled"                      : true,
-  "java.signatureHelp.enabled"               : true,
-  "java.referencesCodeLens.enabled"          : false,
-  "java.import.maven.enabled"                : true,
-  "java.format.comments.enabled"             : true,
+  "tsserver.enable"                             : false,
+  "tsserver.trace.server"                       : "verbose",
+  "javascript.suggest.enabled"                  : true,
+  "javascript.suggest.names"                    : true,
+  "javascript.validate.enable"                  : true,
+  "javascript.suggest.autoImports"              : true,
+  "javascript.suggestionActions.enabled"        : true,
 
-  "tsserver.enable"                          : true,
-  "tsserver.trace.server"                    : "verbose",
-  "javascript.suggest.enabled"               : true,
-  "javascript.suggest.names"                 : true,
-  "javascript.validate.enable"               : true,
-  "javascript.suggest.autoImports"           : true,
-  "javascript.suggestionActions.enabled"     : true,
+  "html.enable"                                 : false,
+  "html.filetypes"                              : ["html", "handlebars", "razor"],
+  "html.format.enable"                          : true,
+  "html.validate.scripts"                       : true,
+  "html.validate.styles"                        : true,
 
-  "html.enable"                              : true,
-  "html.filetypes"                           : ["html", "handlebars", "razor"],
-  "html.format.enable"                       : true,
-  "html.validate.scripts"                    : true,
-  "html.validate.styles"                     : true,
 
   "languageserver": {
 //    "ccls": {
@@ -160,15 +143,15 @@
       "args": [],
       "filetypes": ["javascript"]
     },
-//    "pyls" : {
-//      "command": "pyls",
-//      "args": [],
-//      "filetypes": ["python", "ipynb"]
-//    },
     "efm" : {
       "command": "efm-langserver",
       "args": ["-c", "~/.config/efm-langserver/config.yaml"],
       "filetypes": ["markdown"]
+    },
+    "dockerfile": {
+      "command": "docker-langserver",
+      "filetypes": ["dockerfile"],
+      "args": ["--stdio"]
     },
     "dls"  : {
       "command": "diagnostic-languageserver",
