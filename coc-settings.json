@@ -12,17 +12,19 @@
     ".root","*.sbt",".vim",".git",".hg",".projections.json"
   ],
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+  "coc.preferences.formatOnSaveFiletypes"     : 
+  ["css", "Markdown", "python", "scala", "c", "cpp", "java", "vim", "sh", "lua"],
 
   
-  "diagnostic.enable"                        : true,
-  "diagnostic.virtualText"                   : true,
-  "diagnostic.virtualTextPrefix"             : "❯ ",
-  "diagnostic.displayByAle"                  : true,
+  "diagnostic.enable"                         : true,
+  "diagnostic.virtualText"                    : true,
+  "diagnostic.virtualTextPrefix"              : "❯ ",
+  "diagnostic.displayByAle"                   : true,
 
-  "signature.enable"                         : true,
-  "signature.target"                         : "float",
+  "signature.enable"                          : true,
+  "signature.target"                          : "float",
 
-  "codeLens.enable"                          : true,
+  "codeLens.enable"                           : true,
 
 
   // Snippets
