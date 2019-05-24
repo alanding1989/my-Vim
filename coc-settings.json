@@ -141,6 +141,10 @@
       },
       "filetypes": [ "vim" ]
     }, 
+    "lua": {
+      "command": "lua-lsp",
+      "filetypes": ["lua"]
+    },
     "golang" : {
       "command": "go-langserver",
       "filetypes": ["go"],
@@ -154,16 +158,16 @@
       "args": [],
       "filetypes": ["javascript"]
     },
-    "pyls" : {
-      "command": "pyls",
-      "args": [],
-      "filetypes": ["python", "ipynb"]
-    },
-//    "efm" : {
-//      "command": "efm-langserver",
-//      "args": ["-c", "~/.config/efm-langserver/config.yaml"],
-//      "filetypes": ["markdown"]
+//    "pyls" : {
+//      "command": "pyls",
+//      "args": [],
+//      "filetypes": ["python", "ipynb"]
 //    },
+    "efm" : {
+      "command": "efm-langserver",
+      "args": ["-c", "~/.config/efm-langserver/config.yaml"],
+      "filetypes": ["markdown"]
+    },
     "dls"  : {
       "command": "diagnostic-languageserver",
       "args": ["--stdio"],

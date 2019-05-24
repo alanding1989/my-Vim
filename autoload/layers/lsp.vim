@@ -73,6 +73,7 @@ endif
         \ 'haskell'    : ['hie-wrapper', '--lsp'],
         \ 'html'       : ['html-languageserver', '--stdio'],
         \ 'javascript' : ['javascript-typescript-stdio'],
+        \ 'lua'        : ['lua-lsp'],
         \ 'objc'       : ['clangd'],
         \ 'objcpp'     : ['clangd'],
         \ 'php'        : ['php', expand($HOME.'/.cache/Vim/dein-plug/repos/github.com/felixfbecker/php-language-server/bin/php-language-server.php')],
