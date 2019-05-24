@@ -271,6 +271,10 @@ function! s:unimpaired() abort " {{{
   nnoremap <silent> [a  :<c-u>execute 'move -1-'. v:count1<CR>
   nnoremap <silent> ]a  :<c-u>execute 'move +'. v:count1<CR>
 
+  " [b or ]b go to previous or next buffer
+  nnoremap <silent> [b :<c-u>bN \| stopinsert<cr>
+  nnoremap <silent> ]b :<c-u>bn \| stopinsert<cr>
+
   " [f or ]f go to next or previous file in dir
   nnoremap <silent> [f  :<c-u>call <SID>previous_file()<CR>
   nnoremap <silent> ]f  :<c-u>call <SID>next_file()<CR>

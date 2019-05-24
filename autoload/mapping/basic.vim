@@ -36,15 +36,17 @@ function! mapping#basic#load() abort
   inoremap <C-a>        <Esc>^i
   inoremap <C-b>        <left>
   inoremap <C-f>        <right>
-  inoremap <C-l>        <right>
-  " inoremap <C-p>        <C-left>
-  " inoremap <C-n>        <C-right>
+  inoremap <C-p>        <C-left>
+  inoremap <C-n>        <C-right>
   inoremap <M-b>        <C-left>
   inoremap <M-f>        <C-right>
   inoremap <expr><C-h>  pumvisible() ? "\<C-e><BS>" : DelEmptyPair()
   inoremap <C-d>        <Del>
+  inoremap <C-l>        <Esc>lviwc
   inoremap <C-q>        <Esc>ld$a
   inoremap <C-u>        <C-g>u<C-u>
+  inoremap <C-z>        <Esc>ua
+  inoremap <C-y>        <Esc><C-r>a
   inoremap <C-_>        <C-k>
   map  <expr> <BS>      exists('loaded_matchup') ? "\<Plug>(matchup-%)"  : "\<BS>"
   xmap <expr>i<BS>      exists('loaded_matchup') ? "\<Plug>(matchup-i%)" : "\<BS>"
@@ -181,6 +183,8 @@ function! mapping#basic#load() abort
   nnoremap <Space>ihn   :call <sid>SetFileHead()<CR>
   nnoremap <Space>ihe   :call <sid>SetFileHead('info1')<CR>
   nnoremap <Space>ihh   :call <sid>SetFileHead('info0')<CR>
+  " insert current file absPath
+  nnoremap <leader>ap   i<C-r>=expand('%:p')<CR><Esc>
 
   " indenting in visual mode
   xnoremap >           >gv|
@@ -201,8 +205,6 @@ function! mapping#basic#load() abort
   noremap  vv          V
   nnoremap <leader>aa  ggVG
   nnoremap <leader>ae  VG
-  " Select last paste
-  nnoremap <silent><expr> <leader>ap  '`['.strpart(getregtype(), 0, 1).'`]'
   " C-r: Easier search and replace
   xnoremap <C-r>    :<C-u>call <sid>VSetSearch()<CR>:,$s/<C-R>=@/<CR>//gc<left><left><left>
 
@@ -230,7 +232,7 @@ function! mapping#basic#load() abort
   endif
 
   " Copy buffer absolute path to X11 clipboard'
-  nnoremap <C-c>          :call <sid>CopyToClipboard()<CR>
+  nnoremap <C-c>         :call <sid>CopyToClipboard()<CR>
   " }}}
   " }}}
 
@@ -564,7 +566,7 @@ let s:MESSAGE = SpaceVim#api#import('vim#message')
 let s:BUFFER  = SpaceVim#api#import('vim#buffer')
 function! s:safe_erase_buffer() abort
   if s:MESSAGE.confirm('Erase content of buffer ' . expand('%:t'))
-    normal! ggdG
+    normal! ggtdG
   else
     echo 'canceled!'
   endif
