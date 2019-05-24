@@ -349,11 +349,12 @@ function! s:Delimitor_init() abort
   " match add space before 
   inoremap <expr> -   MatchDel('-', '\v^\s*(if\|el\|wh\|let\|val\|var).*\S$', 1, 00)
   inoremap <expr> +   MatchDel('+', '0000', 1, 11)
-  inoremap <expr> !   MatchDel('!', '\v^\s*(if\|el\|wh\|let\|val\|var).*\S$', 1, 01)
+  inoremap <expr> !   MatchDel('!', '\v^\s*((if\|el\|wh\|let\|val\|var).*\S$)\|((if\|el\|wh)$)', 1, 01)
   inoremap <expr> :   CurChar(0, '\s') ? ': ' : CurChar(0, '\w') ? ': ' : ' : '
   inoremap <expr> <   MatchDel('<', '\v^\s*(if\|el\|wh\|let).*\S$', '>')
   inoremap <expr> ,   CurChar(0, '\s') ? "\<BS>,\<Space>" : (CurChar(1, '\s') ? "," : ",\<Space>")
-  inoremap <expr><Plug>AlanCR  exists('b:eol_marker') && MatchCl('^$') == -1 ? b:eol_marker."\<CR>" : "\<CR>"
+  inoremap <expr><Plug>AlanCR  exists('b:eol_marker') && MatchCl('^$') ? b:eol_marker."\<CR>" : "\<CR>"
+
   call s:AutoClose()
   call s:AutoPairs()
   call s:Numfix()
@@ -366,7 +367,6 @@ function! s:Delimitor_init() abort
     auto FileType c,cpp let b:eol_marker = ';' 
   augroup END
 endfunction
-
 function! s:AutoClose() abort " {{{
   let autoclose = [
         \ ')', ']', '}',
@@ -392,7 +392,7 @@ function! s:AutoPairs() abort " {{{
 endfunction " }}}
 function! s:Numfix() abort " {{{
   for num in range(1, 9)
-    exec 'inoremap <expr> '.num.' MatchDel('.num.", '\\v.*\\s\\W*\\s\-\\s$', 0, 00)"
+    exec 'inoremap <expr> '.num.' MatchDel('.num.", '\\v.*\\s\\W*\\s\-\\s$')"
   endfor
 endfunction " }}}
 function! s:Bash() abort " {{{

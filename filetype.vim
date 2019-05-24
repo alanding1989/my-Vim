@@ -7,17 +7,17 @@
 scriptencoding utf-8
 
 
+
 augroup my_filetype_detection
   autocmd!
   autocmd BufNewFile,BufRead *.sbt,*.sc setlocal filetype=scala
-  autocmd BufNewFile,BufRead *.ps1 setlocal filetype=ps1
+  autocmd BufNewFile,BufRead *.ps1      setlocal filetype=ps1
 
 
-  autocmd FileType c,cpp    setlocal commentstring=//\ %s
+  autocmd FileType c,cpp    setlocal commentstring=//\ %s tabstop=4 softtabstop=4 shiftwidth=4
   autocmd FileType markdown setlocal wrap
   autocmd FileType qf       setlocal nonumber
 augroup END
-
 
 
 

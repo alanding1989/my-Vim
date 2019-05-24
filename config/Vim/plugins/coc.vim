@@ -84,7 +84,6 @@ augroup END
 
 function! s:g_mappings() abort
   vnoremap  <silent>ga  :call CocActionAsync('codeAction',     visualmode())<CR>
-  nnoremap  <silent>gd  :call CocActionAsync('jumpDefinition'    )<CR>
   nnoremap  <silent>gt  :call CocActionAsync('jumpTypeDefinition')<CR>
   nnoremap  <silent>gi  :call CocActionAsync('jumpImplementation')<CR>
   nnoremap  <silent>gr  :call CocActionAsync('jumpReferences'    )<CR>

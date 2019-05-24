@@ -46,19 +46,16 @@ endfunction
 function! s:language_specified_mappings() abort
   nnoremap <buffer> <F1> :update<CR>:source %<CR>
   if g:is_spacevim
+    call SpaceVim#mapping#gd#add('vim', function('s:go_to_def'))
     call SpaceVim#mapping#space#def('nnoremap', ['i', 't'],
           \ 'call setline(line("."), "\" vim:set sw=2 ts=2 sts=2 et tw=78 fmd=marker")',
           \ 'insert Vim file tail', 1)
   else
+    nnoremap <buffer><silent> gd          :call <sid>go_to_def()<CR>
     nnoremap <buffer><silent> <Space>it   :call append(line('.'), ' vim:set sw=2 ts=2 sts=2 et tw=78 fmd=marker')<CR>
     nnoremap <buffer><silent> <space>le   :call <sid>eval_cursor()<CR>
     nnoremap <buffer><silent> <space>lv   :call <sid>helpversion_cursor()<CR>
     nnoremap <buffer><silent> <space>lf   :call exception#trace()<CR>
-    if g:autocomplete_method ==# 'coc'
-      nnoremap <buffer><silent> gd        :call layers#lsp#go_to_def()<CR>
-    else
-      nnoremap <buffer><silent> gd        :call lookup#lookup()<CR>
-    endif
   endif
 endfunction
 
@@ -98,3 +95,21 @@ endfunction
 function! s:helpversion_cursor() abort
   exe 'HelpfulVersion' expand('<cword>')
 endfunction
+
+if g:is_spacevim
+  function! s:go_to_def() abort
+    if SpaceVim#layers#lsp#check_filetype('vim')
+      call SpaceVim#lsp#go_to_def()
+    else
+      call lookup#lookup()
+    endif
+  endfunction
+else
+  function! s:go_to_def() abort
+    if layers#lsp#checkft('vim')
+      call layers#lsp#go_to_def()
+    else
+      call lookup#lookup()
+    endif
+  endfunction
+endif

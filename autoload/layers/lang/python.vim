@@ -14,7 +14,7 @@ function! layers#lang#python#plugins() abort
     let g:python_highlight_all = 1
   endif
   if !g:is_spacevim
-    if !My_Vim#layer#isLoaded('lsp')
+    if !layers#lsp#checkft('python')
       call add(plugins, ['davidhalter/jedi-vim', {'on_ft': 'python', 'for': 'python'}])
       if g:autocomplete_method ==# 'deoplete'
         call add(plugins, ['zchee/deoplete-jedi', {'on_ft': 'python', 'for': 'python'}])
@@ -56,7 +56,7 @@ function! s:language_specified_mappings() abort
   nmap <silent><buffer><space>lis  :Neoformat isort<CR>
   nmap <silent><buffer><space>lir  :Neoformat autoflake<CR>
   nmap <silent><buffer><space>lg   :Pydocstring<CR>
-  if My_Vim#layer#isLoaded('lsp')
+  if layers#lsp#checkft('python')
     nnoremap <silent><buffer> K         :call layers#lsp#show_doc()<CR>
     nnoremap <silent><buffer> <space>ld :call layers#lsp#show_doc()<CR>
     nnoremap <silent><buffer> <space>le :call layers#lsp#rename()<CR>
@@ -84,7 +84,7 @@ endfunction
 
 
 function! s:go_to_def() abort
-  if My_Vim#layer#isLoaded('lsp')
+  if layers#lsp#checkft('python')
     call layers#lsp#go_to_def()
   else
     call jedi#goto()

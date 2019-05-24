@@ -109,8 +109,10 @@ function! MatchDel(char, regex, ...) abort
 
     if CurChar(0, '\s')
       return CurChar(1, '\s') ? "\<BS>".a:char : "\<BS>".a:char."\<Space>"
+    elseif a:char ==? '!'
+      return CurChar(0, '\w') ? "\<Space>".a:char : a:char
     else
-      return CurChar(1, a:char) ? a:char."\<Right>" : "\<Space>".a:char."\<Space>"
+      return CurChar(0, '\w') ? "\<Space>".a:char."\<Space>" : a:char."\<Space>"
     endif
   endif " }}}
 
@@ -124,7 +126,7 @@ function! MatchDel(char, regex, ...) abort
 
   if a:0 && a:1 !~# '\d'
     return "\<C-r>=AutoClo(".string(a:char).', '.string(a:1).")\<CR>"
-  elseif CurChar(0, '\')
+  elseif CurChar(0, '\') || a:char =~# '\d'
     return a:char
   endif
 
@@ -302,17 +304,17 @@ endfunction
 
 " check curline if match pattern {{{
 function! MatchCl(reg, ...) abort
-  if a:0 && a:1 ==# 'e'
+  if !a:0 && match(getline('.'), a:reg) > -1
+    if s:autodelimiter_debug
+      echo 'matched'
+    endif
+    return 1
+  elseif a:0 && a:1 ==# 'e'
     let res = matchend(getline('.'), a:reg)
     if s:autodelimiter_debug
       echo res
     endif
     return res
-  elseif match(getline('.'), a:reg) > -1
-    if s:autodelimiter_debug
-      echo 'matched'
-    endif
-    return 1
   endif
   return 0
 endfunction " }}}
