@@ -46,8 +46,9 @@ function! mapping#basic#load() abort
   inoremap <C-q>        <Esc>ld$a
   inoremap <C-u>        <C-g>u<C-u>
   inoremap <C-z>        <Esc>ua
-  inoremap <C-y>        <Esc><C-r>a
+  inoremap <C-v>        <Esc><C-r>a
   inoremap <C-_>        <C-k>
+
   map  <expr> <BS>      exists('loaded_matchup') ? "\<Plug>(matchup-%)"  : "\<BS>"
   xmap <expr>i<BS>      exists('loaded_matchup') ? "\<Plug>(matchup-i%)" : "\<BS>"
   omap <expr>i<BS>      exists('loaded_matchup') ? "\<Plug>(matchup-i%)" : "\<BS>"
@@ -231,8 +232,12 @@ function! mapping#basic#load() abort
     xnoremap <leader>P   "*P
   endif
 
-  " Copy buffer absolute path to X11 clipboard'
+  " !a:0, Copy buffer absolute path to X11 clipboard
+  " 2,    Copy current line of file`s github url to clipboard
+  " 3,    Copy select lines of file`s github url to clipboard
   nnoremap <C-c>         :call <sid>CopyToClipboard()<CR>
+  nnoremap <C-C>         :call <sid>CopyToClipboard(2)<CR>
+  xnoremap <C-c>         :call <sid>CopyToClipboard(3)<CR>
   " }}}
   " }}}
 
@@ -323,6 +328,7 @@ function! mapping#basic#load() abort
   "}}}
 endfunction
 
+
 " Define Plugin Mappings  {{{
 function! s:defPlug() abort
   " use in core layer
@@ -333,7 +339,9 @@ function! s:defPlug() abort
   " use in edit layer
   nnoremap <Plug>(Insert-EqualBox)      :call <sid>EqualBox()<CR>
   nnoremap <Plug>(Insert-MinusBox)      :call <sid>MinusBox()<CR>
-  command! -nargs=?   SetFileHead       call <sid>SetFileHead(<f-args>)
+  command! -nargs=?   SetFileHead       call  <sid>SetFileHead(<f-args>)
+  command! -nargs=*   CopyToClipboard   call  <sid>CopyToClipboard(<f-args>)
+  xnoremap <Plug>(CopyToClipboard)      :call <sid>CopyToClipboard(3)<CR>
 endfunction " }}}
  
 " Delimit Mapping {{{
@@ -352,7 +360,7 @@ function! s:Delimitor_init() abort
   inoremap <expr> -   MatchDel('-', '\v^\s*(if\|el\|wh\|let\|val\|var).*\S$', 1, 00)
   inoremap <expr> +   MatchDel('+', '0000', 1, 11)
   inoremap <expr> !   MatchDel('!', '\v^\s*((if\|el\|wh\|let\|val\|var).*\S$)\|((if\|el\|wh)$)', 1, 01)
-  inoremap <expr> :   CurChar(0, '\s') ? ': ' : CurChar(0, '\w') ? ': ' : ' : '
+  inoremap <expr> :   (CurChar(0, '\s') \|\| CurChar(0, '\w') \|\| Curchar(0, '\d')) ? ': ' : ' : '
   inoremap <expr> <   MatchDel('<', '\v^\s*(if\|el\|wh\|let).*\S$', '>')
   inoremap <expr> ,   CurChar(0, '\s') ? "\<BS>,\<Space>" : (CurChar(1, '\s') ? "," : ",\<Space>")
   inoremap <expr><Plug>AlanCR  exists('b:eol_marker') && MatchCl('^$') ? b:eol_marker."\<CR>" : "\<CR>"

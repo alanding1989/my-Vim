@@ -63,6 +63,8 @@ function! layers#git#config() abort
       unlet g:_spacevim_mappings_space.g.h
     endif
     call SpaceVim#mapping#space#def('nnoremap', ['g', 'j'], 'Twiggy', 'open git branch manager', 1)
+    call SpaceVim#mapping#space#def('nnoremap', ['g', 'i', 'y'], 'CopyToClipboard 2', 'Copy current/selected line of github url to clipboard', 1)
+    xmap [SPC]giy  <Plug>(CopyToClipboard)
     "}}}
   else
     "{{{
@@ -105,6 +107,8 @@ function! layers#git#config() abort
     else
       nnoremap <Space>gf   :SignifyFold<CR>
     endif
+    nnoremap <Space>giy    :CopyToClipboard 2<CR>
+    xmap     <Space>giy    <Plug>(CopyToClipboard)
     augroup layer_git
       autocmd!
       auto FileType diff nnoremap <buffer><silent> q :bd!<CR>
