@@ -31,11 +31,11 @@ let s:is_fallback = 0
 function! My_SpaceVim#Main#init() abort
   " NOTE: the order shouldn`t be changed
   call   s:SpaceVim_config_load()
-  try
+  " try
     call s:Mainbegin()
-  catch
-    call s:Mainfallback()
-  endtry
+  " catch
+    " call s:Mainfallback()
+  " endtry
 endfunction
 
 

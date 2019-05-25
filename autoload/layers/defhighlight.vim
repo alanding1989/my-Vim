@@ -19,6 +19,7 @@ function! layers#defhighlight#config() abort
       exec 'auto FileType '.ft.' call s:highlight_apply('.string(ft).', '.string(colors).')'
     endfor
   endif
+
   if g:is_spacevim
     let g:_spacevim_mappings.a = {'name' : '+@ Session/Setting/Select'}
     call SpaceVim#mapping#def('nnoremap', '<leader>ah', ':call layers#defhighlight#test()<CR>',
@@ -26,13 +27,6 @@ function! layers#defhighlight#config() abort
   else
     nnoremap <silent><leader>ah :call layers#defhighlight#test()<CR>
   endif
-endfunction
-
-
-let s:hlcolor    = {}
-function! layers#defhighlight#set_variable(var) abort
-  " [ guifg, guibg, ctermfg, ctermbg, italic], -1 if None or negative
-  let s:hlcolor = get(a:var, 'hlcolor', {})
 endfunction
 
 
@@ -47,6 +41,8 @@ function! s:highlight_apply(ft, colors) abort
 endfunction
 
 function! s:hl_one(group, attr_val) abort
+  " a:group       highlight group
+  " a:attr_val    value
   let attrs = {
         \ 'guifg'   : 0,
         \ 'guibg'   : 1,
@@ -74,6 +70,15 @@ function! s:hl_one(group, attr_val) abort
   return hlcmd
 endfunction
 
+
+let s:hlcolor = {}
+function! layers#defhighlight#set_variable(var) abort
+  " [ guifg, guibg, ctermfg, ctermbg, italic], -1 if None or negative
+  let s:hlcolor = get(a:var, 'hlcolor', {})
+endfunction
+
+
+" TEST: {{{
 function! layers#defhighlight#test(...) abort
   let hlcmds = get(s:, 'hlcmds', {})
   if len(hlcmds) == 0
@@ -112,3 +117,4 @@ function! layers#defhighlight#test(...) abort
   call setline(1, str)
   setl nomodifiable
 endfunction
+ " }}}

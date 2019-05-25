@@ -357,7 +357,7 @@ function! s:Delimitor_init() abort
   inoremap <expr> ~   MatchDel('~', '\v(\=+)\|(!)\s', 1, 11)
   inoremap <expr> >   MatchDel('>', '\v(\>+)\|(\=)\|(-)\|(\<\w*)\s$', 1, 11)
   " match add space before 
-  inoremap <expr> -   MatchDel('-', '\v^\s*(if\|el\|wh\|let\|val\|var).*\S$', 1, 00)
+  inoremap <expr> -   MatchDel('-', '\v^\s*(if\|el\|wh\|let\|val\|var).*\S$', 0, 00)
   inoremap <expr> +   MatchDel('+', '0000', 1, 11)
   inoremap <expr> !   MatchDel('!', '\v^\s*((if\|el\|wh\|let\|val\|var).*\S$)\|((if\|el\|wh)$)', 1, 01)
   inoremap <expr> :   (CurChar(0, '\s') \|\| CurChar(0, '\w') \|\| Curchar(0, '\d')) ? ': ' : ' : '
@@ -406,7 +406,7 @@ function! s:Numfix() abort " {{{
   endfor
 endfunction " }}}
 function! s:Bash() abort " {{{
-  for char in ['d', 'e', 'f', 'z', 'n']
+  for char in ['d', 'e', 'f', 'z', 'n', 'r']
     exec 'inoremap <buffer><expr> '.char.' MatchDel('.string(char).', "-\\s_$", 0, 00)'
   endfor
 endfunction "}}}
@@ -693,7 +693,7 @@ endfun
 function! <sid>SetFileHead(...) abort
   let info = a:0 ? a:1 : ''
   if &filetype ==# 'vim' || &filetype ==# ''
-    call s:insfhead('"', 'scriptencoding utf-8', info)
+    call s:insfhead('"', 'scriptencoding utf-8', 'info1')
 
   elseif &filetype ==# 'sh'
     call s:insfhead('#', '#! /usr/bin/env bash', info)
@@ -716,11 +716,16 @@ function! <sid>SetFileHead(...) abort
 endfun
 function! s:insfhead(cmsign, ...) abort
   let head = []
-  let head += a:000[-2] ==# '/*' ? a:000[0:-3] : a:000[0:-2]
-  let head += (len(a:000[-1]) ? ['', ''] : [])
-  let head += a:000[-1] ==# 'info0' ? <sid>insinfo(a:cmsign, 0, a:000[-2])
-        \ :   a:000[-1] ==# 'info1' ? <sid>insinfo(a:cmsign, 1, a:000[-2])
-        \ :   ['', '']
+  if &filetype ==# 'vim'
+    let head += <sid>insinfo(a:cmsign, 1, a:000[-2])[:-2]
+    let head += a:000[:-2] + ['']
+  else
+    let head += a:000[-2] ==# '/*' ? a:000[0:-3] : a:000[0:-2]
+    let head += (len(a:000[-1]) ? ['', ''] : [])
+    let head += a:000[-1] ==# 'info0' ? <sid>insinfo(a:cmsign, 0, a:000[-2])
+          \ :   a:000[-1] ==# 'info1' ? <sid>insinfo(a:cmsign, 1, a:000[-2])
+          \ :   ['', '']
+  endif
   call append(0, head)
   call setpos('.', [0, len(head)+1, 1])
 endfunc

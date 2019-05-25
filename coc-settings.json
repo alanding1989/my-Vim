@@ -16,7 +16,7 @@
   ["css", "Markdown", "python", "scala", "c", "cpp", "java", "vim", "sh", "lua"],
 
   
-  "diagnostic.enable"                         : true,
+  "diagnostic.enable"                         : false,
   "diagnostic.virtualText"                    : true,
   "diagnostic.virtualTextPrefix"              : "❯ ",
   "diagnostic.displayByAle"                   : true,
@@ -121,8 +121,8 @@
       "args": ["--stdio"],
       "initializationOptions": {
         "iskeyword": "vim iskeyword option",
-        "vimruntime": "$VIMRUNTIME/runtime",
-        "runtimepath": "&runtime"
+        "vimruntime": "/opt/vim/nvim-linux64/share/nvim/runtime",
+        "runtimepath": "&runtimepath"
       },
       "filetypes": [ "vim" ]
     }, 

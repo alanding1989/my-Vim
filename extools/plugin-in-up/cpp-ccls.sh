@@ -1,10 +1,11 @@
+#!/usr/bin/env bash
+
 # ================================================================================
 #  File Name    : plugin-install/ccls-install.sh
 #  Author       : AlanDing
 #  mail         :
 #  Created Time : Thu 25 Apr 2019 06:19:09 PM CST
 # ================================================================================
-#!/usr/bin/env bash
 
 cclspath=/mnt/fun+downloads/linux系统安装/code-software/lang/cpp/ccls
 

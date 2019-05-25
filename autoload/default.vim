@@ -12,5 +12,6 @@ function! default#load() abort
   call util#so_file('autocmds.vim'      , 'g')
   call util#so_file('commands.vim'      , 'g')
   call util#so_file('functions.vim'     , 'g')
+  call util#so_file('highlight.vim'     , 'g')
   call mapping#basic#load()
 endfunction
