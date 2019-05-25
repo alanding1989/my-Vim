@@ -43,7 +43,7 @@ function! mapping#basic#load() abort
   inoremap <expr><C-h>  pumvisible() ? "\<C-e><BS>" : DelEmptyPair()
   inoremap <C-d>        <Del>
   inoremap <C-l>        <Esc>lviwc
-  inoremap <C-q>        <Esc>ld$a
+  inoremap <C-q>        <Esc>lC
   inoremap <C-u>        <C-g>u<C-u>
   inoremap <C-z>        <Esc>ua
   inoremap <C-v>        <Esc><C-r>a
