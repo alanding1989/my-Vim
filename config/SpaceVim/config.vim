@@ -22,7 +22,7 @@ let g:spacevim_colorscheme = split([
       \ '7 PaperColor'  ,
       \ '8 nord'        ,
       \ '9 default'     ,
-      \ ][0])[1]
+      \ ][1])[1]
 let g:spacevim_colorscheme_default = 'neodark'
 let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 "}}}

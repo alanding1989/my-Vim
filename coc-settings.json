@@ -1,41 +1,44 @@
 
 {
-  "suggest.enablePreview"                     : false,
-  "suggest.noselect"                          : false,
-  "suggest.acceptSuggestionOnCommitCharacter" : true ,
-  "suggest.preferCompleteThanJumpPlaceholder" : false,
-  "suggest.echodocSupport"                    : true ,
-  "suggest.snippetIndicator"                  : "~►"   ,
+  "suggest.enablePreview"                           : false,
+  "suggest.noselect"                                : false,
+  "suggest.acceptSuggestionOnCommitCharacter"       : true ,
+  "suggest.preferCompleteThanJumpPlaceholder"       : false,
+  "suggest.echodocSupport"                          : true ,
+  "suggest.snippetIndicator"                        : "~►"   ,
 
-  "coc.preferences.previewAutoClose"          : false,
-  "coc.preferences.rootPatterns": [
-    ".root","*.sbt",".vim",".git",".hg",".projections.json"
-  ],
-  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
-  "coc.preferences.formatOnSaveFiletypes"     : 
-  ["css", "Markdown", "python", "scala", "c", "cpp", "java", "vim", "sh", "lua"],
+  "coc.source.tag.shortcut"                         : "Tag",
+  "coc.source.tag.enable"                           : false,
+  "coc.source.emoji.shortcut"                       : "Emj",
+  "coc.source.word.filetypes"                       : ["markdown", "text"],
 
+  "coc.preferences.previewAutoClose"                : false,
+  "coc.preferences.currentFunctionSymbolAutoUpdate" : true,
+  "coc.preferences.rootPatterns"                    : [ ".root","*.sbt",".vim",".git",".hg",".projections.json" ],
+  "coc.preferences.formatOnSaveFiletypes"           : ["css", "Markdown", "python", "scala", "c", "cpp", "java", "vim", "sh", "lua"],
   
-  "diagnostic.enable"                         : true,
-  "diagnostic.virtualText"                    : true,
-  "diagnostic.virtualTextPrefix"              : "❯ ",
-  "diagnostic.displayByAle"                   : true,
+  "diagnostic.enable"                               : false,
+  "diagnostic.virtualText"                          : true,
+  "diagnostic.virtualTextPrefix"                    : "❯ ",
+  "diagnostic.displayByAle"                         : true,
 
-  "signature.enable"                          : true,
-  "signature.target"                          : "float",
+  "signature.enable"                                : true,
+  "signature.target"                                : "float",
 
-  "codeLens.enable"                           : true,
+  "codeLens.enable"                                 : true,
 
 
   // Snippets
   // NOTE: UltiSnips dir must be contained, or it will not source it.
-  "snippets.shortcut": "Snip",
+  "snippets.shortcut" : "Snips",
+  "snippets.priority" : 99,
   "snippets.ultisnips.directories": [
     "/home/alanding/.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/snippets",
     "/home/alanding/.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/UltiSnips",
     "D:/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/snipeets",
     "D:/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/UltiSnips"
   ],
+  "snippets.trace"   : "verbose",
   "snippets.extends" : {
     "ipynb"      : ["python"],
     "sbt"        : ["scala"],
@@ -66,6 +69,7 @@
   "python.workspaceSymbols.ctagsPath"           : "/opt/vim/universal-ctags/bin/ctags",
   "python.workspaceSymbols.tagFilePath"         : "~/.cache/tags",
 
+  "lua.commandPath": "",
   "java.home"                                   : "/opt/lang-tools/java/jdk",
   "java.completion.enabled"                     : true,
   "java.format.enabled"                         : true,
@@ -143,11 +147,11 @@
       "args": [],
       "filetypes": ["javascript"]
     },
-    "efm" : {
-      "command": "efm-langserver",
-      "args": ["-c", "~/.config/efm-langserver/config.yaml"],
-      "filetypes": ["markdown"]
-    },
+//    "efm" : {
+//      "command": "efm-langserver",
+//      "args": ["-c", "~/.config/efm-langserver/config.yaml"],
+//      "filetypes": ["markdown"]
+//    },
     "dockerfile": {
       "command": "docker-langserver",
       "filetypes": ["dockerfile"],

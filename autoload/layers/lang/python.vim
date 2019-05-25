@@ -7,12 +7,11 @@ scriptencoding utf-8
 
 function! layers#lang#python#plugins() abort
   let plugins = []
-  " if g:is_nvim
-    " call add(plugins, ['numirias/semshi', {'on_ft': 'python', 'for': 'python'}])
-  " else
-    " call add(plugins, ['vim-python/python-syntax', {'on_ft': 'python', 'for': 'python'}])
-    " let g:python_highlight_all = 1
-  " endif
+  if g:is_nvim
+    call add(plugins, ['numirias/semshi', {'on_ft': 'python', 'for': 'python'}])
+  else
+    call add(plugins, ['vim-python/python-syntax', {'on_ft': 'python', 'for': 'python'}])
+  endif
   if !g:is_spacevim
     if !layers#lsp#checkft('python')
       call add(plugins, ['davidhalter/jedi-vim', {'on_ft': 'python', 'for': 'python'}])

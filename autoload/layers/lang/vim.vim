@@ -23,15 +23,15 @@ function! layers#lang#vim#plugins() abort
             \ ['syngan/vim-vimlint',                 {'on_ft' : 'vim', 'for': 'vim'}],
             \ ['ynkdir/vim-vimlparser',              {'on_ft' : 'vim', 'for': 'vim'}],
             \ ['todesking/vint-syntastic',           {'on_ft' : 'vim', 'for': 'vim'}],
-            \ ['Shougo/neco-vim',           {'merged': 0 , 'on_event': 'InsertEnter'}],
             \ ]
-      if g:autocomplete_method ==# 'coc'
-        call add(plugins, ['neoclide/coc-neco', {'merged': 0}])
-      elseif g:autocomplete_method ==# 'asyncomplete'
-        call add(plugins, ['prabirshrestha/asyncomplete-necovim.vim', {'merged': 0}])
-      endif
     endif
-    call add(plugins,['tweekmonster/helpful.vim',      {'on_cmd': 'HelpfulVersion'}])
+    call add(plugins,['tweekmonster/helpful.vim', {'on_cmd'  : 'HelpfulVersion'}])
+    call add(plugins,['Shougo/neco-vim',          {'on_event': 'InsertEnter'   }])
+    if g:autocomplete_method ==# 'coc'
+      call add(plugins, ['neoclide/coc-neco', {'merged': 0}])
+    elseif g:autocomplete_method ==# 'asyncomplete'
+      call add(plugins, ['prabirshrestha/asyncomplete-necovim.vim', {'merged': 0}])
+    endif
   endif
   return plugins
 endfunction

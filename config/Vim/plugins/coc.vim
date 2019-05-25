@@ -83,6 +83,7 @@ augroup END
 " \ 'coc-vetur'      ,
 " \ 'coc-pyls'       ,
 " \ 'coc-lbdbq'      ,
+" \ 'coc-calc'       , 
 " \ 'https://github.com/andys8/vscode-jest-snippets.git#master' ,
 " \ ] "}}}
 

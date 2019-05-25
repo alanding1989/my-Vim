@@ -89,12 +89,12 @@ function! util#hlight_wrapper(...) abort
           \ . 'highlight ' . (
           \ !empty(expand('<cword>')) ? expand('<cword>') :
           \ !a:0 ? '' : 
-          \  a:1 !=# 'v' ? string(a:1) : a:0 == 2 ? string(a:2) : ''
+          \  a:1 !=# 'v' ? a:1 : a:0 == 2 ? string(a:2) : ''
           \ )
   catch
     exec    ( a:0 > 0 && a:1 ==# 'v' ? 'verbose ' : '' )
           \ . 'highlight ' . (
-          \ a:0 ? a:1 !=# 'v' ? string(a:1) : a:0 == 2 ? string(a:2) : ''
+          \ a:0 ? a:1 !=# 'v' ? a:1 : a:0 == 2 ? string(a:2) : ''
           \ : ''
           \ )
   endtry
