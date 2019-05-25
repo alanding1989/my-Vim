@@ -186,7 +186,7 @@ endfunction " }}}
 " check if cusor within pairs or quotes {{{
 function! Within(mode, ...)abort
   " param a:mode can be pair and quote
-  let g:pairs = a:mode ==# 'pair' ? s:withinpairs
+  let pairs = a:mode ==# 'pair' ? s:withinpairs
         \   : a:mode ==# 'emptypair' ? s:emptypairs
         \   : s:withinquotes
   let ln  = getline('.')
@@ -194,7 +194,7 @@ function! Within(mode, ...)abort
   if col == 1
     return a:0 && a:1 == 1 ? [0, 0] : 0
   endif
-  for [l, r] in items(g:pairs)
+  for [l, r] in items(pairs)
     if l ==# '['
       let str   = matchstrpos(ln, '\'.l.'.*'.r)
       let idxstart = str[1]
@@ -224,7 +224,7 @@ if s:autodelimiter_debug
 endif 
 " function! Within(mode, ...)abort " {{{
 "   " param a:mode can be pair and quote
-"   let g:pairs = a:mode ==# 'pair' ? s:withinpairs
+"   let pairs = a:mode ==# 'pair' ? s:withinpairs
 "         \   : a:mode ==# 'emptypair' ? s:emptypairs
 "         \   : s:withinquotes
 "   let ln  = getline('.')
@@ -232,7 +232,7 @@ endif
 "   if g:col == 1
 "     return a:0 && a:1 == 1 ? [0, 0] : 0
 "   endif
-"   for [l, r] in items(g:pairs)
+"   for [l, r] in items(pairs)
 "     if l ==# '['
 "       let g:str   = matchstrpos(ln, '\'.l.'.*'.r)
 "       let g:idxstart = g:str[1]

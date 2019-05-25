@@ -14,7 +14,7 @@ augroup edit_related
 augroup END
 
 
-augroup colorscheme_related
+augroup highlight_related
   auto!
   autocmd ColorScheme one         hi clear Folded | hi Folded guifg=#5C6370 ctermfg=59
   autocmd ColorScheme PaperColor  hi clear Folded | hi Folded guifg=#5C6370 ctermfg=59
@@ -24,6 +24,7 @@ augroup colorscheme_related
   autocmd ColorScheme *           hi! MatchParen  gui=italic,bold  cterm=italic,bold
         \                       | hi! Folded      gui=italic       cterm=italic
         \                       | hi! Comment     gui=italic       cterm=italic
+        \                       | hi! String      guifg=#98c379  guibg=#3c3836  gui=italic  cterm=italic
 augroup END
 
 

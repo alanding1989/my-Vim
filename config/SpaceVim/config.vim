@@ -255,7 +255,7 @@ if g:pure_viml || !g:has_py " {{{
   let g:spacevim_filemanager         = 'vimfiler'
   let g:enable_smart_clock           = 0
   let g:My_SpaceVim_layers = {
-        \ 'core#statusline' : 0,
+        \ 'core#statusline' : 1,
         \ 'checkers'        : 1,
         \ 'chinese'         : 1,
         \ 'colorscheme'     : 1,
@@ -265,7 +265,6 @@ if g:pure_viml || !g:has_py " {{{
         \ 'lsp'             : 1,
         \ 'lang#java'       : 0,
         \ 'lang#javascript' : 0,
-        \ 'lang#latex'      : 0,
         \ 'lang#markdown'   : 1,
         \ 'lang#scala'      : 1,
         \ 'lang#vim'        : 1,
@@ -275,10 +274,6 @@ if g:pure_viml || !g:has_py " {{{
         \ 'tmux'            : 1,
         \ 'tools'           : 1,
         \ 'VersionControl'  : 0,
-        \
-        \ 'denite'          : 0,
-        \ 'fzf'             : 0,
-        \ 'leaderf'         : 0,
         \ 'unite'           : 1,
         \ }
 endif
