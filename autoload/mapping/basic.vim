@@ -98,7 +98,7 @@ function! mapping#basic#load() abort
   nnoremap <silent>qe   :call <sid>safe_erase_buffer()<CR>
   nnoremap <silent>qr   :call <sid>rename_file()<CR>
   nnoremap <silent>quu  :call <sid>safe_revert_buffer()<CR>
-  nnoremap <silent>qkk  :qa!<CR>
+  nnoremap <silent>qkk  :q!<CR>
 
   nnoremap <silent>so   :call feedkeys(':vs ')<CR>
   nnoremap <silent>sv   :vs<CR><C-w>w

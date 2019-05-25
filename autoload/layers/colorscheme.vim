@@ -60,23 +60,23 @@ function! layers#colorscheme#my_cs() abort "{{{
   let bg = get(g:, 'spacevim_colorscheme_bg', get(g:, 'my_bg'))
 
   if cs ==# 'PaperColor'
-    lockvar cs
     let bg = 'light'
   endif
 
-  if bg ==# 'light' && cs !=# 'PaperColor' && cs !=# 'one'
+  if bg ==# 'light' && cs !=# 'PaperColor'
     let cs = 'gruvbox'
   endif
   if cs ==# 'gruvbox'
     let g:gruvbox_contrast_light       = 'soft'
     let g:gruvbox_contrast_dark        = 'soft'
+    " let g:gruvbox_bold                 = 0
     let g:gruvbox_italic               = 1
     let g:gruvbox_italicize_strings    = 1
-    let g:gruvbox_invert_signs         = 1
-    let g:gruvbox_invert_indent_guides = 1
-    let g:gruvbox_invert_tabline       = 1
-    let g:gruvbox_improved_strings     = 1
     let g:gruvbox_improved_warnings    = 1
+    " let g:gruvbox_improved_strings     = 1
+    " let g:gruvbox_invert_signs         = 1
+    " let g:gruvbox_invert_indent_guides = 1
+    " let g:gruvbox_invert_tabline       = 1
   endif
 
   if cs ==# 'NeoSolarized'
@@ -95,6 +95,7 @@ function! layers#colorscheme#my_cs() abort "{{{
 
   if cs ==# 'one'
     let g:one_allow_italics = 1
+    let bg = 'dark'
   endif
 
   if cs ==# 'OceanicNext'
