@@ -71,7 +71,7 @@ function! layers#core#config() abort
     call SpaceVim#mapping#def('nmap', '<leader>az'  , '<Plug>(Toggle-ZZMode)',
           \ 'toggle zzmode'                         , '', 'toggle zzmode')
     call SpaceVim#mapping#def('nnoremap', '<leader>ap', "i\<C-r>=expand('%:p')\<CR>\<Esc>",
-          \ 'insert file absolute path'             , '', 'insert file absolute path')
+          \ 'paste file absolute path'              , '', 'paste file absolute path')
 
   else
     let g:matchup_matchparen_status_offscreen = 0

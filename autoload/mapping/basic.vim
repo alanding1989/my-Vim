@@ -339,9 +339,9 @@ function! s:defPlug() abort
   " use in edit layer
   nnoremap <Plug>(Insert-EqualBox)      :call <sid>EqualBox()<CR>
   nnoremap <Plug>(Insert-MinusBox)      :call <sid>MinusBox()<CR>
+  nnoremap <Plug>(CopyCursorCodeUrl)    :call <sid>CopyToClipboard(2)<CR>
+  xnoremap <Plug>(CopySelectCodeUrls)   :call <sid>CopyToClipboard(3)<CR>
   command! -nargs=?   SetFileHead       call  <sid>SetFileHead(<f-args>)
-  command! -nargs=*   CopyToClipboard   call  <sid>CopyToClipboard(<f-args>)
-  xnoremap <Plug>(CopyToClipboard)      :call <sid>CopyToClipboard(3)<CR>
 endfunction " }}}
  
 " Delimit Mapping {{{
