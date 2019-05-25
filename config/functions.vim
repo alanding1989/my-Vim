@@ -109,7 +109,7 @@ function! MatchDel(char, regex, ...) abort
 
     if CurChar(0, '\s')
       return CurChar(1, '\s') ? "\<BS>".a:char : "\<BS>".a:char."\<Space>"
-    elseif a:char ==? '!'
+    elseif a:char ==? '!' || a:char ==? '-'
       return CurChar(0, '\w') ? "\<Space>".a:char : a:char
     else
       return CurChar(0, '\w') ? "\<Space>".a:char."\<Space>" : a:char."\<Space>"
