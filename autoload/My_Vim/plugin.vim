@@ -10,6 +10,7 @@ let s:default_layers = [
       \ 'core'          ,
       \ 'checkers'      ,
       \ 'colorscheme'   ,
+      \ 'defhighlight'  ,
       \ 'edit'          ,
       \ 'format'        ,
       \ 'ui'            ,

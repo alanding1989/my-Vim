@@ -287,7 +287,9 @@ function! mapping#basic#load() abort
   " Open config files {{{
   nnoremap <leader>aci         :vs ~/.SpaceVim.d/init.vim<CR>
   nnoremap <leader>acr         :vs ~/.SpaceVim.d/vimrc<CR>
+  nnoremap <leader>acf         :vs ~/.SpaceVim.d/config/functions.vim<CR>
   nnoremap <leader>acg         :vs ~/.SpaceVim.d/config/general.vim<CR>
+  nnoremap <leader>ach         :vs ~/.SpaceVim.d/config/highlight.vim<CR>
   nnoremap <leader>aco         :vs ~/.SpaceVim.d/config/option.vim<CR>
   nnoremap <leader>acb         :vs ~/.SpaceVim.d/autoload/mapping/basic.vim<CR>
   nnoremap <leader>acd         :vs ~/.SpaceVim.d/autoload/default.vim<CR>
