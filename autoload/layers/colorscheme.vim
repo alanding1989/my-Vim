@@ -8,7 +8,6 @@ scriptencoding utf-8
 
 function! layers#colorscheme#plugins() abort
   let plugins = [
-        \ [ 'drewtempelmeyer/palenight.vim', {'merged': 0 }],
         \ [ 'KeitaNakamura/neodark.vim'    , {'merged': 0 }],
         \ [ 'mhartington/oceanic-next'     , {'merged': 0 }],
         \ [ 'NLKNguyen/papercolor-theme'   , {'merged': 0 }],
@@ -16,6 +15,7 @@ function! layers#colorscheme#plugins() abort
   if !g:is_spacevim
     let plugins += [
         \ [ 'rakr/vim-one'                 , {'merged': 0 }],
+        \ [ 'drewtempelmeyer/palenight.vim', {'merged': 0 }],
         \ [ 'morhetz/gruvbox'              , {'merged': 0 }],
         \ [ 'iCyMind/NeoSolarized'         , {'merged': 0 }],
         \ [ 'arcticicestudio/nord-vim'     , {'merged': 0 }],
