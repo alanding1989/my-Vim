@@ -14,7 +14,7 @@ function! layers#lang#vim#plugins() abort
     call add(plugins, ['ncm2/ncm2-vim', {'on_event': 'InsertEnter'}])
   endif
   if !g:is_spacevim
-    if !layers#lsp#checkft('vim')
+    if !layers#lsp#check_ft('vim')
       let plugins += [
             \ ['wsdjeg/vim-lookup',                                   {'merged' : 0}],
             \ ['tweekmonster/exception.vim',                          {'merged' : 0}],
@@ -104,7 +104,7 @@ if g:is_spacevim
   endfunction
 else
   function! s:go_to_def() abort
-    if layers#lsp#checkft('vim')
+    if layers#lsp#check_ft('vim')
       call layers#lsp#go_to_def()
     else
       call lookup#lookup()

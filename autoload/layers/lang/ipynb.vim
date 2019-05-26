@@ -28,7 +28,7 @@ function! layers#lang#ipynb#plugins() abort
     else
       return
     endif
-  elseif !layers#lsp#checkft('ipynb') || !SpaceVim#layers#isLoaded('lsp')
+  elseif !layers#lsp#check_ft('ipynb') || !SpaceVim#layers#isLoaded('lsp')
     call add(plugins, ['davidhalter/jedi-vim' , {'on_ft':'ipynb', 'for':'ipynb',
           \ 'if': has('python') || has('python3')}])
     if s:autocomplete_method ==# 'deoplete'

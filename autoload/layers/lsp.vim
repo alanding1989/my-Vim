@@ -32,7 +32,7 @@ function! layers#lsp#config() abort
 endfunction
 
 
-function! layers#lsp#checkft(ft) abort
+function! layers#lsp#check_ft(ft) abort
   return has_key(s:enabled_serverCommands, a:ft)
 endfunction
 

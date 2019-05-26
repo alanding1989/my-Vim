@@ -81,7 +81,7 @@ call deoplete#custom#source('typescript', 'rank', 9999)
 
 
 " php two types, 1. phpcd (default)  2. lsp
-if layers#lsp#checkft('php')
+if layers#lsp#check_ft('php')
   if has('nvim')
     call deoplete#custom#option('ignore_sources', {'php': ['omni', 'around', 'member']})
   else
