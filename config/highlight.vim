@@ -84,7 +84,7 @@ augroup highlight_related
         \                       | hi! Comment       gui=italic       cterm=italic
         \                       | hi! String        guifg=#98c379    guibg=#3c3836  gui=italic  cterm=italic
         \                       | hi! storageclass  guifg=#aab6e1                   gui=italic  cterm=italic
-        " \                       | hi clear Statement | hi! Statement     guifg=#f92672                                            " default purple
+        " \                       | hi! clear Statement | hi! Statement     guifg=#f92672                                            " default purple
         " \                       | hi! function      guifg=#a3e234    ctermfg = 73
         " \                       | hi! Statement     guifg=#c678dd                                             " grass green
         " \                       | hi! Define        guifg=#c678dd                   gui=italic  cterm=italic  " light green
