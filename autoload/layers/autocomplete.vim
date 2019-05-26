@@ -164,7 +164,8 @@ else
 endif
 "}}}
 
-function! layers#autocomplete#coc_editsnips(...) abort " Plug functionality enhancement {{{
+" Plug functionality enhancement {{{
+function! layers#autocomplete#coc_editsnips(...) abort 
   let ultisnips_dirpath = (g:is_win ?
         \ expand('D:/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/UltiSnips/') :
         \ expand('~/.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/UltiSnips/'))

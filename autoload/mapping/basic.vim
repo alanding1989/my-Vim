@@ -87,38 +87,38 @@ function! mapping#basic#load() abort
   "}}}
 
   " window and buffer management {{{
-  nnoremap <silent>qq   :call <sid>close_window()<CR>
-  nnoremap <silent>qn   :clo<C-r>=winnr()+1<CR><CR>
-  nnoremap <silent>qp   :clo<C-r>=winnr()-1<CR><CR>
-  nnoremap <silent>qo   :only<CR>
-  nnoremap <silent>qh   :q<CR>
-  nnoremap <silent>qd   :try\|bd\|catch\|endtry<CR>
-  nnoremap <silent>qb   :call <sid>killotherBuffers()<CR>
-  nnoremap <silent>qf   :call <sid>delete_current_buffer_file()<CR>
-  nnoremap <silent>qe   :call <sid>safe_erase_buffer()<CR>
-  nnoremap <silent>qr   :call <sid>rename_file()<CR>
-  nnoremap <silent>quu  :call <sid>safe_revert_buffer()<CR>
-  nnoremap <silent>qkk  :q!<CR>
+  nnoremap <silent>qq       :call <sid>close_window()<CR>
+  nnoremap <silent>qn       :clo<C-r>=winnr()+1<CR><CR>
+  nnoremap <silent>qp       :clo<C-r>=winnr()-1<CR><CR>
+  nnoremap <silent>qo       :only<CR>
+  nnoremap <silent>qh       :q<CR>
+  nnoremap <silent>qd       :try\|bd\|catch\|endtry<CR>
+  nnoremap <silent>qb       :call <sid>killotherBuffers()<CR>
+  nnoremap <silent>qf       :call <sid>delete_current_buffer_file()<CR>
+  nnoremap <silent>qe       :call <sid>safe_erase_buffer()<CR>
+  nnoremap <silent>qr       :call <sid>rename_file()<CR>
+  nnoremap <silent>quu      :call <sid>safe_revert_buffer()<CR>
+  nnoremap <silent>qkk      :q!<CR>
 
-  nnoremap <silent>so   :call feedkeys(':vs ')<CR>
-  nnoremap <silent>sv   :vs<CR><C-w>w
-  nnoremap <silent>ss   :sp<CR><C-w>w
-  nnoremap <silent>sp   :vs +bp<CR>
-  nnoremap <silent>s[   :sp +bp<CR>
-  nnoremap <silent>sn   :vs +bn<CR>
-  nnoremap <silent>s]   :sp +bn<CR>
-  nnoremap <silent>sb   :b#<CR>
-  nnoremap <silent>si   <C-w>x<C-w>w
-  nnoremap <silent>s-   <C-w>K
-  nnoremap <silent>s\   <C-w>L
-  nnoremap <silent>sm   :res\|vert res<CR>zz
-  nnoremap <silent>s=   :winc =<CR>
-  nnoremap <silent>st   :tabnew<CR>
-  nnoremap <silent>s3   :vs\|vs\|<CR>
-  nnoremap <silent>s0   :vert rightb new<CR>
-  nnoremap <silent>su   :nohl<CR>
+  nnoremap <silent>so       :call feedkeys(':vs ')<CR>
+  nnoremap <silent>sv       :vs<CR><C-w>w
+  nnoremap <silent>ss       :sp<CR><C-w>w
+  nnoremap <silent>sp       :vs +bp<CR>
+  nnoremap <silent>s[       :sp +bp<CR>
+  nnoremap <silent>sn       :vs +bn<CR>
+  nnoremap <silent>s]       :sp +bn<CR>
+  nnoremap <silent>sb       :b#<CR>
+  nnoremap <silent>si       <C-w>x<C-w>w
+  nnoremap <silent>s-       <C-w>K
+  nnoremap <silent>s\       <C-w>L
+  nnoremap <silent>sm       :res\|vert res<CR>zz
+  nnoremap <silent>s=       :winc =<CR>
+  nnoremap <silent>st       :tabnew<CR>
+  nnoremap <silent>s3       :vs\|vs\|<CR>
+  nnoremap <silent>s0       :vert rightb new<CR>
+  nnoremap <silent>su       :nohl<CR>
   " last edit buffer
-  nnoremap <silent><leader><tab>   :b#<CR>
+  nnoremap <silent><leader><tab>  :b#<CR>
 
   " hotkey for buf and tab selection, no need plugins {{{
   " select window
@@ -147,186 +147,183 @@ function! mapping#basic#load() abort
   " }}}
 
   " inc/decrease buffer width/height
-  nnoremap <silent> <M-[>      :10winc <<CR>
-  nnoremap <silent> <M-]>      :10winc ><CR>
-  nnoremap <silent> <M-->      :10winc -<CR>
-  nnoremap <silent> <M-=>      :10winc +<CR>
+  nnoremap <silent> <M-[>         :10winc <<CR>
+  nnoremap <silent> <M-]>         :10winc ><CR>
+  nnoremap <silent> <M-->         :10winc -<CR>
+  nnoremap <silent> <M-=>         :10winc +<CR>
 
   " improve window scroll
   auto VimEnter * noremap
-        \  <expr> zz           <sid>win_scroll(1, 'z')
-  nnoremap <expr> <C-f>        <sid>win_scroll(1, 'f')
-  nnoremap <expr> <C-b>        <sid>win_scroll(0, 'f')
-  nnoremap <expr> <C-d>        <sid>win_scroll(1, 'd')
-  nnoremap <expr> <C-u>        <sid>win_scroll(0, 'd')
-  nnoremap <expr> i            winline() != winheight(0) ? "zzi" : "i"
-  nnoremap <expr> a            winline() != winheight(0) ? "zza" : "a"
+        \  <expr> zz              <sid>win_scroll(1, 'z')
+  nnoremap <expr> <C-f>           <sid>win_scroll(1, 'f')
+  nnoremap <expr> <C-b>           <sid>win_scroll(0, 'f')
+  nnoremap <expr> <C-d>           <sid>win_scroll(1, 'd')
+  nnoremap <expr> <C-u>           <sid>win_scroll(0, 'd')
+  nnoremap <expr> i               winline() != winheight(0) ? "zzi" : "i"
+  nnoremap <expr> a               winline() != winheight(0) ? "zza" : "a"
 
   " improve fold mapping
   auto VimEnter * 
         \ nnoremap zj  zjzz |
         \ nnoremap zk  zkzz
-  nnoremap <expr> <CR>         <sid>OpenFoldOrGotoMiddle(1)
-  nnoremap <expr> <S-CR>       <sid>OpenFoldOrGotoMiddle(0)
+  nnoremap <expr> <CR>            <sid>OpenFoldOrGotoMiddle(1)
+  nnoremap <expr> <S-CR>          <sid>OpenFoldOrGotoMiddle(0)
 
   " Toggle zz mode
-  nnoremap <leader>az          :call <sid>Toggle_ZZMode()<CR>
+  nnoremap <silent><leader>az     :call <sid>Toggle_ZZMode()<CR>
   " }}}
 
   " edit related {{{
   " insert new line
-  nnoremap <tab>o      o<Esc>
-  nnoremap <tab>p      O<Esc>j
+  nnoremap <tab>o                 o<Esc>
+  nnoremap <tab>p                 O<Esc>j
   " inset empty box
-  nnoremap <Space>iee  :call <sid>MinusBox()<CR>
-  nnoremap <Space>ieh  :call <sid>EqualBox()<CR>
+  nnoremap <silent><Space>iee     :call <sid>MinusBox()<CR>
+  nnoremap <silent><Space>ieh     :call <sid>EqualBox()<CR>
   " insert file head
-  nnoremap <Space>ihn   :call <sid>SetFileHead()<CR>
-  nnoremap <Space>ihe   :call <sid>SetFileHead('info1')<CR>
-  nnoremap <Space>ihh   :call <sid>SetFileHead('info0')<CR>
+  nnoremap <silent><Space>ihn     :call <sid>SetFileHead()<CR>
+  nnoremap <silent><Space>ihe     :call <sid>SetFileHead('info1')<CR>
+  nnoremap <silent><Space>ihh     :call <sid>SetFileHead('info0')<CR>
   " insert current file absPath
-  nnoremap <leader>ap   i<C-r>=expand('%:p')<CR><Esc>
+  nnoremap <leader>ap             i<C-r>=expand('%:p')<CR><Esc>
 
   " indenting in visual mode
-  xnoremap >           >gv|
-  xnoremap <           <gv
-  xnoremap <C-l>       >gv|
-  xnoremap <C-h>       <gv
+  xnoremap >                      >gv|
+  xnoremap <                      <gv
+  xnoremap <C-l>                  >gv|
+  xnoremap <C-h>                  <gv
   " select blocks after indenting
-  nnoremap >           >>_
-  nnoremap <           <<_
+  nnoremap >                      >>_
+  nnoremap <                      <<_
 
   " format
-  nnoremap g=          :call <sid>format()<CR>
-
-  " Remove spaces at the end of lines
-  nnoremap <silent> d<Space> :<C-u>silent! keeppatterns %substitute/\s\+$//e<CR>
+  nnoremap <silent>g=             :call <sid>format()<CR>
+  " Remove trailing Spaces
+  nnoremap d<Space>               :<C-u>silent! keeppatterns %substitute/\s\+$//e<CR>
 
   " Select
-  noremap  vv          V
-  nnoremap <leader>aa  ggVG
-  nnoremap <leader>ae  VG
-  " C-r: Easier search and replace
-  xnoremap <C-r>    :<C-u>call <sid>VSetSearch()<CR>:,$s/<C-R>=@/<CR>//gc<left><left><left>
+  noremap  vv                     V
+  nnoremap <leader>aa             ggVG
+  nnoremap <leader>ae             VG
+  " Easier search and replace
+  xnoremap <C-r>                  :<C-u>call <sid>VSetSearch()<CR>:,$s/<C-R>=@/<CR>//gc<left><left><left>
 
   " yank and paste {{{
   if has('unnamedplus')
-    nnoremap <leader>y   :call <sid>EasyCopy_inPairs()<CR>
-    xnoremap <leader>y   "+y
-    xnoremap <leader>d   "+d
-    " lower case paste after
-    nnoremap <leader>p   "+p
-    xnoremap <leader>p   "+p
-    " upper case paste before
-    nnoremap <leader>P   "+P
-    xnoremap <leader>P   "+P
+    nnoremap <leader>y            :call <sid>EasyCopy_inPairs()<CR>
+    xnoremap <leader>y            "+y
+    xnoremap <leader>d            "+d
+    " lower case paste below
+    nnoremap <leader>p            "+p
+    xnoremap <leader>p            "+p
+    " upper case paste above
+    nnoremap <leader>P            "+P
+    xnoremap <leader>P            "+P
   else
-    nnoremap <leader>y   :call <sid>EasyCopy_inPairs()<CR>
-    xnoremap <leader>y   "*y
-    xnoremap <leader>d   "*d
-    " lower case paste after
-    nnoremap <leader>p   "*p
-    xnoremap <leader>p   "*p
-    " upper case paste before
-    nnoremap <leader>P   "*P
-    xnoremap <leader>P   "*P
+    nnoremap <leader>y            :call <sid>EasyCopy_inPairs()<CR>
+    xnoremap <leader>y            "*y
+    xnoremap <leader>d            "*d
+    " lower case paste below
+    nnoremap <leader>p            "*p
+    xnoremap <leader>p            "*p
+    " upper case paste above      
+    nnoremap <leader>P            "*P
+    xnoremap <leader>P            "*P
   endif
 
   " !a:0, Copy buffer absolute path to X11 clipboard
   " 2,    Copy current line of file`s github url to clipboard
   " 3,    Copy select lines of file`s github url to clipboard
-  nnoremap <C-c>         :call <sid>CopyToClipboard()<CR>
-  nnoremap <C-C>         :call <sid>CopyToClipboard(2)<CR>
-  xnoremap <C-c>         :call <sid>CopyToClipboard(3)<CR>
+  nnoremap <silent><C-c>          :call <sid>CopyToClipboard()<CR>
+  nnoremap <silent><C-C>          :call <sid>CopyToClipboard(2)<CR>
+  xnoremap <silent><C-c>          :call <sid>CopyToClipboard(3)<CR>
   " }}}
   " }}}
 
   " misc {{{
   " quickfix list movement
-  nnoremap <leader>qn    :cnext<CR>
-  nnoremap <leader>qp    :cprev<CR>
-  nnoremap <leader>ql    :copen<CR>
-  nnoremap <leader>qc    :call setqflist([])<CR>
+  nnoremap <silent><leader>qn     :cnext<CR>
+  nnoremap <silent><leader>qp     :cprev<CR>
+  nnoremap <silent><leader>ql     :copen<CR>
+  nnoremap <silent><leader>qc     :call setqflist([])<CR>
 
   " help
-  nnoremap K             :call util#help_wrapper()<CR>
-  nnoremap <Space>hh     :call feedkeys(':EchoHelp ')<CR>
+  nnoremap <silent>K              :call util#help_wrapper()<CR>
+  nnoremap <Space>hh              :call feedkeys(':EchoHelp ')<CR>
   " show full path
-  nnoremap <C-g>         2<C-g>
+  nnoremap <C-g>                  2<C-g>
   " echo prefix
-  nnoremap <leader>ee    :call feedkeys(':echo ')<CR>
+  nnoremap <leader>ee             :call feedkeys(':echo ')<CR>
   " call function
-  nnoremap <leader>ef    :call feedkeys(':call ')<CR>
+  nnoremap <leader>ef             :call feedkeys(':call ')<CR>
   " set options
-  noremap  <leader>eo    :call feedkeys(':set ')<CR>
+  noremap  <leader>eo             :call feedkeys(':set ')<CR>
   " highlight
-  nnoremap <leader>eh    :call feedkeys(':EchoHlight ')<CR>
+  nnoremap <leader>eh             :call feedkeys(':EchoHlight ')<CR>
   " maparp
-  noremap  <leader>em    :call feedkeys(':EchoMap ')<CR>
+  noremap  <leader>em             :call feedkeys(':EchoMap ')<CR>
   " show version
-  nnoremap <leader>ev    :version<CR>
+  nnoremap <leader>ev             :version<CR>
 
   " directory operatios
-  nnoremap <leader>db    :lcd %:p:h<CR>
-  nnoremap <leader>dd    :call feedkeys(':lcd ')<CR>
-  nnoremap <leader>dw    :lcd<CR>
-  nnoremap <leader>dp    :pwd<CR>
+  nnoremap <leader>db             :lcd %:p:h<CR>
+  nnoremap <leader>dd             :call feedkeys(':lcd ')<CR>
+  nnoremap <leader>dw             :lcd<CR>
+  nnoremap <leader>dp             :pwd<CR>
 
   " g related
   auto VimEnter *
-        \ nnoremap g0    g*   |
-        \ nnoremap go    gf   |
-        \ nnoremap gm    ga   |
-        \ nnoremap gc    :call util#echohl('col number: ', col('.'))<CR>
+        \ nnoremap g0             g*   |
+        \ nnoremap go             gf   |
+        \ nnoremap gm             ga   |
+        \ nnoremap gc             :call util#echohl('col number: ', col('.'))<CR>
 
   if has('nvim')
-    nnoremap <Space>qh   :checkhealth<CR>
+    nnoremap <Space>qh            :checkhealth<CR>
   endif
   " }}}
 
   " Open config files {{{
-  nnoremap <leader>aci         :vs ~/.SpaceVim.d/init.vim<CR>
-  nnoremap <leader>acr         :vs ~/.SpaceVim.d/vimrc<CR>
-  nnoremap <leader>acf         :vs ~/.SpaceVim.d/config/functions.vim<CR>
-  nnoremap <leader>acg         :vs ~/.SpaceVim.d/config/general.vim<CR>
-  nnoremap <leader>ach         :vs ~/.SpaceVim.d/config/highlight.vim<CR>
-  nnoremap <leader>aco         :vs ~/.SpaceVim.d/config/option.vim<CR>
-  nnoremap <leader>acb         :vs ~/.SpaceVim.d/autoload/mapping/basic.vim<CR>
-  nnoremap <leader>acd         :vs ~/.SpaceVim.d/autoload/default.vim<CR>
+  nnoremap <leader>aci            :vs ~/.SpaceVim.d/init.vim<CR>
+  nnoremap <leader>acr            :vs ~/.SpaceVim.d/vimrc<CR>
+  nnoremap <leader>acf            :vs ~/.SpaceVim.d/config/functions.vim<CR>
+  nnoremap <leader>acg            :vs ~/.SpaceVim.d/config/general.vim<CR>
+  nnoremap <leader>ach            :vs ~/.SpaceVim.d/config/highlight.vim<CR>
+  nnoremap <leader>aco            :vs ~/.SpaceVim.d/config/option.vim<CR>
+  nnoremap <leader>acb            :vs ~/.SpaceVim.d/autoload/mapping/basic.vim<CR>
+  nnoremap <leader>acd            :vs ~/.SpaceVim.d/autoload/default.vim<CR>
   if !g:has_py
-    nnoremap <leader>acm       :exec 'Unite file_rec/'.(has('nvim') ?
-          \ 'neovim' : 'async').' -path=~/.SpaceVim.d'<CR>
-    nnoremap <leader>ac<Space> :exec 'Unite file_rec/'.(has('nvim') ?
-          \ 'neovim' : 'async').' -path=~/.SpaceVim'<CR>
+    nnoremap <leader>acm          :exec 'Unite file_rec/'.(has('nvim') ? 'neovim' : 'async').' -path=~/.SpaceVim.d'<CR>
+    nnoremap <leader>ac<Space>    :exec 'Unite file_rec/'.(has('nvim') ? 'neovim' : 'async').' -path=~/.SpaceVim'<CR>
   elseif glob(g:home.'init.toml') !=# ''
-    nnoremap <leader>acm       :Denite file/rec -path=~/.SpaceVim.d<CR>
-    nnoremap <leader>ac<Space> :Denite file/rec -path=~/.SpaceVim<CR>
+    nnoremap <leader>acm          :Denite file/rec -path=~/.SpaceVim.d<CR>
+    nnoremap <leader>ac<Space>    :Denite file/rec -path=~/.SpaceVim<CR>
   else
-    nnoremap <leader>acm       :LeaderfFile ~/.SpaceVim.d<CR>
-    nnoremap <leader>ac<Space> :LeaderfFile ~/.SpaceVim<CR>
+    nnoremap <leader>acm          :LeaderfFile ~/.SpaceVim.d<CR>
+    nnoremap <leader>ac<Space>    :LeaderfFile ~/.SpaceVim<CR>
   endif
   if g:is_spacevim
-    nnoremap <leader>aca       :vs ~/.SpaceVim.d/autoload/My_SpaceVim/Main.vim<CR>
-    nnoremap <leader>acu       :vs ~/.SpaceVim.d/autoload/My_Vim/Main.vim<CR>
-    nnoremap <leader>acc       :vs ~/.SpaceVim.d/config/SpaceVim/config.vim<CR>
-    nnoremap <leader>ack       :vs ~/.SpaceVim.d/config/SpaceVim/keymap.vim<CR>
-    nnoremap <leader>acy       :vs ~/.SpaceVim.d/config/Vim/option.vim<CR>
-    nnoremap <leader>acv       :vs ~/.SpaceVim.d/config/Vim/config.vim<CR>
-    nnoremap <leader>acl       :vs ~/.SpaceVim.d/config/Vim/keymap.vim<CR>
-    nnoremap <leader>acp       :vs ~/.SpaceVim.d/config/SpaceVim/plugins_before/
-    nnoremap <leader>ac[       :vs ~/.SpaceVim.d/config/Vim/plugins/
+    nnoremap <leader>aca          :vs ~/.SpaceVim.d/autoload/My_SpaceVim/Main.vim<CR>
+    nnoremap <leader>acu          :vs ~/.SpaceVim.d/autoload/My_Vim/Main.vim<CR>
+    nnoremap <leader>acc          :vs ~/.SpaceVim.d/config/SpaceVim/config.vim<CR>
+    nnoremap <leader>ack          :vs ~/.SpaceVim.d/config/SpaceVim/keymap.vim<CR>
+    nnoremap <leader>acy          :vs ~/.SpaceVim.d/config/Vim/option.vim<CR>
+    nnoremap <leader>acv          :vs ~/.SpaceVim.d/config/Vim/config.vim<CR>
+    nnoremap <leader>acl          :vs ~/.SpaceVim.d/config/Vim/keymap.vim<CR>
+    nnoremap <leader>acp          :vs ~/.SpaceVim.d/config/SpaceVim/plugins_before/
+    nnoremap <leader>ac[          :vs ~/.SpaceVim.d/config/Vim/plugins/
   elseif !g:is_spacevim
-    nnoremap <leader>aca       :vs ~/.SpaceVim.d/autoload/My_Vim/Main.vim<CR>
-    nnoremap <leader>acu       :vs ~/.SpaceVim.d/autoload/My_SpaceVim/Main.vim<CR>
-    nnoremap <leader>acc       :vs ~/.SpaceVim.d/config/Vim/config.vim<CR>
-    nnoremap <leader>ack       :vs ~/.SpaceVim.d/config/Vim/keymap.vim<CR>
-    nnoremap <leader>acy       :vs ~/.SpaceVim.d/config/SpaceVim/option.vim<CR>
-    nnoremap <leader>acv       :vs ~/.SpaceVim.d/config/SpaceVim/config.vim<CR>
-    nnoremap <leader>acl       :vs ~/.SpaceVim.d/config/SpaceVim/keymap.vim<CR>
-    nnoremap <leader>acp       :vs ~/.SpaceVim.d/config/Vim/plugins/
-    nnoremap <leader>ac[       :vs ~/.SpaceVim.d/config/SpaceVim/plugins_before/
+    nnoremap <leader>aca          :vs ~/.SpaceVim.d/autoload/My_Vim/Main.vim<CR>
+    nnoremap <leader>acu          :vs ~/.SpaceVim.d/autoload/My_SpaceVim/Main.vim<CR>
+    nnoremap <leader>acc          :vs ~/.SpaceVim.d/config/Vim/config.vim<CR>
+    nnoremap <leader>ack          :vs ~/.SpaceVim.d/config/Vim/keymap.vim<CR>
+    nnoremap <leader>acy          :vs ~/.SpaceVim.d/config/SpaceVim/option.vim<CR>
+    nnoremap <leader>acv          :vs ~/.SpaceVim.d/config/SpaceVim/config.vim<CR>
+    nnoremap <leader>acl          :vs ~/.SpaceVim.d/config/SpaceVim/keymap.vim<CR>
+    nnoremap <leader>acp          :vs ~/.SpaceVim.d/config/Vim/plugins/
+    nnoremap <leader>ac[          :vs ~/.SpaceVim.d/config/SpaceVim/plugins_before/
   endif
-  let g:Lf_CacheDirectory      = expand('~/.cache')
+  let g:Lf_CacheDirectory = expand('~/.cache')
   "}}}
 endfunction
 
@@ -345,7 +342,7 @@ function! s:defPlug() abort
   xnoremap <Plug>(CopySelectCodeUrls)   :call <sid>CopyToClipboard(3)<CR>
   command! -nargs=?   SetFileHead       call  <sid>SetFileHead(<f-args>)
 endfunction " }}}
- 
+
 " Delimit Mapping {{{
 function! s:Delimitor_init() abort
   " -= += != =~ == <= >= -> => ==# ==? || &&
@@ -417,6 +414,9 @@ endfunction "}}}
 " Window and Buffer Manipulate {{{
 " Open fold or goto line middle {{{
 function! s:OpenFoldOrGotoMiddle(mode) abort
+  if &ft ==# 'qf' 
+    return "\<CR>\<C-w>p\<C-w>q"
+  endif
   if a:mode
     return foldclosed('.') > -1 ? 'zazz' : (
           \ col('.') + 1 >= col('$') || col('.') == (winwidth(0) - 4)/2 )
@@ -428,13 +428,14 @@ function! s:OpenFoldOrGotoMiddle(mode) abort
   endif
 endfunction " }}}
 
-" Quit_preview Window {{{
+" Quit Window {{{
 function! s:close_window() abort
   let winnr = 0
   for i in range(1, winnr('$'))
     if getwinvar(i, '&ft') ==# 'diff'
           \ || match(getwinvar(i, 'netrw_prvfile'), 'coc.*document') > -1
           \ || match(getwinvar(i, 'netrw_prvfile'), '__runner__') > -1
+          \ || len(getwinvar(i, 'quickfix_title'))
       let winnr = i
     endif
   endfor
@@ -451,7 +452,7 @@ function! s:win_scroll(forward, mode)
   let winnr = 0
   for i in range(1, winnr('$'))
     if getwinvar(i, 'float') || getwinvar(i, '$previewwindow')
-          \ || match(getwinvar(i, 'netrw_prvfile'), 'LanguageClient') > -1
+          \ || match(getwinvar(i, 'netrw_prvfile'), '__LanguageClient__') > -1
           \ || match(getwinvar(i, 'netrw_prvfile'), 'coc.*document') > -1
       let winnr = i
     endif
@@ -477,7 +478,7 @@ function! s:win_scroll(forward, mode)
 endfunction "}}}
 
 " Toggle zzmode {{{
- " param init {{{
+" param init {{{
 let s:zzmode = 0
 let s:save_rhs = {}
 let s:zzmodekey = {
