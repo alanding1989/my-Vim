@@ -22,7 +22,7 @@ let g:spacevim_colorscheme = split([
       \ '7 nord'        ,
       \ '8 NeoSolarized',
       \ '9 default'     ,
-      \ ][4])[1]
+      \ ][1])[1]
 let g:spacevim_colorscheme_default = 'neodark'
 let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 "}}}
@@ -87,7 +87,7 @@ let g:_checkers_var = {
       \ }
 let g:_colorscheme_var = {
       \ 'bright_statusline' : 1,
-      \ 'random_theme'      : 0,
+      \ 'random_theme'      : 1,
       \ }
 let g:_lang#c_var = {
       \ 'enable_clang_syntax_highlight': 1,
