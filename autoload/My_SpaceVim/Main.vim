@@ -5,7 +5,7 @@
 scriptencoding utf-8
 
 
-" MyVim layers
+" My Own layers
 let s:define_my_layers  = ['tags', 'langtools', 'tools#clock', 'defhighlight']
 
 " SpaceVim embedded layers
@@ -28,6 +28,7 @@ let s:spacevim_default_cs = [
 let s:is_fallback = 0
 
 
+" Main Function: {{{
 function! My_SpaceVim#Main#init() abort
   " NOTE: the order shouldn`t be changed
   call   s:SpaceVim_config_load()
@@ -39,7 +40,6 @@ function! My_SpaceVim#Main#init() abort
 endfunction
 
 
-" Main {{{
 function! s:Mainbegin() abort
   call s:SpaceVim_load_layers()
   " add custom plugins list
@@ -70,10 +70,16 @@ function! s:Mainfallback() abort
         \ }
   call s:Mainbegin()
 endfunction
+
+function! My_SpaceVim#Main#isfallback() abort
+  return get(s:, 'is_fallback', 0)
+endfunction
 "}}}
 
 
-" ===================== Load SpaceVim layers and plugins ========================= {{{
+"--------------------------------------------------------------------------------
+" Load SpaceVim layers and plugins 
+"----------------------------------------------------------------------------- {{{
 function! s:SpaceVim_config_load() abort
   call util#so_file('config.vim', 'SPC')
 endfunction
@@ -130,7 +136,10 @@ endfunction
 "}}}
 
 
-" ============================== My addon config ================================= {{{
+"--------------------------------------------------------------------------------
+" My addon config
+"----------------------------------------------------------------------------- {{{
+
 " NOTE: Personal layer which hasn`t been defined by SpaceVim, no need to load VimEnter
 function! s:Mylayers_config_load() abort
   if s:is_fallback
@@ -176,6 +185,4 @@ function! s:VimEnter_config() abort
 endfunction
 "}}}
 
-function! My_SpaceVim#Main#isfallback() abort
-  return get(s:, 'is_fallback', 0)
-endfunction
+

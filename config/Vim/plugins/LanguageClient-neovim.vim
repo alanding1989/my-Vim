@@ -12,24 +12,27 @@ let s:loaded = 1
 " NOTE: read
 " https://github.com/autozimu/LanguageClient-neovim/pull/514#issuecomment-404463033
 " for contents of settings.json for vue-language-server
+"
+" NOTE: for debugging LanguageClient-neovim
+" let g:LanguageClient_loggingLevel = 'DEBUG'
+" let g:LanguageClient_loggingFile = '/tmp/LanguageClient.log'
+
 
 let g:LanguageClient_settingsPath             = expand(g:home.'/LCN-settings.json')
 let g:LanguageClient_hoverPreview             = 'auto'
 let g:LanguageClient_diagnosticsEnable        = get(g:, 'g:LanguageClient_diagnosticsEnable', 0)
 let g:LanguageClient_diagnosticsSignsMax      = 0
 let g:LanguageClient_diagnosticsList          = 'Quickfix'
-let g:LanguageClient_useVirtualText           = 1
 let g:LanguageClient_selectionUI              = 'location-list'
 let g:LanguageClient_completionPreferTextEdit = 1
-let g:LanguageClient_rootMarkers              = g:project_root_marker
 
-
-" NOTE: for debugging LanguageClient-neovim
-" let g:LanguageClient_loggingFile = '/tmp/lc.log'
-" let g:LanguageClient_loggingLevel = 'DEBUG'
 
 
 " symbols {{{
+if g:is_spacevim
+  finish
+endif
+
 let g:LanguageClient_diagnosticsDisplay = {
       \ 1: {
       \ 'name': 'Error',

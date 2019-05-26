@@ -105,17 +105,17 @@ function! layers#edit#config() abort
     let g:_spacevim_mappings_space.i.e = {'name' : '+@ Insert nice box'}
     let g:_spacevim_mappings_space.i.h = {'name' : '+@ Insert file head template'}
     call SpaceVim#mapping#space#def('nmap', ['i', 'e', 'm'],
-          \ '<Plug>(InsertMinusbox)',
-          \ '@ ---- empty box', 0)
+          \ '<Plug>(Insert-MinusBox)',
+          \ '@ empty --- box', 0)
     call SpaceVim#mapping#space#def('nmap', ['i', 'e', 'e'],
-          \ '<Plug>(InsertEqualbox)',
-          \ '@ ==== empty box', 0)
+          \ '<Plug>(Insert-EqualBox)',
+          \ '@ empty === box', 0)
     call SpaceVim#mapping#space#def('nnoremap', ['i', 'h', 'n'],
           \ 'SetFileHead',
           \ 'without info', 1)
     call SpaceVim#mapping#space#def('nnoremap', ['i', 'h', 'e'],
           \ 'SetFileHead info1',
-          \ 'with = box info', 1)
+          \ 'with === box info', 1)
     call SpaceVim#mapping#space#def('nnoremap', ['i', 'h', 'h'],
           \ 'SetFileHead info0',
           \ 'with no box info', 1)
@@ -241,7 +241,6 @@ function! s:vim_edgemotion() abort
   nmap <c-k> <Plug>(edgemotion-k)zz
 endfunction " }}}
 
-
 function! s:vim_quickhl() abort "{{{
   if g:is_spacevim
     let g:_spacevim_mappings_space.x.h = {'name': '+@ quick highlight'}
@@ -270,7 +269,6 @@ function! s:vim_quickhl() abort "{{{
     nmap <space>xho <Plug>(quickhl-tag-toggle)
   endif
 endfunction " }}}
-
 
 function! s:vim_table_mode() abort "{{{
   if g:is_spacevim

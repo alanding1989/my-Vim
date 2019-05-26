@@ -1,7 +1,7 @@
-" =============================================================================
+"=============================================================================
 " mapping/basic.vim --- default keymap
 " Section mappings
-" =============================================================================
+"=============================================================================
 scriptencoding utf-8
 
 
@@ -178,8 +178,8 @@ function! mapping#basic#load() abort
   nnoremap <tab>o                 o<Esc>
   nnoremap <tab>p                 O<Esc>j
   " inset empty box
-  nnoremap <silent><Space>iee     :call <sid>MinusBox()<CR>
-  nnoremap <silent><Space>ieh     :call <sid>EqualBox()<CR>
+  nnoremap <silent><Space>iem     :call <sid>MinusBox()<CR>
+  nnoremap <silent><Space>iee     :call <sid>EqualBox()<CR>
   " insert file head
   nnoremap <silent><Space>ihn     :call <sid>SetFileHead()<CR>
   nnoremap <silent><Space>ihe     :call <sid>SetFileHead('info1')<CR>
@@ -428,7 +428,7 @@ function! s:OpenFoldOrGotoMiddle(mode) abort
   endif
 endfunction " }}}
 
-" Quit Window {{{
+" Close Window {{{
 function! s:close_window() abort
   let winnr = 0
   for i in range(1, winnr('$'))
@@ -684,11 +684,16 @@ function! <sid>MinusBox() abort
   endif
 endfunc
 function! s:inshbox(cmsign, reptsign) abort
-  call setline(line('.')   , a:cmsign.repeat(a:reptsign, 80))
-  call  append(line('.')   , a:cmsign)
-  call  append(line('.')+1 , a:cmsign.repeat(a:reptsign, 80))
-  call  append(line('.')+2 , '')
-  silent exec 'normal! 03j'
+  let head = !MatchCl('^$') ? ['', ''] : []
+  let head += [
+        \ a:cmsign. repeat(a:reptsign, 80),
+        \ a:cmsign,
+        \ a:cmsign. repeat(a:reptsign, 80),
+        \ '',
+        \ ]
+  call append(line('.'), head)
+  call setpos('.', [0, line('.')+len(head)-2, 1])
+  call feedkeys("a\<Space>")
 endfun
 "}}}
 
@@ -731,6 +736,7 @@ function! s:insfhead(cmsign, ...) abort
   endif
   call append(0, head)
   call setpos('.', [0, len(head)+1, 1])
+  startinsert
 endfunc
 function! s:insinfo(cmsign, hasEqual, ...) abort
   if a:0 && a:1 ==# '/*'

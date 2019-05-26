@@ -16,7 +16,6 @@ function! layers#lang#ipynb#plugins() abort
     " call add(plugins, ['numirias/semshi', {'on_ft': 'ipynb', 'for': 'ipynb'}])
   else
     call add(plugins, ['vim-python/python-syntax', {'on_ft': 'ipynb', 'for': 'ipynb'}])
-    let g:python_highlight_all = 1
   endif
   if get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method', 'deoplete')) ==# 'coc'
     " nop

@@ -11,4 +11,4 @@ let s:loaded = 1
 
 let g:lsp_diagnostics_enabled  = get(g:, 'g:lsp_diagnostics_enabled', 0)
 " let g:lsp_edit_enabled         = 1
-let g:lsp_async_completion       = 1
+let g:lsp_async_completion     = 1
