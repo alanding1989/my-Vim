@@ -13,9 +13,9 @@
     # '2 NeoSolarized'
     # '3 onedark'
     # '4 OceanicNext'
-    colorscheme         = 'onedark'
+    colorscheme         = 'one'
     colorscheme_bg      = 'dark'
-    colorscheme_default = 'NeoSolarized'
+    colorscheme_default = 'nord'
 
 # Ui {{{
     # 1. arrow
