@@ -74,22 +74,23 @@ augroup highlight_related
   auto!
   autocmd VimEnter *  auto FileType python call <sid>PythonSyntax()
   autocmd ColorScheme gruvbox     hi clear Folded | hi Folded guifg=#928374 ctermfg=245
+  autocmd ColorScheme nord        hi clear Folded | hi Folded guifg=#5C6370 ctermfg=59
   autocmd ColorScheme one         hi clear Folded | hi Folded guifg=#5C6370 ctermfg=59
   autocmd ColorScheme PaperColor  hi clear Folded | hi Folded guifg=#5C6370 ctermfg=59
-  autocmd ColorScheme nord        hi clear Folded | hi Folded guifg=#65737e ctermfg=243
   autocmd ColorScheme OceanicNext hi clear Folded | hi Folded guifg=#65737e ctermfg=243
         \                       | hi  Cursorline    guibg=#2c323c    ctermbg=16
   autocmd ColorScheme *           hi! MatchParen    gui=italic,bold  cterm=italic,bold
         \                       | hi! Folded        gui=italic       cterm=italic
         \                       | hi! Comment       gui=italic       cterm=italic
-        \                       | hi! String        guifg=#98c379    gui=italic  cterm=italic
-        \                       | hi! storageclass  guifg=#aab6e1    gui=italic  cterm=italic
+        \                       | hi! String        guifg=#98c379    guibg=#3c3836  gui=italic  cterm=italic
+        \                       | hi! storageclass  guifg=#aab6e1                   gui=italic  cterm=italic
 augroup END
-        " \                       | hi! clear Statement | hi! Statement     guifg=#f92672                                            " default purple
+        " \                       | hi! clear Statement | hi! Statement     guifg=#f92672                       " default purple
         " \                       | hi! function      guifg=#a3e234    ctermfg = 73
         " \                       | hi! Statement     guifg=#c678dd                                             " grass green
         " \                       | hi! Define        guifg=#c678dd                   gui=italic  cterm=italic  " light green
         " \                       | hi! Type          guifg=#d19a66    guibg=#3e4452  gui=italic  cterm=italic  " light green, white bg
+        " \                       | hi! String        guifg=#98c379    guibg=#3b4048  gui=italic  cterm=italic
 " }}}
 
 

@@ -87,7 +87,7 @@ let g:_checkers_var = {
       \ }
 let g:_colorscheme_var = {
       \ 'bright_statusline' : 1,
-      \ 'random_theme'      : 1,
+      \ 'random_theme'      : 0,
       \ }
 let g:_lang#c_var = {
       \ 'enable_clang_syntax_highlight': 1,
