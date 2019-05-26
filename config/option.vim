@@ -7,7 +7,7 @@ set nocompatible
 
 " set list
 
-" ui {{{
+" Ui {{{
 set number relativenumber
 set autoindent smartindent cindent
 
@@ -52,7 +52,7 @@ set pumheight=15
 set mouse=nv
 "}}}
 
-" system {{{
+" System {{{
 set autoread
 set hidden
 
@@ -68,7 +68,7 @@ set synmaxcol=300
 set tags=./.tags;,.tags
 "}}}
 
-" encoding {{{
+" Encoding {{{
 set fileformats=unix,dos,mac
 if has('multi_byte')
   " inside
@@ -80,7 +80,7 @@ if has('multi_byte')
 endif
 "}}}
 
-" extension for search {{{
+" Extension for search {{{
 set suffixes+=.bak,~,.o,.h,.info,.swp,.obj,.pyc,.pyo,.egg-info,.class
 set wildignorecase
 set wildignore+=*.o,*.obj,*~,*.exe,*.a,*.pdb,*.lib "stuff to ignore when tab completing
@@ -101,54 +101,9 @@ set wildignore+=*.gba,*.sfc,*.078,*.nds,*.smd,*.smc
 set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android
 "}}}
 
-" highlight {{{
-hi! clear SpellBad
-hi! clear SpellCap
-hi! clear SpellRare
-hi! clear SpellLocal
-hi! SignColumn guibg=NONE ctermbg=NONE
-hi! LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE
-hi! LineNr gui=NONE guifg=DarkGrey guibg=NONE
-hi! Pmenu    guibg=gray guifg=black ctermbg=gray  ctermfg=black
-hi! PmenuSel guibg=gray guifg=brown ctermbg=brown ctermfg=gray
-"}}}
-
-" gui setting for vim {{{
-if has('gui_running')
-  hi! SpellBad   gui=undercurl  guisp=red
-  hi! SpellCap   gui=undercurl  guisp=blue
-  hi! SpellRare  gui=undercurl  guisp=magenta
-  hi! SpellRare  gui=undercurl  guisp=cyan
-else
-  hi! SpellBad   term=underline cterm=underline term=standout ctermfg=1
-  hi! SpellCap   term=underline cterm=underline
-  hi! SpellRare  term=underline cterm=underline
-  hi! SpellLocal term=underline cterm=underline
-endif
-
-" gui ui
-if has('gui_running')
-  set guioptions-=m " Hide menu bar.
-  set guioptions-=T " Hide toolbar
-  set guioptions-=L " Hide left-hand scrollbar
-  set guioptions-=r " Hide right-hand scrollbar
-  set guioptions-=b " Hide bottom scrollbar
-  set showtabline=0 " Hide tabline
-  set guioptions-=e " Hide tab
-
-  if g:is_win
-    set guifont=DejaVu_Sans_Mono_for_Powerline:h11:cANSI:qDRAFT
-  elseif g:is_unix
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h11
-  else
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
-  endif
-endif
-"}}}
-
-" backup {{{
+" Backup Setting {{{
+set noswapfile
 if !g:is_spacevim
-  set noswapfile
   " set nowritebackup
   let s:undofile  = g:is_win ? 'D:/.cache/Vim/undofile' :
         \ '/home/alanding/.cache/My_Vim'.(g:is_root ? '-root' : '-alan').'/undofile'
@@ -177,6 +132,7 @@ if !g:is_spacevim
   unlet s:swapdir
 endif
 "}}}
+
 
 scriptencoding utf-8
 " vim:set sw=2 ts=2 sts=2 et tw=78 fmd=marker

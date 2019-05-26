@@ -22,7 +22,7 @@ let g:spacevim_colorscheme = split([
       \ '7 PaperColor'  ,
       \ '8 nord'        ,
       \ '9 default'     ,
-      \ ][1])[1]
+      \ ][0])[1]
 let g:spacevim_colorscheme_default = 'neodark'
 let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 "}}}
@@ -46,7 +46,7 @@ let g:enable_googlesuggest          = 0
 let g:enable_fat_statusline                  = 1
 let g:statusline_separator                   = get(['fire', 'arrow', 'curve', 'slant'], 1)
 let g:spacevim_statusline_left_sections      =  ['winnr', 'filename', 'syntax checking', 'minor mode lighters']
-let g:spacevim_statusline_right_sections     += ['time', 'date']
+let g:spacevim_statusline_right_sections     += g:enable_smart_clock_startup ? ['date'] : ['time', 'date']
 let g:spacevim_enable_cursorcolumn           = 0
 let g:spacevim_buffer_index_type             = 1
 let g:spacevim_enable_tabline_filetype_icon  = 1
