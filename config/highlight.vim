@@ -16,22 +16,27 @@ let g:_defhighlight_var = { 'hlcolor' : {} }
 
 
 " Python: {{{
-let g:python_highlight_all = 1
+let g:python_highlight_all = g:is_vim8
 let g:_defhighlight_var.hlcolor.python = extend({
       \ 'pythonStatement'      : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ 'pythonInclude'        : ['#f92672',        -1,  -1, -1, 0, 0],
       \ 'pythonKeyword'        : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ 'pythonConditional'    : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ 'pythonException'      : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ 'pythonRepeat'         : ['#f92672',        -1,  -1, -1, 0, 0],
       \ 'pythonOperator'       : ['#f92672',        -1,  -1, -1, 0, 0],
       \
       \ 'semshiImported'       : ['#1aa3a1',        -1,  -1, -1, 0, 1],
-      \ 'semshiBuiltin'        : ['#1aa3a1',        -1,  -1, -1, 1, 0],
+      \ 'semshiBuiltin'        : ['#c678dd',        -1, 207, -1, 1, 0],
       \
-      \ 'semshiSelf'           : ['#b467aa',        -1,  -1, -1, 1, 0],
-      \ 'semshiAttribute'      : ['#c6c071',        -1,  -1, -1, 0, 0],
+      \ 'semshiSelf'           : ['#b2b2b2',        -1, 249, -1, 0, 0],
+      \ 'semshiAttribute'      : ['#f1747e',        -1,  -1, -1, 1, 0],
       \
       \ 'pythonFunction'       : ['#a3e234',        -1,  -1, -1, 0, 0],
       \ 'pythonDecoratorName'  : ['#a3e234',        -1,  -1, -1, 1, 0],
       \
-      \ 'semshiParameter'      : ['#e06c75',        -1,  -1, -1, 0, 0],
+      \ 'semshiParameter'      : ['#ffaf00',        -1, 214, -1, 0, 0],
+      \ 'semshiGlobal'         : ['#5fafff',        -1,  75, -1, 0, 0],
       \
       \ 'pythonString'         : ['#98c379', '#3b4048',  -1, -1, 1, 0],
       \ 'pythonRawString'      : ['#b8bb26',        -1,  -1, -1, 1, 0],
@@ -39,31 +44,25 @@ let g:_defhighlight_var.hlcolor.python = extend({
       \ 'pythonDelimiter'      : ['#5fafff',        -1,  -1, -1, 0, 0],
       \ 'Number'               : ['#d19a66',        -1,  -1, -1, 0, 0],
       \ }, g:is_vim8 ? {
-      \ 'pythonInclude'        : ['#f92672',        -1,  -1, -1, 0, 0],
-      \ 'pythonConditional'    : ['#f92672',        -1,  -1, -1, 0, 0],
-      \ 'pythonException'      : ['#f92672',        -1,  -1, -1, 0, 0],
-      \ 'pythonRepeat'         : ['#f92672',        -1,  -1, -1, 0, 0],
-      \
       \ 'pythonClass'          : ['#1aa3a1',        -1,  -1, -1, 0, 1],
-      \ 'pythonBuiltin'        : ['#1aa3a1',        -1,  -1, -1, 1, 0],
-      \ 'pythonClassVar'       : ['#b467aa',        -1,  -1, -1, 0, 0],
-      \ 'pythonSelf'           : ['#b467aa',        -1,  -1, -1, 1, 0],
-      \ 'pythonAttribute'      : ['#c6c071',        -1,  -1, -1, 0, 0],
-      \ 'pythonParam'          : ['#e06c75',        -1,  -1, -1, 0, 0],
+      \ 'pythonBuiltin'        : ['#c678dd',        -1,  -1, -1, 1, 0],
+      \ 'pythonClassVar'       : ['#f1747e',        -1,  -1, -1, 0, 0],
+      \ 'pythonSelf'           : ['#f1747e',        -1,  -1, -1, 1, 0],
+      \ 'pythonParam'          : ['#ffaf00',        -1, 214, -1, 0, 0],
       \ } : {})
       " blue
-      " \ 'semshiParameter'      : ['#5fafff',        -1,  -1, -1, 1, 0],
-      " \ 'pythonParam'          : ['#5fafff',        -1,  -1, -1, 1, 0],
+      " \ 'semshiParameter'      : ['#5fafff',        -1,  75, -1, 1, 0],
+      " \ 'pythonParam'          : ['#5fafff',        -1,  75, -1, 1, 0],
       " brighter one
       " \ 'pythonClass'          : ['#56b6c2',        -1,  -1, -1, 0, 0],
       " \ 'semshiImported'       : ['#56b6c2',        -1,  -1, -1, 0, 1],
 function! s:PythonSyntax() abort
   if g:is_vim8
     syn  keyword  pythonSelf         self
-    syn  keyword  pythonStatement    None False True
     syn  match    pythonBuiltin      '\v\.@<!<%(object|bool|int|float|tuple|str|list|dict|set|frozenset|bytearray|bytes)>'
     syn  match    pythonAttribute    'self\.\zs[_a-zA-Z.]*'
   endif
+    syn  keyword  pythonStatement    None False True
     syn  match    pythonDelimiter    '\V=\|-\|+\|*\|@\|/\|%\|&\||\|^\|~\|<\|>\|!='
 endfunction
 " }}}
@@ -82,15 +81,14 @@ augroup highlight_related
   autocmd ColorScheme *           hi! MatchParen    gui=italic,bold  cterm=italic,bold
         \                       | hi! Folded        gui=italic       cterm=italic
         \                       | hi! Comment       gui=italic       cterm=italic
-        \                       | hi! String        guifg=#98c379    guibg=#3c3836  gui=italic  cterm=italic
-        \                       | hi! storageclass  guifg=#aab6e1                   gui=italic  cterm=italic
+        \                       | hi! String        guifg=#98c379    gui=italic  cterm=italic
+        \                       | hi! storageclass  guifg=#aab6e1    gui=italic  cterm=italic
 augroup END
         " \                       | hi! clear Statement | hi! Statement     guifg=#f92672                                            " default purple
         " \                       | hi! function      guifg=#a3e234    ctermfg = 73
         " \                       | hi! Statement     guifg=#c678dd                                             " grass green
         " \                       | hi! Define        guifg=#c678dd                   gui=italic  cterm=italic  " light green
         " \                       | hi! Type          guifg=#d19a66    guibg=#3e4452  gui=italic  cterm=italic  " light green, white bg
-        " \                       | hi! String        guifg=#98c379    guibg=#3b4048  gui=italic  cterm=italic
 " }}}
 
 

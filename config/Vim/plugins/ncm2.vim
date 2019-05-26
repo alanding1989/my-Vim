@@ -15,7 +15,7 @@ let g:neosnippet#enable_completed_snippet = 0
 
 let g:ncm2#match_highlight     = 'sans-serif-bold'
 let g:float_preview#height     = 30
-let g:float_preview#docked     = 1
+let g:float_preview#docked     = 0
 let g:float_preview#auto_close = 1
 
 
