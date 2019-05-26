@@ -99,6 +99,9 @@ let g:_lang#c_var = {
       \     'c'  : 'c11',
       \     'cpp': 'c++1z'},
       \ }
+let g:_lang#lua_var = {
+      \ 'repl_command'   : '/opt/lang-tools/lua/luarocks/bin/rep.lua'
+      \ }
 let g:_lang#markdown_var = {
       \ 'enableWcwidth'  : 1,
       \ 'listItemIndent' : 1,
@@ -149,10 +152,10 @@ let g:My_SpaceVim_layers = {
       \ 'lang#java'         : 0,
       \ 'lang#javascript'   : 0,
       \ 'lang#latex'        : 0,
-      \ 'lang#lua'          : 0,
+      \ 'lang#lua'          : 1,
       \ 'lang#markdown'     : 1,
       \ 'lang#python'       : 1,
-      \ 'lang#scala'        : 1,
+      \ 'lang#scala'        : 0,
       \ 'lang#vim'          : 1,
       \ 'lang#sh'           : 1,
       \ 'incsearch'         : 1,
