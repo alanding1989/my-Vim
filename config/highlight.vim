@@ -38,7 +38,7 @@ let g:_defhighlight_var.hlcolor.python = extend({
       \
       \ 'pythonDelimiter'      : ['#5fafff',        -1,  -1, -1, 0, 0],
       \ 'Number'               : ['#d19a66',        -1,  -1, -1, 0, 0],
-      \ }, g:is_vim8 || 1 ? {
+      \ }, g:is_vim8 ? {
       \ 'pythonInclude'        : ['#f92672',        -1,  -1, -1, 0, 0],
       \ 'pythonConditional'    : ['#f92672',        -1,  -1, -1, 0, 0],
       \ 'pythonException'      : ['#f92672',        -1,  -1, -1, 0, 0],
