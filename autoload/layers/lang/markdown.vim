@@ -15,6 +15,8 @@ function! layers#lang#markdown#plugins() abort
   let plugins = []
   if get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method', 'deoplete')) ==# 'ncm2'
     call add(plugins, ['ncm2/ncm2-markdown-subscope', {'on_ft': 'markdown', 'for': 'markdown'}])
+    call add(plugins, ['ncm2/ncm2-github'           , {'on_event': 'InsertEnter'}])
+    call add(plugins, ['filipekiss/ncm2-look.vim'   , {'on_event': 'InsertEnter'}])
   endif
   if !g:is_spacevim
     " call add(plugins, ['lvht/tagbar-markdown'               , {'merged': 0 }])

@@ -42,22 +42,20 @@ function! layers#autocomplete#plugins() abort
     let plugins += [
           \ ['ncm2/ncm2'                 , {'merged': 0}],
           \ ['ncm2/ncm2-neoinclude'      , {'on_event': 'InsertEnter'}],
-          \ ['ncm2/ncm2-syntax'          , {'on_event': 'InsertEnter'}],
-          \ ['ncm2/ncm2-bufword'         , {'on_event': 'InsertEnter'}],
           \ ['ncm2/ncm2-path'            , {'on_event': 'InsertEnter'}],
-          \ ['ncm2/ncm2-github'          , {'on_event': 'InsertEnter'}],
+          \ ['ncm2/ncm2-bufword'         , {'on_event': 'InsertEnter'}],
+          \ ['ncm2/ncm2-syntax'          , {'on_event': 'InsertEnter'}],
           \ ['ncm2/ncm2-tagprefix'       , {'on_event': 'InsertEnter'}],
-          \ ['filipekiss/ncm2-look.vim'  , {'on_event': 'InsertEnter'}],
           \ ['ncm2/ncm2-gtags'           , {'on_event': 'InsertEnter'}],
           \ ['yuki-ycino/ncm2-dictionary', {'on_event': 'InsertEnter'}],
           \ ['ncm2/ncm2-highprio-pop'    , {'on_event': 'InsertEnter'}],
-          \ ['fgrsnau/ncm2-otherbuf'     , {'on_event': ['InsertEnter', 'CursorHold', 'CursorHoldI']}],
+          \ ['fgrsnau/ncm2-otherbuf'     , {'on_event': 'InsertEnter'}],
           \ ['ncm2/ncm2-tern'            , {'on_event': 'InsertEnter', 'build': 'npm install', 'do': 'npm install'}],
           \ ]
     if !g:is_win
       call add(plugins, ['ncm2/ncm2-match-highlight'  , {'on_event': 'InsertEnter'}])
     endif
-    if has('nvim')
+    if g:is_nvim
       call add(plugins, ['ncm2/float-preview.nvim'    , {'on_event': 'InsertEnter'}])
     endif
     if s:snippet_engine ==# 'neosnippet'
@@ -125,7 +123,7 @@ function! layers#autocomplete#config() abort
   call mapping#tab#S_Tab()
   call mapping#space#C_Space()
   inoremap <expr><Space>         ExpandEmptyPair()
-  inoremap <silent><expr><C-h>   pumvisible() ? "\<C-e><BS>" :
+  inoremap <silent><expr><C-h>   pumvisible() ? "\<C-e>\<C-r>=DelEmptyPair()\<CR>" :
         \ CurChar(0, '\s') && CurChar(0, '\S', -3) && CurChar(0, '\s', -4)
         \ ? "\<BS>\<left>\<BS>\<right>" : DelEmptyPair()
 

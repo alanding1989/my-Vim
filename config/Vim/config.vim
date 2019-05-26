@@ -129,10 +129,6 @@ if g:pure_viml || !g:has_py " {{{
         \ 'tools#clock'     : 1,
         \ 'ui'              : 1,
         \ 'VersionControl'  : 1,
-        \
-        \ 'denite'          : 0,
-        \ 'fzf'             : 0,
-        \ 'leaderf'         : 0,
         \ 'unite'           : 1,
         \ }
 endif "}}}

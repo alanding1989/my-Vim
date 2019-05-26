@@ -5,7 +5,9 @@
 scriptencoding utf-8
 
 
+
 let s:md = get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method', 'asyncomplete'))
+
 
 " ================================================================================
 " neosnippet
@@ -63,6 +65,7 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
     " snoremap <C-o> <Esc>:call mapping#util#JumpBack()<CR>
   endfunction
   "}}}
+
 
 " ================================================================================
 " ultisnips
@@ -123,6 +126,7 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
   endfunction
   "}}}
 
+
 " ================================================================================
 " coc
 " ============================================================================= {{{
@@ -161,8 +165,8 @@ elseif s:md ==# 'coc'
 endif
 "}}}
 
+
 function! s:check_bs() abort
   let col = col('.') - 1
   return col > 0 && getline('.')[col('.')-2] !~# '\s'
 endfunction
-

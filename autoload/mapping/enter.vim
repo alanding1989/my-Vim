@@ -22,7 +22,7 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
       elseif !WithinEmptyPair() && CurChar(1, '}')
         return "\<C-y>\<CR>"
       elseif !CurChar(1, '}')
-        return empty(v:completed_item) ? "\<C-e>" : "\<Esc>o"
+        return empty(v:completed_item) "\<C-e>" : "\<Esc>o"
       endif
     elseif !pumvisible()
       if neosnippet#jumpable()
@@ -37,8 +37,6 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
         return "\<CR>\\\<Space>\<Esc>ko\\\<Space>"
       else
         return "\<Plug>AlanCR"
-      " else
-        " return "\<CR>"
       endif
     endif
   endfunction
@@ -64,8 +62,6 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
       return sni
     else
       return "\<Plug>AlanCR"
-    " else
-      " return "\<Esc>o"
     endif
   endfunction
 
@@ -115,8 +111,6 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'coc'
         return "\<CR>\\\<Space>\<Esc>ko\\\<Space>"
       else
         return "\<Plug>AlanCR"
-      " else
-        " return "\<CR>"
       endif
     endif
   endfunction

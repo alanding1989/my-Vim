@@ -5,6 +5,10 @@
 scriptencoding utf-8
 
 
+let s:autocomplete_method = get(g:, 'spacevim_autocomplete_method',
+      \ get(g:, 'autocomplete_method', 'deoplete'))
+
+
 function! layers#lang#python#plugins() abort
   let plugins = []
   if g:is_nvim
@@ -12,11 +16,17 @@ function! layers#lang#python#plugins() abort
   else
     call add(plugins, ['vim-python/python-syntax', {'on_ft': 'python', 'for': 'python'}])
   endif
-  if !g:is_spacevim
+  if g:is_spacevim
+    if s:autocomplete_method ==# 'ncm2' && !SpaceVim#layers#lsp#check_filetype('python')
+      call add(plugins, ['ncm2/ncm2-jedi'       , {'on_ft': 'python', 'for': 'python'}])
+    endif
+  else
     if !layers#lsp#checkft('python')
-      call add(plugins, ['davidhalter/jedi-vim', {'on_ft': 'python', 'for': 'python'}])
-      if g:autocomplete_method ==# 'deoplete'
+      call add(plugins, ['davidhalter/jedi-vim' , {'on_ft': 'python', 'for': 'python'}])
+      if s:autocomplete_method ==# 'deoplete'
         call add(plugins, ['zchee/deoplete-jedi', {'on_ft': 'python', 'for': 'python'}])
+      elseif s:autocomplete_method ==# 'ncm2'
+        call add(plugins, ['ncm2/ncm2-jedi'     , {'on_ft': 'python', 'for': 'python'}])
       endif
     endif
     call add(plugins, ['heavenshell/vim-pydocstring'  , {'on_cmd': 'Pydocstring', 'on' : 'Pydocstring'}])

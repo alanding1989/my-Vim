@@ -5,6 +5,9 @@
 scriptencoding utf-8
 
 
+let s:autocomplete_method = get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method', 'deoplete'))
+
+
 function! layers#lang#ipynb#plugins() abort
   let plugins = [
         \ ['wsdjeg/vimpyter', {'merged': 0}],
@@ -13,11 +16,11 @@ function! layers#lang#ipynb#plugins() abort
   call add(plugins, ['heavenshell/vim-pydocstring'  , {'on_cmd': 'Pydocstring', 'on': 'Pydocstring'}])
   " call add(plugins, ['Vimjas/vim-python-pep8-indent', \ { 'on_ft' : 'ipynb'}])
   if g:is_nvim
-    " call add(plugins, ['numirias/semshi', {'on_ft': 'ipynb', 'for': 'ipynb'}])
+    call add(plugins, ['numirias/semshi'         , {'on_ft': 'ipynb', 'for': 'ipynb'}])
   else
     call add(plugins, ['vim-python/python-syntax', {'on_ft': 'ipynb', 'for': 'ipynb'}])
   endif
-  if get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method', 'deoplete')) ==# 'coc'
+  if s:autocomplete_method ==# 'coc'
     " nop
   elseif g:is_spacevim && SpaceVim#layers#isLoaded('lsp')
     if !SpaceVim#layers#lsp#check_filetype('ipynb') 
@@ -25,12 +28,13 @@ function! layers#lang#ipynb#plugins() abort
     else
       return
     endif
-  elseif !My_Vim#layer#isLoaded('lsp') || !SpaceVim#layers#isLoaded('lsp')
-    call add(plugins, ['davidhalter/jedi-vim', {'on_ft' : 'ipynb', 'for': 'ipynb', 'if' : has('python') || has('python3')}])
-    if get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method', 'deoplete')) ==# 'deoplete'
-      call add(plugins, ['zchee/deoplete-jedi', {'on_ft' : 'ipynb', 'for': 'ipynb'}])
-    elseif get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method', 'deoplete')) ==# 'ncm2'
-      call add(plugins, ['ncm2/ncm2-jedi', {'on_ft': ['python', 'ipynb'], 'for': ['python', 'ipynb']}])
+  elseif !layers#lsp#checkft('ipynb') || !SpaceVim#layers#isLoaded('lsp')
+    call add(plugins, ['davidhalter/jedi-vim' , {'on_ft':'ipynb', 'for':'ipynb',
+          \ 'if': has('python') || has('python3')}])
+    if s:autocomplete_method ==# 'deoplete'
+      call add(plugins, ['zchee/deoplete-jedi', {'on_ft':'ipynb', 'for':'ipynb'}])
+    elseif s:autocomplete_method ==# 'ncm2'
+      call add(plugins, ['ncm2/ncm2-jedi', {'on_ft': ['ipynb'], 'for': ['ipynb']}])
     endif
   endif
   return plugins

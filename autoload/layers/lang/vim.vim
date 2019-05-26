@@ -10,10 +10,8 @@ let s:SID = SpaceVim#api#import('vim#sid')
 
 function! layers#lang#vim#plugins() abort
   let plugins = []
-  if (!g:is_spacevim && !layers#lsp#checkft('vim')) || (g:is_spacevim && !SpaceVim#layers#lsp#check_filetype('vim'))
-    if get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method', 'deoplete')) ==# 'ncm2'
-      call add(plugins, ['ncm2/ncm2-vim', {'on_event': 'InsertEnter'}])
-    endif
+  if get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method', 'deoplete')) ==# 'ncm2'
+    call add(plugins, ['ncm2/ncm2-vim', {'on_event': 'InsertEnter'}])
   endif
   if !g:is_spacevim
     if !layers#lsp#checkft('vim')
