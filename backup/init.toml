@@ -90,22 +90,31 @@ filetypes = [
   'sh',
 ]
 
+[[layers]]
+name = 'lang#c'
+enable_clang_syntax_highlight = 1
+clang_executable = '/opt/lang-tools/cpp/clang/bin/clang'
+libclang_path    = '/opt/lang-tools/cpp/clang/lib/libclang.so'
+  [layer.clang_std]
+    c   = 'c11'
+    cpp = 'c++1z'
+
 # [[layers]]
 # name = 'lang#java'
 #
 # [[layers]]
 # name = 'lang#javascript'
-
+#
 # [[layers]]
 # name = 'lang#latex'
-
-[[layers]]
-name = 'lang#markdown'
-Wcwidth = 1
-listItemIndent = 1
-
-[[layers]]
-name = 'lang#python'
+#
+# [[layers]]
+# name = 'lang#markdown'
+# Wcwidth = 1
+# listItemIndent = 1
+#
+# [[layers]]
+# name = 'lang#python'
 
 [[layers]]
 name = 'lang#sh'
@@ -123,8 +132,8 @@ enable_gtm_status = 0
 [[layers]]
 name = 'denite'
 
-# [[layers]]
-# name = 'leaderf'
+[[layers]]
+name = 'leaderf'
 
 [[layers]]
 name = 'shell'
