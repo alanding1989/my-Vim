@@ -80,7 +80,7 @@ function! layers#colorscheme#my_cs() abort "{{{
   endif
 
   if cs ==# 'NeoSolarized'
-    let g:neosolarized_contrast = 'medium'
+    let g:neosolarized_contrast = 'soft'
     let bg = 'dark'
   endif
 

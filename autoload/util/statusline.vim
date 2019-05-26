@@ -145,7 +145,7 @@ endfunction
 function! util#statusline#curtime() abort
   let TIME = SpaceVim#api#import('time')
   if g:is_nvim
-    return TIME.current_time() . strftime('%a %d/%b %Y')
+    return TIME.current_time(). ' '. strftime('%a %d/%b %Y')
   else
     return strftime('%b%d日 星期%a') .' '. TIME.current_time()
   endif

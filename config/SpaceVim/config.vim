@@ -18,11 +18,11 @@ let g:spacevim_colorscheme = split([
       \ '3 palenight'   ,
       \ '4 neodark'     ,
       \ '5 OceanicNext' ,
-      \ '6 NeoSolarized',
-      \ '7 PaperColor'  ,
-      \ '8 nord'        ,
+      \ '6 PaperColor'  ,
+      \ '7 nord'        ,
+      \ '8 NeoSolarized',
       \ '9 default'     ,
-      \ ][0])[1]
+      \ ][4])[1]
 let g:spacevim_colorscheme_default = 'neodark'
 let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 "}}}
