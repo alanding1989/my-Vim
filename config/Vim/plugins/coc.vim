@@ -25,25 +25,27 @@ let g:coc_filetype_map        = {
 
 
 augroup my_coc_settings
-  auto!
+  autocmd!
   " show func signature after jump code placehold
-  autocmd CursorHoldI,CursorMovedI * silent call CocActionAsync('showSignatureHelp')
-  autocmd CursorHold               * silent call CocActionAsync('highlight')
-  autocmd User       CocDiagnosticChange  AirlineRefresh
-  autocmd VimEnter * call s:g_mappings()
+  auto CursorHoldI,CursorMovedI * silent call CocActionAsync('showSignatureHelp')
+  auto CursorHold               * silent call CocActionAsync('highlight')
+  auto VimEnter * call <sid>g_mappings()
+  if (g:is_spacevim && !SpaceVim#layers#isLoaded('core#statusline')) || get(g:, 'statusline', '') =~# 'airline'
+    auto User     CocDiagnosticChange  AirlineRefresh
+  endif
   if findfile(expand($HOME.'/.SpaceVim/coc-settings.json')) ==# ''
     if g:is_unix
-      autocmd User CocNvimInit
+      auto User CocNvimInit
             \ exec '!ln -s "'.expand($HOME.'/.SpaceVim.d/coc-settings.json')
             \ .'" "'.expand($HOME.'/.SpaceVim/coc-settings.json').'"'
     elseif g:is_win
-      autocmd User CocNvimInit
+      auto User CocNvimInit
             \ exec '!mklink /h "'.expand($HOME.'/.SpaceVim/coc-settings.json')
             \ .'" "'.expand($HOME.'/vimfiles/coc-settings.json').'"'
     endif
   endif
   if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) ==# 'neosnippet'
-    autocmd VimEnter * call coc#config('snippets.ultisnips', {
+    auto VimEnter * call coc#config('snippets.ultisnips', {
           \ 'directories' : [ ]
           \ })
   endif
@@ -90,7 +92,6 @@ augroup END
 " \ ] "}}}
 
 " key mapping  {{{
-
 function! s:g_mappings() abort
   vnoremap  <silent>ga  :call CocActionAsync('codeAction',     visualmode())<CR>
   nnoremap  <silent>gt  :call CocActionAsync('jumpTypeDefinition')<CR>

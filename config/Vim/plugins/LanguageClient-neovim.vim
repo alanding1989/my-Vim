@@ -28,6 +28,36 @@ let g:LanguageClient_completionPreferTextEdit = 1
 
 
 
+function! s:LC(name) abort
+  call LanguageClient#textDocument_{a:name}()
+endfunction
+
+augroup my_LC_settings
+  autocmd!
+  if (g:is_spacevim && !SpaceVim#layers#isLoaded('core#statusline'))
+        \ || get(g:, 'statusline', '') =~# 'airline'
+    auto User LanguageClientDiagnosticsChanged  AirlineRefresh
+  endif
+  auto CursorHold  * silent call <sid>LC('documentHighlight')()
+  auto CursorMoved * silent call LanguageClient_clearDocumentHighlight()
+  auto VimEnter * call <sid>g_mappings()
+augroup END
+
+function! s:g_mappings() abort
+  vnoremap  <silent>ga  :call <sid>LC('codeAction')<CR>
+  nnoremap  <silent>gt  :call <sid>LC('typeDefinition')<CR>
+  nnoremap  <silent>gi  :call <sid>LC('implementation')<CR>
+  nnoremap  <silent>gr  :call <sid>LC('references')<CR>
+  nnoremap  <silent>ge  :call <sid>LC('rename')<CR>
+  nnoremap  <silent>gf  :call <sid>LC('formatting')<CR>
+  vnoremap  <silent>gf  :call <sid>LC('rangeFormatting')<CR>
+  nnoremap  <silent>gh  :call <sid>LC('hover')<CR>
+  nnoremap  <silent>gs  :call <sid>LC('documentSymbol')<CR>
+  nnoremap  <silent>gS  :call LanguageClient#workspace_symbol()<CR>
+  nnoremap  <silent>gl  :copen<CR>
+endfunction
+
+
 " symbols {{{
 if g:is_spacevim
   finish

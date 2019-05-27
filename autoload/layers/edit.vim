@@ -245,16 +245,14 @@ function! s:vim_quickhl() abort "{{{
   if g:is_spacevim
     let g:_spacevim_mappings_space.x.h = {'name': '+@ quick highlight'}
     let g:_spacevim_mappings_space_custom += [
-          \ ['nmap' , ['x' , 'h' , 'h'] , '<plug>(quickhl-manual-this)'   , 'highlight cursor word toggle'      , 0] ,
-          \ ['xmap' , ['x' , 'h' , 'h'] , '<plug>(quickhl-manual-this)'   , 'hightight cursor word toggle'      , 0] ,
-          \ ['nmap' , ['x' , 'h' , 'r'] , '<plug>(quickhl-manual-reset)'  , 'clear all highlight'               , 0] ,
-          \ ['xmap' , ['x' , 'h' , 'r'] , '<plug>(quickhl-manual-reset)'  , 'clear all highlight'               , 0] ,
-          \ ['nmap' , ['x' , 'h' , 'c'] , '<plug>(quickhl-manual-clear)'  , 'clear hightight of cursor word'    , 0] ,
-          \ ['xmap' , ['x' , 'h' , 'c'] , '<plug>(quickhl-manual-clear)'  , 'clear hightight of cursor word'    , 0] ,
-          \ ['nmap' , ['x' , 'h' , 't'] , '<plug>(quickhl-manual-toggle)' , 'toggle en/disable quichk highlight', 0] ,
-          \ ['xmap' , ['x' , 'h' , 't'] , '<plug>(quickhl-manual-toggle)' , 'toggle en/disable quichk highlight', 0] ,
-          \ ['nmap' , ['x' , 'h' , 'w'] , '<plug>(quickhl-cword-toggle)'  , 'toggle cursor word highlight'      , 0] ,
-          \ ['nmap' , ['x' , 'h' , 'o'] , '<plug>(quickhl-tag-toggle)'    , 'toggle tag cursor word highlight'  , 0] ,
+          \ ['nmap' , ['x' , 'h' , 'h'] , '<plug>(quickhl-manual-this)'   , 'toggle highlight cursor word ' , 0],
+          \ ['xmap' , ['x' , 'h' , 'h'] , '<plug>(quickhl-manual-this)'   , 'toggle hightight cursor word ' , 0],
+          \ ['nmap' , ['x' , 'h' , 'r'] , '<plug>(quickhl-manual-reset)'  , 'clear all highlight'           , 0],
+          \ ['xmap' , ['x' , 'h' , 'r'] , '<plug>(quickhl-manual-reset)'  , 'clear all highlight'           , 0],
+          \ ['nmap' , ['x' , 'h' , 'c'] , '<plug>(quickhl-manual-clear)'  , 'clear hightight of cursor word', 0],
+          \ ['xmap' , ['x' , 'h' , 'c'] , '<plug>(quickhl-manual-clear)'  , 'clear hightight of cursor word', 0],
+          \ ['nmap' , ['x' , 'h' , 't'] , '<plug>(quickhl-manual-toggle)' , 'toggle quichk highlight'       , 0],
+          \ ['xmap' , ['x' , 'h' , 't'] , '<plug>(quickhl-manual-toggle)' , 'toggle quichk highlight'       , 0],
           \ ]
   else
     nmap <space>xhh <Plug>(quickhl-manual-this)
@@ -265,8 +263,6 @@ function! s:vim_quickhl() abort "{{{
     xmap <space>xhc <Plug>(quickhl-manual-clear)
     nmap <space>xht <Plug>(quickhl-manual-toggle)
     xmap <space>xht <Plug>(quickhl-manual-toggle)
-    nmap <space>xhw <Plug>(quickhl-cword-toggle)
-    nmap <space>xho <Plug>(quickhl-tag-toggle)
   endif
 endfunction " }}}
 
