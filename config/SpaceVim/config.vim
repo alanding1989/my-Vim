@@ -262,29 +262,21 @@ let g:spacevim_disabled_plugins = [
       \ 'vim-textobj-line'     ,
       \ 'vim-textobj-entire'   ,
       \ ]
+
 if g:spacevim_autocomplete_method !=# 'deoplete'
-  let g:spacevim_disabled_plugins += [
-        \ 'deoplete-zsh'   ,
-        \ 'deoplete-ternjs',
-        \ ]
+  let g:spacevim_disabled_plugins += ['deoplete-zsh', 'deoplete-ternjs']
 endif
 if g:spacevim_snippet_engine !=# 'neosnippet'
-  let g:spacevim_disabled_plugins += [
-        \ 'neopairs.vim',
-        \ ]
+  let g:spacevim_disabled_plugins += ['neopairs.vim']
 endif
-if g:My_SpaceVim_layers['git'] == 1 && g:My_SpaceVim_layers['VersionControl'] == 1
-  let g:spacevim_disabled_plugins += [
-        \ 'vim-gitgutter'
-        \ ]
-  let g:spacevim_custom_plugins += [
-        \ ['mhinz/vim-signify', {'merged' : 0}]
-        \ ]
+if g:My_SpaceVim_layers.git && g:spacevim_autocomplete_method ==# 'coc'
+  let g:spacevim_disabled_plugins += ['vim-gitgutter']
 endif
-if !get(g:My_SpaceVim_layers, 'denite', 0) && !get(g:My_SpaceVim_layers, 'unite', 0)
-  let g:spacevim_disabled_plugins += [
-        \ 'neomru.vim'    ,
-        \ 'unite-outline' ,
-        \ ]
+if g:My_SpaceVim_layers.git && g:My_SpaceVim_layers.VersionControl
+  let g:spacevim_disabled_plugins += ['vim-gitgutter']
+  let g:spacevim_custom_plugins   += [['mhinz/vim-signify', {'merged': 0}]]
+endif
+if g:My_SpaceVim_layers.denite && !g:My_SpaceVim_layers.unite
+  let g:spacevim_disabled_plugins += ['neomru.vim', 'unite-outline']
 endif
 "}}}
