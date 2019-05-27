@@ -35,7 +35,8 @@ function! layers#autocomplete#plugins() abort
     else
       call add(plugins, ['tbodt/deoplete-tabnine', {'on_event': 'InsertEnter',
             \ 'build': './install.sh', 'do': './install.sh'}])
-    endif "}}}
+    endif 
+    "}}}
 
   " ncm2 {{{
   elseif s:autocomplete_method ==# 'ncm2'
@@ -103,8 +104,9 @@ function! layers#autocomplete#plugins() abort
       call add(plugins, ['neoclide/coc.nvim'     , {'merged': 0, 'build': 'yarn install --frozen-lockfile',
             \ 'do': { -> coc#util#install() }}])
     elseif g:autocomplete_method ==# 'deoplete'
-      call add(plugins, ['Shougo/deoplete.nvim'  , {'merged'  : 0}])
-      call add(plugins, ['ujihisa/neco-look'     , {'on_event': 'InsertEnter'}])
+      call add(plugins, ['Shougo/deoplete.nvim'          , {'merged'  : 0}])
+      call add(plugins, ['ujihisa/neco-look'             , {'on_event': 'InsertEnter'}])
+      call add(plugins, ['SevereOverfl0w/deoplete-github', {'on_event': 'InsertEnter', 'for_ft': 'gitcommit'}])
     elseif g:autocomplete_method ==# 'ycm'
       call add(plugins, ['Valloric/YouCompleteMe', {'merged': 0, 'build': './install.py --clang-completer'}])
     elseif g:autocomplete_method ==# 'asyncomplete'

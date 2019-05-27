@@ -158,9 +158,19 @@ function! util#filereadable(path) abort
 endfunction "}}}
 
 " globpath "{{{
-function! util#globpath(path, expr) abort
-  return globpath(a:path, a:expr, 1, 1)
+function! util#globpath(path, pattern) abort
+  " return a list
+  return globpath(a:path, a:pattern, 1, 1)
 endfunction "}}}
+
+" find file or dir in parent path {{{
+function! util#findDirInParent(what, where) abort
+  let old_suffixesadd = &suffixesadd
+  let &suffixesadd = ''
+  let dir = finddir(a:what, escape(a:where, ' ') . ';')
+  let &suffixesadd = old_suffixesadd
+  return dir
+endfunction " }}}
 "}}}
 
 
