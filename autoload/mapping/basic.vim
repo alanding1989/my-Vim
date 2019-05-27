@@ -679,13 +679,13 @@ function! <sid>SetFileHead(...) abort
     call s:insfhead('#', '#! /usr/bin/env python3', '# -*- coding: utf-8 -*-', info)
 
   elseif &filetype ==# 'scala'
-    call s:insfhead('#', '', '/*', info)
+    call s:insfhead('*', '', '/*', info)
 
   elseif &filetype ==# 'cpp'
-    call s:insfhead('#', '#include <iostream>', 'using namespace std;', '/*', info)
+    call s:insfhead('*', '#include <iostream>', 'using namespace std;', '/*', info)
 
   elseif &filetype ==# 'c'
-    call s:insfhead('#', '#include <stdio.h>', '/*', info)
+    call s:insfhead('*', '#include <stdio.h>', '/*', info)
   endif
 endfun
 function! s:insfhead(cmsign, ...) abort
@@ -695,7 +695,7 @@ function! s:insfhead(cmsign, ...) abort
     let head += a:000[:-2] + ['']
   else
     let head += a:000[-2] ==# '/*' ? a:000[0:-3] : a:000[0:-2]
-    let head += (len(a:000[-1]) ? ['', ''] : [])
+    let head += len(a:000[-1]) && a:1 !=# '' ? ['', ''] : []
     let head += a:000[-1] ==# 'info0' ? <sid>insinfo(a:cmsign, 0, a:000[-2])
           \ :   a:000[-1] ==# 'info1' ? <sid>insinfo(a:cmsign, 1, a:000[-2])
           \ :   ['', '']
@@ -706,23 +706,30 @@ function! s:insfhead(cmsign, ...) abort
 endfunc
 function! s:insinfo(cmsign, hasEqual, ...) abort
   if a:0 && a:1 ==# '/*'
-    let head = [
-          \ '/*'. (a:hasEqual ? repeat('=', 80) : ''),
-          \ a:cmsign . ' File Name    : '. expand('%'),
-          \ a:cmsign . ' Author       : AlanDing',
-          \ a:cmsign . ' Created Time : '. strftime('%c'),
-          \ a:cmsign . ' Description  : ',
-          \ (a:hasEqual ? a:cmsign . repeat('=', 80) : ''). '*/',
+    let head = a:hasEqual ? [
+          \ '/*'. repeat('=', 80),
+          \ ' ' . a:cmsign . ' File Name    : '. expand('%')    ,
+          \ ' ' . a:cmsign . ' Author       : AlanDing'         ,
+          \ ' ' . a:cmsign . ' Created Time : '. strftime('%c') ,
+          \ ' ' . a:cmsign . ' Description  : '                 ,
+          \ ] : [
+          \ '/*'. a:cmsign . ' File Name    : '. expand('%')    ,
+          \ ' ' . a:cmsign . '  Author       : AlanDing'        ,
+          \ ' ' . a:cmsign . '  Created Time : '. strftime('%c'),
+          \ ' ' . a:cmsign . '  Description  : '                ,
+          \ ]
+    let head += [
+          \ (a:hasEqual ? repeat('=', 80).'*/': ' */'),
           \ ''
           \ ]
   else
     let head = [
-          \ a:hasEqual ? a:cmsign. repeat('=', 80) : '',
-          \ a:cmsign. ' File Name    : '. expand('%'),
-          \ a:cmsign. ' Author       : AlanDing',
-          \ a:cmsign. ' Created Time : '. strftime('%c'),
-          \ a:cmsign . ' Description  : ',
-          \ a:hasEqual ? a:cmsign. repeat('=', 80) : '',
+          \ a:hasEqual ? a:cmsign. repeat('=', 80) : ''  ,
+          \ a:cmsign . ' File Name    : '. expand('%')   ,
+          \ a:cmsign . ' Author       : AlanDing'        ,
+          \ a:cmsign . ' Created Time : '. strftime('%c'),
+          \ a:cmsign . ' Description  : '                ,
+          \ a:hasEqual ? a:cmsign. repeat('=', 80) : ''  ,
           \ ''
           \ ]
   endif

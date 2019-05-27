@@ -10,8 +10,8 @@
 scalahome=/opt/lang-tools/scala
 
 cd $scalahome || return
-rm coursier && rm $scalahome/coc/metals-vim && rm $scalahome/languageclient/metals-vim
-curl -L -o coursier https://git.io/coursier && chmod +x coursier
+rm coursier && rm $scalahome/coc/metals-vim && rm $scalahome/languageclient/metals-vim \
+&& curl -L -o coursier https://git.io/coursier && chmod +x coursier
 
 ./coursier bootstrap \
   --java-opt -Xss4m \

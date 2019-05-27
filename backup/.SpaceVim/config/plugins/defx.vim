@@ -248,11 +248,11 @@ function! DefxYarkSrcLayout(_) abort "{{{
   if srcname =~# 0 | return | endif
   let dname = input('Input DestinationDirname/Cancel(n) : ')
   if dname ==# 'n' | return | endif
-  silent exec '!cp -rf "'.expand(g:home.'extools/projectdir/'.srcname)
-        \ .'" "' .expand(dirpath.'/'.dname).'"'
-  echohl WarningMsg
-  echo "\n yarked: ".expand(g:home.'extools/projectdir/'.srcname)
-        \ .' => '.expand(dirpath.'/'.dname)
+  let srcp = expand(g:home.'extools/src-template/'.srcname)
+  let tarp = expand(dirpath.'/'.dname)
+  silent exec '!cp -rf '.srcp.' '.tarp
+  echohl WarningMsg 
+  echo ' yarked: '.srcp.' => '.tarp 
   echohl NONE
 endfunction
 "}}}

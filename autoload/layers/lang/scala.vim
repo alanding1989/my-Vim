@@ -133,7 +133,7 @@ function! layers#lang#scala#config() abort
     call add(g:project_rooter_mark, 'build.sbt')
     augroup layer_lang#scala
       autocmd!
-      autocmd FileType scala silent call s:language_specified_mappings() 
+      autocmd FileType scala silent call <sid>language_specified_mappings() 
       autocmd BufWritePost *.scala silent :EnTypeCheck
     augroup END
   endif
@@ -152,11 +152,16 @@ function! s:language_specified_mappings() abort
   " }}}
   if g:is_spacevim
 
+    call SpaceVim#mapping#def('nnoremap', '<leader>lq',
+          \ 'call CocRequestAsync("metals", "workspace/executeCommand", {"command": "doctor-run"})',
+          \ 'run doctor')
   else
     nnoremap <silent><buffer> <space>lis  :SortScalaImports<cr>
     nnoremap <silent><buffer> <space>lt   :EnType<cr>
     nnoremap <silent><buffer> <space>lh   :EnDocBrowse<cr>
     nnoremap <silent><buffer> gd          :call <sid>go_to_def()<CR>
+    nnoremap <silent><buffer> <leader>lq  :call CocRequestAsync('metals', 
+          \ 'workspace/executeCommand', {'command': 'doctor-run'})<CR>
   endif
 endfunction
 
