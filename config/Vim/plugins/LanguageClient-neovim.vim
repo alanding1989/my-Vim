@@ -38,7 +38,7 @@ augroup my_LC_settings
         \ || get(g:, 'statusline', '') =~# 'airline'
     auto User LanguageClientDiagnosticsChanged  AirlineRefresh
   endif
-  auto CursorHold  * silent call <sid>LC('documentHighlight')()
+  auto CursorHold  * silent call <sid>LC('documentHighlight')
   auto CursorMoved * silent call LanguageClient_clearDocumentHighlight()
   auto VimEnter * call <sid>g_mappings()
 augroup END
