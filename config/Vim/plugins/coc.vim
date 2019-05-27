@@ -52,14 +52,17 @@ augroup END
 
 " extensions {{{
 " let g:coc_global_extensions = [
+" \ 'coc-git'        , 
+" \ 'coc-github'     , 
 " \ 'coc-diagnostic' , 
 " \ 'coc-python'     ,
 " \ 'coc-java'       ,
 " \ 'coc-ccls'       ,
-" \ 'coc-gocode'     ,
 " \ 'coc-vimlsp'     , 
 " \ 'coc-sh'         , 
 " \ 'coc-lua'        , 
+" \ 'coc-docker'     ,
+" \ 'coc-gocode'     ,
 " \ 'coc-html'       ,
 " \ 'coc-css'        ,
 " \ 'coc-phpls'      ,
@@ -79,7 +82,6 @@ augroup END
 " \ 'coc-rls'        ,
 " \ 'coc-prettier'   ,
 " \ 'coc-import-cost',
-" \ 'coc-docker'     ,
 " \ 'coc-vetur'      ,
 " \ 'coc-pyls'       ,
 " \ 'coc-lbdbq'      ,

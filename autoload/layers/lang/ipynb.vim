@@ -26,7 +26,7 @@ function! layers#lang#ipynb#plugins() abort
     if !SpaceVim#layers#lsp#check_filetype('ipynb') 
       let g:LanguageClient_serverCommands['ipynb'] = ['pyls']
     else
-      return
+      return plugins
     endif
   elseif !layers#lsp#check_ft('ipynb') || !SpaceVim#layers#isLoaded('lsp')
     call add(plugins, ['davidhalter/jedi-vim' , {'on_ft':'ipynb', 'for':'ipynb',
