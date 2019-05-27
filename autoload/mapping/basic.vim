@@ -235,7 +235,7 @@ function! mapping#basic#load() abort
   " 2,    Copy current line of file`s github url to clipboard
   " 3,    Copy select lines of file`s github url to clipboard
   nnoremap <silent><C-c>          :call <sid>CopyToClipboard()<CR>
-  nnoremap <silent><C-C>          :call <sid>CopyToClipboard(2)<CR>
+  nnoremap <silent><M-g>          :call <sid>CopyToClipboard(2)<CR>
   xnoremap <silent><C-c>          :call <sid>CopyToClipboard(3)<CR>
   " }}}
   " }}}
@@ -395,7 +395,7 @@ function! s:AutoPairs(...) abort " {{{
         \ '`'  : '`' ,
         \ }, a:0 ? a:1 : {})
   for [l, r] in items(autopairs)
-    exec 'inoremap <expr><buffer> '.l.' AutoClo('.string(l).', '.string(r).')'
+    exec 'inoremap <expr> '.l.' AutoClo('.string(l).', '.string(r).')'
   endfor
 endfunction " }}}
 function! s:Numfix() abort " {{{
@@ -739,7 +739,6 @@ endfunction " }}}
 " copy buffer absolute path to X11 clipboard {{{
 function! s:CopyToClipboard(...) abort
   if a:0
-    echom 1
     if executable('git')
       let repo_home = fnamemodify(s:findDirInParent('.git', expand('%:p')), ':p:h:h')
       if repo_home !=# '' || !isdirectory(repo_home)
@@ -765,8 +764,8 @@ function! s:CopyToClipboard(...) abort
             let f_url .= '#L' . getpos("'<")[1] . '-L' . getpos("'>")[1]
           endif
           try
-            let @+=f_url
-            echo 'Copied to clipboard'
+            let @+ = f_url
+            echo 'Copied github url to clipboard'
           catch /^Vim\%((\a\+)\)\=:E354/
             if has('nvim')
               echohl WarningMsg | echom 'Cannot find clipboard, for more info see :h clipboard' | echohl None
@@ -786,7 +785,7 @@ function! s:CopyToClipboard(...) abort
   else
     try
       let @+=expand('%:p')
-      echo 'Copied to clipboard ' . @+
+      echo 'Copied file path to clipboard ' . @+
     catch /^Vim\%((\a\+)\)\=:E354/
       if has('nvim')
         echohl WarningMsg | echom 'Can not find clipboard, for more info see :h clipboard' | echohl None

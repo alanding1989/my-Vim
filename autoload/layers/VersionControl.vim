@@ -10,7 +10,7 @@ function! layers#VersionControl#plugins() abort
   let plugins = []
   " signify can not only support git
   if !g:is_spacevim
-    call add(plugins, ['mhinz/vim-signify' , {'merged' : 0}])
+    call add(plugins, ['mhinz/vim-signify', {'merged' : 0}])
   endif
   return plugins
 endfunction

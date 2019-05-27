@@ -12,19 +12,22 @@ else
   let s:git_plugin = 'gita'
 endif
 
+let s:autocomplete_method = get(g:, 'spacevim_autocomplete_method',
+      \ get(g:, 'autocomplete_method', 'asyncomplete'))
+
 
 function! layers#git#plugins() abort
   let plugins = []
   call add(plugins, ['sodapopcan/vim-twiggy', {'on_cmd': 'Twiggy', 'on': 'Twiggy'}])
-  if g:is_spacevim && g:spacevim_filemanager ==# 'defx'
-    " call add(plugins, ['kristijanhusak/defx-git', {'merged': 0}])
-  elseif !g:is_spacevim
+  if !g:is_spacevim
     "{{{
     call add(plugins, ['junegunn/gv.vim'       , {'on_cmd': 'GV', 'on': 'GV'}])
     call add(plugins, ['tpope/vim-fugitive'    , {'merged': 0}])
-    if !My_Vim#layer#isLoaded('VersionControl') && g:autocomplete_method !=# 'coc'
+    if !My_Vim#layer#isLoaded('VersionControl') && s:autocomplete_method !=# 'coc'
       " show vcs info in sign column, only support git
       call add(plugins, ['airblade/vim-gitgutter', {'merged': 0}])
+    elseif s:autocomplete_method ==# 'coc'
+      call coc#config('git', {"enableGutters": "true"})
     endif
     if s:git_plugin ==# 'gina'
       call add(plugins, ['lambdalisue/gina.vim', {'on_cmd': 'Gina'}])
@@ -33,9 +36,7 @@ function! layers#git#plugins() abort
     elseif s:git_plugin ==# 'fugitive'
       call add(plugins, ['tpope/vim-dispatch'  , { 'merged' : 0}])
     endif
-    if g:filemanager ==# 'defx'
-      " call add(plugins, ['kristijanhusak/defx-git', {'merged': 0}])
-    elseif g:filemanager ==# 'nerdtree'
+    if g:filemanager ==# 'nerdtree'
       call add(plugins, ['Xuyuanp/nerdtree-git-plugin', {'merged': 0}])
     endif
     "}}}
@@ -47,23 +48,36 @@ endfunction
 function! layers#git#config() abort
   if g:is_spacevim "{{{
     if s:git_plugin ==# 'gina'
-      call SpaceVim#mapping#space#def('nnoremap', ['g', 'a'], 'Gina add %', 'stage current file', 1)
+      call SpaceVim#mapping#space#def('nnoremap', ['g', 'a'], 'Gina add %'     , 'stage current file'  , 1)
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'u'], 'Gina reset -q %', 'unstage current file', 1)
     elseif s:git_plugin ==# 'fugitive'
-      call SpaceVim#mapping#space#def('nnoremap', ['g', 'a'], 'Git add %', 'stage current file', 1)
-      call SpaceVim#mapping#space#def('nnoremap', ['g', 'u'], 'Git reset -q %', 'unstage current file', 1)
+      call SpaceVim#mapping#space#def('nnoremap', ['g', 'a'], 'Git add %'      , 'stage current file'  , 1)
+      call SpaceVim#mapping#space#def('nnoremap', ['g', 'u'], 'Git reset -q %' , 'unstage current file', 1)
     else
-      call SpaceVim#mapping#space#def('nnoremap', ['g', 'a'], 'Gita add %', 'stage current file', 1)
-      call SpaceVim#mapping#space#def('nnoremap', ['g', 'u'], 'Gita reset %', 'unstage current file', 1)
+      call SpaceVim#mapping#space#def('nnoremap', ['g', 'a'], 'Gita add %'     , 'stage current file'  , 1)
+      call SpaceVim#mapping#space#def('nnoremap', ['g', 'u'], 'Gita reset %'   , 'unstage current file', 1)
     endif
-    if exists(':GitGutterFold')
+    if exists(':GitGutterFold') && s:autocomplete_method !=# 'coc'
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'f'], 'GitGutterFold', '@ toggle folding unchanged lines', 1)
+      call SpaceVim#mapping#space#def('nmap',['g', 'h', 'u'], '<Plug>GitGutterUndoHunk'   , 'undo cursor hunk'   , 0)
+      call SpaceVim#mapping#space#def('nmap',['g', 'h', 'p'], '<Plug>GitGutterPreviewHunk', 'preview cursor hunk', 0)
+    elseif s:autocomplete_method ==# 'coc'
+      call SpaceVim#mapping#space#def('nnoremap', ['g', 'f'],      'CocCommand git.foldUnchanged', '@ toggle folding unchanged lines', 1)
+      call SpaceVim#mapping#space#def('nnoremap', ['g', 'h', 'a'], 'CocCommand git.chunkStage'   , 'stage current hunk'              , 1)
+      call SpaceVim#mapping#space#def('nnoremap', ['g', 'h', 'u'], 'CocCommand git.chunkUndo'    , 'undo cursor hunk'                , 1)
+      call SpaceVim#mapping#space#def('nnoremap', ['g', 'h', 'p'], 'CocCommand git.chunkInfo'    , 'preview cursor hunk'             , 1)
+      call SpaceVim#mapping#space#def('nnoremap', ['g', 'i', 'f'], 'CocCommand git.browserOpen'  , 'show current line in browser'    , 1)
     else
-      call SpaceVim#mapping#space#def('nnoremap', ['g', 'f'], 'SignifyFold'  , '@ toggle folding unchanged lines', 1)
-      unlet g:_spacevim_mappings_space.g.h
+      call SpaceVim#mapping#space#def('nnoremap', ['g', 'f'], 'SignifyFold', '@ toggle folding unchanged lines', 1)
+      unlet g:_spacevim_mappings_space.g.h | nunmap [SPC]gh
     endif
-    call SpaceVim#mapping#space#def('nnoremap', ['g', 'j']     , 'Twiggy', 'open git branch manager', 1)
-    call SpaceVim#mapping#space#def('nmap'    , ['g', 'i', 'y'], '<Plug>(CopyCursorCodeUrl)',
+    try
+      unlet g:_spacevim_mappings_space.g.h.r | nunmap [SPC]ghr
+      unlet g:_spacevim_mappings_space.g.h.v | nunmap [SPC]ghv
+    catch
+    endtry
+    call SpaceVim#mapping#space#def('nnoremap'  , ['g', 'j']     , 'Twiggy'                    , 'open git branch manager'     , 1)
+    call SpaceVim#mapping#space#def('nmap'      , ['g', 'i', 'y'], '<Plug>(CopyCursorCodeUrl)',
           \ 'Copy current/selected line of github url to clipboard', 0)
     xmap [SPC]giy  <Plug>(CopySelectCodeUrls)
     "}}}
@@ -100,11 +114,17 @@ function! layers#git#config() abort
       nnoremap <Space>gM   :call <sid>display_last_commit_of_current_line<CR>
       nnoremap <Space>gV   :GV!<CR>
       nnoremap <Space>gv   :GV<CR>
-    if !My_Vim#layer#isLoaded('VersionControl')
+    if !My_Vim#layer#isLoaded('VersionControl') && s:autocomplete_method !=# 'coc'
       nnoremap <Space>gf   :GitGutterFold<CR>
       nmap     <Space>gha  <Plug>GitGutterStageHunk
-      nmap     <Space>ghr  <Plug>GitGutterUndoHunk
-      nmap     <Space>ghv  <Plug>GitGutterPreviewHunk
+      nmap     <Space>ghu  <Plug>GitGutterUndoHunk
+      nmap     <Space>ghp  <Plug>GitGutterPreviewHunk
+    elseif s:autocomplete_method ==# 'coc'
+      nnoremap <Space>gf   :CocCommand git.foldUnchanged<CR>
+      nnoremap <Space>gha  :CocCommand git.chunkStage<CR>
+      nnoremap <Space>ghu  :CocCommand git.chunkUndo<CR>
+      nnoremap <Space>ghp  :CocCommand git.chunkInfo<CR>
+      nnoremap <Space>gif  :CocCommand git.browserOpen<CR>
     else
       nnoremap <Space>gf   :SignifyFold<CR>
     endif

@@ -195,7 +195,7 @@
   },
 
   "git.branchCharacter"          : "",
-  "git.enableGutters"            : false,
+  "git.enableGutters"            : true,
   "git.addedSign.text"           : "✚",
   "git.removedSign.text"         : "✖",
   "git.topRemovedSign.text"      : "▤",
@@ -205,5 +205,7 @@
   "git.removedSign.hlGroup"      : "SignifySignDelete",
   "git.topRemovedSign.hlGroup"   : "SignifySignDelete",
   "git.changedSign.hlGroup"      : "SignifySignChange",
-  "git.changeRemovedSign.hlGroup": "SignifySignChange"
+  "git.changeRemovedSign.hlGroup": "SignifySignChange",
+  "git.addGlameToVirtualText": true
+
 }

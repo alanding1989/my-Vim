@@ -112,6 +112,7 @@ let s:insert_mode_mappings = [
       \ ['<C-k>'  , '<denite:move_to_previous_line>'       , 'noremap'],
       \ ['<C-b>'  , '<denite:move_caret_to_left>'          , 'noremap'],
       \ ['<C-l>'  , '<denite:move_caret_to_right>'         , 'noremap'],
+      \ ['<C-f>'  , '<denite:move_caret_to_right>'         , 'noremap'],
       \ ['<C-a>'  , '<denite:move_caret_to_head>'          , 'noremap'],
       \ ['<C-t>'  , '<denite:do_action:tabopen>'           , 'noremap'],
       \ ['<C-i>'  , '<denite:do_action:vsplit>'            , 'noremap'],
@@ -122,7 +123,6 @@ let s:insert_mode_mappings = [
       \ ['<Down>' , '<denite:assign_next_text>'            , 'noremap'],
       \ ['<C-r>'  , '<denite:redraw>'                      , 'noremap'],
       \ ]
-      " \ ['<Esc>'  , '<denite:quit>'                        , 'noremap'],
       " \ ['<Tab>'  , '<denite:move_to_next_line>'           , 'noremap'],
       " \ ['<S-tab>', '<denite:move_to_previous_line>'       , 'noremap'],
 
