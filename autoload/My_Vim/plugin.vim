@@ -163,7 +163,7 @@ endfunction "}}}
 function! s:enabled_layers_get() abort
   if !My_Vim#Main#isfallback()
     for [layer, value] in items(g:My_Vim_layers)
-      let var = get(g:, '_'. layer .'_var', {})
+      let var = My_Vim_layers_variable(layer)
       if value == 1 && util#dict#valid(var)
         call add(s:default_layers, layer)
         call layers#{layer}#set_variable(var)

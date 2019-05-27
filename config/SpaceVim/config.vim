@@ -1,16 +1,12 @@
-" ================================================================================
-" SpaceVimrc
-" Section config/SpaceVim
-" ================================================================================
+"================================================================================
+" Description: SpaceVimrc
+" Section:     config/SpaceVim
+"================================================================================
 scriptencoding utf-8
 
 
 
-" choose minimal setting
-let g:pure_viml = 0
-
-
-" Themes list " {{{
+" Themes List: " {{{
 let g:spacevim_colorscheme = split([
       \ '0 gruvbox'     ,
       \ '1 one'         ,
@@ -27,9 +23,10 @@ let g:spacevim_colorscheme_default = 'neodark'
 let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 "}}}
 
-" ================================================================================
-" Preferences
-" ================================================================================
+
+"================================================================================
+" Preferences: 
+"================================================================================
 let g:spacevim_autocomplete_method  = get(['coc'       , 'deoplete' , 'ncm2', 'ycm'], 0)
 let g:spacevim_snippet_engine       = get(['neosnippet', 'ultisnips', 'coc' ], 0)
 let g:spacevim_fuzzyfinder          = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
@@ -41,8 +38,11 @@ let g:spacevim_lint_on_the_fly      = 1
 let g:spacevim_autocomplete_parens  = 0
 let g:enable_deotabline             = 0
 let g:enable_googlesuggest          = 0
+" Choose minimal setting
+let g:pure_viml = 0
 
-" Ui {{{
+
+" Ui: {{{
 let g:enable_fat_statusline                  = 1
 let g:statusline_separator                   = get(['fire', 'arrow', 'curve', 'slant'], 1)
 let g:spacevim_statusline_left_sections      =  ['winnr', 'filename', 'syntax checking', 'minor mode lighters']
@@ -64,7 +64,7 @@ let g:spacevim_enable_vimfiler_gitstatus     = 1
 let g:spacevim_enable_vimfiler_filetypeicon  = 0
 "}}}
 
-" System {{{
+" System: {{{
 let g:spacevim_checkinstall                  = 1
 let g:spacevim_enable_debug                  = 0
 let g:spacevim_auto_disable_touchpad         = 1
@@ -79,66 +79,76 @@ let g:spacevim_project_rooter_patterns       = uniq(sort(g:spacevim_project_root
 "}}}
 
 
-" ================================================================================
-" Variable Setting
-" ============================================================================= {{{
-let g:_checkers_var = {
-      \ 'show_cursor_error' : 1,
-      \ }
-let g:_colorscheme_var = {
-      \ 'bright_statusline' : 1,
-      \ 'random_theme'      : 0,
-      \ }
-let g:_lang#c_var = {
-      \ 'enable_clang_syntax_highlight': 1,
-      \ 'clang_executable': g:is_win ? 'D:\devtools\cpp\LLVM\bin\clang'
-      \                              : '/opt/lang-tools/cpp/clang/bin/clang',
-      \ 'libclang_path'   : g:is_win ? 'D:\devtools\cpp\LLVM\bin\libclang.dll'
-      \                              : '/opt/lang-tools/cpp/clang/lib/libclang.so',
-      \ 'clang_std'       : {
-      \     'c'  : 'c11',
-      \     'cpp': 'c++1z'},
-      \ }
-let g:_lang#lua_var = {
-      \ 'repl_command'   : '/opt/lang-tools/lua/luarocks/bin/rep.lua'
-      \ }
-let g:_lang#markdown_var = {
-      \ 'enableWcwidth'  : 1,
-      \ 'listItemIndent' : 1,
-    \ }
-let g:_lang#python_var = {
-      \ 'format_on_save' : 1,
-      \ }
-let g:_lang#ipynb_var  = {
-      \ 'format_on_save' : 1,
-      \ }
-let g:_shell_var = {
-      \ 'default_height'   : 35,
-      \ 'default_position' : 'right',
-      \ }
-let g:_VersionControl_var = {
-      \ 'enable_gtm_status' : 0,
-      \ }
-let g:_lsp_var = {'filetypes' : [
-      \ 'c',
-      \ 'cpp',
-      \ 'lua',
-      \ 'python',
-      \ 'vim',
-      \ ]}
-      " \ 'javascript',
-if g:is_unix
-  call add(g:_lsp_var['filetypes'], 'sh')
-endif
+"================================================================================
+" Layers Variable Settings:
+"============================================================================= {{{
+function! My_SpaceVim_layers_variable(layer) abort
+  return get({
+        \ 'checkers' : {
+        \     'show_cursor_error' : 1,
+        \ },
+        \ 'colorscheme' : {
+        \     'bright_statusline' : 1,
+        \     'random_theme'      : 0,
+        \ },
+        \ 'lang#c' : {
+        \     'enable_clang_syntax_highlight': 1,
+        \     'clang_executable': g:is_win ? 'D:\devtools\cpp\LLVM\bin\clang'
+        \                                  : '/opt/lang-tools/cpp/clang/bin/clang',
+        \     'libclang_path'   : g:is_win ? 'D:\devtools\cpp\LLVM\bin\libclang.dll'
+        \                                  : '/opt/lang-tools/cpp/clang/lib/libclang.so',
+        \     'clang_std'       : {
+        \         'c'  : 'c11',
+        \         'cpp': 'c++1z'},
+        \ },
+        \ 'lang#lua' : {
+        \     'repl_command': '/opt/lang-tools/lua/luarocks/bin/rep.lua'
+        \ },
+        \ 'lang#markdown' : {
+        \     'enableWcwidth'  : 1,
+        \     'listItemIndent' : 1,
+        \ },
+        \ 'lang#python' : {
+        \     'format_on_save' : 1,
+        \ },
+        \ 'lang#ipynb'  : {
+        \     'format_on_save' : 1,
+        \ },
+        \ 'shell' : {
+        \     'default_height'   : 35,
+        \     'default_position' : 'right',
+        \ },
+        \ 'VersionControl' : {
+        \     'enable_gtm_status' : 0,
+        \ },
+        \ 'lsp' : {'filetypes' : extend([
+        \     'c',
+        \     'cpp',
+        \     'scala',
+        \     'lua',
+        \     'python',
+        \     'ipynb',
+        \     'vim',
+        \ ], g:is_unix ? ['sh'] : []
+        \ )}
+        \ }, a:layer, {})
+        " \ 'lang#scala' : {
+        " \     'metals-vim_executable':
+        " \         g:is_win ? ( 'D:\devtools\scala\'     . (g:spacevim_autocomplete_method ==# 'coc'
+        " \                    ? 'coc' : 'languageclient'). '/metals-vim' )
+        " \                  : ( '/opt/lang-tools/scala/' . (g:spacevim_autocomplete_method ==# 'coc'
+        " \                    ? 'coc' : 'languageclient'). '/metals-vim' )
+        " \ },
+  " \ 'javascript',
+endfunction
 " }}}
 
 
-" ================================================================================
-" Layers en/disable
-"   efault layers:
-"   autocomplete, checkers, core, edit, format, ui,
-"   代码补全，检错、修改比较，编辑辅助，文件搜索
-" ============================================================================= {{{
+"================================================================================
+" Layers Enable:
+"     DefaultLayers:
+"     autocomplete, checkers, core, edit, format, ui,
+"============================================================================= {{{
 let g:My_SpaceVim_layers = {
       \ 'chat'              : 1,
       \ 'checkers'          : 1,
@@ -156,7 +166,7 @@ let g:My_SpaceVim_layers = {
       \ 'lang#lua'          : 1,
       \ 'lang#markdown'     : 1,
       \ 'lang#python'       : 1,
-      \ 'lang#scala'        : 0,
+      \ 'lang#scala'        : 1,
       \ 'lang#vim'          : 1,
       \ 'lang#sh'           : 1,
       \ 'incsearch'         : 1,
@@ -229,14 +239,14 @@ endif
 "}}}
 
 
-" ================================================================================
-" En/Disabled plugins
-" ============================================================================= {{{
+"================================================================================
+" Disable Plugins:
+"============================================================================= {{{
       " \ 'vim-grepper'          ,
 let g:spacevim_disabled_plugins = [
       \ 'molokai'              ,
       \ 'jellybeans.vim'       ,
-      \ 'vim-hybrid'           ,
+      \ 'vim=hybrid'           ,
       \ 'vim-material'         ,
       \ 'srcery-vim'           ,
       \ 'neosnippet-snippets'  ,

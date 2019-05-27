@@ -83,6 +83,7 @@ function! s:better_whitespace() abort
   let g:better_whitespace_ctermcolor = '114'
   let g:better_whitespace_guicolor   = '#98c379'
   if !g:is_spacevim
+    let g:better_whitespace_filetypes_blacklist = ['diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown', 'leaderGuide']
     nnoremap <silent><space>tw  :call <sid>toggle_whitespace()<CR>
   endif
 endfunction

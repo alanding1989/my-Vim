@@ -1,13 +1,9 @@
-" ================================================================================
-" Vim config file
-" Section config/Vim
-" ================================================================================
+"================================================================================
+" Description: Vim config file
+" Section:     config/Vim
+"================================================================================
 scriptencoding utf-8
 
-
-
-" choose minimal setting
-let g:pure_viml = 0
 
 
 " Themes list " {{{
@@ -26,9 +22,9 @@ let g:my_cs = split([
 let g:my_bg = 1 ? 'dark' : 'light'
 "}}}
 
-" ================================================================================
-" Preferences
-" ================================================================================
+"================================================================================
+" Preferences:
+"================================================================================
 let g:autocomplete_method           = get(['coc'       , 'deoplete' , 'ncm2'], 0)
 let g:snippet_engine                = get(['neosnippet', 'ultisnips', 'coc' ], 0)
 let g:fuzzyfinder                   = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
@@ -39,6 +35,9 @@ let g:lint_on_the_fly               = 1
 let g:format_on_save                = 1
 let g:enable_deotabline             = 0
 let g:enable_googlesuggest          = 0
+" Choose minimal setting
+let g:pure_viml = 0
+
 
 " Ui {{{
 let g:enable_fat_statusline         = 1
@@ -50,22 +49,26 @@ let g:enable_checkinstall          = 1
 "}}}
 
 " Var {{{
-let g:_lsp_var = { 'ft' : [
-      \ 'sh',
-      \ 'python',
-      \ 'ipynb',
-      \ 'javascript',
-      \ 'vim',
-      \ ]}
+function! My_Vim_layers_variable(layer) abort
+  return get({
+        \ 'lsp' : { 
+        \     'filetypes' : extend([
+        \         'python'    ,
+        \         'ipynb'     ,
+        \         'javascript',
+        \         'vim'       ,
+        \     ], g:is_unix ? ['sh'] : []
+        \ )}
+        \ }, a:layer, {})
+endfunction
 "}}}
 
 
-" ================================================================================
-" Layers en/disable
-"   Default layers:
+"================================================================================
+" Layers Enable:
+"   DefaultLayers:
 "   autocomplete,  checkers,  core,  edit,  format,  leaderf
-"   代码补全，检错、修改比较，编辑辅助，文件搜索
-" ============================================================================= {{{
+"============================================================================= {{{
 let g:My_Vim_layers = {
       \ 'chinese'           : 1,
       \ 'tags'              : 1,
@@ -135,9 +138,9 @@ endif "}}}
 "}}}
 
 
-" ================================================================================
-" Disabled plugins
-" ============================================================================= {{{
+"================================================================================
+" Disabled Plugins:
+"============================================================================= {{{
 " let g:disabled_plugins = [
       " \ '',
       " \ ]

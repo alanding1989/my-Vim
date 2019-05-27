@@ -7,7 +7,7 @@ scriptencoding utf-8
 
 function! layers#leaderf#plugins() abort
   let plugins = []
-  " \ ['Yggdroot/LeaderF-marks', {'on_cmd' : 'LeaderfMarks'}],
+  " \ ['Yggdroot/LeaderF-marks', {'on_cmd' : 'LeaderfMarks'}]
   if !g:is_spacevim
     if !g:is_win
       call add(plugins , ['Yggdroot/LeaderF', {'merged': 0, 'build': './install.sh', 'do': './install.sh'}])
@@ -35,9 +35,7 @@ function! layers#leaderf#config() abort
           \ ]
     " leader mapping
     " NOTE: jump location quickfix register message use Denite/Unite
-    if !SpaceVim#layers#isLoaded('denite')
-      let g:_spacevim_mappings.f   = {'name' : '+@ Fuzzy Finder'}
-    endif
+    let g:_spacevim_mappings.f     = get(g:_spacevim_mappings, 'f', {'name': '+@ Fuzzy Finder'})
     let g:_spacevim_mappings.f.h   = {'name' : '+Fuzzy find history'}
     let g:_spacevim_mappings.f.h.c = ['LeaderfHistoryCmd'   , 'fuzzy find cmd history'   ]
     let g:_spacevim_mappings.f.h.s = ['LeaderfHistorySearch', 'fuzzy find search history']

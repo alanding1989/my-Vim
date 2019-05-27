@@ -1,13 +1,25 @@
+" ================================================================================
+" goyo settings for vim
+" ================================================================================
+scriptencoding utf-8
 if get(s:, 'loaded', 0)
   finish
 endif
 let s:loaded = 1
 
 
+let g:goyo_width  = 100
+let g:goyo_height = '100%'
+let g:goyo_linenr = 1
+
+if g:is_spacevim
+  finish
+endif
+
 let s:save_option = {}
 function! s:goyo_enter()
-  let s:save_option['showmode'] = &showmode
-  let s:save_option['showcmd'] = &showcmd
+  let s:save_option['showmode']  = &showmode
+  let s:save_option['showcmd']   = &showcmd
   let s:save_option['scrolloff'] = &scrolloff
   set noshowmode
   set noshowcmd
@@ -19,8 +31,8 @@ function! s:goyo_enter()
 endfunction
 
 function! s:goyo_leave()
-  let &showmode = s:save_option['showmode']
-  let &showcmd = s:save_option['showcmd']
+  let &showmode  = s:save_option['showmode']
+  let &showcmd   = s:save_option['showcmd']
   let &scrolloff = s:save_option['scrolloff']
   if get(s:save_option,'limelight', 0)
     execute 'Limelight!'

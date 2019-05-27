@@ -42,15 +42,7 @@ if get(g:, 'autocomplete_method') ==# 'coc'
     return
   endfunction
 
-elseif has('nvim') && has('python3')
-  function! layers#lsp#reg_server(serverCommands) abort
-    let g:LanguageClient_serverCommands = {}
-    for [ft, cmds] in items(a:serverCommands)
-      let g:LanguageClient_serverCommands[ft] = cmds
-    endfor
-  endfunction
-
-else
+elseif g:pure_viml
   function! layers#lsp#reg_server(serverCommands) abort
     for [ft, cmds] in items(a:serverCommands)
       exec 'au User lsp_setup call lsp#register_server({'
@@ -59,6 +51,14 @@ else
             \ . "'whitelist': ['" .  ft . "' ],"
             \ . '})'
       exec 'autocmd FileType ' . ft . ' setlocal omnifunc=lsp#complete'
+    endfor
+  endfunction
+
+else
+  function! layers#lsp#reg_server(serverCommands) abort
+    let g:LanguageClient_serverCommands = {}
+    for [ft, cmds] in items(a:serverCommands)
+      let g:LanguageClient_serverCommands[ft] = cmds
     endfor
   endfunction
 endif
@@ -82,7 +82,7 @@ endif
         \ 'scala'      : ['metals-vim'],
         \ 'typescript' : ['typescript-language-server', '--stdio'],
         \ },
-        \ g:is_nvim ? {
+        \ !g:pure_viml ? {
         \ 'sh'         : ['bash-language-server', 'start'],
         \ 'vim'        : ['vim-language-server' , '--stdio'],
         \ } : {}
@@ -90,7 +90,7 @@ endif
 " }}}
 let s:enabled_serverCommands = {}
 function! layers#lsp#set_variable(var) abort
-  let enable_lsp_ft = get(a:var, 'ft', [])
+  let enable_lsp_ft = get(a:var, 'filetypes', [])
   for ft in enable_lsp_ft
     if has_key(s:serverCommands, ft)
       let s:enabled_serverCommands[ft] = s:serverCommands[ft]
@@ -116,23 +116,7 @@ if get(g:, 'autocomplete_method') ==# 'coc'
   function! layers#lsp#references() abort
     call CocActionAsync('jumpReferences')
   endfunction
-elseif has('nvim') && has('python3')
-  function! layers#lsp#show_doc() abort
-    call LanguageClient_textDocument_hover()
-  endfunction
-
-  function! layers#lsp#go_to_def() abort
-    call LanguageClient_textDocument_definition()
-  endfunction
-
-  function! layers#lsp#rename() abort
-    call LanguageClient_textDocument_rename()
-  endfunction
-
-  function! layers#lsp#references() abort
-    call LanguageClient_textDocument_references()
-  endfunction
-else
+elseif g:pure_viml
   function! layers#lsp#show_doc() abort
     LspHover
   endfunction
@@ -147,6 +131,22 @@ else
 
   function! layers#lsp#references() abort
     LspReferences
+  endfunction
+else
+  function! layers#lsp#show_doc() abort
+    call LanguageClient_textDocument_hover()
+  endfunction
+
+  function! layers#lsp#go_to_def() abort
+    call LanguageClient_textDocument_definition()
+  endfunction
+
+  function! layers#lsp#rename() abort
+    call LanguageClient_textDocument_rename()
+  endfunction
+
+  function! layers#lsp#references() abort
+    call LanguageClient_textDocument_references()
   endfunction
 endif
 "}}}

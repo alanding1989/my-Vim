@@ -25,18 +25,18 @@ function! layers#edit#plugins() abort "{{{
           \ ['kana/vim-textobj-indent'                                                             ],
           \ ['tpope/vim-surround'                                                                  ],
           \ ['tpope/vim-repeat'                                                                    ],
-          \ ['dhruvasagar/vim-table-mode',                                            {'merged': 0}],
-          \ ['junegunn/vim-emoji',                                                    {'merged': 0}],
-          \ ['haya14busa/vim-easyoperator-line',                                      {'merged': 0}],
-          \ ['easymotion/vim-easymotion',                                             {'merged': 0}],
-          \ ['godlygeek/tabular',                                                     {'merged': 0}],
-          \ ['terryma/vim-expand-region',                                           {'loadconf': 1}],
           \ ['gcmt/wildfire.vim',                                    {'on_map': '<Plug>(wildfire-'}],
           \ ['osyo-manga/vim-jplus',                                     {'on_map': '<Plug>(jplus'}],
-          \ ['ntpeters/vim-better-whitespace', {'on_cmd':
-                  \ ['StripWhitespace', 'ToggleWhitespace', 'DisableWhitespace', 'EnableWhitespace'],
-          \ 'on': ['StripWhitespace', 'ToggleWhitespace', 'DisableWhitespace', 'EnableWhitespace']}],
+          \ ['godlygeek/tabular',                                                     {'merged': 0}],
+          \ ['terryma/vim-expand-region',                                             {'merged': 0}],
+          \ ['haya14busa/vim-easyoperator-line',                                      {'merged': 0}],
+          \ ['easymotion/vim-easymotion',                                             {'merged': 0}],
+          \ ['dhruvasagar/vim-table-mode',                                            {'merged': 0}],
+          \ ['junegunn/vim-emoji',                                                    {'merged': 0}],
           \ ['editorconfig/editorconfig-vim',  {'merged': 0, 'if': has('python') || has('python3')}],
+          \ ['ntpeters/vim-better-whitespace', 
+          \ {'on_cmd': ['StripWhitespace', 'ToggleWhitespace', 'DisableWhitespace', 'EnableWhitespace'],
+          \  'on'    : ['StripWhitespace', 'ToggleWhitespace', 'DisableWhitespace', 'EnableWhitespace']}],
           \ ]
     if executable('fcitx')
       call add(plugins, ['lilydjwg/fcitx.vim', { 'on_event' : 'InsertEnter'}])

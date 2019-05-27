@@ -15,7 +15,7 @@ let s:loaded = 1
 "
 " NOTE: for debugging LanguageClient-neovim
 " let g:LanguageClient_loggingLevel = 'DEBUG'
-" let g:LanguageClient_loggingFile = '/tmp/LanguageClient.log'
+let g:LanguageClient_loggingFile = '/tmp/LanguageClient.log'
 
 
 let g:LanguageClient_settingsPath             = expand(g:home.'/LCN-settings.json')

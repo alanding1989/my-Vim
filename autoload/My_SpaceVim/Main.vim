@@ -120,7 +120,7 @@ endfunction
 " load layer
 function! s:loadlayers() abort
   for [layer, value] in items(g:My_SpaceVim_layers)
-    let var = get(g:, '_'. layer .'_var', {})
+    let var = My_SpaceVim_layers_variable(layer)
     if value == 1 && util#dict#valid(var)
       call SpaceVim#layers#load(layer, var)
     elseif value == 1

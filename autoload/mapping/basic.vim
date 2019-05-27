@@ -6,8 +6,8 @@ scriptencoding utf-8
 
 
 function! mapping#basic#load() abort
-  let g:mapleader       = ';'
-  let g:maplocalleader  = "\<Space>"
+  let g:mapleader      = ';'
+  let g:maplocalleader = "\<Space>"
   set timeout
   set timeoutlen=400
   call <sid>defPlug()
@@ -276,7 +276,7 @@ function! mapping#basic#load() abort
         \ nnoremap g0             g*   |
         \ nnoremap go             gf   |
         \ nnoremap gm             ga   |
-        \ nnoremap gc             :call util#echohl('col number: ', col('.'))<CR>
+        \ nnoremap gc             :call util#echohl('Line-Col number: ', line('.'), col('.'))<CR>
 
   if has('nvim')
     nnoremap <Space>qh            :checkhealth<CR>
@@ -351,7 +351,7 @@ function! s:Delimitor_init() abort
   inoremap <expr> =   MatchDel('=', '\v(\=+)\|(\>+)\|(\<+)\|(\++)\|(-+)\|(!+)\s$', 1, 11)
   inoremap <expr> \|  MatchDel('\|', '\|\+\s$', 1, 11)
   inoremap <expr> &   MatchDel('&', '&\+\s$', 0, 00)
-  inoremap <expr> #   MatchDel('#', '\v(\=+\s)\|(\=\~)\|(!\=)\|(!\~)', 0, 00)
+  inoremap <expr> #   MatchDel('#', '\v(\={2}\s)\|(\=\~\s)\|(!\=\s)\|(!\~\s)', 0, 00)
   inoremap <expr> ?   MatchDel('?', '\v^\s*(let)\|(:\s).*\S\_$', 1, 01)
   inoremap <expr> ~   MatchDel('~', '\v(\=+)\|(!)\s', 1, 11)
   inoremap <expr> >   MatchDel('>', '\v(\>+)\|(\=)\|(-)\|(\<\w*)\s$', 1, 11)
@@ -373,7 +373,8 @@ function! s:Delimitor_init() abort
     auto FileType vim 
           \ inoremap <buffer><expr> "  MatchCl('\v(^\_$)\|(^\s*\w*\s\_$)\|(^\s+\_$)') ? "\"\<Space>" : AutoClo('"', '"') |
           \ inoremap <buffer><expr> :  MatchCl('\v\s(s)\|(g)\|(a)\|(l)\|(\S\W\s)$') ? ':' : CurChar(0, '\s') ? ': ' : ' : '
-    auto FileType c,cpp let b:eol_marker = ';' 
+    auto FileType c,cpp     let b:eol_marker = ';' 
+    auto FileType markdown  call <sid>AutoPairs({'*':'*', '《':'》'})
   augroup END
 endfunction
 function! s:AutoClose() abort " {{{
@@ -384,19 +385,17 @@ function! s:AutoClose() abort " {{{
     exec 'inoremap <expr> '.r.' AutoClo('.string(r).')'
   endfor
 endfunction " }}}
-function! s:AutoPairs() abort " {{{
-  let autopairs = get(b:, 'autopairs', get(g:, 'autopairs', {
+function! s:AutoPairs(...) abort " {{{
+  let autopairs = extend({
         \ '('  : ')' ,
         \ '['  : ']' ,
         \ '{'  : '}' ,
         \ "'"  : "'" ,
         \ '"'  : '"' ,
         \ '`'  : '`' ,
-        \ '*'  : '*' ,
-        \ '《' : '》',
-        \ }))
+        \ }, a:0 ? a:1 : {})
   for [l, r] in items(autopairs)
-    exec 'inoremap <expr> '.l.' AutoClo('.string(l).', '.string(r).')'
+    exec 'inoremap <expr><buffer> '.l.' AutoClo('.string(l).', '.string(r).')'
   endfor
 endfunction " }}}
 function! s:Numfix() abort " {{{
@@ -478,49 +477,16 @@ function! s:win_scroll(forward, mode)
 endfunction "}}}
 
 " Toggle zzmode {{{
-" param init {{{
 let s:zzmode = 0
-let s:save_rhs = {}
-let s:zzmodekey = {
-      \ 'dd'     : 'ddzz',
-      \ 'd'      : 'dzz',
-      \ '#'      : '#zz',
-      \ '*'      : '*zz',
-      \ 'j'      : 'jzz',
-      \ 'k'      : 'kzz',
-      \ 'zj'     : 'zjzz',
-      \ 'zk'     : 'zkzz',
-      \ 'G'      : 'Gzz',
-      \ 'H'      : 'Hzz',
-      \ 'L'      : 'Lzz',
-      \ '('      : '(zz',
-      \ ')'      : ')zz',
-      \ '{'      : '{zz',
-      \ '}'      : '}zz',
-      \ '[{'     : '[{zz',
-      \ ']}'     : ']}zz',
-      \ '[['     : '[[zz',
-      \ ']]'     : ']]zz',
-      \ } " }}}
 function! s:Toggle_ZZMode() abort
   if s:zzmode == 0
-    exec 'normal! M'
-    for [lhs, rhs] in items(s:zzmodekey)
-      let s:save_rhs[lhs] = maparg(lhs, 'n')
-      exec 'nmap ' lhs rhs
-    endfor
+    set scrolloff=999
+    echo '  ZZMode now is on!'
     let s:zzmode = 1
-    echo '  zzmode now is on!'
   else
-    for [lhs, rhs] in items(s:save_rhs)
-      if !empty(rhs)
-        exec 'nmap ' lhs rhs
-      else
-        exec 'nunmap ' lhs
-      endif
-    endfor
+    set scrolloff=2
+    echo '  ZZMode now is off!'
     let s:zzmode = 0
-    echo '  zzmode now is off!'
   endif
 endfunction
 " }}}

@@ -219,6 +219,9 @@ function! util#Open_curPlugin_repo()
     let a_save = @a
     let @a=''
     normal! mx"ayi'
+    if empty(@a)
+      normal! mx"ayi"
+    endif
     normal! `x
     exec 'OpenBrowser https://github.com/'.@a
   catch

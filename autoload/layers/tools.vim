@@ -8,21 +8,29 @@ function! layers#tools#plugins() abort
   let plugins = []
   if !g:is_spacevim
     let plugins += [
-          \ ['lymslive/vimloo'                 , {'merged' : 0}],
-          \ ['lymslive/vnote'                  , {'depends': 'vimloo',
+          \ ['lymslive/vimloo'              , {'merged' : 0}],
+          \ ['lymslive/vnote'               , {'depends': 'vimloo',
           \ 'on_cmd': ['NoteBook', 'NoteNew', 'NoteEdit', 'NoteList', 'NoteConfig', 'NoteIndex', 'NoteImport'],
           \ 'on'    : ['NoteBook', 'NoteNew', 'NoteEdit', 'NoteList', 'NoteConfig', 'NoteIndex', 'NoteImport']}],
-          \ ['mbbill/fencview'                 , {'on_cmd': 'FencAutoDetect'    , 'on': 'FencAutoDetect'}]    ,
-          \ ['simnalamburt/vim-mundo'          , {'on_cmd': 'MundoToggle'       , 'on': 'MundoToggle'}]       ,
-          \ ['wsdjeg/vim-cheat'                , {'on_cmd': 'Cheat'             , 'on': 'Cheat'}]             ,
-          \ ['wsdjeg/Mysql.vim'                , {'on_cmd': 'SQLGetConnection'  , 'on': 'SQLGetConnection'}]  ,
-          \ ['wsdjeg/SourceCounter.vim'        , {'on_cmd': 'SourceCounter'     , 'on': 'SourceCounter'}]     ,
-          \ ['itchyny/calendar.vim'            , {'on_cmd': 'Calendar'          , 'on': 'Calendar'}]          ,
-          \ ['junegunn/limelight.vim'          , {'on_cmd': 'Limelight'         , 'on': 'Limelight'}]         ,
-          \ ['junegunn/goyo.vim'               , {'on_cmd': 'Goyo'              , 'on': 'Goyo'                , 'loadconf': 1}],
-          \ ['MattesGroeger/vim-bookmarks'     , {'on_cmd': 'BookmarkShowAll'   , 'on': ['BookmarkShowAll', '<Plug>Bookmark'],
-          \ 'on_map': '<Plug>Bookmark', 'loadconf_before': 1}],
+          \ ['mbbill/fencview'              , {'on_cmd' : 'FencAutoDetect'  , 'on': 'FencAutoDetect'          }],
+          \ ['simnalamburt/vim-mundo'       , {'on_cmd' : 'MundoToggle'     , 'on': 'MundoToggle'             }],
+          \ ['wsdjeg/vim-cheat'             , {'on_cmd' : 'Cheat'           , 'on': 'Cheat'                   }],
+          \ ['wsdjeg/Mysql.vim'             , {'on_cmd' : 'SQLGetConnection', 'on': 'SQLGetConnection'        }],
+          \ ['wsdjeg/SourceCounter.vim'     , {'on_cmd' : 'SourceCounter'   , 'on': 'SourceCounter'           }],
+          \ ['itchyny/calendar.vim'         , {'on_cmd' : 'Calendar'        , 'on': 'Calendar'                }],
+          \ ['junegunn/limelight.vim'       , {'on_cmd' : 'Limelight'       , 'on': 'Limelight'               }],
+          \ ['junegunn/goyo.vim'            , {'on_cmd' : 'Goyo'            , 'on': 'Goyo'                    }],
+          \ ['MattesGroeger/vim-bookmarks'  , {'on_cmd' : 'BookmarkShowAll' , 'on': 'BookmarkShowAll', 'on_map': '<Plug>Bookmark'}]
           \ ]
+    " vimloo        : VimL object orient programming frame and tools
+    " vnote         : A dairy note edit and manage tool in vim
+    " fencview      : Auto detect CJK and Unicode file encodings
+    " vim-scriptease: A vim plugin for writing vim plugins
+    " vim-mundo     : Vim undo tree visualizer
+    " vim-cheat     : view cheatsheets via vim
+    " Mysql         : vim plugin support use mysql via vim
+    " goyo/limelight: ZenMode
+    "
     " call add(plugins, ['tpope/vim-scriptease', {'merged' : 0}])
     if executable('python3')
       call add(plugins, ['fedorenchik/VimCalc3', {'on_cmd': 'Calc', 'on': 'Calc'}])
@@ -38,12 +46,13 @@ function! layers#tools#config() abort
   nnoremap <silent><F6> :MundoToggle<CR>
 
   if !g:is_spacevim
-    call s:vimcalc()
-    nmap mm <Plug>BookmarkToggle
-    nmap mi <Plug>BookmarkAnnotate
-    nmap ma <Plug>BookmarkShowAll
-    nmap mn <Plug>BookmarkNext
-    nmap mp <Plug>BookmarkPrev
+    nnoremap <silent> <Space>al  :Calendar<CR>
+    nnoremap <silent> <Space>ac  :Calc<CR>
+    nnoremap <silent> <Space>ea  :FencAutoDetect<CR>
+    nnoremap <silent> <Space>wc  :Goyo<CR>
+    nnoremap <silent> <Space>wC  :ChooseWin\|Goyo<CR>
+    call <sid>vimcalc()
+    call <sid>vim_bookmarks()
   endif
 endfunction
 
@@ -52,20 +61,18 @@ function! s:vimcalc() abort
   augroup my_rainbow
     autocmd!
     autocmd FileType vimcalc setlocal nonu nornu nofoldenable
-          \ | inoremap <silent><buffer><c-d> <esc>:q<cr>
-          \ | nnoremap <silent> <buffer> q :bdelete<cr>
+          \ | inoremap <silent><buffer> <c-d> <esc>:q<cr>
+          \ | nnoremap <silent><buffer> q     :bdelete<cr>
   augroup END
 endfunction
 
+function! s:vim_bookmarks() abort
+  nnoremap <silent> mm :<C-u>BookmarkToggle<Cr>
+  nnoremap <silent> mi :<C-u>BookmarkAnnotate<Cr>
+  nnoremap <silent> ma :<C-u>BookmarkShowAll<Cr>
+  nnoremap <silent> mn :<C-u>BookmarkNext<Cr>
+  nnoremap <silent> mp :<C-u>BookmarkPrev<Cr>
+endfunction
 
-
-" call SpaceVim#mapping#space#def('nnoremap', ['a', 'l'], 'Calendar', 'vim calendar', 1)
-" call SpaceVim#mapping#space#def('nnoremap', ['e', 'a'], 'FencAutoDetect',
-" \ 'Auto detect the file encoding', 1)
-" call SpaceVim#mapping#space#def('nnoremap', ['a', 'c'], 'Calc', 'vim calculator', 1)
-" call SpaceVim#mapping#space#def('nnoremap', ['w', 'c'],
-" \ 'Goyo', 'centered-buffer-mode', 1)
-" call SpaceVim#mapping#space#def('nnoremap', ['w', 'C'],
-" \ 'ChooseWin | Goyo', 'centered-buffer-mode(other windows)', 1)
 
 " vim:set et sw=2 cc=80:

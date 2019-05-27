@@ -36,6 +36,9 @@ function! layers#tags#config() abort
   call s:gutentags_plus()
 
   augroup layer_tags
+    autocmd!
+    auto User GutentagsUpdating call util#echohl(gutentags#statusline('[', ']'))
+    auto User GutentagsUpdated  echo ''
     auto VimEnter * nnoremap <silent><F2> :Vista!!  \| doautocmd WinEnter<CR>
           \ | auto FileType markdown
           \         nnoremap <silent><F2> :Vista toc\| doautocmd WinEnter<CR>

@@ -125,11 +125,6 @@ endfunction
 
 
 function! layers#lang#scala#config() abort
-  if s:autocomplete_method ==# 'coc'
-    let $PATH .= ':/opt/lang-tools/scala/coc/'
-  elseif My_Vim#layer#isLoaded('lsp') || SpaceVim#layers#isLoaded('lsp')
-    let $PATH .= ':/opt/lang-tools/scala/languageclient/'
-  endif
   if g:is_spacevim
     call SpaceVim#mapping#gd#add('scala', function('s:go_to_def'))
 
@@ -165,13 +160,23 @@ function! s:language_specified_mappings() abort
   endif
 endfunction
 
-function! s:go_to_def() abort
-  if layers#lsp#checkft('scala')
-    call SpaceVim#lsp#go_to_def()
-  else
-    EnDeclarationSplit v
-  endif
-endfunction
+if g:is_spacevim
+  function! s:go_to_def() abort
+    if SpaceVim#layers#lsp#check_filetype('scala')
+      call SpaceVim#lsp#go_to_def()
+    else
+      EnDeclarationSplit v
+    endif
+  endfunction
+else
+  function! s:go_to_def() abort
+    if layers#lsp#checkft('scala')
+      call SpaceVim#lsp#go_to_def()
+    else
+      EnDeclarationSplit v
+    endif
+  endfunction
+endif
 
 function! s:execCMD(cmd) abort
   try
