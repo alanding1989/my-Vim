@@ -64,14 +64,13 @@ function! layers#core#config() abort
 
     let g:_spacevim_mappings.a   = get(g:_spacevim_mappings, 'a', {'name' : '+@ Session/Setting/Select'})
     let g:_spacevim_mappings.a.c = {'name': '+Open config file'}
-    let g:_spacevim_mappings.a.a = ['normal! ggVG'                           , 'select whole buffer'      ]
-    let g:_spacevim_mappings.a.e = ['normal! VG'                             , 'select to the end'        ]
-    call SpaceVim#mapping#def('nmap', '<leader>y'   , '<Plug>(EasyCopy-inPairs)',
-          \ 'copy text in pairs to system clipboard', '', 'copy text in pairs to system clipboard')
-    call SpaceVim#mapping#def('nmap', '<leader>az'  , '<Plug>(Toggle-ZZMode)',
-          \ 'toggle zzmode'                         , '', 'toggle zzmode')
-    call SpaceVim#mapping#def('nnoremap', '<leader>ap', "i\<C-r>=expand('%:p')\<CR>\<Esc>",
-          \ 'paste file absolute path'              , '', 'paste file absolute path')
+    let g:_spacevim_mappings.a.a = ['normal! ggVG'              , 'select whole buffer']
+    let g:_spacevim_mappings.a.e = ['normal! VG'                , 'select to the end'  ]
+    call SpaceVim#mapping#def('nmap', '<leader>az', 
+          \ '<Plug>(Toggle-ZZMode)', 'toggle zzmode', '', 'toggle zzmode')
+    call SpaceVim#mapping#def('nnoremap', '<leader>ap', 
+          \ "i\<C-r>=expand('%:p')\<CR>\<Esc>",
+          \ 'paste file absolute path', '', 'paste file absolute path')
 
   else
     let g:matchup_matchparen_status_offscreen = 0
