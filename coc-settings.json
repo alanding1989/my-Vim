@@ -15,7 +15,7 @@
   "coc.preferences.previewAutoClose"                : false,
   "coc.preferences.currentFunctionSymbolAutoUpdate" : true,
   "coc.preferences.rootPatterns"                    : [ ".root","*.sbt",".vim",".git",".hg",".projections.json" ],
-  "coc.preferences.formatOnSaveFiletypes"           : ["css", "Markdown", "python", "c", "cpp", "java", "vim", "sh", "lua"],
+  "coc.preferences.formatOnSaveFiletypes"           : ["css", "Markdown", "python", "scala", "c", "cpp", "java", "vim", "sh", "lua"],
   
   "diagnostic.enable"                               : false,
   "diagnostic.virtualText"                          : true,

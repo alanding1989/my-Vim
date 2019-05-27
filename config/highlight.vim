@@ -82,8 +82,8 @@ augroup highlight_related
   autocmd ColorScheme *           hi! MatchParen    gui=italic,bold  cterm=italic,bold
         \                       | hi! Folded        gui=italic       cterm=italic
         \                       | hi! Comment       gui=italic       cterm=italic
-        \                       | hi! String        guifg=#98c379    guibg=#3c3836  gui=italic  cterm=italic
-        \                       | hi! storageclass  guifg=#aab6e1                   gui=italic  cterm=italic
+        \                       | hi! String        guifg=#98c379    gui=italic  cterm=italic
+        \                       | hi! storageclass  guifg=#aab6e1    gui=italic  cterm=italic
 augroup END
         " \                       | hi! clear Statement | hi! Statement     guifg=#f92672                       " default purple
         " \                       | hi! function      guifg=#a3e234    ctermfg = 73
@@ -91,6 +91,7 @@ augroup END
         " \                       | hi! Define        guifg=#c678dd                   gui=italic  cterm=italic  " light green
         " \                       | hi! Type          guifg=#d19a66    guibg=#3e4452  gui=italic  cterm=italic  " light green, white bg
         " \                       | hi! String        guifg=#98c379    guibg=#3b4048  gui=italic  cterm=italic
+        " \                       | hi! String        guifg=#98c379    guibg=#3c3836  gui=italic  cterm=italic
 " }}}
 
 
