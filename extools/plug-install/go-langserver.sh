@@ -11,3 +11,4 @@
 # go get -u github.com/saibing/bingo
 go get -u github.com/sourcegraph/go-langserver
 go get -u github.com/haya14busa/go-vimlparser/cmd/vimlparser
+
