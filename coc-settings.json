@@ -147,16 +147,16 @@
       "args": [],
       "filetypes": ["javascript"]
     },
-//    "efm" : {
-//      "command": "efm-langserver",
-//      "args": ["-c", "~/.config/efm-langserver/config.yaml"],
-//      "filetypes": ["markdown"]
-//    },
     "dockerfile": {
       "command": "docker-langserver",
       "filetypes": ["dockerfile"],
       "args": ["--stdio"]
     },
+//    "efm" : {
+//      "command": "efm-langserver",
+//      "args": ["-c", "~/.config/efm-langserver/config.yaml"],
+//      "filetypes": ["markdown"]
+//    },
     "dls"  : {
       "command": "diagnostic-languageserver",
       "args": ["--stdio"],
@@ -195,7 +195,7 @@
   },
 
   "git.branchCharacter"          : "",
-  "git.enableGutters"            : true,
+  "git.enableGutters"            : false,
   "git.addedSign.text"           : "✚",
   "git.removedSign.text"         : "✖",
   "git.topRemovedSign.text"      : "▤",

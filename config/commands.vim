@@ -6,12 +6,17 @@ scriptencoding utf-8
 
 
 command! -nargs=*  EchoMap          call util#maparg_wrapper(<f-args>)
+
 command! -nargs=?  SpcPR            call util#SPC_PR(<f-args>)
+
 command! -nargs=+  OpenlinkOrSearch call layers#core#OpenlinkOrSearch(<f-args>)
+
 command! -nargs=?  -complete=filetype
-                \  MyCocSnipsEdit   call layers#autocomplete#coc_editsnips()(<f-args>)
+                 \ MyCocSnipsEdit   call layers#autocomplete#coc_editsnips()(<f-args>)
+
 command! -nargs=?  -complete=highlight
                  \ EchoHlight       call util#hlight_wrapper(<f-args>)
+
 command! -nargs=?  -complete=help
                  \ EchoHelp         call util#vim_help_wrapper(<f-args>)
 
@@ -24,18 +29,23 @@ command! DiffOrig  vert new | set bt=nofile | r ++edit# | 0d_ | diffthis
 
 
 
-"================================================================================
-" Vim
-"================================================================================
-if !g:is_spacevim
-  if get(g:, 'plugmanager', 'dein') ==# 'vim-plug'
+" Manipulate Plugin {{{
+if g:is_spacevim
+  command! -nargs=?
+        \ -complete=custom,SpaceVim#commands#complete_plugin
+        \ CheckInstall  call util#CheckInstall(<f-args>)
+else
+  if get(g:, 'plugmanager', 'vim-plug') ==# 'vim-plug'
     " update vim-plug itself
       " PlugUpgrade
     " update all plugins
       " PlugUpdate
+    command! -nargs=?
+          \ -complete=custom,g:plugs
+          \ CheckInstall  call util#CheckInstall(<f-args>)
+
   elseif get(g:, 'plugmanager') ==# 'dein'
     let g:spacevim_plugin_manager_processes = 1000
-    let g:spacevim_plugin_manager = 'dein'
     command! -nargs=*
           \ PlugInstall   call SpaceVim#commands#install_plugin(<f-args>)
 
@@ -46,5 +56,10 @@ if !g:is_spacevim
     command! -nargs=+
           \ -complete=custom,SpaceVim#commands#complete_plugin
           \ PlugReinstall call SpaceVim#commands#reinstall_plugin(<f-args>)
+
+    command! -nargs=?
+          \ -complete=custom,SpaceVim#commands#complete_plugin
+          \ CheckInstall  call util#CheckInstall(<f-args>)
   endif
-endif
+endif  " }}}
+

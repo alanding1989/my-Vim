@@ -44,7 +44,7 @@ augroup my_LC_settings
 augroup END
 
 function! s:g_mappings() abort
-  vnoremap  <silent>ga  :call <sid>LC('codeAction')<CR>
+  vnoremap  <silent>gc  :call <sid>LC('codeAction')<CR>
   nnoremap  <silent>gt  :call <sid>LC('typeDefinition')<CR>
   nnoremap  <silent>gi  :call <sid>LC('implementation')<CR>
   nnoremap  <silent>gr  :call <sid>LC('references')<CR>
@@ -108,3 +108,4 @@ elseif g:checker ==# 'ale'
   let g:LanguageClient_diagnosticsDisplay[4].signTexthl = 'ALEInfoSign'
 endif
 "}}}
+

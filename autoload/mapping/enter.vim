@@ -17,8 +17,8 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
         return g:neosnippet#enable_complete_done
               \ ? ( s:md ==# 'deoplete' ? "\<C-y>"
               \ : CurChar(0, '(') ? ( s:md ==# 'asyncomplete' ? asyncomplete#close_popup() : "\<C-y>" ) 
-              \ :  "\<C-e>\<plug>(neosnippet_expand)" )
-              \ : "\<plug>(neosnippet_expand)"
+              \ :  "\<C-e>\<Plug>(neosnippet_expand)" )
+              \ : "\<Plug>(neosnippet_expand)"
       elseif !WithinEmptyPair() && CurChar(1, '}')
         return "\<C-y>\<CR>"
       elseif !CurChar(1, '}')
@@ -26,7 +26,7 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
       endif
     elseif !pumvisible()
       if neosnippet#jumpable()
-        return "\<plug>(neosnippet_jump)"
+        return "\<Plug>(neosnippet_jump)"
       elseif CurChar(0, '\s') || CurChar(1, '\s') || CurChar(1, '\w') 
         return "\<CR>"
       elseif !CurChar(1, ']') && !CurChar(1, '}') && !CurChar(1, '', 1)
@@ -90,7 +90,7 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'coc'
   function! mapping#enter#Super_Enter() abort
     if pumvisible()
       if coc#expandable()
-        return "\<plug>(coc-snippets-expand)"
+        return "\<Plug>(coc-snippets-expand)"
       elseif !WithinEmptyPair() && CurChar(1, '}')
         return "\<C-y>\<CR>"
       elseif !CurChar(1, '}')

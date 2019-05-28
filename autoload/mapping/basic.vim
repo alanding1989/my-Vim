@@ -8,8 +8,8 @@ scriptencoding utf-8
 function! mapping#basic#load() abort
   let g:mapleader      = ';'
   let g:maplocalleader = "\<Space>"
-  set timeout
-  set timeoutlen=400
+  " set timeout
+  " set timeoutlen=400
   call <sid>defPlug()
   call <sid>Delimitor_init()
   auto VimEnter * call s:unmap_SPC()
@@ -20,6 +20,7 @@ function! mapping#basic#load() abort
   nnoremap  s           <nop>
   nnoremap  q           <nop>
   nnoremap  ,           <Space>l
+  inoremap  <nowait>>\  \
   " NOTE: below 4 used in edgemotion, tmux-navigate
   nnoremap <C-k>        <C-w>k
   nnoremap <C-j>        <C-w>j
@@ -163,7 +164,7 @@ function! mapping#basic#load() abort
   nnoremap <expr> a               winline() != winheight(0) ? "zza" : "a"
 
   " improve fold mapping
-  auto VimEnter * 
+  auto VimEnter *
         \ nnoremap zj  zjzz |
         \ nnoremap zk  zkzz
   nnoremap <expr> <CR>            <sid>OpenFoldOrGotoMiddle(1)
@@ -199,7 +200,7 @@ function! mapping#basic#load() abort
   " format
   nnoremap <silent>g=             :call <sid>format()<CR>
   " Remove trailing Spaces
-  nnoremap d<Space>               :<C-u>silent! keeppatterns %substitute/\s\+$//e<CR>
+  nnoremap <silent>d<Space>       :<C-u>silent! keeppatterns %substitute/\s\+$//e<CR>
 
   " Select
   noremap  vv                     V
@@ -226,7 +227,7 @@ function! mapping#basic#load() abort
     " lower case paste below
     nnoremap <leader>p            "*p
     xnoremap <leader>p            "*p
-    " upper case paste above      
+    " upper case paste above
     nnoremap <leader>P            "*P
     xnoremap <leader>P            "*P
   endif
@@ -236,7 +237,7 @@ function! mapping#basic#load() abort
   " 3,    Copy select lines of file`s github url to clipboard
   nnoremap <silent><C-c>          :call <sid>CopyToClipboard()<CR>
   nnoremap <silent><M-g>          :call <sid>CopyToClipboard(2)<CR>
-  xnoremap <silent><C-c>          :call <sid>CopyToClipboard(3)<CR>
+  xnoremap <silent><C-c>          :<C-u>call <sid>CopyToClipboard(3)<CR>
   " }}}
   " }}}
 
@@ -273,10 +274,8 @@ function! mapping#basic#load() abort
 
   " g related
   auto VimEnter *
-        \ nnoremap g0             g*   |
-        \ nnoremap go             gf   |
-        \ nnoremap gm             ga   |
-        \ nnoremap gc             :call util#echohl('Line-Col number: ', line('.'), col('.'))<CR>
+        \ nnoremap g0             g*|
+        \ nnoremap go             gf
 
   if has('nvim')
     nnoremap <Space>qh            :checkhealth<CR>
@@ -295,7 +294,7 @@ function! mapping#basic#load() abort
   if !g:has_py
     nnoremap <leader>acm          :exec 'Unite file_rec/'.(has('nvim') ? 'neovim' : 'async').' -path=~/.SpaceVim.d'<CR>
     nnoremap <leader>ac<Space>    :exec 'Unite file_rec/'.(has('nvim') ? 'neovim' : 'async').' -path=~/.SpaceVim'<CR>
-  elseif glob(g:home.'init.toml') !=# ''
+  elseif len(glob(g:home.'init.toml')) || 0
     nnoremap <leader>acm          :Denite file/rec -path=~/.SpaceVim.d<CR>
     nnoremap <leader>ac<Space>    :Denite file/rec -path=~/.SpaceVim<CR>
   else
@@ -339,7 +338,7 @@ function! s:defPlug() abort
   nnoremap <Plug>(Insert-EqualBox)      :call <sid>EqualBox()<CR>
   nnoremap <Plug>(Insert-MinusBox)      :call <sid>MinusBox()<CR>
   nnoremap <Plug>(CopyCursorCodeUrl)    :call <sid>CopyToClipboard(2)<CR>
-  xnoremap <Plug>(CopySelectCodeUrls)   :call <sid>CopyToClipboard(3)<CR>
+  xnoremap <Plug>(CopySelectCodeUrls)   :<C-u>call <sid>CopyToClipboard(3)<CR>
   command! -nargs=?   SetFileHead       call  <sid>SetFileHead(<f-args>)
 endfunction " }}}
 
@@ -355,7 +354,7 @@ function! s:Delimitor_init() abort
   inoremap <expr> ?   MatchDel('?', '\v^\s*(let)\|(:\s).*\S\_$', 1, 01)
   inoremap <expr> ~   MatchDel('~', '\v(\=+)\|(!)\s', 1, 11)
   inoremap <expr> >   MatchDel('>', '\v(\>+)\|(\=)\|(-)\|(\<\w*)\s$', 1, 11)
-  " match add space before 
+  " match add space before
   inoremap <expr> -   MatchDel('-', '\v^\s*(if\|el\|wh\|let\|val\|var).*\S$', 1, 00)
   inoremap <expr> +   MatchDel('+', '0000', 1, 11)
   inoremap <expr> !   MatchDel('!', '\v^\s*((if\|el\|wh\|let\|val\|var).*\S$)\|((if\|el\|wh)$)', 1, 01)
@@ -370,10 +369,10 @@ function! s:Delimitor_init() abort
   augroup Delimitor_init
     autocmd!
     auto FileType sh  call <sid>Bash()
-    auto FileType vim 
+    auto FileType vim
           \ inoremap <buffer><expr> "  MatchCl('\v(^\_$)\|(^\s*\w*\s\_$)\|(^\s+\_$)') ? "\"\<Space>" : AutoClo('"', '"') |
           \ inoremap <buffer><expr> :  MatchCl('\v\s(s)\|(g)\|(a)\|(l)\|(\S\W\s)$') ? ':' : CurChar(0, '\s') ? ': ' : ' : '
-    auto FileType c,cpp     let b:eol_marker = ';' 
+    auto FileType c,cpp     let b:eol_marker = ';'
     auto FileType markdown  call <sid>AutoPairs({'*':'*', '《':'》'})
   augroup END
 endfunction
@@ -413,7 +412,7 @@ endfunction "}}}
 " Window and Buffer Manipulate {{{
 " Open fold or goto line middle {{{
 function! s:OpenFoldOrGotoMiddle(mode) abort
-  if &ft ==# 'qf' 
+  if &ft ==# 'qf'
     return "\<CR>\<C-w>p\<C-w>q"
   endif
   if a:mode
@@ -513,15 +512,15 @@ function! s:rename_file() abort
   let curbufnr = bufnr('%')
   try
     let newn = input({
-          \ 'prompt'  : 'New name: ', 
-          \ 'default' : expand('%:p'). ' -> '. expand('%:p'), 
-          \ 'completion' : 'file', 
+          \ 'prompt'  : 'New name: ',
+          \ 'default' : expand('%:p'). ' -> '. expand('%:p'),
+          \ 'completion' : 'file',
           \ 'cancelreturn' : 1})
     if newn == 1 | return | endif
   catch
-    let newn = input( 
+    let newn = input(
           \ 'New name/Cancel(n): ',
-          \ expand('%:p').' -> '. expand('%:p'), 
+          \ expand('%:p').' -> '. expand('%:p'),
           \ 'file'
           \ )
     if newn ==# 'n' | return | endif
@@ -850,6 +849,10 @@ function! s:unmap_SPC() abort
     nnoremap s   <nop>
     nnoremap q   <nop>
     try
+      nunmap   g*
+      nunmap   g#
+      nunmap   g$
+      nunmap   gx
       nunmap   \p
       nunmap   \P
       nunmap   \qc

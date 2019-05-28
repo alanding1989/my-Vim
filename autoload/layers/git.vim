@@ -12,22 +12,25 @@ else
   let s:git_plugin = 'gita'
 endif
 
-let s:autocomplete_method = get(g:, 'spacevim_autocomplete_method',
-      \ get(g:, 'autocomplete_method', 'asyncomplete'))
+let s:gitgutter_plugin = get(g:, 'spacevim_gitgutter_plugin', 
+      \ get(g:, 'gitgutter_plugin', 'vim-gitgutter'))
+
 
 
 function! layers#git#plugins() abort
   let plugins = []
   call add(plugins, ['sodapopcan/vim-twiggy', {'on_cmd': 'Twiggy', 'on': 'Twiggy'}])
-  if !g:is_spacevim
+  if g:is_spacevim && s:gitgutter_plugin ==# 'coc'
+    auto VimEnter * call coc#config('git', {"enableGutters": "true"})
+  elseif !g:is_spacevim
     "{{{
     call add(plugins, ['junegunn/gv.vim'       , {'on_cmd': 'GV', 'on': 'GV'}])
     call add(plugins, ['tpope/vim-fugitive'    , {'merged': 0}])
-    if !My_Vim#layer#isLoaded('VersionControl') && s:autocomplete_method !=# 'coc'
+    if !My_Vim#layer#isLoaded('VersionControl') && s:gitgutter_plugin ==# 'vim-gitgutter'
       " show vcs info in sign column, only support git
       call add(plugins, ['airblade/vim-gitgutter', {'merged': 0}])
-    elseif s:autocomplete_method ==# 'coc'
-      call coc#config('git', {"enableGutters": "true"})
+    elseif s:gitgutter_plugin ==# 'coc'
+      auto VimEnter * call coc#config('git', {"enableGutters": "true"})
     endif
     if s:git_plugin ==# 'gina'
       call add(plugins, ['lambdalisue/gina.vim', {'on_cmd': 'Gina'}])
@@ -57,11 +60,11 @@ function! layers#git#config() abort
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'a'], 'Gita add %'     , 'stage current file'  , 1)
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'u'], 'Gita reset %'   , 'unstage current file', 1)
     endif
-    if exists(':GitGutterFold') && s:autocomplete_method !=# 'coc'
+    if s:gitgutter_plugin ==# 'vim-gitgutter'
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'f'], 'GitGutterFold', '@ toggle folding unchanged lines', 1)
       call SpaceVim#mapping#space#def('nmap',['g', 'h', 'u'], '<Plug>GitGutterUndoHunk'   , 'undo cursor hunk'   , 0)
       call SpaceVim#mapping#space#def('nmap',['g', 'h', 'p'], '<Plug>GitGutterPreviewHunk', 'preview cursor hunk', 0)
-    elseif s:autocomplete_method ==# 'coc'
+    elseif s:gitgutter_plugin ==# 'coc'
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'f'],      'CocCommand git.foldUnchanged', '@ toggle folding unchanged lines', 1)
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'h', 'a'], 'CocCommand git.chunkStage'   , 'stage current hunk'              , 1)
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'h', 'u'], 'CocCommand git.chunkUndo'    , 'undo cursor hunk'                , 1)
@@ -114,12 +117,12 @@ function! layers#git#config() abort
       nnoremap <Space>gM   :call <sid>display_last_commit_of_current_line<CR>
       nnoremap <Space>gV   :GV!<CR>
       nnoremap <Space>gv   :GV<CR>
-    if !My_Vim#layer#isLoaded('VersionControl') && s:autocomplete_method !=# 'coc'
+    if !My_Vim#layer#isLoaded('VersionControl') && s:gitgutter_plugin ==# 'vim-gitgutter'
       nnoremap <Space>gf   :GitGutterFold<CR>
       nmap     <Space>gha  <Plug>GitGutterStageHunk
       nmap     <Space>ghu  <Plug>GitGutterUndoHunk
       nmap     <Space>ghp  <Plug>GitGutterPreviewHunk
-    elseif s:autocomplete_method ==# 'coc'
+    elseif s:gitgutter_plugin ==# 'coc'
       nnoremap <Space>gf   :CocCommand git.foldUnchanged<CR>
       nnoremap <Space>gha  :CocCommand git.chunkStage<CR>
       nnoremap <Space>ghu  :CocCommand git.chunkUndo<CR>

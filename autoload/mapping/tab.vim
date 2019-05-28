@@ -18,8 +18,8 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
       if neosnippet#expandable()
         return g:neosnippet#enable_complete_done
               \ ? ( s:md ==# 'deoplete' ? "\<C-y>"
-              \ : CurChar(0, '(') ? ( s:md ==# 'asyncomplete' ? asyncomplete#close_popup() : "\<c-y>" ) 
-              \ :  "\<c-e>\<plug>(neosnippet_expand)" )
+              \ : CurChar(0, '(') ? ( s:md ==# 'asyncomplete' ? asyncomplete#close_popup() : "\<C-y>" ) 
+              \ :  "\<C-e>\<plug>(neosnippet_expand)" )
               \ : "\<plug>(neosnippet_expand)"
       elseif RightPair() && !empty(v:completed_item)
         return "\<right>"
@@ -27,13 +27,13 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
         return empty(v:completed_item) 
               \ ? "\<C-y>" : "\<plug>(neosnippet_jump)"
       else " fix ncm2
-        return WithinEmptyPair() ? "\<c-y>\<Del>\<Right>"
+        return WithinEmptyPair() ? "\<C-y>\<Del>\<Right>"
               \ : s:md ==# 'asyncomplete' ? asyncomplete#close_popup() 
-              \ : "\<c-y>"
+              \ : "\<C-y>"
       endif
     else
       if neosnippet#expandable() && !CurChar(0, '(')
-        return "\<plug>(neosnippet_expand)"
+        return "\<Plug>(neosnippet_expand)"
       elseif !neosnippet#jumpable() && s:check_bs() && !CurChar(1, '') && RightPair()
         return "\<right>"
       elseif neosnippet#jumpable()
@@ -89,7 +89,7 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
       return CurChar(1, '')
             \ ? ")\<left>" : ")\<Space>\<left>\<left>"
     else
-      return s:md ==# 'asyncomplete' ? asyncomplete#close_popup() : "\<c-y>"
+      return s:md ==# 'asyncomplete' ? asyncomplete#close_popup() : "\<C-y>"
     endif
   endfunction
   function! mapping#tab#no_popup() abort
@@ -140,7 +140,7 @@ elseif s:md ==# 'coc'
       elseif RightPair() && !empty(v:completed_item)
         return "\<right>"
       else
-        return "\<c-y>"
+        return "\<C-y>"
       endif
     else
       if coc#expandable()

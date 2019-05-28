@@ -21,13 +21,15 @@ endfunction
 
 
 function! layers#denite#config() abort
+  command! -nargs=1 -complete=file
+        \ DeniteFile  call <sid>DeniteFile(<f-args>)
+
   if g:is_spacevim
     unmap <leader>fh
     unmap <leader>fp
 
-    nnoremap         <C-p>      :call <sid>warp_denite('Denite file/rec -path=')<left><left>
+    nnoremap         <C-p>      :call feedkeys(':DeniteFile ')<CR>
     nnoremap <silent><C-y>      :call <sid>warp_denite('DeniteCursorWord outline')<CR>
-
     call SpaceVim#mapping#space#def('nnoremap', ['q', 'p'], 'Denite menu:AddedPlugins',
           \ '@ list all installed plugins', 1)
 
@@ -81,7 +83,7 @@ function! layers#denite#config() abort
     nnoremap <silent> <Leader>fy     :Denite neoyank<CR>
     nnoremap <silent> <Leader>fq     :Denite quickfix<CR>
     if !My_Vim#layer#isLoaded('leaderf')
-      nnoremap <silent> <c-p>        :call <sid>warp_denite('Denite file/rec')<CR>
+      nnoremap          <C-p>        :call feedkeys(':DeniteFile ')<CR>
       nnoremap <silent> <c-y>        :call <sid>warp_denite('DeniteCursorWord outline')<CR>
       " space mapping
       nnoremap <silent> <space>ff    :call <sid>warp_denite('DeniteProjectDir file/rec')<CR>
@@ -101,6 +103,10 @@ function! layers#denite#config() abort
   endif
 endfunction
 
+
+function! s:DeniteFile(path) abort
+  call <sid>warp_denite('Denite file/rec -path='.a:path)
+endfunction
 
 function! s:warp_denite(cmd) abort
   exe a:cmd

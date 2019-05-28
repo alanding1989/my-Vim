@@ -7,4 +7,10 @@
 scriptencoding utf-8
 
 
-exec 'so ' g:vim_plugindir.'LanguageClient-neovim.vim'
+if g:spacevim_autocomplete_method ==# 'coc'
+  finish
+elseif g:pure_viml
+
+else
+  exec 'so ' g:vim_plugindir.'LanguageClient-neovim.vim'
+endif

@@ -28,6 +28,7 @@ function! My_Vim#plugin#begin() abort
   endif
 endfunction
 
+
 function! My_Vim#plugin#end() abort " {{{
   filetype plugin indent on
   syntax enable
@@ -177,3 +178,9 @@ function! s:enabled_layers_get() abort
   let g:enabled_layers = uniq(sort(s:default_layers))
   return g:enabled_layers
 endfunction
+
+function! My_Vim#plugin#enabled_plugins_get() abort
+  return s:enabled_plugins_name
+endfunction
+" }}}
+

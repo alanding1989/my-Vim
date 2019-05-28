@@ -103,18 +103,20 @@ endfunction " }}}
 " echohl wrapper {{{
 function! util#echohl(str, ...) abort
   echohl WarningMsg
-  if a:0
+  if a:0 && a:1 !=# 'map'
     if a:0 == 1 && a:1 ==# 'n'
       exec 'echo "\n '.a:str.'"'
     else
       if a:000[-1] ==# 'n'
         exec 'echo "\n '.a:str. join(a:000[:-2], ' ').'"'
       else
-        echo a:str join(a:000, ' ')
+        echo a:str join(a:000, ' - ')
       endif
     endif
+  elseif a:0 && a:1 ==# 'map'
+    call feedkeys('":'.escape(a:str, '<').'"')
   else
-    echo a:str
+    echo ' '.a:str
   endif
   echohl NONE
 endfunction " }}}
@@ -175,6 +177,36 @@ endfunction " }}}
 
 
 " Manipulate Vim Plugins {{{
+" show plugin whether installed {{{
+function! util#CheckInstall(...) abort
+  if !a:0
+    " check cword
+    try
+      let a_save = @a
+      let @a=''
+      normal! mx"ayi'
+      normal! `x
+      let plug_name = match(@a, '/') >= 0 ? split(@a, '/')[1] : @a
+    finally
+      let @a = a_save
+    endtry
+  endif
+  if g:is_spacevim
+    if index(g:_spacevim_plugins, a:0 ? a:1 : plug_name) >= 0
+      call util#echohl('Already Installed')
+    else
+      call util#echohl('Not Installed')
+    endif
+  else
+    let plugins = My_Vim#plugin#enabled_plugins_get()
+    if index(plugins, a:0 ? a:1 : plug_name) >= 0
+      call util#echohl('Already Installed')
+    else
+      call util#echohl('Not Installed')
+    endif
+  endif
+endfunction  " }}}
+
 " update plugin {{{
 function! util#update_plugin() abort
   try

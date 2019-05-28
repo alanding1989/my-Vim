@@ -13,17 +13,19 @@ let s:loaded = 1
 " set updatetime=100
 let g:neosnippet#enable_complete_done = 1
 
+
 let g:coc_start_at_startup    = 1
 let g:coc_snippet_next        = "\<Plug>(coc-snippets-jump)"
-let g:coc_snippet_prev        = '<c-o>'
+let g:coc_snippet_prev        = '<C-o>'
 let g:vim_node_rpc_folder     = exepath('vim-node-rpc')
 let g:coc_filetype_map        = {
       \ 'html.swig': 'html',
       \ 'wxss'     : 'css',
       \ 'ipynb'    : 'python',
+      \ 'sbt'      : 'scala',
       \ }
 
-
+" autocmds {{{
 augroup my_coc_settings
   autocmd!
   " show func signature after jump code placehold
@@ -49,20 +51,19 @@ augroup my_coc_settings
           \ 'directories' : [ ]
           \ })
   endif
-augroup END
-
+augroup END "}}}
 
 " extensions {{{
 " let g:coc_global_extensions = [
-" \ 'coc-git'        , 
-" \ 'coc-github'     , 
-" \ 'coc-diagnostic' , 
+" \ 'coc-git'        ,
+" \ 'coc-github'     ,
+" \ 'coc-diagnostic' ,
 " \ 'coc-python'     ,
 " \ 'coc-java'       ,
 " \ 'coc-ccls'       ,
-" \ 'coc-vimlsp'     , 
-" \ 'coc-sh'         , 
-" \ 'coc-lua'        , 
+" \ 'coc-vimlsp'     ,
+" \ 'coc-sh'         ,
+" \ 'coc-lua'        ,
 " \ 'coc-docker'     ,
 " \ 'coc-gocode'     ,
 " \ 'coc-html'       ,
@@ -87,28 +88,32 @@ augroup END
 " \ 'coc-vetur'      ,
 " \ 'coc-pyls'       ,
 " \ 'coc-lbdbq'      ,
-" \ 'coc-calc'       , 
+" \ 'coc-calc'       ,
 " \ 'https://github.com/andys8/vscode-jest-snippets.git#master' ,
 " \ ] "}}}
 
 " key mapping  {{{
+  nmap  <silent>gd  <Plug>(coc-definition)
 function! s:g_mappings() abort
-  vnoremap  <silent>ga  :call CocActionAsync('codeAction',     visualmode())<CR>
-  nnoremap  <silent>gt  :call CocActionAsync('jumpTypeDefinition')<CR>
-  nnoremap  <silent>gi  :call CocActionAsync('jumpImplementation')<CR>
-  nnoremap  <silent>gr  :call CocActionAsync('jumpReferences'    )<CR>
-  nnoremap  <silent>ge  :call CocActionAsync('rename'            )<CR>
-  nnoremap  <silent>gf  :call CocActionAsync('format'            )<CR>
-  vnoremap  <silent>gf  :call CocActionAsync('formatSelected', visualmode())<CR>
-  nnoremap  <silent>gh  :call CocActionAsync('doHover'           )<CR>
-  nnoremap  <silent>gs  :call CocActionAsync('documentSymbols'   )<CR>
-  nnoremap  <silent>gS  :call CocActionAsync('workspaceSymbols'  )<CR>
-  nnoremap  <silent>gl  :call CocActionAsync('diagnosticInfo'    )<CR>
+  nmap  gc  <Plug>(coc-codeaction)
+  vmap  gc  <Plug>(coc-codeaction-selected)
+  nmap  gt  <Plug>(coc-type-definition)
+  nmap  gi  <Plug>(coc-implementation)
+  nmap  gr  <Plug>(coc-references)
+  nmap  ge  <Plug>(coc-rename)
+  nmap  gf  <Plug>(coc-format)
+  vmap  gf  <Plug>(coc-format-selected)
+  nmap  gl  <Plug>(coc-diagnostic-info)
+  nmap  [d  <Plug>(coc-diagnostic-prev)
+  nmap  ]d  <Plug>(coc-diagnostic-next)
+  nmap  gm  <Plug>(coc-fix-current)
+  nmap  g.  <Plug>(coc-codelens-action)
   nmap  gp  <Plug>(coc-git-chunkinfo)
   nmap  [g  <Plug>(coc-git-prevchunk)
   nmap  ]g  <Plug>(coc-git-nextchunk)
-  nmap  [d  <Plug>(coc-diagnostic-prev)
-  nmap  ]d  <Plug>(coc-diagnostic-next)
+  nmap  <silent>gh  :call CocActionAsync('doHover')<CR>
+  nmap  <silent>gs  :call CocActionAsync('documentSymbols')<CR>
+  nmap  <silent>gS  :call CocActionAsync('workspaceSymbols')<CR>
 endfunction
 
 if g:is_spacevim
@@ -122,43 +127,13 @@ if g:is_spacevim
   call SpaceVim#mapping#def('nnoremap', '<leader>ce', ':CocList snippets<CR>', 'Coc Snippets', '', 'Coc Snippets')
   call SpaceVim#mapping#def('nnoremap', '<leader>cc', ':CocList commands<CR>', 'Coc Commands', '', 'Coc Commands')
   call SpaceVim#mapping#def('nnoremap', '<leader>ci', ':CocInfo<CR>'         , 'Coc Info'    , '', 'Coc Info'    )
-
-  " language tools
-  call SpaceVim#mapping#def('vnoremap', '<leader>la', ":call CocActionAsync('codeAction'    , visualmode())<CR>", 'code actions'   , '', 'code actions'             )
-  call SpaceVim#mapping#def('nnoremap', '<leader>ld', ":call CocActionAsync('jumpDefinition')<CR>"    , 'goto Definition'          , '', 'goto Definition'          )
-  call SpaceVim#mapping#def('nnoremap', '<leader>lt', ":call CocActionAsync('jumpTypeDefinition')<CR>", 'goto TypeDefinition'      , '', 'goto TypeDefinition'      )
-  call SpaceVim#mapping#def('nnoremap', '<leader>li', ":call CocActionAsync('jumpImplementation')<CR>", 'goto Implementation'      , '', 'goto Implementation'      )
-  call SpaceVim#mapping#def('nnoremap', '<leader>lr', ":call CocActionAsync('jumpReferences')<CR>"    , 'find References'          , '', 'find References'          )
-  call SpaceVim#mapping#def('nnoremap', '<leader>le', ":call CocActionAsync('rename')<CR>"            , 'rename Symbol'            , '', 'rename Symbol'            )
-  call SpaceVim#mapping#def('nnoremap', '<leader>lf', ":call CocActionAsync('format')<CR>"            , 'format code'              , '', 'format code'              )
-  vnoremap  <silent><leader>lf  :call CocActionAsync('formatSelected', visualmode())<CR>
-  call SpaceVim#mapping#def('nnoremap', '<leader>lh', ":call CocActionAsync('doHover')<CR>"           , 'show Documentation'       , '', 'show Documentation'       )
-  call SpaceVim#mapping#def('nnoremap', '<leader>ls', ":call CocActionAsync('documentSymbols')<CR>"   , 'get Symbols of document'  , '', 'get symbols document'     )
-  call SpaceVim#mapping#def('nnoremap', '<leader>lS', ":call CocActionAsync('workspaceSymbols')<CR>"  , 'get Symbols of workspace' , '', 'get symbols of workspace' )
-  call SpaceVim#mapping#def('nnoremap', '<leader>lg', ":call CocActionAsync('diagnosticInfo')<CR>"    , 'show Diagnostic info'     , '', 'show Diagnostic info'     )
-  call SpaceVim#mapping#def('nnoremap', '<leader>ll', ":call CocActionAsync('diagnosticList')<CR>"    , 'show Diagnostic list'     , '', 'show Diagnostic list'     )
-
-elseif !g:is_spacevim
-  nnoremap <leader>cl  :CocList<CR>
+else
   nnoremap <leader>cpi :call feedkeys(':CocInstall ')<CR>
   nnoremap <leader>cpu :call feedkeys(':CocUninstall ')<CR>
   nnoremap <leader>cpb :call coc#util#build()<CR>
+  nnoremap <leader>cl  :CocList<CR>
   nnoremap <leader>cs  :CocConfig<CR>
   nnoremap <leader>ce  :CocList snippets<CR>
   nnoremap <leader>cc  :CocList commands<CR>
   nnoremap <leader>ci  :CocInfo<CR>
-
-  vnoremap <leader>la  :call CocActionAsync('codeAction',     visualmode())<CR>
-  nnoremap <leader>ld  :call CocActionAsync('jumpDefinition'    )<CR>
-  nnoremap <leader>lt  :call CocActionAsync('jumpTypeDefinition')<CR>
-  nnoremap <leader>li  :call CocActionAsync('jumpImplementation')<CR>
-  nnoremap <leader>lr  :call CocActionAsync('jumpReferences'    )<CR>
-  nnoremap <leader>le  :call CocActionAsync('rename'            )<CR>
-  nnoremap <leader>lf  :call CocActionAsync('format'            )<CR>
-  vnoremap <leader>lf  :call CocActionAsync('formatSelected', visualmode())<CR>
-  nnoremap <leader>lh  :call CocActionAsync('doHover'           )<CR>
-  nnoremap <leader>ls  :call CocActionAsync('documentSymbols'   )<CR>
-  nnoremap <leader>lS  :call CocActionAsync('workspaceSymbols'  )<CR>
-  nnoremap <leader>lg  :call CocActionAsync('diagnosticInfo'    )<CR>
-  nnoremap <leader>ll  :call CocActionAsync('diagnosticList'    )<CR>
 endif "}}}

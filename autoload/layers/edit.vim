@@ -184,9 +184,11 @@ function! layers#edit#config() abort
 
     " insert
     nnoremap <silent><space>id        :call setline(line('.'), strftime('%a %d %b %Y %H:%M'))<CR>
-    nnoremap <silent><space>iee       :call mapping#basic#minusbox()<CR>
-    nnoremap <silent><space>ieh       :call mapping#basic#equalbox()<CR>
-    nnoremap <silent><space>ih        :call mapping#basic#SetFileHead()<CR>
+    nmap     <silent><space>iem       <Plug>(Insert-MinusBox)
+    nmap     <silent><space>iee       <Plug>(Insert-EqualBox)
+    nnoremap <silent><space>ihn       :SetFileHead<CR>
+    nnoremap <silent><space>ihe       :SetFileHead info1<CR>
+    nnoremap <silent><space>ihh       :SetFileHead info0<CR>
   endif "}}}
 endfunction
 

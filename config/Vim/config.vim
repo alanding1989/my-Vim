@@ -29,6 +29,7 @@ let g:autocomplete_method           = get(['coc'       , 'deoplete' , 'ncm2'], 0
 let g:snippet_engine                = get(['neosnippet', 'ultisnips', 'coc' ], 0)
 let g:fuzzyfinder                   = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
 let g:filemanager                   = get(['vimfiler'  , 'nerdtree' , 'defx'], 2)
+let g:gitgutter_plugin              = get(['coc'       , 'vim-gitgutter'    ], 0)
 let g:checker                       = 1 ? 'ale'     : 'neomake'
 let g:statusline                    = 1 ? 'airline' : 'lightline'
 let g:lint_on_the_fly               = 1
@@ -112,6 +113,9 @@ endif
 
 if g:autocomplete_method ==# 'coc' " {{{
   let g:snippet_engine = 'coc'
+  let g:gitgutter_plugin = 'coc'
+else
+  let g:gitgutter_plugin = 'vim-gitgutter'
 endif
 "}}}
 

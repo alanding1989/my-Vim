@@ -27,7 +27,7 @@ let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 "================================================================================
 " Preferences: 
 "================================================================================
-let g:spacevim_autocomplete_method  = get(['coc'       , 'deoplete' , 'ncm2', 'ycm'], 1)
+let g:spacevim_autocomplete_method  = get(['coc'       , 'deoplete' , 'ncm2', 'ycm'], 0)
 let g:spacevim_snippet_engine       = get(['neosnippet', 'ultisnips', 'coc' ], 0)
 let g:spacevim_fuzzyfinder          = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
 let g:spacevim_filemanager          = get(['vimfiler'  , 'nerdtree' , 'defx'], 2)
@@ -70,12 +70,17 @@ let g:spacevim_enable_debug                  = 0
 let g:spacevim_auto_disable_touchpad         = 1
 let g:spacevim_windows_smartclose            = ''
 let g:spacevim_windows_leader                = ''
+let g:spacevim_plugin_manager                = g:plugmanager
 let g:spacevim_github_username               = g:github_username
 let g:spacevim_guifont                       = g:guifont
 let g:spacevim_layer_lang_scala_formatter    = g:layer_lang_scala_formatter
 let g:spacevim_music_path                    = g:is_win ? 'E:\娱乐影音\音乐' : '/mnt/fun+downloads/娱乐影音/音乐'
 let g:spacevim_project_rooter_patterns       = uniq(sort(g:spacevim_project_rooter_patterns
       \ + deepcopy(g:project_root_marker)))
+let g:cbranch                                = len(glob('~/.SpaceVim')) 
+      \ ? split(filter(systemlist('git -C ~/.SpaceVim branch'),
+      \ 'match(v:val, "*") > -1')[0], ' ')[1]
+      \ : ''
 "}}}
 
 
@@ -175,7 +180,7 @@ let g:My_SpaceVim_layers = {
       \ 'tools'             : 1,
       \ 'VersionControl'    : 0,
       \
-      \ 'denite'            : 1,
+      \ 'denite'            : 0,
       \ 'fzf'               : 0,
       \ 'leaderf'           : 1,
       \ 'unite'             : 0,
@@ -203,7 +208,10 @@ endif
 "}}}
 
 if g:spacevim_autocomplete_method ==# 'coc' "{{{
-  let g:spacevim_snippet_engine = 'coc'
+  let g:spacevim_snippet_engine   = 'coc'
+  let g:spacevim_gitgutter_plugin = 'coc'
+else
+  let g:spacevim_gitgutter_plugin = 'vim-gitgutter'
 endif
 "}}}
 
@@ -276,7 +284,7 @@ if g:My_SpaceVim_layers.git && g:My_SpaceVim_layers.VersionControl
   let g:spacevim_disabled_plugins += ['vim-gitgutter']
   let g:spacevim_custom_plugins   += [['mhinz/vim-signify', {'merged': 0}]]
 endif
-if g:My_SpaceVim_layers.denite && !g:My_SpaceVim_layers.unite
+if g:spacevim_fuzzyfinder !=# 'denite' && g:My_SpaceVim_layers.denite
   let g:spacevim_disabled_plugins += ['neomru.vim', 'unite-outline']
 endif
 "}}}

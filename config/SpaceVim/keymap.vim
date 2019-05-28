@@ -15,24 +15,25 @@ scriptencoding utf-8
 let g:_spacevim_mappings.e         = get(g:_spacevim_mappings, 'e'   , {})
 let g:_spacevim_mappings.e['name'] = get(g:_spacevim_mappings.e, 'name', '+@ Echo value/Edit snippets')
 
-let g:_spacevim_mappings.e.c = ["echo '  '.g:spacevim_autocomplete_method", 'show autocomplete method']
-let g:_spacevim_mappings.e.e = ['call feedkeys(":echo ")'                 , 'echo prefix'             ]
-let g:_spacevim_mappings.e.f = ['call feedkeys(":call ")'                 , 'function call prefix'    ]
-let g:_spacevim_mappings.e.h = ['call feedkeys(":EchoHlight ")'           , 'echo highlight'          ]
-let g:_spacevim_mappings.e.l = ['call layers#checkers#showlinter()'       , 'show syntax linter'      ]
-let g:_spacevim_mappings.e.g = ['syntax'                                  , 'show syntax summary'     ]
-let g:_spacevim_mappings.e.m = ['call feedkeys(":EchoMap ")'              , 'echo specific keymap'    ]
-let g:_spacevim_mappings.e.o = ['call feedkeys(":set ")'                  , 'echo vim options'        ]
-let g:_spacevim_mappings.e.s = ["echo '  '.g:spacevim_snippet_engine"     , 'show snippet engine'     ]
-let g:_spacevim_mappings.e.t = ["echo 'Current Theme is: '.g:colors_name" , 'show current colortheme' ]
-let g:_spacevim_mappings.e.v = ['version'                                 , 'show neovim/vim version' ]
+let g:_spacevim_mappings.e.c = ["echo '  '.g:spacevim_autocomplete_method", 'show autocomplete method'  ]
+let g:_spacevim_mappings.e.e = ['call feedkeys(":echo ")'                 , 'echo prefix'               ]
+let g:_spacevim_mappings.e.f = ['call feedkeys(":call ")'                 , 'function call prefix'      ]
+let g:_spacevim_mappings.e.h = ['call feedkeys(":EchoHlight ")'           , 'echo highlight'            ]
+let g:_spacevim_mappings.e.l = ['call layers#checkers#showlinter()'       , 'show syntax linter'        ]
+let g:_spacevim_mappings.e.g = ['syntax'                                  , 'show syntax summary'       ]
+let g:_spacevim_mappings.e.m = ['call feedkeys(":EchoMap ")'              , 'echo specific keymap'      ]
+let g:_spacevim_mappings.e.o = ['call feedkeys(":set ")'                  , 'echo vim options'          ]
+let g:_spacevim_mappings.e.s = ["echo '  '.g:spacevim_snippet_engine"     , 'show snippet engine'       ]
+let g:_spacevim_mappings.e.t = ["echo 'Current Theme is: '.g:colors_name" , 'show current colortheme'   ]
+let g:_spacevim_mappings.e.v = ['version'                                 , 'show neovim/vim version'   ]
+let g:_spacevim_mappings.e.i = ['call feedkeys(":CheckInstall ")'         , 'show plug installed or not']
 
 " Directory operatios
 let g:_spacevim_mappings.d   = {'name': '+@ Directory operatios' }
-let g:_spacevim_mappings.d.d = ['call feedkeys(":lcd ")'                   , 'specify a dir to switch']
-let g:_spacevim_mappings.d.b = ['call feedkeys(":lcd %:p:h\<CR>:pwd\<CR>")', 'swich to buffer dir'    ]
-let g:_spacevim_mappings.d.w = ['call feedkeys(":lcd\<CR>:pwd\<CR>")'      , 'swich to shell dir'     ]
-let g:_spacevim_mappings.d.p = ['call feedkeys(":pwd\<CR>")'               , 'print current dir'      ]
+let g:_spacevim_mappings.d.d = ['call feedkeys(":lcd ")'                   , 'specify a dir to switch'  ]
+let g:_spacevim_mappings.d.b = ['call feedkeys(":lcd %:p:h\<CR>:pwd\<CR>")', 'swich to buffer dir'      ]
+let g:_spacevim_mappings.d.w = ['call feedkeys(":lcd\<CR>:pwd\<CR>")'      , 'swich to shell dir'       ]
+let g:_spacevim_mappings.d.p = ['call feedkeys(":pwd\<CR>")'               , 'print current dir'        ]
 
 " tab jump
 let g:_spacevim_mappings.1   = ['call Tabjump(1)', 'Window 1']
@@ -88,16 +89,31 @@ auto FileType vim call SpaceVim#mapping#space#def('nmap', ['q', 'l'],
 "================================================================================
 " g mappings
 "================================================================================
-let g:_spacevim_mappings_g['0'] = ['call feedkeys("g*", "n")'    , 'seach and highlight under cursor forward']
-let g:_spacevim_mappings_g['c'] = ['echo "Col Number:".col(".")' , 'show current column number'              ]
-let g:_spacevim_mappings_g['m'] = ['call feedkeys("ga", "n")'    , 'print ascii value of cursor character'   ]
-let g:_spacevim_mappings_g['o'] = ['call feedkeys("gf", "n")'    , 'edit file under cursor'                  ]
-let g:_spacevim_mappings_g['a'] = ['call feedkeys("'.maparg('ga', 'n')[-5].'")', 'do CodeActions'            ]
-let g:_spacevim_mappings_g['t'] = ['call feedkeys("'.maparg('gt', 'n')[-5].'")', 'goto TypeDefinition'       ]
-let g:_spacevim_mappings_g['i'] = ['call feedkeys("'.maparg('gi', 'n')[-5].'")', 'goto Implementation'       ]
-let g:_spacevim_mappings_g['r'] = ['call feedkeys("'.maparg('gr', 'n')[-5].'")', 'find References'           ]
-let g:_spacevim_mappings_g['e'] = ['call feedkeys("'.maparg('ge', 'n')[-5].'")', 'rename Symbol'             ]
-let g:_spacevim_mappings_g['f'] = ['call feedkeys("'.maparg('gf', 'n')[-5].'")', 'format code'               ]
-let g:_spacevim_mappings_g['s'] = ['call feedkeys("'.maparg('gs', 'n')[-5].'")', 'get Symbols of Document'   ]
-let g:_spacevim_mappings_g['S'] = ['call feedkeys("'.maparg('gS', 'n')[-5].'")', 'get Symbols of WorkSpace'  ]
-let g:_spacevim_mappings_g['l'] = ['call feedkeys("'.maparg('gl', 'n')[-5].'")', 'show Diagnostic Info'      ]
+nmap g0 <Plug>(incsearch-nohl-g*)
+
+
+let g:_spacevim_mappings_g      = get(g:, '_spacevim_mappings_g', {})
+let g:_spacevim_mappings_g['='] = ['call feedkeys("g=", "n")'                           , 'format code (origin)'    ]
+let g:_spacevim_mappings_g['o'] = ['call feedkeys("gf", "n")'                           , 'edit file under cursor'  ]
+
+" plugin mappings
+let g:_spacevim_mappings_g['0'] = ['call feedkeys("\<Plug>(incsearch-nohl-g*)")'        , 'forward search cword'    ]
+
+let g:_spacevim_mappings_g['c'] = ['call feedkeys("'.escape(maparg('gc', 'n'), '<').'")', 'do CodeActions'          ]
+let g:_spacevim_mappings_g['d'] = ['call feedkeys("'.escape(maparg('gd', 'n'), '<').'")', 'goto Definition'         ]
+let g:_spacevim_mappings_g['t'] = ['call feedkeys("'.escape(maparg('gt', 'n'), '<').'")', 'goto TypeDefinition'     ]
+let g:_spacevim_mappings_g['i'] = ['call feedkeys("'.escape(maparg('gi', 'n'), '<').'")', 'goto Implementation'     ]
+let g:_spacevim_mappings_g['r'] = ['call feedkeys("'.escape(maparg('gr', 'n'), '<').'")', 'find References'         ]
+let g:_spacevim_mappings_g['e'] = ['call feedkeys("'.escape(maparg('ge', 'n'), '<').'")', 'rename Symbol'           ]
+let g:_spacevim_mappings_g['f'] = ['call feedkeys("'.escape(maparg('gf', 'n'), '<').'")', 'format Code'             ]
+let g:_spacevim_mappings_g['h'] = ['call feedkeys("'.escape(maparg('gh', 'n'), '<').'")', 'show Documentation'      ]
+let g:_spacevim_mappings_g['s'] = ['call feedkeys("'.escape(maparg('gs', 'n'), '<').'")', 'get Symbols of Document' ]
+let g:_spacevim_mappings_g['S'] = ['call feedkeys("'.escape(maparg('gS', 'n'), '<').'")', 'get Symbols of WorkSpace']
+let g:_spacevim_mappings_g['p'] = ['call feedkeys("'.escape(maparg('gp', 'n'), '<').'")', 'show GitHunk Info'       ]
+let g:_spacevim_mappings_g['l'] = ['call feedkeys("'.escape(maparg('gl', 'n'), '<').'")', 'show Diagnostic Info'    ]
+
+if g:spacevim_autocomplete_method ==# 'coc'
+let g:_spacevim_mappings_g['m'] = ['call feedkeys("'.escape(maparg('gm', 'n'), '<').'")', 'fix cursor CodeError'    ]
+let g:_spacevim_mappings_g['.'] = ['call feedkeys("'.escape(maparg('g.', 'n'), '<').'")', 'do Codelens Action'      ]
+endif
+
