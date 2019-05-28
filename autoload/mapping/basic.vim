@@ -373,28 +373,30 @@ function! s:Delimitor_init() abort
           \ inoremap <buffer><expr> "  MatchCl('\v(^\_$)\|(^\s*\w*\s\_$)\|(^\s+\_$)') ? "\"\<Space>" : AutoClo('"', '"') |
           \ inoremap <buffer><expr> :  MatchCl('\v\s(s)\|(g)\|(a)\|(l)\|(\S\W\s)$') ? ':' : CurChar(0, '\s') ? ': ' : ' : '
     auto FileType c,cpp     let b:eol_marker = ';'
-    auto FileType markdown  call <sid>AutoPairs({'*':'*', '《':'》'})
+    auto FileType markdown  call <sid>AutoPairs({'《':'》'}, 2)|
+          \ call <sid>AutoPairs('*', 1)
   augroup END
 endfunction
 function! s:AutoClose() abort " {{{
-  let autoclose = [
-        \ ')', ']', '}',
-        \ ]
-  for r in autoclose
-    exec 'inoremap <expr> '.r.' AutoClo('.string(r).')'
-  endfor
 endfunction " }}}
 function! s:AutoPairs(...) abort " {{{
+  let single = add([
+        \ "'",
+        \ '"',
+        \ '`',
+        \ ], a:0 && a:000[-1] == 1 ? a:1 : [])
+  for r in single
+    exec 'inoremap <expr> '.r.' AutoClo('.string(r).')'
+  endfor
+
   let autopairs = extend({
         \ '('  : ')' ,
         \ '['  : ']' ,
         \ '{'  : '}' ,
-        \ "'"  : "'" ,
-        \ '"'  : '"' ,
-        \ '`'  : '`' ,
-        \ }, a:0 ? a:1 : {})
+        \ }, a:0 && a:000[-1] == 2 ? a:1 : {})
   for [l, r] in items(autopairs)
     exec 'inoremap <expr> '.l.' AutoClo('.string(l).', '.string(r).')'
+    exec 'inoremap <expr> '.r.' AutoClo('.string(l).', '.string(r).', 1)'
   endfor
 endfunction " }}}
 function! s:Numfix() abort " {{{
