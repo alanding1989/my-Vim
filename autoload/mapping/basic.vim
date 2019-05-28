@@ -20,7 +20,7 @@ function! mapping#basic#load() abort
   nnoremap  s           <nop>
   nnoremap  q           <nop>
   nnoremap  ,           <Space>l
-  inoremap  <nowait>>\  \
+  inoremap  <nowait>\  \
   " NOTE: below 4 used in edgemotion, tmux-navigate
   nnoremap <C-k>        <C-w>k
   nnoremap <C-j>        <C-w>j

@@ -79,9 +79,63 @@ endfunction
 
 " AutoClo {{{
 function! AutoClo(char, ...) abort
-  if a:0
-    return a:char. a:1. "\<left>"
-  elseif CurChar(1, a:char)
+  if col('.') == 1
+    return a:0 ? a:char. a:1. "\<left>"
+          \ : a:char. a:char. "\<left>"
+  endif
+
+  if col('.') == col('$')-1
+    let charnr = count(getline('.'), a:char)
+    " cursor at the end of line
+    if !a:0
+      " signs e.g: *, ", ', `
+      if fmod(charnr, 2) == 0 && !CurChar(0, a:char)
+        return a:char. a:1. "\<left>"
+      elseif fmod(charnr, 2)
+        return a:char
+      endif
+    else
+      " signs e.g: {, ], >, (
+      let a1nr = count(getline('.'), a:1)
+      if charnr > a1nr
+        let nr = charnr - a1nr
+        return repeat(a:1, nr).repeat("\<left>", nr)
+      endif
+      return a:0 == 2 ? a:1 : a:char. a:1. "\<left>"
+    endif
+  else
+    let charnr   = count(getline('.'), a:char)
+    let l_charnr = count(s:getcln(0), a:char)
+    " cursor is not at the end of line
+    if !a:0
+      " signs e.g: *, ", ', `
+      if fmod(charnr, 2) == 0
+        return a:char. a:char. "\<left>"
+      else
+        if fmod(l_charnr, 2) == 0
+          return a:char. a:char. "\<left>"
+        else
+          return a:char
+        endif
+      endif
+    else
+      " signs e.g: {, ], >, (
+      let a1nr   = count(getline('.'), a:1)
+      let l_a1nr = count(s:getcln(0), a:char)
+      if l_charnr == l_a1nr
+        return a:0 == 2 ? a:1 : a:char.a:1."\<left>"
+      elseif l_charnr > l_a1nr
+        let nr = l_charnr - l_a1nr
+        return a:0 == 2 
+              \ ? repeat(a:1, nr).repeat("\<left>", nr)
+              \ : a:char. a:1. "\<left>"
+      else
+        return a:0 == 2 ? a:1 : a:char. a:1. "\<left>"
+      endif
+    endif
+  endif
+
+  if CurChar(1, a:char)
     return "\<Right>"
   elseif Within('pair')[0]
     return a:char
@@ -302,7 +356,7 @@ endfunction
 " endfunction
 "}}}
 
-" check curline if match pattern {{{
+" check curline match pattern or not {{{
 function! MatchCl(reg, ...) abort
   if !a:0 && match(getline('.'), a:reg) > -1
     if s:autodelimiter_debug
@@ -321,7 +375,7 @@ endfunction " }}}
 
 " get current line char {{{
 function! s:getcln(pos, ...) abort
-  " a:pos, cursor pos: before 0, after 1
+  " a:pos, cursor pos: left 0, right 1
   " a:1, regex pattern
   let char  = getline('.')
   let col   = col('.') - 1
