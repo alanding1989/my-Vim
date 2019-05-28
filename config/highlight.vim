@@ -15,7 +15,16 @@ scriptencoding utf-8
 let g:_defhighlight_var = { 'hlcolor' : {} }
 
 
+" Util Function: {{{
+function! s:addColor(dict, lang) abort
+  for [key, val] in items(a:dict)
+    let g:_defhighlight_var.hlcolor[a:lang][key] = val
+  endfor
+endfunction " }}}
+
+
 " Python: {{{
+let s:pythonClass_bright   = 0
 let g:python_highlight_all = g:is_vim8
 let g:_defhighlight_var.hlcolor.python = extend({
       \ 'pythonStatement'      : ['#f92672',        -1,  -1, -1, 0, 0],
@@ -27,10 +36,10 @@ let g:_defhighlight_var.hlcolor.python = extend({
       \ 'pythonOperator'       : ['#f92672',        -1,  -1, -1, 0, 0],
       \
       \ 'semshiImported'       : ['#1aa3a1',        -1,  -1, -1, 0, 1],
-      \ 'semshiBuiltin'        : ['#c678dd',        -1, 207, -1, 1, 0],
+      \ 'semshiBuiltin'        : ['#607fbf',        -1, 207, -1, 1, 0],
       \
       \ 'semshiSelf'           : ['#b2b2b2',        -1, 249, -1, 0, 0],
-      \ 'semshiAttribute'      : ['#f1747e',        -1,  -1, -1, 1, 0],
+      \ 'semshiAttribute'      : ['#c678dd',        -1,  -1, -1, 1, 0],
       \
       \ 'pythonFunction'       : ['#a3e234',        -1,  -1, -1, 0, 0],
       \ 'pythonDecoratorName'  : ['#a3e234',        -1,  -1, -1, 1, 0],
@@ -40,8 +49,7 @@ let g:_defhighlight_var.hlcolor.python = extend({
       \
       \ 'pythonString'         : ['#98c379', '#3b4048',  -1, -1, 1, 0],
       \ 'pythonRawString'      : ['#b8bb26',        -1,  -1, -1, 1, 0],
-      \
-      \ 'pythonDelimiter'      : ['#5fafff',        -1,  -1, -1, 0, 0],
+      \ 'pythonDelimiter'      : ['#f92672',        -1,  -1, -1, 0, 0],
       \ 'Number'               : ['#d19a66',        -1,  -1, -1, 0, 0],
       \ }, g:is_vim8 ? {
       \ 'pythonClass'          : ['#1aa3a1',        -1,  -1, -1, 0, 1],
@@ -50,12 +58,20 @@ let g:_defhighlight_var.hlcolor.python = extend({
       \ 'pythonSelf'           : ['#f1747e',        -1,  -1, -1, 1, 0],
       \ 'pythonParam'          : ['#ffaf00',        -1, 214, -1, 0, 0],
       \ } : {})
-      " blue
-      " \ 'semshiParameter'      : ['#5fafff',        -1,  75, -1, 1, 0],
-      " \ 'pythonParam'          : ['#5fafff',        -1,  75, -1, 1, 0],
-      " brighter one
-      " \ 'pythonClass'          : ['#56b6c2',        -1,  -1, -1, 0, 0],
-      " \ 'semshiImported'       : ['#56b6c2',        -1,  -1, -1, 0, 1],
+let s:python_color2 = {
+      \ 'semshiBuiltin'        : ['#c678dd',        -1, 207, -1, 1, 0],
+      \ 'semshiAttribute'      : ['#f1747e',        -1,  -1, -1, 1, 0],
+      \ 'pythonDelimiter'      : ['#5fafff',        -1,  -1, -1, 0, 0],
+      \ } 
+let s:python_bright = {
+      \ 'pythonClass'          : ['#56b6c2',        -1,  -1, -1, 0, 0],
+      \ 'semshiImported'       : ['#56b6c2',        -1,  -1, -1, 0, 1],
+      \ }
+" call s:addColor(s:python_color2, 'python')
+if s:pythonClass_bright
+  call s:addColor(s:python_bright, 'python')
+endif
+
 function! s:PythonSyntax() abort
   if g:is_vim8
     syn  keyword  pythonSelf         self

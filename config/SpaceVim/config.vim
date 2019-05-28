@@ -137,13 +137,6 @@ function! My_SpaceVim_layers_variable(layer) abort
         \ ], g:is_unix ? ['sh'] : []
         \ )}
         \ }, a:layer, {})
-        " \ 'lang#scala' : {
-        " \     'metals-vim_executable':
-        " \         g:is_win ? ( 'D:\devtools\scala\'     . (g:spacevim_autocomplete_method ==# 'coc'
-        " \                    ? 'coc' : 'languageclient'). '/metals-vim' )
-        " \                  : ( '/opt/lang-tools/scala/' . (g:spacevim_autocomplete_method ==# 'coc'
-        " \                    ? 'coc' : 'languageclient'). '/metals-vim' )
-        " \ },
   " \ 'javascript',
 endfunction
 " }}}
@@ -289,3 +282,4 @@ if g:spacevim_fuzzyfinder !=# 'denite' && g:My_SpaceVim_layers.denite
   let g:spacevim_disabled_plugins += ['neomru.vim', 'unite-outline']
 endif
 "}}}
+
