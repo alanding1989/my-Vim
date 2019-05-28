@@ -91,7 +91,7 @@ function! AutoClo(char, ...) abort
       " signs e.g: *, ", ', `
       if fmod(charnr, 2) == 0 && !CurChar(0, a:char)
         return a:char. a:1. "\<left>"
-      elseif fmod(charnr, 2)
+      elseif fmod(charnr, 2) > 0
         return a:char
       endif
     else

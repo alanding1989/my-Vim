@@ -363,37 +363,26 @@ function! s:Delimitor_init() abort
   inoremap <expr> ,   CurChar(0, '\s') ? "\<BS>,\<Space>" : (CurChar(1, '\s') ? "," : ",\<Space>")
   inoremap <expr><Plug>AlanCR  exists('b:eol_marker') && MatchCl('^$') ? b:eol_marker."\<CR>" : "\<CR>"
 
-  call s:AutoClose()
   call s:AutoPairs()
   call s:Numfix()
   augroup Delimitor_init
     autocmd!
     auto FileType sh  call <sid>Bash()
     auto FileType vim
-          \ inoremap <buffer><expr> "  MatchCl('\v(^\_$)\|(^\s*\w*\s\_$)\|(^\s+\_$)') ? "\"\<Space>" : AutoClo('"', '"') |
+          \ inoremap <buffer><expr> "  MatchCl('\v(^\_$)\|(^\s*\w*\s\_$)\|(^\s+\_$)') ? "\"\<Space>" : AutoClo('"')|
           \ inoremap <buffer><expr> :  MatchCl('\v\s(s)\|(g)\|(a)\|(l)\|(\S\W\s)$') ? ':' : CurChar(0, '\s') ? ': ' : ' : '
     auto FileType c,cpp     let b:eol_marker = ';'
     auto FileType markdown  call <sid>AutoPairs({'《':'》'}, 2)|
           \ call <sid>AutoPairs('*', 1)
   augroup END
 endfunction
-function! s:AutoClose() abort " {{{
-endfunction " }}}
 function! s:AutoPairs(...) abort " {{{
-  let single = add([
-        \ "'",
-        \ '"',
-        \ '`',
-        \ ], a:0 && a:000[-1] == 1 ? a:1 : [])
+  let single = extend(["'", '"', '`'], a:0 && a:000[-1] == 1 ? [a:1] : [])
   for r in single
     exec 'inoremap <expr> '.r.' AutoClo('.string(r).')'
   endfor
 
-  let autopairs = extend({
-        \ '('  : ')' ,
-        \ '['  : ']' ,
-        \ '{'  : '}' ,
-        \ }, a:0 && a:000[-1] == 2 ? a:1 : {})
+  let autopairs = extend({'(':')', '[':']', '{':'}'}, a:0 && a:000[-1] == 2 ? a:1 : {})
   for [l, r] in items(autopairs)
     exec 'inoremap <expr> '.l.' AutoClo('.string(l).', '.string(r).')'
     exec 'inoremap <expr> '.r.' AutoClo('.string(l).', '.string(r).', 1)'
