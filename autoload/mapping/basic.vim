@@ -694,7 +694,7 @@ function! s:insfhead(cmsign, ...) abort
     let head += a:000[:-2] + ['']
   else
     let head += a:000[-2] ==# '/*' ? a:000[0:-3] : a:000[0:-2]
-    let head += len(a:000[-1]) && a:1 !=# '' ? ['', ''] : []
+    let head += len(a:000[-1]) && a:1 !=# '' ? [''] : []
     let head += a:000[-1] ==# 'info0' ? <sid>insinfo(a:cmsign, 0, a:000[-2])
           \ :   a:000[-1] ==# 'info1' ? <sid>insinfo(a:cmsign, 1, a:000[-2])
           \ :   ['', '']
