@@ -109,6 +109,7 @@ function! s:filetree() abort " {{{
     " a:num = 5 open my plugins bundle dir
     " a:num = 6 open my dotfile dir
     " a:num = 7 open a new defx buffer in current working dir
+    " a:num = 8 open my dev dir
     nnoremap <silent><F3>         :call <SID>open_filetree(0)<CR>
     call SpaceVim#mapping#space#def('nnoremap', ['f','o'], 'call call('
           \ . string(function('s:open_filetree'))
@@ -131,6 +132,9 @@ function! s:filetree() abort " {{{
     call SpaceVim#mapping#space#def('nnoremap', ['f','n'], 'call call('
           \ . string(function('s:open_filetree'))
           \ . ', [7])', '@ open new file window in current working dir', 1)
+    call SpaceVim#mapping#space#def('nnoremap', ['f','d'], 'call call('
+          \ . string(function('s:open_filetree'))
+          \ . ', [8])', '@ open my dev dir', 1)
   else
     nnoremap <silent><F3>         :call <SID>open_filetree(0)<CR>
     nnoremap <silent><Space>fo    :call <SID>open_filetree(1)<CR>
@@ -140,6 +144,7 @@ function! s:filetree() abort " {{{
     nnoremap <silent><Space>fp    :call <SID>open_filetree(5)<CR>
     nnoremap <silent><Space>f.    :call <SID>open_filetree(6)<CR>
     nnoremap <silent><Space>fn    :call <SID>open_filetree(7)<CR>
+    nnoremap <silent><Space>fn    :call <SID>open_filetree(8)<CR>
   endif
 endfunction
 
@@ -152,8 +157,9 @@ endfunction
 " a:num = 5 open my plugins bundle dir
 " a:num = 6 open my dotfile dir
 " a:num = 7 open a new defx buffer in current working dir
-let g:_my_vimrc_dir   = g:home
-let g:_my_dotfile_dir = g:is_win ? 'E:\my-Dotfile' : '/mnt/fun+downloads/my-Dotfile'
+let s:my_vimrc_dir   = g:home
+let s:my_dotfile_dir = g:is_win ? 'E:\my-Dotfile' : '/mnt/fun+downloads/my-Dotfile'
+let s:my_dev_dir     = g:iw_win?  'C:\' : '/home/alanding/0_Dev/'
 if get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'vimfiler'
 
   function! s:open_filetree(num) abort "{{{
@@ -164,7 +170,7 @@ if get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'vimf
     elseif a:num == 2
       VimFilerBufferDir
     elseif a:num == 3
-      exec 'VimFiler '.expand(g:_my_vimrc_dir)
+      exec 'VimFiler '.expand(s:my_vimrc_dir)
     elseif a:num == 4
       let g:_spacevim_autoclose_filetree = 0
       VimFilerCurrentDir -no-split -columns=type:size:time
@@ -172,7 +178,11 @@ if get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'vimf
     elseif a:num == 5
       call <sid>open_plugins_dir('VimFiler ')
     elseif a:num == 6
-      exec 'VimFiler '.expand(g:_my_dotfile_dir)
+      exec 'VimFiler '.expand(s:my_dotfile_dir)
+    elseif a:num == 7
+      exec 'VimFiler '.expand(s:my_dotfile_dir)
+    elseif a:num == 8
+      exec 'VimFiler '.expand(s:my_dev_dir)
     endif
     doautocmd WinEnter
   endfunction "}}}
@@ -186,7 +196,7 @@ elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# '
     elseif a:num == 2
       Defx `expand('%:p:h')`
     elseif a:num == 3
-      Defx `expand(g:_my_vimrc_dir)`
+      Defx `expand(s:my_vimrc_dir)`
     elseif a:num == 4
       let g:_spacevim_autoclose_filetree = 0
       Defx -split=no -columns=git:mark:indent:filename:type:size:time `getcwd()`
@@ -194,9 +204,11 @@ elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# '
     elseif a:num == 5
       call <sid>open_plugins_dir('Defx ')
     elseif a:num == 6
-      Defx `expand(g:_my_dotfile_dir)`
+      Defx `expand(s:my_dotfile_dir)`
     elseif a:num == 7
       Defx -new `getcwd()`
+    elseif a:num == 8
+      Defx `expand(s:my_dev_dir)`
     endif
     if &ft ==# 'defx' | setl conceallevel=2 | endif
     doautocmd WinEnter
@@ -211,13 +223,17 @@ elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# '
     elseif a:num == 2
       NERDTree %
     elseif a:num == 3
-      exec 'NERDTree '.expand(g:_my_vimrc_dir)
+      exec 'NERDTree '.expand(s:my_vimrc_dir)
     elseif a:num == 4
       exec 'e '.getcwd()
     elseif a:num == 5
       call <sid>open_plugins_dir('NERDTree ')
     elseif a:num == 6
-      exec 'NERDTree '.expand(g:_my_dotfile_dir)
+      exec 'NERDTree '.expand(s:my_dotfile_dir)
+    elseif a:num == 7
+      exec 'NERDTree '.expand(s:my_dotfile_dir)
+    elseif a:num == 8
+      exec 'NERDTree '.expand(s:my_dotfile_dir)
     endif
     doautocmd WinEnter
   endfunction "}}}
