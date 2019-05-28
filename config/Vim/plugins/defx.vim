@@ -146,7 +146,7 @@ function! s:defx_init()
   nnoremap <silent><buffer><expr> L     defx#do_action('call', 'DefxYarkSrcLayout')
   nnoremap <silent><buffer><expr> gs    defx#do_action('call', 'DefxExeShell')
   nnoremap <silent><buffer><Space>0     :call defx#call_action('change_vim_cwd')<CR>
-        \ :call SpaceVim#layers#shell#open_default_shell(1)<CR>
+        \:call SpaceVim#layers#shell#open_default_shell(1)<CR>
 endf
 
 
