@@ -144,10 +144,9 @@ nnoremap <                <<_
 " search
 nnoremap <Space>sa        :action SearchEverywhere<CR>
 nnoremap <Space>sm        :action ReplaceInPath<CR>
-nnoremap <Space>sp        :action FindUsages<CR>
-nnoremap <Space>ss        :action FindUsages<CR>
+nnoremap <Space>su        :action FindUsages<CR>
 nnoremap <Space>sc        :action GotoClass<CR>
-nnoremap <Space>sf        :action GotoSymbol<CR>
+nnoremap <Space>ss        :action GotoSymbol<CR>
 nnoremap <Space>sk        :action GotoAction<CR>
 nnoremap <leader>og       :action SearchWithGoogle<CR>
 
@@ -187,6 +186,7 @@ nnoremap gd               :action GotoDeclaration<CR>
 nnoremap gi               :action GotoImplementation<CR>
 nnoremap gu               :action GotoSuperMethod<CR>
 nnoremap gt               :action GotoTypeDeclaration<CR>
+nnoremap gr               :action FindUsages<CR>
 nnoremap ghm              :action MethodHierarchy<CR>
 nnoremap ght              :action TypeHierarchy<CR>
 nnoremap ghc              :action CallHierarchy<CR>
