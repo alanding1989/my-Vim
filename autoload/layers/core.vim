@@ -363,17 +363,19 @@ endfunction " }}}
 
 function! s:open_browser() abort " {{{
   let g:openbrowser_default_search = 'baidu'
+  vmap <leader>oo  <Plug>(openbrowser-smart-search)
   if g:is_spacevim
-    let g:_spacevim_mappings.o          = {'name': '+@ OpenBrowser'}
-    let g:_spacevim_mappings.o.a        = ['call feedkeys(":OpenBrowser ")'                    , 'OpenBrowser prefix' ]
-    let g:_spacevim_mappings.o.o        = ['call feedkeys("\<Plug>(openbrowser-smart-search)")', 'cursor word search /default engine']
-    let g:_spacevim_mappings.o.b        = ['call feedkeys(":OpenBrowserSmartSearch -baidu ")'  , 'keyword search /baidu' ]
-    let g:_spacevim_mappings.o.g        = ['call feedkeys(":OpenBrowserSmartSearch -google ")' , 'keyword search /google']
-    let g:_spacevim_mappings.o.h        = ['call feedkeys(":OpenBrowserSmartSearch -github ")' , 'keyword search /github']
-    let g:_spacevim_mappings.o.c        = ['OpenlinkOrSearch arec'                             , 'open my asciinema cast']
-    let g:_spacevim_mappings.o.r        = ['call util#Open_curPlugin_repo()'                   , 'open github mainpage/cursor plugin`s repo']
-    let g:_spacevim_mappings.o['.']     = ['call util#vg_starred_repos()'                      , 'view github starred repos']
-    let g:_spacevim_mappings.o['[SPC]'] = ['OpenlinkOrSearch spc'                              , 'open SpaceVim CN website']
+    let g:_spacevim_mappings.o   = {'name': '+@ OpenBrowser'}
+    let g:_spacevim_mappings.o.a = ['call feedkeys(":OpenBrowser ")'                    , 'OpenBrowser prefix']
+    let g:_spacevim_mappings.o.o = ['call feedkeys("\<Plug>(openbrowser-smart-search)")', 'cursor word search /default engine']
+    let g:_spacevim_mappings.o.b = ['call feedkeys(":OpenBrowserSmartSearch -baidu  ")' , 'keyword search /baidu' ]
+    let g:_spacevim_mappings.o.g = ['call feedkeys(":OpenBrowserSmartSearch -google ")' , 'keyword search /google']
+    let g:_spacevim_mappings.o.h = ['call feedkeys(":OpenBrowserSmartSearch -github ")' , 'keyword search /github']
+    let g:_spacevim_mappings.o.c = ['OpenlinkOrSearch arec'                             , 'open my asciinema cast']
+    let g:_spacevim_mappings.o.r = ['call util#Open_curPlugin_repo()', 'open github mainpage/cursor plugin`s repo']
+    let g:_spacevim_mappings.o['.']     = ['call util#vg_starred_repos()'            , 'view github starred repos']
+    let g:_spacevim_mappings.o['[SPC]'] = ['OpenlinkOrSearch spc'                     , 'open SpaceVim CN website']
+
     " language docs
     augroup layer_core_openbrowser
       autocmd!

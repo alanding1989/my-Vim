@@ -96,8 +96,17 @@ nnoremap g0               g*
 nnoremap <c-w>r           :action MoveTabRight<CR>
 nnoremap <c-w>d           :action MoveTabDown<CR>
 
-" fast save
-inoremap qw               <ESC>:action SaveAll<CR>
+" scroll
+nnoremap <C-f>            <C-d>M
+nnoremap <C-b>            <C-u>M
+nnoremap <C-d>            3<C-e>
+nnoremap <C-u>            3<C-y>
+
+" folding
+nnoremap <CR>             zozz
+nnoremap <S-CR>           zMzozz
+nnoremap zj               zjzz
+nnoremap zk               zkzz
 
 " file management
 nnoremap <Space>ff        :action GotoFile<CR>
@@ -119,6 +128,9 @@ noremap J                 :action EditorJoinLines<CR>
 noremap <Space>cc         :action CommentByLineComment<CR>
 noremap <Space>cl         :action CommentByLineComment<CR>
 noremap <Space>cp         :action CommentByBlockComment<CR>
+
+" fast save
+inoremap qw               <ESC>:action SaveAll<CR>
 
 nnoremap <tab>o           o<ESC>
 nnoremap <tab>p           O<ESC>j
@@ -221,7 +233,6 @@ nnoremap <Space>en        :action GotoNextError<CR>
 nnoremap <Space>ep        :action GotoPreviousError<CR>
 nnoremap ]e               :action GotoNextError<CR>
 nnoremap [e               :action GotoPreviousError<CR>
-
 
 
 " git

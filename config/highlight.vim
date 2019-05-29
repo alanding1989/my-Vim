@@ -22,7 +22,6 @@ function! s:addColor(dict, lang) abort
   endfor
 endfunction " }}}
 
-
 " Python: {{{
 let s:pythonClass_bright   = 0
 let g:python_highlight_all = g:is_vim8
@@ -49,6 +48,67 @@ let g:_defhighlight_var.hlcolor.python = extend({
       \
       \ 'pythonString'         : ['#98c379', '#3b4048',  -1, -1, 1, 0],
       \ 'pythonRawString'      : ['#b8bb26',        -1,  -1, -1, 1, 0],
+      \ 'pythonDelimiter'      : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ 'Number'               : ['#d19a66',        -1,  -1, -1, 0, 0],
+      \ }, g:is_vim8 ? {
+      \ 'pythonClass'          : ['#1aa3a1',        -1,  -1, -1, 0, 1],
+      \ 'pythonBuiltin'        : ['#c678dd',        -1,  -1, -1, 1, 0],
+      \ 'pythonClassVar'       : ['#f1747e',        -1,  -1, -1, 0, 0],
+      \ 'pythonSelf'           : ['#f1747e',        -1,  -1, -1, 1, 0],
+      \ 'pythonParam'          : ['#ffaf00',        -1, 214, -1, 0, 0],
+      \ } : {})
+let s:python_color2 = {
+      \ 'semshiBuiltin'        : ['#c678dd',        -1, 207, -1, 1, 0],
+      \ 'semshiAttribute'      : ['#f1747e',        -1,  -1, -1, 1, 0],
+      \ 'pythonDelimiter'      : ['#5fafff',        -1,  -1, -1, 0, 0],
+      \ } 
+let s:python_bright = {
+      \ 'pythonClass'          : ['#56b6c2',        -1,  -1, -1, 0, 0],
+      \ 'semshiImported'       : ['#56b6c2',        -1,  -1, -1, 0, 1],
+      \ }
+" call s:addColor(s:python_color2, 'python')
+if s:pythonClass_bright
+  call s:addColor(s:python_bright, 'python')
+endif
+
+function! s:PythonSyntax() abort
+  if g:is_vim8
+    syn  keyword  pythonSelf         self
+    syn  match    pythonBuiltin      '\v\.@<!<%(object|bool|int|float|tuple|str|list|dict|set|frozenset|bytearray|bytes)>'
+    syn  match    pythonAttribute    'self\.\zs[_a-zA-Z.]*'
+  endif
+    syn  keyword  pythonStatement    None False True
+    syn  match    pythonDelimiter    '\V=\|-\|+\|*\|@\|/\|%\|&\||\|^\|~\|<\|>\|!='
+endfunction
+" }}}
+
+" Python: {{{
+let s:pythonClass_bright   = 0
+let g:python_highlight_all = g:is_vim8
+let g:_defhighlight_var.hlcolor.python = extend({
+      \ 'pythonStatement'      : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ 'pythonInclude'        : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ 'scalaKeyword'         : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ 'pythonConditional'    : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ 'pythonException'      : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ 'pythonRepeat'         : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ 'scalaOperator'        : ['#f92672',        -1,  -1, -1, 0, 0],
+      \
+      \ 'semshiImported'       : ['#1aa3a1',        -1,  -1, -1, 0, 1],
+      \ 'semshiBuiltin'        : ['#607fbf',        -1, 207, -1, 1, 0],
+      \
+      \ 'semshiSelf'           : ['#b2b2b2',        -1, 249, -1, 0, 0],
+      \ 'semshiAttribute'      : ['#c678dd',        -1,  -1, -1, 1, 0],
+      \
+      \ 'scalaNameDefinition'  : ['#a3e234',        -1,  -1, -1, 0, 0],
+      \ 'pythonDecoratorName'  : ['#a3e234',        -1,  -1, -1, 1, 0],
+      \
+      \ 'semshiParameter'      : ['#ffaf00',        -1, 214, -1, 0, 0],
+      \ 'semshiGlobal'         : ['#5fafff',        -1,  75, -1, 0, 0],
+      \
+      \ 'scalaChar'            : ['#98c379', '#3b4048',  -1, -1, 1, 0],
+      \ 'scalaEscapedChar'     : ['#98c379', '#3b4048',  -1, -1, 1, 0],
+      \ 'scalaUnicodeChar'     : ['#b8bb26',        -1,  -1, -1, 1, 0],
       \ 'pythonDelimiter'      : ['#f92672',        -1,  -1, -1, 0, 0],
       \ 'Number'               : ['#d19a66',        -1,  -1, -1, 0, 0],
       \ }, g:is_vim8 ? {
