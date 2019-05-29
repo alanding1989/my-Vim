@@ -152,14 +152,14 @@ endfunction
 " a:num = 0 open root dir
 " a:num = 1 open last opened dir
 " a:num = 2 open current buffer dir/root dir(when VimEnter)
-" a:num = 3 open my vimrc favourite dir
+" a:num = 3 open my vimrc dir
 " a:num = 4 inverstigate current working dir (fullscreen)
 " a:num = 5 open my plugins bundle dir
 " a:num = 6 open my dotfile dir
-" a:num = 7 open a new defx buffer in current working dir
+" a:num = 7 open a new filetree buffer in current working dir
 let s:my_vimrc_dir   = g:home
 let s:my_dotfile_dir = g:is_win ? 'E:\my-Dotfile' : '/mnt/fun+downloads/my-Dotfile'
-let s:my_dev_dir     = g:iw_win?  'C:\' : '/home/alanding/0_Dev/'
+let s:my_dev_dir     = g:is_win?  'D:\devtools' : '/home/alanding/0_Dev/'
 if get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'vimfiler'
 
   function! s:open_filetree(num) abort "{{{
@@ -173,14 +173,14 @@ if get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'vimf
       exec 'VimFiler '.expand(s:my_vimrc_dir)
     elseif a:num == 4
       let g:_spacevim_autoclose_filetree = 0
-      VimFilerCurrentDir -no-split -columns=type:size:time
+      VimFilerCurrentDir -no-toggle -no-split -explorer -explorer-columns=type:size:time
       let g:_spacevim_autoclose_filetree = 1
     elseif a:num == 5
       call <sid>open_plugins_dir('VimFiler ')
     elseif a:num == 6
       exec 'VimFiler '.expand(s:my_dotfile_dir)
     elseif a:num == 7
-      exec 'VimFiler '.expand(s:my_dotfile_dir)
+      exec 'VimFiler -create '.getcwd()
     elseif a:num == 8
       exec 'VimFiler '.expand(s:my_dev_dir)
     endif
@@ -217,11 +217,11 @@ elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# '
 
   function! s:open_filetree(num) abort "{{{
     if a:num == 0
-      exec 'e '.getcwd()
+      NERDTreeCWD
     elseif a:num == 1
       NERDTreeToggle
     elseif a:num == 2
-      NERDTree %
+      NERDTreeFind
     elseif a:num == 3
       exec 'NERDTree '.expand(s:my_vimrc_dir)
     elseif a:num == 4
@@ -231,9 +231,10 @@ elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# '
     elseif a:num == 6
       exec 'NERDTree '.expand(s:my_dotfile_dir)
     elseif a:num == 7
-      exec 'NERDTree '.expand(s:my_dotfile_dir)
+      " one tab can only open one tree
+      tabe % | NERDTreeMirror
     elseif a:num == 8
-      exec 'NERDTree '.expand(s:my_dotfile_dir)
+      exec 'NERDTree '.expand(s:my_dev_dir)
     endif
     doautocmd WinEnter
   endfunction "}}}
