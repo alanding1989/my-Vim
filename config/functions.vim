@@ -90,7 +90,7 @@ function! AutoClo(char, ...) abort
     if !a:0
       " signs e.g: *, ", ', `
       if fmod(charnr, 2) == 0 && !CurChar(0, a:char)
-        return a:char. a:1. "\<left>"
+        return a:char. a:char. "\<left>"
       elseif fmod(charnr, 2) > 0
         return a:char
       endif
@@ -101,7 +101,7 @@ function! AutoClo(char, ...) abort
         let nr = charnr - a1nr
         return repeat(a:1, nr).repeat("\<left>", nr)
       endif
-      return a:0 == 2 ? a:1 : a:char. a:1. "\<left>"
+      return a:0 == 2 ? a:1 : a:char. a:char. "\<left>"
     endif
   else
     let charnr   = count(getline('.'), a:char)

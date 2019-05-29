@@ -60,6 +60,8 @@ function! layers#git#config() abort
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'a'], 'Gita add %'     , 'stage current file'  , 1)
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'u'], 'Gita reset %'   , 'unstage current file', 1)
     endif
+    " call SpaceVim#mapping#space#def('nnoremap'  , ['g', 'L'], 'GV!', 'View git log of current file', 1)
+    " call SpaceVim#mapping#space#def('nnoremap'  , ['g', 'l'], 'GV' , 'View git log of current repo', 1)
     if s:gitgutter_plugin ==# 'vim-gitgutter'
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'f'], 'GitGutterFold', '@ toggle folding unchanged lines', 1)
       call SpaceVim#mapping#space#def('nmap',['g', 'h', 'u'], '<Plug>GitGutterUndoHunk'   , 'undo cursor hunk'   , 0)
