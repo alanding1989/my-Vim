@@ -357,7 +357,7 @@ function! s:Delimitor_init() abort
   " match add space before
   inoremap <expr> -   MatchDel('-', '\v^\s*(if\|el\|wh\|let\|val\|var).*\S$', 1, 00)
   inoremap <expr> +   MatchDel('+', '0000', 1, 11)
-  inoremap <expr> !   MatchDel('!', '\v^\s*((if\|el\|wh\|let\|val\|var).*\S$)\|((if\|el\|wh)$)', 1, 01)
+  inoremap <expr> !   MatchDel('!', '\v^\s*((if\|el\|wh\|let\|val\|var).*\S$)\|((if\|el\|wh)$)', 0, 01)
   inoremap <expr> :   (CurChar(0, '\s') \|\| CurChar(0, '\w') \|\| Curchar(0, '\d')) ? ': ' : ' : '
   inoremap <expr> <   MatchDel('<', '\v^\s*(if\|el\|wh\|let).*\S$', '>')
   inoremap <expr> ,   CurChar(0, '\s') ? "\<BS>,\<Space>" : (CurChar(1, '\s') ? "," : ",\<Space>")

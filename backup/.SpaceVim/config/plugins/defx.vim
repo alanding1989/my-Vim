@@ -82,7 +82,6 @@ function! s:defx_init()
   " Define mappings
   nnoremap <silent><buffer><expr> qq
         \ defx#do_action('quit')
-  nnoremap <silent><buffer><expr> yy defx#do_action('call', 'DefxYarkPath')
   nnoremap <silent><buffer><expr> c
         \ defx#do_action('copy')
   nnoremap <silent><buffer><expr> m
@@ -143,10 +142,12 @@ function! s:defx_init()
         \ defx#do_action('cd', SpaceVim#plugins#projectmanager#current_root())
 
   nnoremap <silent><buffer><expr> <Cr>  defx#do_action('call', 'DefxSmartCR')
-  nnoremap <silent><buffer><expr> L     defx#do_action('call', 'DefxYarkSrcLayout')
   nnoremap <silent><buffer><expr> gs    defx#do_action('call', 'DefxExeShell')
   nnoremap <silent><buffer><Space>0     :call defx#call_action('change_vim_cwd')<CR>
-        \ :call SpaceVim#layers#shell#open_default_shell(1)<CR>
+        \:call SpaceVim#layers#shell#open_default_shell(1)<CR>
+  nnoremap <silent><buffer><expr> Y     defx#do_action('call', 'YankName')
+  nnoremap <silent><buffer><expr> yy    defx#do_action('call', 'DefxYarkPath')
+  nnoremap <silent><buffer><expr> ys    defx#do_action('call', 'DefxYarkSrcLayout')
 endf
 
 
@@ -287,6 +288,10 @@ function! DefxChangeDir(_) abort "{{{
 endfunction
 "}}}
 
+function! YankName(context) abort " {{{
+  let yank = join(map(a:context.targets, "fnamemodify(v:val, ':t')"), "\n")
+  call setreg('"', yank)
+endfunction  " }}}
 
 
 function! DefxYarkPath(_) abort
