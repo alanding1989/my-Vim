@@ -8,8 +8,8 @@ scriptencoding utf-8
 function! mapping#basic#load() abort
   let g:mapleader      = ';'
   let g:maplocalleader = "\<Space>"
-  " set timeout
-  " set timeoutlen=400
+  set timeout
+  set timeoutlen=400
   call <sid>defPlug()
   call <sid>Delimitor_init()
   auto VimEnter * call s:unmap_SPC()
@@ -167,8 +167,9 @@ function! mapping#basic#load() abort
   auto VimEnter *
         \ nnoremap zj  zjzz |
         \ nnoremap zk  zkzz
+  nnoremap <expr> l               foldclosed('.') > -1 ? 'zazz' : 'l'
   nnoremap <expr> <CR>            <sid>OpenFoldOrGotoMiddle(1)
-  nnoremap <expr> <S-CR>          <sid>OpenFoldOrGotoMiddle(0)
+  nnoremap <expr> s<CR>           <sid>OpenFoldOrGotoMiddle(0)
 
   " Toggle zz mode
   nnoremap <silent><leader>az     :call <sid>Toggle_ZZMode()<CR>
