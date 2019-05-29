@@ -94,7 +94,7 @@ nmap g0 <Plug>(incsearch-nohl-g*)
 
 let g:_spacevim_mappings_g      = get(g:, '_spacevim_mappings_g', {})
 let g:_spacevim_mappings_g['='] = ['call feedkeys("g=", "n")'                           , 'format code (origin)'    ]
-let g:_spacevim_mappings_g['o'] = ['call feedkeys("gf", "n")'                           , 'edit file under cursor'  ]
+let g:_spacevim_mappings_g['9'] = ['call feedkeys("gf", "n")'                           , 'edit file under cursor'  ]
 
 " plugin mappings
 let g:_spacevim_mappings_g['0'] = ['call feedkeys("\<Plug>(incsearch-nohl-g*)")'        , 'forward search cword'    ]

@@ -101,7 +101,7 @@ function! AutoClo(char, ...) abort
         let nr = charnr - a1nr
         return repeat(a:1, nr).repeat("\<left>", nr)
       endif
-      return a:0 == 2 ? a:1 : a:char. a:char. "\<left>"
+      return a:0 == 2 ? a:1 : a:char. a:1. "\<left>"
     endif
   else
     let charnr   = count(getline('.'), a:char)
@@ -242,6 +242,7 @@ endfunction " }}}
 " check if cusor within pairs or quotes {{{
 function! Within(mode, ...)abort
   " param a:mode can be pair and quote
+  " if a:1 provided, return list contain [1, pair]
   let pairs = a:mode ==# 'pair' ? s:withinpairs
         \   : a:mode ==# 'emptypair' ? s:emptypairs
         \   : s:withinquotes
