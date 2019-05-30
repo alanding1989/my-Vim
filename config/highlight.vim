@@ -44,8 +44,6 @@ let g:_defhighlight_var.hlcolor.general = extend({
       \ 'Boolean'     : ['#d19a66',        -1,  -1, -1, 0, 0],
       \ 'Float'       : ['#d19a66',        -1,  -1, -1, 0, 0],
       \
-      \ 'Identifier'  : ['#ffaf00',        -1, 214, -1, 0, 0],
-      \
       \ 'Function'    : ['#a3e234',        -1,  -1, -1, 0, 0],
       \
       \ 'Statement'   : ['#f92672',        -1,  -1, -1, 0, 0],
@@ -59,11 +57,12 @@ let g:_defhighlight_var.hlcolor.general = extend({
       \
       \ 'Structure'   : ['#1aa3a1',        -1,  -1, -1, 0, 1],
       \ 'StorageClass': ['#aab6e1',        -1,  -1, -1, 1, 0],
-      \ 'Type'        : ['#607fbf',        -1, 207, -1, 1, 0],
       \ }, s:general_enable_bright ? {
       \ 'Statement'   : ['#c678dd',        -1,  -1, -1, 0, 0],
       \ 'Type'        : ['#d19a66', '#3b4048',  -1, -1, 1, 0],
       \ } : {})
+      " \ 'Identifier'  : ['#ffaf00',        -1, 214, -1, 0, 0],
+      " \ 'Type'        : ['#607fbf',        -1, 207, -1, 1, 0],
 
 " darker String background
 let s:general_darkstring = {

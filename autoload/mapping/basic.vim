@@ -276,7 +276,7 @@ function! mapping#basic#load() abort
   " g related
   auto VimEnter *
         \ nnoremap g0             g*|
-        \ nnoremap go             gf
+        \ nnoremap g9             gf
 
   if has('nvim')
     nnoremap <Space>qh            :checkhealth<CR>
@@ -795,8 +795,9 @@ function! s:unmap_SPC() abort
       nunmap   \qp
       nunmap   \qn
       unmap    g%
-      nunmap   <F7>
+      vunmap   <C-s>
       nunmap   <tab>
+      nunmap   <F7>
       iunmap   jk
       nunmap   ,<Space>
       nunmap   [SPC]-

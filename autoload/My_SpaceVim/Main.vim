@@ -17,8 +17,8 @@ let s:add_plugin_layers = [
 let s:modified_conf_layers = [
       \ 'autocomplete', 'chinese' , 'colorscheme'   , 'core'       , 'checkers',
       \ 'denite'      , 'edit'    , 'git'           , 'leaderf'    , 'tools'   ,
-      \ 'unite'       , 'ui'      , 'VersionControl',
-      \ 'lang#ipynb'  , 'lang#vim', 'lang#ps1'      , 'lang#scala',
+      \ 'unite'       , 'ui'      , 'VersionControl', 'lang#go'    , 
+      \ 'lang#ipynb'  , 'lang#vim', 'lang#ps1'      , 'lang#scala' ,
       \ ]
 
 let s:spacevim_default_cs = [

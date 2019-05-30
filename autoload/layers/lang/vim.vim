@@ -35,18 +35,22 @@ function! layers#lang#vim#plugins() abort
 endfunction
 
 function! layers#lang#vim#config() abort
-  augroup layer_lang_vim
-    autocmd!
-    autocmd FileType vim call s:language_specified_mappings()
-  augroup END
+  if g:is_spacevim
+    call SpaceVim#mapping#gd#add('vim', function('s:go_to_def'))
+    call SpaceVim#custom#Reg_langSPC('vim', function('s:language_specified_mappings'))
+  else
+    augroup layer_lang_vim
+      autocmd!
+      autocmd FileType vim call s:language_specified_mappings()
+    augroup END
+  endif
 endfunction
 
 function! s:language_specified_mappings() abort
   nnoremap <buffer> <F1> :update<CR>:source %<CR>
   if g:is_spacevim
-    call SpaceVim#mapping#gd#add('vim', function('s:go_to_def'))
-    call SpaceVim#mapping#space#def('nnoremap', ['i', 't'],
-          \ 'call setline(line("."), "\" vim:set sw=2 ts=2 sts=2 et tw=78 fmd=marker")',
+    call SpaceVim#mapping#space#langSPC('nnoremap', ['l', 't'],
+          \ 'call setline(line("$"), "\" vim:set sw=2 ts=2 sts=2 et tw=78 fmd=marker")',
           \ 'insert Vim file tail', 1)
   else
     nnoremap <buffer><silent> gd          :call <sid>go_to_def()<CR>

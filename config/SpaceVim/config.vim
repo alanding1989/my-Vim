@@ -73,7 +73,6 @@ let g:spacevim_windows_leader                = ''
 let g:spacevim_plugin_manager                = g:plugmanager
 let g:spacevim_github_username               = g:github_username
 let g:spacevim_guifont                       = g:guifont
-let g:spacevim_layer_lang_scala_formatter    = g:layer_lang_scala_formatter
 let g:spacevim_music_path                    = g:is_win ? 'E:\娱乐影音\音乐' : '/mnt/fun+downloads/娱乐影音/音乐'
 let g:spacevim_project_rooter_patterns       = uniq(sort(g:spacevim_project_rooter_patterns
       \ + deepcopy(g:project_root_marker)))
@@ -106,6 +105,10 @@ function! My_SpaceVim_layers_variable(layer) abort
         \         'c'  : 'c11',
         \         'cpp': 'c++1z'},
         \ },
+        \ 'lang#scala' : {
+        \     'format_on_save' : 1,
+        \     'formatter_scalariform_path': g:layer_lang_scala_formatter
+        \ },
         \ 'lang#lua' : {
         \     'repl_command': '/opt/lang-tools/lua/luarocks/bin/rep.lua'
         \ },
@@ -129,6 +132,7 @@ function! My_SpaceVim_layers_variable(layer) abort
         \ 'lsp' : {'filetypes' : extend([
         \     'c',
         \     'cpp',
+        \     'go',
         \     'scala',
         \     'lua',
         \     'python',
