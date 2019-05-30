@@ -133,9 +133,12 @@ function! My_SpaceVim_layers_variable(layer) abort
         \     'lua',
         \     'python',
         \     'ipynb',
-        \     'vim',
-        \ ], g:is_unix ? ['sh'] : []
-        \ )}
+        \     'vim', ], g:is_unix ? ['sh'] : []
+        \ )},
+        \ 'defhighlight' : {
+        \     'enable_vim_highlight' : 0,
+        \     'hlcolor'  : g:_defhighlight_var.hlcolor
+        \ }
         \ }, a:layer, {})
   " \ 'javascript',
 endfunction

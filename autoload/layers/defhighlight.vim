@@ -16,7 +16,13 @@ endfunction
 function! layers#defhighlight#config() abort
   if len(s:hlcolor) > 0
     for [ft, colors] in items(s:hlcolor)
-      exec 'auto FileType '.ft.' call s:highlight_apply('.string(ft).', '.string(colors).')'
+      if ft ==# 'general'
+        exec 'auto BufWinEnter * if <sid>checkft() |
+              \ call s:highlight_apply('.string(ft).', '.string(colors).') | endif'
+      else
+        exec 'auto FileType '.ft.' call s:highlight_apply('.string(ft).', '.string(colors).')'
+        exec 'auto FileType '.ft.' let b:current_syntax = '.string(ft)
+      endif
     endfor
   endif
 
@@ -29,6 +35,27 @@ function! layers#defhighlight#config() abort
   endif
 endfunction
 
+function! s:checkft() abort
+  if empty(&ft)
+    return 0
+  endif
+  let ftblacklist = ["vim", "startify", "help", 
+        \ "qf", "defx", "vimfiler", "vista_kind"]
+  if s:enable_vim_highlight
+    call remove(ftblacklist, 0)
+  endif
+  let check = 0
+  for ft in ftblacklist
+    if &ft !=? ft
+      let check = 1
+      continue
+    else
+      let check = 0
+      break
+    endif
+  endfor
+  return check
+endfunction
 
 let s:hlcmds = {}
 function! s:highlight_apply(ft, colors) abort
@@ -71,10 +98,12 @@ function! s:hl_one(group, attr_val) abort
 endfunction
 
 
-let s:hlcolor = {}
+" let s:hlcolor    = {}
+" let s:enable_vim_highlight = 0
 function! layers#defhighlight#set_variable(var) abort
   " [ guifg, guibg, ctermfg, ctermbg, italic], -1 if None or negative
   let s:hlcolor = get(a:var, 'hlcolor', {})
+  let s:enable_vim_highlight = get(a:var, 'enable_vim_highlight', 0)
 endfunction
 
 

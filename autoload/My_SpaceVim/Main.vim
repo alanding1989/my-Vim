@@ -147,7 +147,8 @@ function! s:Mylayers_config_load() abort
   endif
   for layer in s:define_my_layers
     if !empty(layer)
-      let var = get(g:, '_'.layer.'_var', {})
+      let var = My_SpaceVim_layers_variable(layer)
+      " let var = get(g:, '_'.layer.'_var', {})
       if util#dict#valid(var)
         call layers#{layer}#set_variable(var)
       endif

@@ -34,9 +34,9 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
       elseif CurChar(0, '\d')
         return "\<Esc>o"
       elseif CurChar(1, '}') || CurChar(1, ']')
-        return "\<CR>\\\<Space>\<Esc>ko\\\<Space>"
+        return <sid>SmartCR()
       else
-        return "\<Plug>AlanCR"
+        return "\<Plug>(EolCR)"
       endif
     endif
   endfunction
@@ -61,7 +61,7 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
     elseif g:ulti_expand_or_jump_res == 2
       return sni
     else
-      return "\<Plug>AlanCR"
+      return "\<Plug>(EolCR)"
     endif
   endfunction
 
@@ -76,7 +76,7 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
     elseif CurChar(0, '\d')
       return "\<Esc>o"
     elseif CurChar(1, '}') || CurChar(1, ']')
-      return "\<CR>\\\<Space>\<Esc>ko\\\<Space>"
+      return <sid>SmartCR()
     else
       return "\<CR>"
     endif
@@ -108,11 +108,31 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'coc'
       elseif CurChar(0, '\d')
         return "\<Esc>o"
       elseif CurChar(1, '}') || CurChar(1, ']')
-        return "\<CR>\\\<Space>\<Esc>ko\\\<Space>"
+        return <sid>SmartCR()
       else
-        return "\<Plug>AlanCR"
+        return "\<Plug>(EolCR)"
       endif
     endif
   endfunction
 endif
 "}}}
+
+
+
+inoremap <expr><Plug>(EolCR)    exists('b:eol_marker') && MatchCl('^$') 
+      \ ? b:eol_marker."\<CR>" : "\<CR>"
+
+inoremap <expr><Plug>(SmartCR)  <sid>SmartCR()
+
+function! s:SmartCR() abort " {{{
+  let g:alan = 1
+  let ftwhitelist = [
+        \ 'vim',
+        \ ]
+  if index(ftwhitelist, &ft) > -1
+    return "\<CR>\\\<Space>\<Esc>ko\\\<Space>"
+  else
+    return "\<CR>\<Esc>ko"
+  endif
+endfunction  " }}}
+
