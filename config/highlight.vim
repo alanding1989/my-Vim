@@ -148,8 +148,9 @@ endfunction
 " }}}
 
 " Scala: {{{
+      " \ 'scalaExternal'                : ['#f92672',        -1,  -1, -1, 0, 0],
 let g:_defhighlight_var.hlcolor.scala = extend({
-      \ 'scalaExternal'                : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ 'scalaImport'                  : ['#f92672',        -1,  -1, -1, 0, 0],
       \ 'scalaTypeStatement'           : ['#f92672',        -1,  -1, -1, 0, 0],
       \ 'scalaKeyword'                 : ['#f92672',        -1,  -1, -1, 0, 0],
       \ 'scalaKeywordModifier'         : ['#f92672',        -1,  -1, -1, 0, 0],
@@ -159,7 +160,7 @@ let g:_defhighlight_var.hlcolor.scala = extend({
       \ 'scalaTypeExtension'           : ['#f92672',        -1,  -1, -1, 0, 0],
       \ 'scalaTypePostExtension'       : ['#f92672',        -1,  -1, -1, 0, 0],
       \
-      \ 'scalaInstanceDeclaration'     : ['#1aa3a1',        -1,  -1, -1, 0, 1],
+      \ 'scalaClass'                   : ['#1aa3a1',        -1,  -1, -1, 0, 1],
       \ 'scalaTypeDeclaration'         : ['#607fbf',        -1, 207, -1, 1, 0],
       \ 'scalaInstanceHash'            : ['#607fbf',        -1, 207, -1, 1, 0],
       \ 'scalaCapitalWord'             : ['#c678dd',        -1, 176, -1, 1, 0],
@@ -215,7 +216,6 @@ let g:_defhighlight_var.hlcolor.c = g:_defhighlight_var.hlcolor.cpp
 let g:_defhighlight_var.hlcolor.go = {
       \ 'Repeat'              : ['#f92672',   -1,  -1, -1, 0, 0],
       \ 'Conditional'         : ['#f92672',   -1,  -1, -1, 0, 0],
-      \
       \ 
       \ 'goBuiltins'          : ['#1aa3a1',   -1, 207, -1, 1, 0],
       \ 'goType'              : ['#607fbf',   -1, 207, -1, 1, 0],
@@ -239,7 +239,7 @@ let g:_defhighlight_var.hlcolor.c = g:_defhighlight_var.hlcolor.cpp
 " ColorScheme: {{{
 augroup highlight_related
   auto!
-  auto BufEnter * call <sid>PythonSyntax()
+  auto FileType python,ipynb auto BufEnter * call <sid>PythonSyntax()
   autocmd ColorScheme gruvbox     hi clear Folded | hi Folded guifg=#928374 ctermfg=245
   autocmd ColorScheme nord        hi clear Folded | hi Folded guifg=#5C6370 ctermfg=59
   autocmd ColorScheme one         hi clear Folded | hi Folded guifg=#5C6370 ctermfg=59

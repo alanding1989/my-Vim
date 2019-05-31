@@ -89,17 +89,18 @@ function! mapping#basic#load() abort
 
   " window and buffer management {{{
   nnoremap <silent>qq       :call <sid>close_window()<CR>
+  nnoremap <silent>qk       :call <sid>choose_close_win()<CR>
   nnoremap <silent>qn       :clo<C-r>=winnr()+1<CR><CR>
   nnoremap <silent>qp       :clo<C-r>=winnr()-1<CR><CR>
   nnoremap <silent>qo       :only<CR>
   nnoremap <silent>qh       :q<CR>
+  nnoremap <silent>qhh      :q!<CR>
   nnoremap <silent>qd       :try\|bd\|catch\|endtry<CR>
   nnoremap <silent>qb       :call <sid>killotherBuffers()<CR>
   nnoremap <silent>qf       :call <sid>delete_current_buffer_file()<CR>
   nnoremap <silent>qe       :call <sid>safe_erase_buffer()<CR>
   nnoremap <silent>qr       :call <sid>rename_file()<CR>
   nnoremap <silent>quu      :call <sid>safe_revert_buffer()<CR>
-  nnoremap <silent>qkk      :q!<CR>
 
   nnoremap <silent>so       :call feedkeys(':vs ')<CR>
   nnoremap <silent>sv       :vs<CR><C-w>w
@@ -209,6 +210,7 @@ function! mapping#basic#load() abort
   nnoremap <leader>ae             VG
   " Easier search and replace
   xnoremap <C-r>                  :<C-u>call <sid>VSetSearch()<CR>:,$s/<C-R>=@/<CR>//gc<left><left><left>
+  vnoremap <C-s>                  :s///g<left><left><left><CR>
 
   " yank and paste {{{
   if has('unnamedplus')
@@ -378,6 +380,19 @@ function! s:close_window() abort
     exe 'normal! '. key
   endif
 endfunction "}}}
+
+" Choose Close Window {{{
+function! s:choose_close_win() abort
+  let cwinnr = winnr()
+  if exists(':ChooseWin')
+    ChooseWin
+    exec 'winc c|'.cwinnr.'winc w'
+  else
+    call util#echohl('Please input window number: ')
+    let twinnr = nr2char(getchar())
+    exec twinnr.'winc w|winc c|'.cwinnr.'winc w'
+  endif
+endfunction  " }}}
 
 " Window Scroll {{{
 function! s:win_scroll(forward, mode)

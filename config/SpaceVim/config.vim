@@ -144,7 +144,7 @@ function! My_SpaceVim_layers_variable(layer) abort
         \ )},
         \ 'defhighlight' : {
         \     'enable_vim_highlight' : 0,
-        \     'hlcolor'  : g:_defhighlight_var.hlcolor
+        \     'hlcolor'  : 1 ? get(get(g:, '_defhighlight_var', {}), 'hlcolor', {}) : {}
         \ }
         \ }, a:layer, {})
   " \ 'javascript',
