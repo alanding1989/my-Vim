@@ -22,7 +22,7 @@ let g:coc_filetype_map        = {
       \ 'html.swig': 'html',
       \ 'wxss'     : 'css',
       \ 'ipynb'    : 'python',
-      \ 'sbt'      : 'scala',
+      \ 'sbt.scala': 'scala',
       \ }
 
 " autocmds {{{

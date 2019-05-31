@@ -52,8 +52,14 @@ endfunction
 
 function! layers#lang#go#config() abort
   if g:is_spacevim
-
+    call SpaceVim#custom#Reg_langSPC('go', function('s:language_specified_mappings'))
   else
+    let g:go_highlight_function_parameters = 1
+    let g:go_highlight_types = 1
+    let g:go_highlight_fields = 1
+    let g:go_highlight_variable_declarations = 1
+    let g:go_highlight_variable_assignments = 1
+
     let g:go_highlight_functions = 1
     let g:go_highlight_function_calls = 1
     let g:go_highlight_structs = 1
@@ -65,6 +71,8 @@ function! layers#lang#go#config() abort
     let g:neomake_go_gometalinter_args = ['--disable-all']
     if g:snippet_engine ==# 'neosnippet'
       let g:go_snippet_engine = 'neosnippet'
+    else
+      let g:go_snippet_engine = 'ultisnips'
     endif
     augroup layers_lang_go
       autocmd!
@@ -95,7 +103,6 @@ function! s:language_specified_mappings() abort
     call SpaceVim#mapping#space#langSPC('nmap', ['l','u'],
           \ 'GoReferrers',
           \ 'go referrers', 1)
-
   else
     nnoremap  <silent><buffer> <Space>la    :GoAlternate<CR><CR>
     nmap      <silent><buffer> <Space>lb    <Plug>(go-build)

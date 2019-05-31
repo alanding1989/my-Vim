@@ -115,6 +115,12 @@ let s:autocomplete_method = get(g:, 'spacevim_autocomplete_method',
 function! layers#lang#scala#plugins() abort
   let plugins = []
   if !g:is_spacevim
+    let plugins += [ 
+          \ ['derekwyatt/vim-scala', {'on_ft' : 'scala'}],
+          \ ['derekwyatt/vim-sbt'  , {'merged': 0}],
+          \ ['todesking/current_project.vim'],
+          \ ['todesking/qf_sbt.vim']
+          \ ]
     if has('python3') || has('python')
       call add(plugins, ['ensime/ensime-vim' , {'on_ft': 'scala', 'for': 'scala'}])
     endif
@@ -126,15 +132,20 @@ endfunction
 
 function! layers#lang#scala#config() abort
   if g:is_spacevim
-    call SpaceVim#mapping#gd#add('scala', function('s:go_to_def'))
 
   else
     let g:scala_use_default_keymappings = 0
     call add(g:project_rooter_mark, 'build.sbt')
     augroup layer_lang#scala
       autocmd!
-      autocmd FileType scala silent call <sid>language_specified_mappings() 
-      autocmd BufWritePost *.scala silent :EnTypeCheck
+      autocmd FileType scala  call <sid>language_specified_mappings() 
+      if has('python3') || has('python')
+        autocmd BufWritePost *.scala silent :EnTypeCheck
+      endif
+      if s:format_on_save && g:autocomplete_method ==# 'coc'
+        autocmd FileType scala,sbt.scala  call coc#config('coc.preferences', 
+              \ {'formatOnSaveFiletypes': ['scala']})
+      endif
     augroup END
   endif
 endfunction
@@ -142,46 +153,43 @@ endfunction
 
 function! s:language_specified_mappings() abort
   " ensime-vim {{{
-  " nnoremap <silent><buffer> gd :EnDeclarationSplit v<CR>
-  nmap <silent><buffer> <F4>   :EnSuggestImport<CR>
-  imap <silent><buffer> <F4>   <esc>:EnSuggestImport<CR>
-  imap <silent><buffer> <c-j>i <esc>:EnAddImport<CR>
-  imap <silent><buffer> <c-j>o <esc>:EnOrganizeImports<CR>
-  imap <silent><buffer> <c-j>s <esc>:SortScalaImports<CR>
-  nmap <silent><buffer> K      :EnDocBrowse<CR>
   " }}}
   if g:is_spacevim
-
     call SpaceVim#mapping#def('nnoremap', '<leader>lq',
           \ 'call CocRequestAsync("metals", "workspace/executeCommand", {"command": "doctor-run"})',
           \ 'run doctor')
   else
+    nnoremap <silent><buffer> <F4>        :EnSuggestImport<CR>
+    inoremap <silent><buffer> <F4>        <esc>:EnSuggestImport<CR>
+    inoremap <silent><buffer> <C-;>i      <Esc>:EnAddImport<CR>
+    inoremap <silent><buffer> <C-;>o      <Esc>:EnOrganizeImports<CR>
+    inoremap <silent><buffer> <c-j>s      <esc>:SortScalaImports<CR>
+    nnoremap <silent><buffer> K           :EnDocBrowse<CR>
+
     nnoremap <silent><buffer> <space>lis  :SortScalaImports<cr>
     nnoremap <silent><buffer> <space>lt   :EnType<cr>
     nnoremap <silent><buffer> <space>lh   :EnDocBrowse<cr>
     nnoremap <silent><buffer> gd          :call <sid>go_to_def()<CR>
+
     nnoremap <silent><buffer> <leader>lq  :call CocRequestAsync('metals', 
           \ 'workspace/executeCommand', {'command': 'doctor-run'})<CR>
   endif
 endfunction
 
-if g:is_spacevim
-  function! s:go_to_def() abort
-    if SpaceVim#layers#lsp#check_filetype('scala')
-      call SpaceVim#lsp#go_to_def()
-    else
-      EnDeclarationSplit v
-    endif
-  endfunction
-else
-  function! s:go_to_def() abort
-    if layers#lsp#checkft('scala')
-      call SpaceVim#lsp#go_to_def()
-    else
-      EnDeclarationSplit v
-    endif
-  endfunction
-endif
+let s:format_on_save = 0
+let s:formatter_scalariform_path = ''
+function! layers#lang#scala#set_variable(var) abort
+  let s:format_on_save = get(a:var, 'format_on_save', 0)
+  let s:formatter_scalariform_path = get(a:var, 'formatter_scalariform_path', '')
+endfunction
+
+function! s:go_to_def() abort
+  if layers#lsp#checkft('scala')
+    call SpaceVim#lsp#go_to_def()
+  else
+    EnDeclarationSplit v
+  endif
+endfunction
 
 function! s:execCMD(cmd) abort
   try

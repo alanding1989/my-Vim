@@ -23,6 +23,7 @@ function! s:addColor(dict, lang) abort
   endfor
 endfunction " }}}
 
+" don`t change {{{
 hi! clear        SpellBad
 hi! clear        SpellCap
 hi! clear        SpellRare
@@ -32,6 +33,7 @@ hi! LineNr       ctermfg=DarkGrey ctermbg=NONE cterm=NONE    term=bold
 hi! LineNr       guifg=DarkGrey   guibg=NONE   gui=NONE 
 hi! Pmenu        guifg=black      guibg=gray   ctermfg=black ctermbg=gray  
 hi! PmenuSel     guifg=brown      guibg=gray   ctermfg=gray  ctermbg=brown 
+ " }}}
   
 let s:general_enable_bright     = 0
 let s:general_enable_darkstring = 0
@@ -61,8 +63,8 @@ let g:_defhighlight_var.hlcolor.general = extend({
       \ 'Statement'   : ['#c678dd',        -1,  -1, -1, 0, 0],
       \ 'Type'        : ['#d19a66', '#3b4048',  -1, -1, 1, 0],
       \ } : {})
-      " \ 'Identifier'  : ['#ffaf00',        -1, 214, -1, 0, 0],
       " \ 'Type'        : ['#607fbf',        -1, 207, -1, 1, 0],
+      " \ 'Identifier'  : ['#ffaf00',        -1, 214, -1, 0, 0],
 
 " darker String background
 let s:general_darkstring = {
@@ -140,7 +142,7 @@ function! s:PythonSyntax() abort
     syn  match    pythonBuiltin      '\v\.@<!<%(object|bool|int|float|tuple|str|list|dict|set|frozenset|bytearray|bytes)>'
     syn  match    pythonAttribute    'self\.\zs[_a-zA-Z.]*'
   endif
-    syn  keyword  pythonStatement    None False True
+    syn  keyword  pythonBoolean    None False True
     syn  match    pythonDelimiter    '\V=\|-\|+\|*\|@\|/\|%\|&\||\|^\|~\|<\|>\|!='
 endfunction
 " }}}
@@ -208,13 +210,36 @@ let g:_defhighlight_var.hlcolor.cpp = {
       \ }
 let g:_defhighlight_var.hlcolor.c = g:_defhighlight_var.hlcolor.cpp
 " }}}
+
+" Go: {{{
+let g:_defhighlight_var.hlcolor.go = {
+      \ 'Repeat'              : ['#f92672',   -1,  -1, -1, 0, 0],
+      \ 'Conditional'         : ['#f92672',   -1,  -1, -1, 0, 0],
+      \
+      \ 
+      \ 'goBuiltins'          : ['#1aa3a1',   -1, 207, -1, 1, 0],
+      \ 'goType'              : ['#607fbf',   -1, 207, -1, 1, 0],
+      \ 'goSignedInts'        : ['#607fbf',   -1, 207, -1, 1, 0],
+      \ 'goUnsignedInts'      : ['#607fbf',   -1, 207, -1, 1, 0],
+      \ 'goFloats'            : ['#607fbf',   -1, 207, -1, 1, 0],
+      \ 'goComplexes'         : ['#607fbf',   -1, 207, -1, 1, 0],
+      \ 'goExtraType'         : ['#607fbf',   -1, 207, -1, 1, 0],
+      \ 'goFunctionCall'      : ['#607fbf',   -1, 207, -1, 1, 0],
+      \
+      \ 'goField'             : ['#c678dd',   -1,  -1, -1, 1, 0],
+      \
+      \ 'goFunction'          : ['#a3e234',   -1,  -1, -1, 0, 0],
+      \ 'goParamName'         : ['#ffaf00',   -1, 214, -1, 0, 0],
+      \ }
+let g:_defhighlight_var.hlcolor.c = g:_defhighlight_var.hlcolor.cpp
+" }}}
 " }}}
 
 
 " ColorScheme: {{{
 augroup highlight_related
   auto!
-  autocmd VimEnter * call <sid>PythonSyntax()
+  auto BufEnter * call <sid>PythonSyntax()
   autocmd ColorScheme gruvbox     hi clear Folded | hi Folded guifg=#928374 ctermfg=245
   autocmd ColorScheme nord        hi clear Folded | hi Folded guifg=#5C6370 ctermfg=59
   autocmd ColorScheme one         hi clear Folded | hi Folded guifg=#5C6370 ctermfg=59

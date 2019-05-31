@@ -71,7 +71,7 @@ function! layers#git#config() abort
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'h', 'a'], 'CocCommand git.chunkStage'   , 'stage current hunk'              , 1)
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'h', 'u'], 'CocCommand git.chunkUndo'    , 'undo cursor hunk'                , 1)
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'h', 'p'], 'CocCommand git.chunkInfo'    , 'preview cursor hunk'             , 1)
-      let g:_spacevim_mappings_space.g.i = {'name': '+GitHub'}
+      let g:_spacevim_mappings_space.g.i = get(g:_spacevim_mappings_space.g, 'i', {'name': '+GitHub'})
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'i', 'f'], 'CocCommand git.browserOpen'  , 'show current line in browser'    , 1)
     else
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'f'], 'SignifyFold', '@ toggle folding unchanged lines', 1)

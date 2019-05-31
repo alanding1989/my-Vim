@@ -52,14 +52,23 @@ let g:enable_checkinstall          = 1
 " Var {{{
 function! My_Vim_layers_variable(layer) abort
   return get({
-        \ 'lsp' : { 
-        \     'filetypes' : extend([
-        \         'python'    ,
-        \         'ipynb'     ,
-        \         'javascript',
-        \         'vim'       ,
+        \ 'lang#scala' : {
+        \     'format_on_save'            : 1,
+        \     'formatter_scalariform_path': g:is_win 
+        \         ? 'D:\devtools\scala\scalariform.jar' 
+        \         : '/opt/lang-tools/scala/scalariform.jar'
+        \ },
+        \ 'lsp' : { 'filetypes': extend([
+        \     'python'    ,
+        \     'ipynb'     ,
+        \     'javascript',
+        \     'vim'       ,
         \     ], g:is_unix ? ['sh'] : []
-        \ )}
+        \ )},
+        \ 'defhighlight' : {
+        \     'enable_vim_highlight' : 0,
+        \     'hlcolor'  : g:_defhighlight_var.hlcolor
+        \ }
         \ }, a:layer, {})
 endfunction
 "}}}

@@ -98,8 +98,8 @@ function! s:hl_one(group, attr_val) abort
 endfunction
 
 
-" let s:hlcolor    = {}
-" let s:enable_vim_highlight = 0
+let s:hlcolor    = {}
+let s:enable_vim_highlight = 0
 function! layers#defhighlight#set_variable(var) abort
   " [ guifg, guibg, ctermfg, ctermbg, italic], -1 if None or negative
   let s:hlcolor = get(a:var, 'hlcolor', {})

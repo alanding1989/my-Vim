@@ -42,7 +42,7 @@
   "snippets.trace"   : "verbose",
   "snippets.extends" : {
     "ipynb"      : ["python"],
-    "sbt"        : ["scala"],
+    "sbt.scala"  : ["scala"],
     "typescript" : ["javascript"]
   },
   "emmet.showSuggestionsAsSnippets" : true ,

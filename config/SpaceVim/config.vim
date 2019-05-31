@@ -106,8 +106,10 @@ function! My_SpaceVim_layers_variable(layer) abort
         \         'cpp': 'c++1z'},
         \ },
         \ 'lang#scala' : {
-        \     'format_on_save' : 1,
-        \     'formatter_scalariform_path': g:layer_lang_scala_formatter
+        \     'format_on_save'            : 1,
+        \     'formatter_scalariform_path': g:is_win 
+        \         ? 'D:\devtools\scala\scalariform.jar' 
+        \         : '/opt/lang-tools/scala/scalariform.jar'
         \ },
         \ 'lang#lua' : {
         \     'repl_command': '/opt/lang-tools/lua/luarocks/bin/rep.lua'
@@ -137,7 +139,8 @@ function! My_SpaceVim_layers_variable(layer) abort
         \     'lua',
         \     'python',
         \     'ipynb',
-        \     'vim', ], g:is_unix ? ['sh'] : []
+        \     'vim', 
+        \     ], g:is_unix ? ['sh'] : []
         \ )},
         \ 'defhighlight' : {
         \     'enable_vim_highlight' : 0,

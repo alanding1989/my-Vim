@@ -335,18 +335,18 @@ function! util#SPC_PR(...) abort
     echohl WarningMsg
     echo ' PR preparation ready'
     echohl NONE
-  elseif empty(v:shell_error) && glob('/tmp/SpaceVim') !=# '' && glob('~/.SpaceVim_origin') !=# ''
-    echohl WarningMsg
-    echo ' PR test environment is ready'
-    echohl NONE
-  elseif empty(v:shell_error) && glob('/tmp/SpaceVim') ==# '' && glob('~/.SpaceVim_origin') ==# ''
-    echohl WarningMsg
-    echo ' PR Environment recovery done'
-    echohl NONE
-  else
-    echohl WarningMsg
-    echo v:shell_error
-    echohl NONE
+  " elseif empty(v:shell_error) && glob('/tmp/SpaceVim') !=# '' && glob('~/.SpaceVim_origin') !=# ''
+    " echohl WarningMsg
+    " echo ' PR test environment is ready'
+    " echohl NONE
+  " elseif empty(v:shell_error) && glob('/tmp/SpaceVim') ==# '' && glob('~/.SpaceVim_origin') ==# ''
+    " echohl WarningMsg
+    " echo ' PR Environment recovery done'
+    " echohl NONE
+  " else
+    " echohl WarningMsg
+    " echo v:shell_error
+    " echohl NONE
   endif
 endfunction "}}}
 "}}}

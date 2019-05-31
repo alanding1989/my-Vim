@@ -71,7 +71,6 @@ let g:guifont                      = 'SauceCodePro Nerd Font Mono:h11'
 
 " System {{{
 let g:github_username              = 'alanding1989'
-let g:layer_lang_scala_formatter   = g:is_win ? 'D:\devtools\scala\scalariform.jar' : '/opt/lang-tools/scala/scalariform.jar'
 let g:vim_plugindir                = expand(g:home.'config/Vim/plugins/')
 let g:project_root_marker          = ['.root', '.project', '.idea', '.vscode', '.editorconfig', '.git', '.svn']
 let g:plugmanager                  = g:is_vim8 ? 'dein' : 'dein'
