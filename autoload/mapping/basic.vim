@@ -391,6 +391,7 @@ function! s:choose_close_win() abort
     call util#echohl('Please input window number: ')
     let twinnr = nr2char(getchar())
     exec twinnr.'winc w|winc c|'.cwinnr.'winc w'
+    redraw | echo ''
   endif
 endfunction  " }}}
 
