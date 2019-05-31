@@ -22,7 +22,7 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
       elseif !WithinEmptyPair() && CurChar(1, '}')
         return "\<C-y>\<CR>"
       elseif !CurChar(1, '}')
-        return empty(v:completed_item) "\<C-e>" : "\<Esc>o"
+        return empty(v:completed_item) ? "\<C-e>" : "\<Esc>o"
       endif
     elseif !pumvisible()
       if neosnippet#jumpable()
@@ -94,11 +94,7 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'coc'
       elseif !WithinEmptyPair() && CurChar(1, '}')
         return "\<C-y>\<CR>"
       elseif !CurChar(1, '}')
-        if empty(v:completed_item)
-          return "\<C-e>"
-        else
-          return "\<Esc>o"
-        endif
+        return empty(v:completed_item) ? "\<C-e>" : "\<Esc>o"
       endif
     elseif !pumvisible()
       if CurChar(0, '\s') || CurChar(1, '\s') || CurChar(1, '\w') 
@@ -125,7 +121,6 @@ inoremap <expr><Plug>(EolCR)    exists('b:eol_marker') && MatchCl('^$')
 inoremap <expr><Plug>(SmartCR)  <sid>SmartCR()
 
 function! s:SmartCR() abort " {{{
-  let g:alan = 1
   let ftwhitelist = [
         \ 'vim',
         \ ]

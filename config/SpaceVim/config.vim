@@ -27,7 +27,7 @@ let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 "================================================================================
 " Preferences: 
 "================================================================================
-let g:spacevim_autocomplete_method  = get(['coc'       , 'deoplete' , 'ncm2', 'ycm'], 0)
+let g:spacevim_autocomplete_method  = get(['coc'       , 'deoplete' , 'ncm2', 'ycm'], 1)
 let g:spacevim_snippet_engine       = get(['neosnippet', 'ultisnips', 'coc' ], 0)
 let g:spacevim_fuzzyfinder          = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
 let g:spacevim_filemanager          = get(['vimfiler'  , 'nerdtree' , 'defx'], 2)
@@ -106,10 +106,12 @@ function! My_SpaceVim_layers_variable(layer) abort
         \         'cpp': 'c++1z'},
         \ },
         \ 'lang#scala' : {
-        \     'format_on_save'            : 1,
-        \     'formatter_scalariform_path': g:is_win 
+        \     'format_on_save'      : 0,
+        \     'scala_formatter_path': g:is_win 
         \         ? 'D:\devtools\scala\scalariform.jar' 
-        \         : '/opt/lang-tools/scala/scalariform.jar'
+        \         : '/opt/lang-tools/scala/scalariform.jar',
+        \     'scala_formatter_scalafmt_config_path'   : g:home.'extools/conf/.scalafmt.conf', 
+        \     'scala_formatter_scalariform_config_path': g:home.'extools/conf/scalariform.properties'
         \ },
         \ 'lang#lua' : {
         \     'repl_command': '/opt/lang-tools/lua/luarocks/bin/rep.lua'
@@ -135,7 +137,6 @@ function! My_SpaceVim_layers_variable(layer) abort
         \     'c',
         \     'cpp',
         \     'go',
-        \     'scala',
         \     'lua',
         \     'python',
         \     'ipynb',

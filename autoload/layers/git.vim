@@ -12,7 +12,7 @@ else
   let s:git_plugin = 'gita'
 endif
 
-let s:gitgutter_plugin = get(g:, 'spacevim_gitgutter_plugin', 
+let s:gitgutter_plugin = get(g:, 'spacevim_gitgutter_plugin',
       \ get(g:, 'gitgutter_plugin', 'vim-gitgutter'))
 
 

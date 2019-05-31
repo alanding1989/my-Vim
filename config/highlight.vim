@@ -149,7 +149,7 @@ endfunction
 
 " Scala: {{{
       " \ 'scalaExternal'                : ['#f92672',        -1,  -1, -1, 0, 0],
-let g:_defhighlight_var.hlcolor.scala = extend({
+let g:_defhighlight_var.hlcolor.scala = {
       \ 'scalaImport'                  : ['#f92672',        -1,  -1, -1, 0, 0],
       \ 'scalaTypeStatement'           : ['#f92672',        -1,  -1, -1, 0, 0],
       \ 'scalaKeyword'                 : ['#f92672',        -1,  -1, -1, 0, 0],
@@ -182,7 +182,7 @@ let g:_defhighlight_var.hlcolor.scala = extend({
       \ 'scalaEscapedChar'             : ['#b8bb26',        -1,  -1, -1, 1, 0],
       \
       \ 'scalaNumber'                  : ['#d19a66',        -1,  -1, -1, 0, 0],
-      \ }, {})
+      \ }
       " \ 'scalaSpecial'                 : ['#f92672',        -1,  -1, -1, 0, 0],
       " \ 'scalaAnnotation'              : ['#5fafff',        -1,  75, -1, 1, 0], " PreProc
       "

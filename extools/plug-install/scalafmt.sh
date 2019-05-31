@@ -10,10 +10,11 @@
 scalahome=/opt/lang-tools/scala
 
 cd $scalahome || return
-rm $scalahome/coursier \
+rm -rf $scalahome/coursier \
   && curl -L -o coursier https://git.io/coursier && chmod +x coursier
 
-./coursier bootstrap \
+rm -rf $scalahome/scalafmt \
+  && ./coursier bootstrap \
   org.scalameta:scalafmt-cli_2.12:2.0.0-RC7 \
   -r sonatype:snapshots \
   -o $scalahome/scalafmt --standalone --main org.scalafmt.cli.Cli
