@@ -11,6 +11,7 @@ scriptencoding utf-8
 
 " Param: [guifg, guibg, ctermfg, ctermbg, italic, bold],
 "        -1 if None or Negative.
+"
 let g:_defhighlight_var = { 'hlcolor' : {} }
 
 
@@ -23,18 +24,6 @@ function! s:addColor(dict, lang) abort
   endfor
 endfunction " }}}
 
-" don`t change {{{
-hi! clear        SpellBad
-hi! clear        SpellCap
-hi! clear        SpellRare
-hi! clear        SpellLocal
-hi! SignColumn   guibg=NONE       ctermbg=NONE
-hi! LineNr       ctermfg=DarkGrey ctermbg=NONE cterm=NONE    term=bold 
-hi! LineNr       guifg=DarkGrey   guibg=NONE   gui=NONE 
-hi! Pmenu        guifg=black      guibg=gray   ctermfg=black ctermbg=gray  
-hi! PmenuSel     guifg=brown      guibg=gray   ctermfg=gray  ctermbg=brown 
- " }}}
-  
 let s:general_enable_bright     = 0
 let s:general_enable_darkstring = 0
 let g:_defhighlight_var.hlcolor.general = extend({
@@ -252,10 +241,13 @@ let g:_defhighlight_var.hlcolor.go = {
       \ }
 let g:_defhighlight_var.hlcolor.c = g:_defhighlight_var.hlcolor.cpp
 " }}}
+
 " }}}
 
 
 " ColorScheme: {{{
+
+" Wth ColorScheme:
 augroup highlight_related
   auto!
   autocmd FileType    python,ipynb auto BufEnter * call <sid>PythonSyntax()
@@ -264,12 +256,24 @@ augroup highlight_related
   autocmd ColorScheme one         hi clear Folded | hi Folded guifg=#5C6370 ctermfg=59
   autocmd ColorScheme PaperColor  hi clear Folded | hi Folded guifg=#5C6370 ctermfg=59
   autocmd ColorScheme OceanicNext hi clear Folded | hi Folded guifg=#65737e ctermfg=243
-        \                       | hi  Cursorline    guibg=#2c323c    ctermbg=16
-  autocmd ColorScheme *           hi! MatchParen    gui=italic,bold  cterm=italic,bold
-        \                       | hi! Folded        gui=italic       cterm=italic
-        \                       | hi! Comment       gui=italic       cterm=italic
-        \                       | hi! String        guifg=#98c379    gui=italic  cterm=italic
+        \                       | hi  Cursorline  guibg=#2c323c    ctermbg=16
+  autocmd ColorScheme *           hi! MatchParen  gui=italic,bold  cterm=italic,bold
+        \                       | hi! Folded      gui=italic       cterm=italic
+        \                       | hi! Comment     gui=italic       cterm=italic
+        \                       | hi! String      guifg=#98c379    gui=italic  cterm=italic
 augroup END
+
+" Without ColorScheme: {{{
+hi! clear        SpellBad
+hi! clear        SpellCap
+hi! clear        SpellRare
+hi! clear        SpellLocal
+hi! SignColumn   guibg=NONE       ctermbg=NONE
+hi! LineNr       ctermfg=DarkGrey ctermbg=NONE cterm=NONE    term=bold 
+hi! LineNr       guifg=DarkGrey   guibg=NONE   gui=NONE 
+hi! Pmenu        guifg=black      guibg=gray   ctermfg=black ctermbg=gray  
+hi! PmenuSel     guifg=brown      guibg=gray   ctermfg=gray  ctermbg=brown 
+ " }}}
 " }}}
 
 
