@@ -61,7 +61,6 @@ let g:_defhighlight_var.hlcolor.general = extend({
       \ 'StorageClass': ['#aab6e1',        -1,  -1, -1, 1, 0],
       \ }, s:general_enable_bright ? {
       \ 'Statement'   : ['#c678dd',        -1,  -1, -1, 0, 0],
-      \ 'Type'        : ['#d19a66', '#3b4048',  -1, -1, 1, 0],
       \ } : {})
       " \ 'Type'        : ['#607fbf',        -1, 207, -1, 1, 0],
       " \ 'Identifier'  : ['#ffaf00',        -1, 214, -1, 0, 0],
@@ -147,8 +146,49 @@ function! s:PythonSyntax() abort
 endfunction
 " }}}
 
+" C Cpp: {{{
+let g:_defhighlight_var.hlcolor.cpp = {
+      \ 'Statement'           : ['#f92672',   -1,  -1, -1, 0, 0],
+      \ 'cInclude'            : ['#f92672',   -1,  -1, -1, 0, 0],
+      \ 'chromaticaKeyword'   : ['#f92672',   -1,  -1, -1, 0, 0],
+      \ 'chromaticaException' : ['#f92672',   -1,  -1, -1, 0, 0],
+      \ 'Repeat'              : ['#f92672',   -1,  -1, -1, 0, 0],
+      \ 'Conditional'         : ['#f92672',   -1,  -1, -1, 0, 0],
+      \
+      \ 'Namespace'           : ['#1aa3a1',   -1,  -1, -1, 0, 1],
+      \
+      \ 'Type'                : ['#607fbf',   -1, 207, -1, 1, 0],
+      \ 'Member'              : ['#c678dd',   -1,  -1, -1, 1, 0],
+      \
+      \ 'Function'            : ['#a3e234',   -1,  -1, -1, 0, 0],
+      \ 'Variable'            : ['#ffaf00',   -1, 214, -1, 0, 0],
+      \
+      \ 'Number'              : ['#d19a66',   -1,  -1, -1, 0, 0],
+      \ }
+let g:_defhighlight_var.hlcolor.c = g:_defhighlight_var.hlcolor.cpp
+" }}}
+
+" Java: {{{
+let g:_defhighlight_var.hlcolor.java = extend({
+      \ 'javaExternal'                 : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ 'javaScopeDecl'                : ['#f92672',        -1,  -1, -1, 0, 0],
+      \
+      \ 'javaClassDecl'                : ['#1aa3a1',        -1,  -1, -1, 0, 1],
+      \
+      \ 'javaTypedef'                  : ['#c678dd',        -1,  -1, -1, 1, 0],
+      \
+      \ 'javaMethodDecl'               : ['#a3e234',        -1,  -1, -1, 0, 0],
+      \ 'javaVarArg'                   : ['#ffaf00',        -1, 214, -1, 0, 0],
+      \
+      \ 'javaDocParam'                 : ['#c678dd',        -1,  -1, -1, 1, 0],
+      \ 'javaDocSeeTagParam'           : ['#c678dd',        -1,  -1, -1, 1, 0],
+      \ }, 0 ? {
+      \ 'javaType'                     : ['#607fbf',        -1, 207, -1, 1, 0],
+      \ 'javaStorageClass'             : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ } : {})
+" }}}
+
 " Scala: {{{
-      " \ 'scalaExternal'                : ['#f92672',        -1,  -1, -1, 0, 0],
 let g:_defhighlight_var.hlcolor.scala = {
       \ 'scalaImport'                  : ['#f92672',        -1,  -1, -1, 0, 0],
       \ 'scalaTypeStatement'           : ['#f92672',        -1,  -1, -1, 0, 0],
@@ -183,33 +223,12 @@ let g:_defhighlight_var.hlcolor.scala = {
       \
       \ 'scalaNumber'                  : ['#d19a66',        -1,  -1, -1, 0, 0],
       \ }
+      " \ 'scalaExternal'                : ['#f92672',        -1,  -1, -1, 0, 0],
       " \ 'scalaSpecial'                 : ['#f92672',        -1,  -1, -1, 0, 0],
       " \ 'scalaAnnotation'              : ['#5fafff',        -1,  75, -1, 1, 0], " PreProc
       "
       " \ 'scalaCaseFollowing'           : ['#ffaf00',        -1, 214, -1, 0, 0], " Special
       " \ 'scalaUnicodeChar'             : ['#b8bb26',        -1,  -1, -1, 1, 0],
-" }}}
-
-" C Cpp: {{{
-let g:_defhighlight_var.hlcolor.cpp = {
-      \ 'Statement'           : ['#f92672',   -1,  -1, -1, 0, 0],
-      \ 'cInclude'            : ['#f92672',   -1,  -1, -1, 0, 0],
-      \ 'chromaticaKeyword'   : ['#f92672',   -1,  -1, -1, 0, 0],
-      \ 'chromaticaException' : ['#f92672',   -1,  -1, -1, 0, 0],
-      \ 'Repeat'              : ['#f92672',   -1,  -1, -1, 0, 0],
-      \ 'Conditional'         : ['#f92672',   -1,  -1, -1, 0, 0],
-      \
-      \ 'Namespace'           : ['#1aa3a1',   -1,  -1, -1, 0, 1],
-      \
-      \ 'Type'                : ['#607fbf',   -1, 207, -1, 1, 0],
-      \ 'Member'              : ['#c678dd',   -1,  -1, -1, 1, 0],
-      \
-      \ 'Function'            : ['#a3e234',   -1,  -1, -1, 0, 0],
-      \ 'Variable'            : ['#ffaf00',   -1, 214, -1, 0, 0],
-      \
-      \ 'Number'              : ['#d19a66',   -1,  -1, -1, 0, 0],
-      \ }
-let g:_defhighlight_var.hlcolor.c = g:_defhighlight_var.hlcolor.cpp
 " }}}
 
 " Go: {{{
@@ -240,6 +259,7 @@ let g:_defhighlight_var.hlcolor.c = g:_defhighlight_var.hlcolor.cpp
 augroup highlight_related
   auto!
   auto FileType python,ipynb auto BufEnter * call <sid>PythonSyntax()
+  auto FileType java         auto BufEnter * call <sid>JavaSyntax()
   autocmd ColorScheme gruvbox     hi clear Folded | hi Folded guifg=#928374 ctermfg=245
   autocmd ColorScheme nord        hi clear Folded | hi Folded guifg=#5C6370 ctermfg=59
   autocmd ColorScheme one         hi clear Folded | hi Folded guifg=#5C6370 ctermfg=59

@@ -662,10 +662,11 @@ function! s:insinfo(cmsign, hasEqual, ...) abort
           \ ' ' . a:cmsign . ' Created Time : '. strftime('%c') ,
           \ ' ' . a:cmsign . ' Description  : '                 ,
           \ ] : [
-          \ '/*'. a:cmsign . ' File Name    : '. expand('%')    ,
-          \ ' ' . a:cmsign . '  Author       : AlanDing'        ,
-          \ ' ' . a:cmsign . '  Created Time : '. strftime('%c'),
-          \ ' ' . a:cmsign . '  Description  : '                ,
+          \ '/*'. a:cmsign ,
+          \ ' ' . a:cmsign . ' File Name    : '. expand('%')   ,
+          \ ' ' . a:cmsign . ' Author       : AlanDing'        ,
+          \ ' ' . a:cmsign . ' Created Time : '. strftime('%c'),
+          \ ' ' . a:cmsign . ' Description  : '                ,
           \ ]
     let head += [
           \ (a:hasEqual ? repeat('=', 80).'*/': ' */'),
