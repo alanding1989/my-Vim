@@ -51,8 +51,9 @@ let g:_defhighlight_var.hlcolor.general = extend({
       \ }, s:general_enable_bright ? {
       \ 'Statement'   : ['#c678dd',        -1,  -1, -1, 0, 0],
       \ } : {})
-      " \ 'Type'        : ['#607fbf',        -1, 207, -1, 1, 0],
+      " \ 'Type'        : ['#607fbf',        -1, 207, -1, 1, 0], "dark blue
       " \ 'Identifier'  : ['#ffaf00',        -1, 214, -1, 0, 0],
+      " \ 'Builtin'     : ['#66d9ef',        -1, 214, -1, 0, 0], "sky blue
 
 " darker String background
 let s:general_darkstring = {
@@ -69,21 +70,16 @@ endif
 " Language Highlight: {{{
 
 " Python: {{{
-let s:pythonClass_bright       = 0
-let s:enable_python_altbuiltin = 0
-let g:python_highlight_all     = g:is_vim8
+let s:enable_python_brightClass = 0
+let s:enable_python_lightParam  = 0
+let g:python_highlight_all      = 1
 let g:_defhighlight_var.hlcolor.python = extend({
       \ 'pythonStatement'      : ['#f92672',        -1,  -1, -1, 0, 0],
-      \ 'pythonInclude'        : ['#f92672',        -1,  -1, -1, 0, 0],
       \ 'pythonKeyword'        : ['#f92672',        -1,  -1, -1, 0, 0],
-      \ 'pythonConditional'    : ['#f92672',        -1,  -1, -1, 0, 0],
-      \ 'pythonException'      : ['#f92672',        -1,  -1, -1, 0, 0],
-      \ 'pythonRepeat'         : ['#f92672',        -1,  -1, -1, 0, 0],
       \ 'pythonOperator'       : ['#f92672',        -1,  -1, -1, 0, 0],
       \
       \ 'semshiImported'       : ['#1aa3a1',        -1,  -1, -1, 0, 1],
-      \ 'semshiBuiltin'        : ['#607fbf',        -1, 207, -1, 1, 0],
-      \
+      \ 'semshiBuiltin'        : ['#5fafff',        -1, 180, -1, 1, 0],
       \ 'semshiSelf'           : ['#b2b2b2',        -1, 249, -1, 0, 0],
       \ 'semshiAttribute'      : ['#c678dd',        -1,  -1, -1, 1, 0],
       \
@@ -91,47 +87,53 @@ let g:_defhighlight_var.hlcolor.python = extend({
       \ 'pythonDecoratorName'  : ['#a3e234',        -1,  -1, -1, 1, 0],
       \
       \ 'semshiParameter'      : ['#ffaf00',        -1, 214, -1, 0, 0],
-      \ 'semshiGlobal'         : ['#5fafff',        -1,  75, -1, 0, 0],
+      \ 'semshiGlobal'         : ['#e5c07b',        -1, 180, -1, 0, 0],
       \
       \ 'pythonString'         : ['#98c379', '#3b4048',  -1, -1, 1, 0],
       \ 'pythonRawString'      : ['#b8bb26',        -1,  -1, -1, 1, 0],
       \ 'pythonDelimiter'      : ['#f92672',        -1,  -1, -1, 0, 0],
-      \ 'Number'               : ['#d19a66',        -1,  -1, -1, 0, 0],
-      \ }, g:is_vim8 ? {
+      \ 'pythonNumber'         : ['#d19a66',        -1,  -1, -1, 0, 0],
+      \ }, 1 || g:is_vim8 ? {
+      \ 'pythonConditional'    : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ 'pythonInclude'        : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ 'pythonException'      : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ 'pythonRepeat'         : ['#f92672',        -1,  -1, -1, 0, 0],
+      \
       \ 'pythonClass'          : ['#1aa3a1',        -1,  -1, -1, 0, 1],
-      \ 'pythonBuiltin'        : ['#c678dd',        -1,  -1, -1, 1, 0],
-      \ 'pythonClassVar'       : ['#f1747e',        -1,  -1, -1, 0, 0],
-      \ 'pythonSelf'           : ['#f1747e',        -1,  -1, -1, 1, 0],
+      \ 'pythonBuiltin'        : ['#5fafff',        -1,  -1, -1, 1, 0],
+      \ 'pythonClassVar'       : ['#b2b2b2',        -1,  -1, -1, 0, 0],
+      \ 'pythonSelf'           : ['#b2b2b2',        -1,  -1, -1, 1, 0],
       \ 'pythonParam'          : ['#ffaf00',        -1, 214, -1, 0, 0],
       \ } : {})
-let s:python_altbuiltin = {
-      \ 'semshiBuiltin'        : ['#c678dd',        -1, 207, -1, 1, 0],
-      \ 'semshiAttribute'      : ['#f1747e',        -1,  -1, -1, 1, 0],
+let s:python_lightParam  = {
+      \ 'semshiParameter'      : ['#e5c07b',        -1, 214, -1, 0, 0],
+      \ 'semshiGlobal'         : ['#ffaf00',        -1, 180, -1, 0, 0],
+      \ 'pythonParam'          : ['#e5c07b',        -1, 214, -1, 0, 0],
       \ 'pythonDelimiter'      : ['#5fafff',        -1,  -1, -1, 0, 0],
-      \ } 
+      \ }
 let s:python_brightClass = {
-      \ 'pythonClass'          : ['#56b6c2',        -1,  -1, -1, 0, 0],
+      \ 'pythonClass'          : ['#56b6c2',        -1,  -1, -1, 0, 1],
       \ 'semshiImported'       : ['#56b6c2',        -1,  -1, -1, 0, 1],
       \ }
 
 " Jupyter Notebook
 let g:_defhighlight_var.hlcolor.ipynb = g:_defhighlight_var.hlcolor.python
 
-if s:enable_python_altbuiltin
-  call s:addColor(s:python_altbuiltin, 'python')
+if s:enable_python_lightParam
+  call s:addColor(s:python_lightParam, 'python')
 endif
-if s:pythonClass_bright
+if s:enable_python_brightClass
   call s:addColor(s:python_brightClass, 'python')
 endif
 
 function! s:PythonSyntax() abort
   if g:is_vim8
     syn  keyword  pythonSelf         self
-    syn  match    pythonBuiltin      '\v\.@<!<%(object|bool|int|float|tuple|str|list|dict|set|frozenset|bytearray|bytes)>'
-    syn  match    pythonAttribute    'self\.\zs[_a-zA-Z.]*'
-  endif
-    syn  keyword  pythonBoolean    None False True
+    syn  match    pythonBuiltin      '/\v\.@<!<%(object|bool|int|float|tuple|str|list|dict|set|frozenset|bytearray|bytes)>/'
+    syn  match    pythonAttribute    '/self\.\zs[_a-zA-Z.]\+\>/'
+  else
     syn  match    pythonDelimiter    '\V=\|-\|+\|*\|@\|/\|%\|&\||\|^\|~\|<\|>\|!='
+  endif
 endfunction
 " }}}
 
@@ -250,7 +252,7 @@ let g:_defhighlight_var.hlcolor.c = g:_defhighlight_var.hlcolor.cpp
 " Wth ColorScheme:
 augroup highlight_related
   auto!
-  autocmd FileType    python,ipynb auto BufEnter * call <sid>PythonSyntax()
+  autocmd FileType python,ipynb call <sid>PythonSyntax()
   autocmd ColorScheme gruvbox     hi clear Folded | hi Folded guifg=#928374 ctermfg=245
   autocmd ColorScheme nord        hi clear Folded | hi Folded guifg=#5C6370 ctermfg=59
   autocmd ColorScheme one         hi clear Folded | hi Folded guifg=#5C6370 ctermfg=59

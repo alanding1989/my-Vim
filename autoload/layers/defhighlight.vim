@@ -21,7 +21,7 @@ function! layers#defhighlight#config() abort
               \ call s:highlight_apply('.string(ft).', '.string(colors).') | endif'
       else
         exec 'auto FileType '.ft.' call s:highlight_apply('.string(ft).', '.string(colors).')'
-        exec 'auto FileType '.ft.' let b:current_syntax = '.string(ft)
+        " exec 'auto FileType '.ft.' let b:current_syntax = '.string(ft)
       endif
     endfor
   endif

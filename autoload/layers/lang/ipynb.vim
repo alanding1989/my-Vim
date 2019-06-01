@@ -15,11 +15,6 @@ function! layers#lang#ipynb#plugins() abort
   call add(plugins, ['jeetsukumaran/vim-pythonsense', {'on_ft' : 'ipynb', 'for': 'ipynb'}])
   call add(plugins, ['heavenshell/vim-pydocstring'  , {'on_cmd': 'Pydocstring', 'on': 'Pydocstring'}])
   " call add(plugins, ['Vimjas/vim-python-pep8-indent', \ { 'on_ft' : 'ipynb'}])
-  if g:is_nvim
-    call add(plugins, ['numirias/semshi'         , {'on_ft': 'ipynb', 'for': 'ipynb'}])
-  else
-    call add(plugins, ['vim-python/python-syntax', {'on_ft': 'ipynb', 'for': 'ipynb'}])
-  endif
   if s:autocomplete_method ==# 'coc'
     " nop
   elseif g:is_spacevim && SpaceVim#layers#isLoaded('lsp')

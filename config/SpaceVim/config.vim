@@ -38,6 +38,7 @@ let g:spacevim_lint_on_the_fly      = 1
 let g:spacevim_autocomplete_parens  = 0
 let g:enable_deotabline             = 0
 let g:enable_googlesuggest          = 0
+let s:enable_myhl                   = 1
 " Choose minimal setting
 let g:pure_viml = 0
 
@@ -145,7 +146,7 @@ function! My_SpaceVim_layers_variable(layer) abort
         \ )},
         \ 'defhighlight' : {
         \     'enable_vim_highlight' : 0,
-        \     'hlcolor'  : 1 ? get(get(g:, '_defhighlight_var', {}), 'hlcolor', {}) : {}
+        \     'hlcolor'  : s:enable_myhl ? g:_defhighlight_var.hlcolor : {}
         \ }
         \ }, a:layer, {})
   " \ 'javascript',
