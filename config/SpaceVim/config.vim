@@ -27,7 +27,7 @@ let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 "================================================================================
 " Preferences: 
 "================================================================================
-let g:spacevim_autocomplete_method  = get(['coc'       , 'deoplete' , 'ncm2', 'ycm'], 1)
+let g:spacevim_autocomplete_method  = get(['coc'       , 'deoplete' , 'ncm2', 'ycm'], 0)
 let g:spacevim_snippet_engine       = get(['neosnippet', 'ultisnips', 'coc' ], 0)
 let g:spacevim_fuzzyfinder          = get(['leaderf'   , 'denite'   , 'fzf' ], 0)
 let g:spacevim_filemanager          = get(['vimfiler'  , 'nerdtree' , 'defx'], 2)
@@ -169,13 +169,13 @@ let g:My_SpaceVim_layers = {
       \ 'lsp'               : 1,
       \ 'lang#c'            : 1,
       \ 'lang#go'           : 1,
-      \ 'lang#java'         : 0,
+      \ 'lang#java'         : 1,
       \ 'lang#scala'        : 1,
       \ 'lang#python'       : 1,
       \ 'lang#ipynb'        : 1,
       \ 'lang#vim'          : 1,
       \ 'lang#sh'           : 1,
-      \ 'lang#lua'          : 0,
+      \ 'lang#lua'          : 1,
       \ 'lang#javascript'   : 0,
       \ 'lang#markdown'     : 1,
       \ 'lang#latex'        : 0,
