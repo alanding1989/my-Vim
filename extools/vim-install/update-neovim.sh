@@ -7,7 +7,12 @@
 # Description  : 
 #================================================================================
 
+if [[ ! -e /opt/vim ]]; then
+  sudo mkdir /opt/vim
+fi
+
 cd /opt/vim/ && mv -i /opt/vim/nvim-linux64 /opt/vim/nvim-linux64-old
+
 sudo curl -fSLO https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
 tar -zxvf nvim-linux64.tar.gz && rm -rf nvim-linux64.tar.gz
 
