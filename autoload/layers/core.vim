@@ -168,7 +168,7 @@ if get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'vimf
     elseif a:num == 1
       VimFiler
     elseif a:num == 2
-      VimFilerBufferDir
+      VimFiler -find
     elseif a:num == 3
       exec 'VimFiler '.expand(g:_my_vimrc_dir)
     elseif a:num == 4
@@ -194,7 +194,9 @@ elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# '
     elseif a:num == 1
       Defx
     elseif a:num == 2
+      let filen = expand('%:t')
       Defx `expand('%:p:h')`
+      call search(filen, 'c')
     elseif a:num == 3
       Defx `expand(g:_my_vimrc_dir)`
     elseif a:num == 4
