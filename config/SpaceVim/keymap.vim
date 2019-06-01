@@ -47,8 +47,8 @@ let g:_spacevim_mappings.8   = ['call Tabjump(8)', 'Window 8']
 let g:_spacevim_mappings.9   = ['call Tabjump(9)', 'Window 9']
 
 
-let g:_spacevim_mappings['<C-I>']  = [':b#<CR>', '@ last buffer' ]
-nnoremap <silent><leader><tab> :b#<CR>
+nnoremap <silent><leader><tab>  :b#<CR>
+let g:_spacevim_mappings['<C-I>'] = ['b#', '@ last buffer' ]
 
 
 " ================================================================================
