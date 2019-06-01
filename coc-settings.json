@@ -163,13 +163,10 @@
       "command": "lua-lsp",
       "filetypes": ["lua"]
     },
-    "golang" : {
-      "command": "go-langserver",
-      "filetypes": ["go"],
-      "initializationOptions": {
-        "gocodeCompletionEnabled": true,
-        "diagnosisEnabled":true,
-        "lintTool":"golint"}
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"]
     },
     "javascript" : {
       "command": "javascript-typescript-stdio",
