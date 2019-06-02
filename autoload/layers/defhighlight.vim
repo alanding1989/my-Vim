@@ -20,8 +20,12 @@ function! layers#defhighlight#config() abort
         exec 'auto BufWinEnter * if <sid>checkft() |
               \ call s:highlight_apply('.string(ft).', '.string(colors).') | endif'
       else
-        exec 'auto FileType '.ft.' call s:highlight_apply('.string(ft).', '.string(colors).')'
-        " exec 'auto FileType '.ft.' let b:current_syntax = '.string(ft)
+        " exec 'auto FileType '.ft.' call s:highlight_apply('.string(ft).', '.string(colors).')'
+        exec 'auto FileType '. ft . ' 
+              \ if exists("b:current_syntax") | return | 
+              \ else | call s:highlight_apply('.string(ft).', '.string(colors).') | 
+              \ let b:current_syntax = '.string(ft).' | 
+              \ endif' 
       endif
     endfor
   endif
@@ -39,7 +43,8 @@ function! s:checkft() abort
   if empty(&ft)
     return 0
   endif
-  let ftblacklist = ["vim", "startify", "help", 
+  let ftblacklist = [ 
+        \ "vim", "startify", "help", "denite", "unite",
         \ "qf", "defx", "vimfiler", "vista_kind"]
   if s:enable_vim_highlight
     call remove(ftblacklist, 0)

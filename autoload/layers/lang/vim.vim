@@ -51,8 +51,8 @@ function! s:language_specified_mappings() abort
     call SpaceVim#mapping#space#langSPC('nnoremap', ['l', 't'],
           \ 'call setline(line("$"), "\" vim:set sw=2 ts=2 sts=2 et tw=78 fmd=marker")',
           \ 'insert Vim file tail', 1)
-    call SpaceVim#mapping#space#langSPC('nnoremap', ['l', 'a'], 'call call(' 
-          \ . s:_function('s:addParam').', [])', 
+    call SpaceVim#mapping#space#langSPC('nnoremap', ['l', 'a'], 'call call('
+          \ . string(s:_function('s:addParam')) . ', [])',
           \ '@ add debug Parameter', 1)
   else
     nnoremap <buffer><silent> <Space>la   :call <sid>addParam()<CR>
