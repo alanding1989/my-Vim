@@ -15,21 +15,23 @@ function! mapping#basic#load() abort
   auto VimEnter * call s:unmap_SPC()
 
   " mode mapping {{{
+  noremap  <C-a>        ^
+  noremap  <C-e>        $
+  noremap  <C-q>        :
+
   nnoremap  -           q
   nnoremap  --          @a
   nnoremap  s           <nop>
   nnoremap  q           <nop>
   nnoremap  ,           <Space>l
-  inoremap  <nowait>\  \
   " NOTE: below 4 used in edgemotion, tmux-navigate
   nnoremap <C-k>        <C-w>k
   nnoremap <C-j>        <C-w>j
   nnoremap <C-h>        <C-w>h
   nnoremap <C-l>        <C-w>l
-  noremap  <C-a>        ^
-  noremap  <C-e>        $
 
   " insert mode
+  inoremap <nowait>\    \
   inoremap <expr><C-j>  pumvisible() ? "\<C-n>" : "\<down>"
   inoremap <expr><C-k>  pumvisible() ? "\<C-p>" : "\<up>"
   inoremap <expr><C-e>  pumvisible() ? (!g:has_py ?
@@ -252,6 +254,7 @@ function! mapping#basic#load() abort
   nnoremap <silent><leader>qc     :call setqflist([])<CR>
 
   " help
+  nnoremap <expr><F1>             &ft ==# 'vim' ? ":update\<CR>:source %<CR>" : "\<F1>"
   nnoremap <silent>K              :call util#help_wrapper()<CR>
   nnoremap <Space>hh              :call feedkeys(':EchoHelp ')<CR>
   " show full path
@@ -297,7 +300,7 @@ function! mapping#basic#load() abort
   if !g:has_py
     nnoremap <leader>acm          :exec 'Unite file_rec/'.(has('nvim') ? 'neovim' : 'async').' -path=~/.SpaceVim.d'<CR>
     nnoremap <leader>ac<Space>    :exec 'Unite file_rec/'.(has('nvim') ? 'neovim' : 'async').' -path=~/.SpaceVim'<CR>
-  elseif len(glob(g:home.'init.toml')) || 0
+  elseif len(glob(g:home.'init.toml')) && 0
     nnoremap <leader>acm          :Denite file/rec -path=~/.SpaceVim.d<CR>
     nnoremap <leader>ac<Space>    :Denite file/rec -path=~/.SpaceVim<CR>
   else
@@ -314,6 +317,7 @@ function! mapping#basic#load() abort
     nnoremap <leader>acl          :vs ~/.SpaceVim.d/config/Vim/keymap.vim<CR>
     nnoremap <leader>acp          :vs ~/.SpaceVim.d/config/SpaceVim/plugins_before/
     nnoremap <leader>ac[          :vs ~/.SpaceVim.d/config/Vim/plugins/
+    nnoremap <leader>ace          :vs ~/.SpaceVim.d/autoload/My_SpaceVim/bootstrap.vim<CR>
   elseif !g:is_spacevim
     nnoremap <leader>aca          :vs ~/.SpaceVim.d/autoload/My_Vim/Main.vim<CR>
     nnoremap <leader>acu          :vs ~/.SpaceVim.d/autoload/My_SpaceVim/Main.vim<CR>

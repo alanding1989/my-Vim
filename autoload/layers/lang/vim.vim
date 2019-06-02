@@ -47,12 +47,15 @@ function! layers#lang#vim#config() abort
 endfunction
 
 function! s:language_specified_mappings() abort
-  nnoremap <buffer> <F1> :update<CR>:source %<CR>
   if g:is_spacevim
     call SpaceVim#mapping#space#langSPC('nnoremap', ['l', 't'],
           \ 'call setline(line("$"), "\" vim:set sw=2 ts=2 sts=2 et tw=78 fmd=marker")',
           \ 'insert Vim file tail', 1)
+    call SpaceVim#mapping#space#langSPC('nnoremap', ['l', 'a'], 'call call(' 
+          \ . s:_function('s:addParam').', [])', 
+          \ '@ add debug Parameter', 1)
   else
+    nnoremap <buffer><silent> <Space>la   :call <sid>addParam()<CR>
     nnoremap <buffer><silent> gd          :call <sid>go_to_def()<CR>
     nnoremap <buffer><silent> <Space>it   :call append(line('.'), ' vim:set sw=2 ts=2 sts=2 et tw=78 fmd=marker')<CR>
     nnoremap <buffer><silent> <space>le   :call <sid>eval_cursor()<CR>
@@ -115,3 +118,35 @@ else
     endif
   endfunction
 endif
+
+function! s:addParam() abort
+  let  char = ''
+  for i in range(97, 122)
+    let char = nr2char(i)
+    if exists('g:'.char.'lan')
+      continue
+    else
+      break
+    endif
+  endfor
+  call append(line('.'), 'let g:'.char.'lan = 1')
+endfunction
+
+" function() wrapper "{{{
+function! util#valid(type, ...) abort
+  return util#{a:type}#valid(a:000)
+endfunction
+
+if v:version > 703 || v:version == 703 && has('patch1170')
+  function! s:_function(fstr) abort
+    return function(a:fstr)
+  endfunction
+else
+  function! s:_SID() abort
+    return matchstr(expand('<sfile>'), '<SNR>\zs\d\+\ze__SID$')
+  endfunction
+  let s:_s = '<SNR>' . s:_SID() . '_'
+  function! s:_function(fstr) abort
+    return function(substitute(a:fstr, 's:', s:_s, 'g'))
+  endfunction
+endif "}}}

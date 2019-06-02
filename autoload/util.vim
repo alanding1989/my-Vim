@@ -20,13 +20,17 @@ function! util#maparg_wrapper(...) abort
     if a:1 =~# 'v\w'
       exec 'verbose '.a:1[1].'map '.a:2
 
-    elseif a:1 !=# 'leader' && a:2 !=# 'spc'
+    elseif a:1 !=# 'leader' && a:1 !=# 'space' && a:2 !=# 'spc'
+      let g:alan = 1
       " support specified mode
       " <c- >..., <m- >..., gd, gg ... mappings
       echo len(maparg('<'.a:1.'>', a:2))
             \ ? maparg('<'.a:1.'>', a:2)
-            \ : maparg(a:1, a:2) 
+            \ : a:1 ==# 'space'
+            \ ? maparg('<space>'.a:2, 'n')
+            \ : maparg(a:1, a:2)
     else
+      let g:blan = 1
       " n mode <leader>, [SPC] mappings
       echo    a:1 ==# 'leader' ? maparg('<'.a:1.'>'.a:2, 'n') : 
             \ a:2 ==# 'spc'    ? maparg('[SPC]'.a:1, 'n') : ''
@@ -311,42 +315,29 @@ endfunction "}}}
 " SpaceVim Related {{{
 " SpaceVim test mode {{{
 function! util#test_SPC() abort
-  call system('sh '.g:home.'extools/spacevim/test-SpaceVim.sh')
-  if empty(v:shell_error) && glob(g:home.'init.toml') !=# ''
-    echohl WarningMsg
-    echo ' Test environment is on'
-    echohl NONE
-  elseif empty(v:shell_error) && glob(g:home.'init.toml') ==# ''
-    echohl WarningMsg
-    echo ' test environment is off'
-    echohl NONE
+  let cmd = shellescape('sh '.g:home.'extools/SpaceVim/test-SpaceVim.sh')
+  call system(cmd)
+  if !v:shell_error && len(glob(g:home.'init.toml'))
+    call util#echohl('Test environment is on')
+  elseif v:shell_error && !len(glob(g:home.'init.toml'))
+    call util#echohl('push untracked files!')
+  elseif !v:shell_error && !len(glob(g:home.'init.toml'))
+    call util#echohl('Test environment is off')
   endif
 endfunction "}}}
 
 " SpaceVim new PR {{{
 function! util#SPC_PR(...) abort
-  " a:i git branch name
+  " a:1 git branch name
   if a:0 == 1
-    call system('sh '.g:home.'extools/spacevim/SPC-pr.sh '.a:1)
+    call system('sh '.g:home.'extools/SpaceVim/new-SPC-pr.sh '.a:1)
   else
-    call system('sh '.g:home.'extools/spacevim/SPC-pr.sh')
+    call system('sh '.g:home.'extools/SpaceVim/new-SPC-pr.sh')
   endif
-  if empty(v:shell_error) && glob('/tmp/SpaceVim') !=# '' && glob('~/.SpaceVim_origin') ==# ''
-    echohl WarningMsg
-    echo ' PR preparation ready'
-    echohl NONE
-  " elseif empty(v:shell_error) && glob('/tmp/SpaceVim') !=# '' && glob('~/.SpaceVim_origin') !=# ''
-    " echohl WarningMsg
-    " echo ' PR test environment is ready'
-    " echohl NONE
-  " elseif empty(v:shell_error) && glob('/tmp/SpaceVim') ==# '' && glob('~/.SpaceVim_origin') ==# ''
-    " echohl WarningMsg
-    " echo ' PR Environment recovery done'
-    " echohl NONE
-  " else
-    " echohl WarningMsg
-    " echo v:shell_error
-    " echohl NONE
+  if empty(v:shell_error) && len(glob('/tmp/SpaceVim')) && glob('~/.SpaceVim_origin') ==# ''
+    call util#echohl('PR preparation ready')
+  else
+    call util#echohl(v:shell_error)
   endif
 endfunction "}}}
 "}}}

@@ -92,11 +92,8 @@ function! s:SpaceVim_load_layers() abort
     let g:spacevim_statusline_separator = 'nil'
     call s:loadlayers()
   else
-    let st = s:is_fallback ? 0 : g:My_SpaceVim_layers['VersionControl']
-    let g:My_SpaceVim_layers['VersionControl'] = 1
     let g:spacevim_statusline_separator = g:statusline_separator
     call s:loadlayers()
-    let g:My_SpaceVim_layers['VersionControl'] = st
   endif
 endfunction
 
@@ -148,7 +145,6 @@ function! s:Mylayers_config_load() abort
   for layer in s:define_my_layers
     if !empty(layer)
       let var = My_SpaceVim_layers_variable(layer)
-      " let var = get(g:, '_'.layer.'_var', {})
       if util#dict#valid(var)
         call layers#{layer}#set_variable(var)
       endif

@@ -57,7 +57,7 @@ function! layers#core#config() abort
   call s:open_browser()
 
   if g:is_spacevim
-    exec 'so '. g:vim_plugindir .'unite.vim'
+    " exec 'so '. g:vim_plugindir .'unite.vim'
     unlet g:_spacevim_mappings_space.b.R | nunmap [SPC]bR
     call SpaceVim#mapping#space#def('nmap'    , ['b', 'r'], '<Plug>(Safe-Revert-Buffer)', 'safe revert buffer', 0)
     call SpaceVim#mapping#space#def('nnoremap', ['p', 's'], ':Grepper', 'safe revert buffer', 1)

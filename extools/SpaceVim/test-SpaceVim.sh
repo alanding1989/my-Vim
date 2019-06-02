@@ -24,7 +24,5 @@ if [ ! -e "$HOME/.SpaceVim.d/init.toml" ]; then
 elif [ -e "$HOME/.SpaceVim.d/init.toml" ]; then
   curpath1=$(pwd)
   rm -rf "$HOME/.SpaceVim.d/init.toml"
-  checkout myspacevim || (gitstage && checkout myspacevim)
-  cd "$curpath1" || return
-
+  checkout myspacevim || (echo 'mater branch has untracked files!' && cd "$curpath1" && return)
 fi

@@ -85,6 +85,7 @@ function! AutoClo(char, ...) abort
   endif
 
   if col('.') == col('$')-1
+    " at the last col
     let charnr = count(getline('.'), a:char)
     " cursor at the end of line
     if !a:0
@@ -101,7 +102,9 @@ function! AutoClo(char, ...) abort
         let nr = charnr - a1nr
         return repeat(a:1, nr).repeat("\<left>", nr)
       endif
-      return a:0 == 2 ? a:1 : a:char. a:1. "\<left>"
+      return a:0 == 2 ? 
+            \ CurChar(1, a:1) ? "\<right>" : a:1
+            \ : a:char. a:1. "\<left>"
     endif
   else
     let charnr   = count(getline('.'), a:char)
