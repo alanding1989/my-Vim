@@ -275,7 +275,7 @@ function! DefxExeShell(_) abort "{{{
       echo ' Candidate is not a shell script'
       echohl NONE
     endif
-    if job > 0
+    if job
       echo 'Successfully run stript'
     endif
   end

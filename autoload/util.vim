@@ -20,17 +20,20 @@ function! util#maparg_wrapper(...) abort
     if a:1 =~# 'v\w'
       exec 'verbose '.a:1[1].'map '.a:2
 
-    elseif a:1 !=# 'leader' && a:1 !=# 'space' && a:2 !=# 'spc'
-      let g:alan = 1
+    elseif a:1 !=# 'leader' && a:2 !=# 'spc'
       " support specified mode
       " <c- >..., <m- >..., gd, gg ... mappings
-      echo len(maparg('<'.a:1.'>', a:2))
-            \ ? maparg('<'.a:1.'>', a:2)
-            \ : a:1 ==# 'space'
-            \ ? maparg('<space>'.a:2, 'n')
-            \ : maparg(a:1, a:2)
+      if a:1 ==# 'space'
+        exec "verbose nmap \<space>".a:2
+        return
+      elseif a:1 =~# '^g\|^z'
+        exec 'verbose '.a:2.'map '.a:1
+      else
+        echo  maparg('<'.a:1.'>', a:2)
+              \ ? maparg('<'.a:1.'>', a:2)
+              \ : maparg(a:1, a:2)
+      endif
     else
-      let g:blan = 1
       " n mode <leader>, [SPC] mappings
       echo    a:1 ==# 'leader' ? maparg('<'.a:1.'>'.a:2, 'n') : 
             \ a:2 ==# 'spc'    ? maparg('[SPC]'.a:1, 'n') : ''
@@ -315,26 +318,22 @@ endfunction "}}}
 " SpaceVim Related {{{
 " SpaceVim test mode {{{
 function! util#test_SPC() abort
-  let cmd = shellescape('sh '.g:home.'extools/SpaceVim/test-SpaceVim.sh')
+  let cmd = 'sh '.g:home.'extools/SpaceVim/test-SpaceVim.sh'
   call system(cmd)
   if !v:shell_error && len(glob(g:home.'init.toml'))
     call util#echohl('Test environment is on')
-  elseif v:shell_error && !len(glob(g:home.'init.toml'))
-    call util#echohl('push untracked files!')
   elseif !v:shell_error && !len(glob(g:home.'init.toml'))
     call util#echohl('Test environment is off')
+  else
+    call util#echohl('shell_error')
   endif
 endfunction "}}}
 
 " SpaceVim new PR {{{
-function! util#SPC_PR(...) abort
+function! util#SPC_PR(branch) abort
   " a:1 git branch name
-  if a:0 == 1
-    call system('sh '.g:home.'extools/SpaceVim/new-SPC-pr.sh '.a:1)
-  else
-    call system('sh '.g:home.'extools/SpaceVim/new-SPC-pr.sh')
-  endif
-  if empty(v:shell_error) && len(glob('/tmp/SpaceVim')) && glob('~/.SpaceVim_origin') ==# ''
+  let id = jobstart('sh '. g:home.'extools/SpaceVim/new-SPC-pr.sh ' . a:branch)
+  if id
     call util#echohl('PR preparation ready')
   else
     call util#echohl(v:shell_error)

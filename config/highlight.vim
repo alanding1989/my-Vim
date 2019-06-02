@@ -51,7 +51,7 @@ let g:_defhighlight_var.hlcolor.general = extend({
       \ 'Structure'   : ['#1aa3a1',        -1,  -1, -1, 0, 1],
       \ 'StorageClass': ['#aab6e1',        -1,  -1, -1, 1, 0],
       \ }, s:general_enable_dark ? {
-      \ 'Type'        : ['#607fbf',        -1, 207, -1, 1, 0],
+      \ 'Type'        : ['#607fbf',        -1, 207, -1, 0, 0],
       \ } : {})
 " darker String background
 let s:general_darkstring = {
