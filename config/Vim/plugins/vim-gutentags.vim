@@ -44,8 +44,8 @@ let g:gutentags_auto_add_gtags_cscope = 0
 
 
 " Debug:
-let g:gutentags_define_advanced_commands = 1
-auto VimEnter * GutentagsToggleTrace
+" let g:gutentags_define_advanced_commands = 1
+" auto VimEnter * GutentagsToggleTrace
 " .notags
 
 
