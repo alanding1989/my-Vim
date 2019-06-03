@@ -25,12 +25,15 @@ let g:gutentags_cache_dir     = expand(g:is_win ? 'D:\.cache\tags'
 
 " 同时开启 ctags 和 gtags 支持：
 let g:gutentags_modules = []
-let g:gutentags_modules += executable('ctags') ? ['ctags'] : []
-let g:gutentags_modules += executable('gtags') && executable('gtags-cscope')
-      \ ? ['gtags_cscope'] : []
+if executable('ctags')
+  let g:gutentags_modules += ['ctags']
+endif
+if executable('gtags') && executable('gtags-cscope')
+  let g:gutentags_modules += ['gtags_cscope']
+endif
 
 " 配置 ctags 的参数
-let g:gutentags_ctags_exclude    =  ['\.zshrc', '\.bashrc']
+let g:gutentags_ctags_exclude    =  ["\.zshrc", "\.bashrc"]
 let g:gutentags_ctags_extra_args =  ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
@@ -42,7 +45,7 @@ let g:gutentags_auto_add_gtags_cscope = 0
 
 " Debug:
 " let g:gutentags_define_advanced_commands = 1
-" auto VimEnter * call feedkeys(":GutentagsToggleTrace\<CR>")
+" auto VimEnter * GutentagsToggleTrace
 " .notags
 
 
