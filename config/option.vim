@@ -56,9 +56,6 @@ set mouse=nv
 set autoread
 set hidden
 
-" if g:is_win
-  " set renderoptions=type:directx
-" endif
 " speed up
 set lazyredraw
 set synmaxcol=300

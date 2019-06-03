@@ -21,6 +21,7 @@ let g:spacevim_colorscheme = split([
       \ ][1])[1]
 let g:spacevim_colorscheme_default = 'neodark'
 let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
+let g:spacevim_enable_guicolors    = 1
 "}}}
 
 
@@ -50,7 +51,8 @@ let g:spacevim_statusline_left_sections      =  ['winnr', 'filename', 'syntax ch
 let g:spacevim_statusline_right_sections     += g:enable_smart_clock_startup ? ['date'] : ['time', 'date']
 let g:spacevim_enable_cursorcolumn           = 0
 let g:spacevim_buffer_index_type             = 1
-let g:spacevim_enable_tabline_filetype_icon  = 1
+let g:spacevim_window_index_type             = 1
+let g:spacevim_enable_tabline_ft_icon        = 1
 let g:spacevim_enable_statusline_mode        = 1
 let g:spacevim_enable_statusline_bfpath      = 1
 let g:spacevim_enable_os_fileformat_icon     = 1
