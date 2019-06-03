@@ -17,7 +17,6 @@ function! mapping#basic#load() abort
   " mode mapping {{{
   noremap  <C-a>        ^
   noremap  <C-e>        $
-  noremap  <C-q>        :
 
   nnoremap  -           q
   nnoremap  --          @a
@@ -96,7 +95,7 @@ function! mapping#basic#load() abort
   nnoremap <silent>qp       :clo<C-r>=winnr()-1<CR><CR>
   nnoremap <silent>qo       :only<CR>
   nnoremap <silent>qh       :q<CR>
-  nnoremap <silent>qhh      :q!<CR>
+  nnoremap <silent>qkk      :q!<CR>
   nnoremap <silent>qd       :try\|bd\|catch\|endtry<CR>
   nnoremap <silent>qb       :call <sid>killotherBuffers()<CR>
   nnoremap <silent>qf       :call <sid>delete_current_buffer_file()<CR>
@@ -254,7 +253,8 @@ function! mapping#basic#load() abort
   nnoremap <silent><leader>qc     :call setqflist([])<CR>
 
   " help
-  nnoremap <expr><F1>             &ft ==# 'vim' ? ":update\<CR>:source %<CR>" : "\<F1>"
+  nnoremap <expr><F1>             &ft ==# 'vim' ? ":update\<CR>:source %<CR>" 
+                                  \ : &ft ==# 'python' && !&modified ? ":e\<CR>" : "\<F1>"
   nnoremap <silent>K              :call util#help_wrapper()<CR>
   nnoremap <Space>hh              :call feedkeys(':EchoHelp ')<CR>
   " show full path

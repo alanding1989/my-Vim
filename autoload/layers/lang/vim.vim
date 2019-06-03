@@ -123,13 +123,14 @@ function! s:addParam() abort
   let  char = ''
   for i in range(97, 122)
     let char = nr2char(i)
-    if exists('g:'.char.'lan')
+    if exists('g:'.char.'lan') || search('\%^\_.\{-}\zsg:'.char.'lan', 'nw')
       continue
     else
       break
     endif
   endfor
   call append(line('.'), 'let g:'.char.'lan = 1')
+  normal! j
 endfunction
 
 " function() wrapper "{{{

@@ -7,8 +7,6 @@ scriptencoding utf-8
 
 command! -nargs=*  EchoMap          call util#maparg_wrapper(<f-args>)
 
-command! -nargs=+  OpenlinkOrSearch call layers#core#OpenlinkOrSearch(<f-args>)
-
 command! -nargs=1  SpcPR            call util#SPC_PR(<f-args>)
 
 command! -nargs=?  -complete=filetype

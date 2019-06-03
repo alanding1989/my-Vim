@@ -77,7 +77,7 @@ let g:spacevim_guifont                       = g:guifont
 let g:spacevim_music_path                    = g:is_win ? 'E:\娱乐影音\音乐' : '/mnt/fun+downloads/娱乐影音/音乐'
 let g:spacevim_project_rooter_patterns       = uniq(sort(g:spacevim_project_rooter_patterns
       \ + deepcopy(g:project_root_marker)))
-let g:cbranch                                = len(glob('~/.SpaceVim')) 
+let g:currentbranch                          = len(glob('~/.SpaceVim')) 
       \ ? split(filter(systemlist('git -C ~/.SpaceVim branch'),
       \ 'match(v:val, "*") > -1')[0], ' ')[1]
       \ : ''
@@ -287,6 +287,7 @@ if g:My_SpaceVim_layers.git && g:spacevim_autocomplete_method ==# 'coc'
   let g:spacevim_disabled_plugins += ['vim-gitgutter']
 endif
 if g:My_SpaceVim_layers.git && g:My_SpaceVim_layers.VersionControl
+      \ && g:currentbranch !=# 'master'
   let g:spacevim_disabled_plugins += ['vim-gitgutter']
   let g:spacevim_custom_plugins   += [['mhinz/vim-signify', {'merged': 0}]]
 endif

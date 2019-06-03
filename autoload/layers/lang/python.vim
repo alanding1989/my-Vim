@@ -12,7 +12,7 @@ let s:autocomplete_method = get(g:, 'spacevim_autocomplete_method',
 function! layers#lang#python#plugins() abort
   let plugins = []
   if g:is_nvim
-    call add(plugins, ['numirias/semshi'         , {'merged': 0}])
+    call add(plugins, ['numirias/semshi'         , {'on_ft': 'python', 'for': 'python'}])
   else
     call add(plugins, ['vim-python/python-syntax', {'merged': 0}])
   endif

@@ -90,8 +90,7 @@ endif
 " }}}
 let s:enabled_serverCommands = {}
 function! layers#lsp#set_variable(var) abort
-  let enable_lsp_ft = get(a:var, 'filetypes', [])
-  for ft in enable_lsp_ft
+  for ft in get(a:var, 'filetypes', [])
     if has_key(s:serverCommands, ft)
       let s:enabled_serverCommands[ft] = s:serverCommands[ft]
     endif

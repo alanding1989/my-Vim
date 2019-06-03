@@ -82,8 +82,6 @@ if g:is_nvim
   let g:_spacevim_mappings_space.q.h = ['checkhealth'                    , '@ Neovim checkhealth'                ]
 endif
 
-auto FileType vim call SpaceVim#mapping#space#def('nmap', ['q', 'l'],
-      \ 'call util#Show_curPlugin_log()', '@ show cursor plugin`s commit log', 1)
 
 
 "================================================================================

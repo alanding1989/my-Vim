@@ -71,9 +71,8 @@ endfunction " }}}
 
 
 function! s:Bash() abort " {{{
-  for char in ['d', 'e', 'f', 'z', 'n', 'r', 'i']
-    exec 'inoremap <buffer><expr> '.char.' MatchDel('.string(char).', ".*-\\s_$", 0, 00)'
+  for char in range(97, 122)
+    let char = nr2char(char)
+    exec 'inoremap <buffer><expr> '.char.' MatchDel('.string(char).', ".*-[a-z]*\\s\\_$", 0, 00)'
   endfor
 endfunction "}}}
-
-

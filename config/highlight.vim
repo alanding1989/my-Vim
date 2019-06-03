@@ -24,7 +24,7 @@ function! s:addColor(dict, lang) abort
   endfor
 endfunction " }}}
 
-let s:general_enable_dark       = 0
+let s:general_enable_light       = 0
 let s:general_enable_darkstring = 0
 let g:_defhighlight_var.hlcolor.general = extend({
       \ 'Constant'    : ['#98c379', '#3b4048',  -1, -1, 1, 0],
@@ -32,12 +32,12 @@ let g:_defhighlight_var.hlcolor.general = extend({
       \ 'Character'   : ['#98c379', '#3b4048',  -1, -1, 1, 0],
       \
       \ 'Number'      : ['#d19a66',        -1,  -1, -1, 0, 0],
-      \ 'Boolean'     : ['#d19a66',        -1,  -1, -1, 0, 0],
+      \ 'Boolean'     : ['#e5c07b',        -1,  -1, -1, 1, 0],
       \ 'Float'       : ['#d19a66',        -1,  -1, -1, 0, 0],
       \
       \ 'Function'    : ['#a3e234',        -1,  -1, -1, 0, 0],
       \ 'Identifier'  : ['#ffaf00',        -1, 214, -1, 0, 0],
-      \ 'Type'        : ['#e5c07b',        -1, 180, -1, 1, 0],
+      \ 'Type'        : ['#607fbf',        -1, 180, -1, 0, 1],
       \
       \ 'Statement'   : ['#f92672',        -1,  -1, -1, 0, 0],
       \ 'Conditional' : ['#f92672',        -1,  -1, -1, 0, 0],
@@ -50,8 +50,8 @@ let g:_defhighlight_var.hlcolor.general = extend({
       \
       \ 'Structure'   : ['#1aa3a1',        -1,  -1, -1, 0, 1],
       \ 'StorageClass': ['#aab6e1',        -1,  -1, -1, 1, 0],
-      \ }, s:general_enable_dark ? {
-      \ 'Type'        : ['#607fbf',        -1, 207, -1, 0, 0],
+      \ }, s:general_enable_light ? {
+      \ 'Type'        : ['#e5c07b',        -1, 207, -1, 0, 0],
       \ } : {})
 " darker String background
 let s:general_darkstring = {
@@ -73,8 +73,9 @@ let s:enable_python_lightParam  = 0
 let g:python_highlight_all      = 1
 let g:_defhighlight_var.hlcolor.python = extend({
       \ 'pythonStatement'      : ['#f92672',        -1,  -1, -1, 0, 0],
-      \ 'pythonKeyword'        : ['#f92672',        -1,  -1, -1, 0, 0],
       \ 'pythonOperator'       : ['#f92672',        -1,  -1, -1, 0, 0],
+      \
+      \ 'pythonKeyword'        : ['#e5c07b',        -1,  -1, -1, 1, 0],
       \
       \ 'semshiImported'       : ['#1aa3a1',        -1,  -1, -1, 0, 1],
       \ 'semshiBuiltin'        : ['#5fafff',        -1, 180, -1, 1, 0],
@@ -91,7 +92,7 @@ let g:_defhighlight_var.hlcolor.python = extend({
       \ 'pythonRawString'      : ['#b8bb26',        -1,  -1, -1, 1, 0],
       \ 'pythonDelimiter'      : ['#f92672',        -1,  -1, -1, 0, 0],
       \ 'pythonNumber'         : ['#d19a66',        -1,  -1, -1, 0, 0],
-      \ }, 1 || g:is_vim8 ? {
+      \ }, 0 || g:is_vim8 ? {
       \ 'pythonConditional'    : ['#f92672',        -1,  -1, -1, 0, 0],
       \ 'pythonImport'         : ['#f92672',        -1,  -1, -1, 0, 0],
       \ 'pythonException'      : ['#f92672',        -1,  -1, -1, 0, 0],
@@ -102,6 +103,7 @@ let g:_defhighlight_var.hlcolor.python = extend({
       \ 'pythonClassVar'       : ['#c678dd',        -1,  -1, -1, 0, 0],
       \ } : {})
 let s:python_lightParam  = {
+      \ 'semshiBuiltin'        : ['#607fbf',        -1, 180, -1, 0, 1],
       \ 'semshiParameter'      : ['#e5c07b',        -1, 214, -1, 0, 0],
       \ 'semshiGlobal'         : ['#ffaf00',        -1, 180, -1, 0, 0],
       \ }
@@ -206,24 +208,26 @@ let g:_defhighlight_var.hlcolor.scala = {
 
 " Go: {{{
 let g:_defhighlight_var.hlcolor.go = {
-      \ 'Repeat'              : ['#f92672',   -1,  -1, -1, 0, 0],
-      \ 'Conditional'         : ['#f92672',   -1,  -1, -1, 0, 0],
-      \ 
-      \ 'goBuiltins'          : ['#1aa3a1',   -1, 207, -1, 1, 0],
-      \ 'goType'              : ['#607fbf',   -1, 207, -1, 1, 0],
-      \ 'goSignedInts'        : ['#607fbf',   -1, 207, -1, 1, 0],
-      \ 'goUnsignedInts'      : ['#607fbf',   -1, 207, -1, 1, 0],
-      \ 'goFloats'            : ['#607fbf',   -1, 207, -1, 1, 0],
-      \ 'goComplexes'         : ['#607fbf',   -1, 207, -1, 1, 0],
-      \ 'goExtraType'         : ['#607fbf',   -1, 207, -1, 1, 0],
-      \ 'goFunctionCall'      : ['#607fbf',   -1, 207, -1, 1, 0],
+      \ 'goDeclType'          : ['#1aa3a1',   -1,  -1, -1, 0, 1],
+      \
+      \ 'goBuiltins'          : ['#5fafff',   -1, 207, -1, 1, 0],
+      \
+      \ 'goType'              : ['#607fbf',   -1, 207, -1, 0, 1],
+      \ 'goSignedInts'        : ['#607fbf',   -1, 207, -1, 0, 1],
+      \ 'goUnsignedInts'      : ['#607fbf',   -1, 207, -1, 0, 1],
+      \ 'goFloats'            : ['#607fbf',   -1, 207, -1, 0, 1],
+      \ 'goComplexes'         : ['#607fbf',   -1, 207, -1, 0, 1],
+      \ 'goExtraType'         : ['#607fbf',   -1, 207, -1, 0, 1],
       \
       \ 'goField'             : ['#c678dd',   -1,  -1, -1, 1, 0],
       \
       \ 'goFunction'          : ['#a3e234',   -1,  -1, -1, 0, 0],
+      \ 'goFunctionCall'      : ['#a3e234',   -1, 207, -1, 1, 0],
       \ 'goParamName'         : ['#ffaf00',   -1, 214, -1, 0, 0],
+      \ 'goSpecialString'     : ['#98c379',   -1, 214, -1, 0, 0],
       \ }
-let g:_defhighlight_var.hlcolor.c = g:_defhighlight_var.hlcolor.cpp
+" #1aa3a1
+" goExtraType
 " }}}
 
 " }}}

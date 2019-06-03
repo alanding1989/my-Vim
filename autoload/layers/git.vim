@@ -64,8 +64,8 @@ function! layers#git#config() abort
     " call SpaceVim#mapping#space#def('nnoremap'  , ['g', 'l'], 'GV' , 'View git log of current repo', 1)
     if s:gitgutter_plugin ==# 'vim-gitgutter'
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'f'], 'GitGutterFold', '@ toggle folding unchanged lines', 1)
-      call SpaceVim#mapping#space#def('nmap',['g', 'h', 'u'], '<Plug>GitGutterUndoHunk'   , 'undo cursor hunk'   , 0)
-      call SpaceVim#mapping#space#def('nmap',['g', 'h', 'p'], '<Plug>GitGutterPreviewHunk', 'preview cursor hunk', 0)
+      call SpaceVim#mapping#space#def('nmap'    , ['g', 'h', 'u'], '<Plug>GitGutterUndoHunk'     , 'undo cursor hunk'   , 0)
+      call SpaceVim#mapping#space#def('nmap'    , ['g', 'h', 'p'], '<Plug>GitGutterPreviewHunk'  , 'preview cursor hunk', 0)
     elseif s:gitgutter_plugin ==# 'coc'
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'f'],      'CocCommand git.foldUnchanged', '@ toggle folding unchanged lines', 1)
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'h', 'a'], 'CocCommand git.chunkStage'   , 'stage current hunk'              , 1)
@@ -87,6 +87,14 @@ function! layers#git#config() abort
     call SpaceVim#mapping#space#def('nmap'      , ['g', 'i', 'y'], '<Plug>(CopyCursorCodeUrl)',
           \ 'Copy current/selected line of github url to clipboard', 0)
     xmap [SPC]giy  <Plug>(CopySelectCodeUrls)
+    augroup layer_git
+      autocmd!
+      auto FileType vim
+            \ call SpaceVim#mapping#space#def('nnoremap', ['q', 'l'], 'call util#Show_curPlugin_log()',
+            \ '@ show cursor plugin`s commit log', 1)|
+            \ call SpaceVim#mapping#space#def('nnoremap', ['g', 'i', 'z'], 'call util#CheckSPCMergeDiff()',
+            \ '@ open github page of SpaceVim merge diff', 1)
+    augroup END
     "}}}
   else
     "{{{
@@ -139,8 +147,11 @@ function! layers#git#config() abort
     xmap       <Space>giy  <Plug>(CopySelectCodeUrls)
     augroup layer_git
       autocmd!
-      auto FileType diff nnoremap <buffer><silent> q :bd!<CR>
+      auto FileType diff      nnoremap <buffer><silent> q :bd!<CR>
       auto FileType gitcommit auto! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
+      auto FileType vim
+            \ nnoremap <buffer><silent> <Space>ql   :call util#Show_curPlugin_log()<CR>|
+            \ nnoremap <buffer><silent> <Space>giz  :call util#CheckSPCMergeDiff()<CR>
     augroup END
   endif "}}}
 endfunction

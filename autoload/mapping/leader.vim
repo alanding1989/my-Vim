@@ -2,6 +2,7 @@
 " File Name    : autoload\mapping\leader.vim
 " Author       : AlanDing
 " Created Time : 2019/4/18 4:25:42
+" Description  : only for vim
 "================================================================================
 scriptencoding utf-8
 

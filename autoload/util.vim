@@ -18,8 +18,11 @@ function! util#maparg_wrapper(...) abort
 
   if a:0 == 2 " {{{
     if a:1 =~# 'v\w'
-      exec 'verbose '.a:1[1].'map '.a:2
-
+      if a:2 =~? '.*space.*'
+        exec 'verbose '.a:1[1].'map [SPC]'.matchstr(a:2, 'space\W\ze\w\+')
+      else
+        exec 'verbose '.a:1[1].'map '.a:2
+      endif
     elseif a:1 !=# 'leader' && a:2 !=# 'spc'
       " support specified mode
       " <c- >..., <m- >..., gd, gg ... mappings
@@ -253,14 +256,13 @@ function! util#Show_curPlugin_log()
         \ 'git --no-pager -C ' 
         \ . plugdir . plug
         \ . ' log -n 15 --oneline']], {'log': 1, 'wrap': 1,'start_insert':0})
-  exec 'Denite output:!git\ --no-pager\ -C\ '
-        \ . plugdir . plug
-        \ . '\ log\ -n\ 15\ --oneline'
-  exe "nnoremap <buffer><CR> :call <SID>Opencommit('". plug ."', strpart(split(getline('.'),'[33m')[1],0,7))<CR>"
+  " exec 'Denite output:!git\ --no-pager\ -C\ '
+        " \ . plugdir . plug
+        " \ . '\ log\ -n\ 15\ --oneline'
+  exe "nnoremap <buffer><CR> :call layers#core#OpenGithub('". plug ."', 
+        \ strpart(split(getline('.'),'[33m')[1],0,7))<CR>"
 endfunction
-function! s:Opencommit(repo, commit)
-  exe 'OpenBrowser https://github.com/' . a:repo .'/commit/'. a:commit
-endfunction "}}}
+" }}}
 
 " open cursor plugin github repo {{{
 function! util#Open_curPlugin_repo()
@@ -272,7 +274,8 @@ function! util#Open_curPlugin_repo()
       normal! mx"ayi"
     endif
     normal! `x
-    exec 'OpenBrowser https://github.com/'.@a
+    " exec 'OpenBrowser https://github.com/'.@a
+    call layers#core#OpenGithub(@a)
   catch
     echohl WarningMsg | echomsg 'can not open the web of current plugin' | echohl None
   finally
@@ -316,6 +319,12 @@ endfunction "}}}
 
 
 " SpaceVim Related {{{
+" Check SpaceVim merge diff after pushing to github " {{{
+function! util#CheckSPCMergeDiff() abort 
+  let commit = split(util#git#cache_commits()[0], ' ')[0]
+  call layers#core#OpenGithub('alanding1989/SpaceVim', commit)
+endfunction  " }}}
+
 " SpaceVim test mode {{{
 function! util#test_SPC() abort
   let cmd = 'sh '.g:home.'extools/SpaceVim/test-SpaceVim.sh'

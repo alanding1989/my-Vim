@@ -56,7 +56,7 @@ function! layers#core#config() abort
   call s:unimpaired()
   call s:open_browser()
 
-  if g:is_spacevim
+  if g:is_spacevim " {{{
     " exec 'so '. g:vim_plugindir .'unite.vim'
     unlet g:_spacevim_mappings_space.b.R | nunmap [SPC]bR
     call SpaceVim#mapping#space#def('nmap'    , ['b', 'r'], '<Plug>(Safe-Revert-Buffer)', 'safe revert buffer', 0)
@@ -71,8 +71,11 @@ function! layers#core#config() abort
     call SpaceVim#mapping#def('nnoremap', '<leader>ap', 
           \ "i\<C-r>=expand('%:p')\<CR>\<Esc>",
           \ 'paste file absolute path', '', 'paste file absolute path')
+    call SpaceVim#mapping#def('nmap', '<leader>y', 
+          \ '<Plug>(EasyCopy-inPairs)', 'easyCopy inpairs', '', 'easyCopy inpairs')
+     " }}}
 
-  else
+  else " {{{
     let g:matchup_matchparen_status_offscreen = 0
 
     nmap     <leader>y    <Plug>(EasyCopy-inPairs)
@@ -94,7 +97,7 @@ function! layers#core#config() abort
     nnoremap <Space>ju    :call <sid>jump_to_url()<CR>
 
     nnoremap <Space>ps    :Grepper<CR>
-  endif
+  endif  " }}}
 endfunction
 
 
@@ -197,6 +200,7 @@ elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# '
       let filen = expand('%:t')
       Defx `expand('%:p:h')`
       call search(filen, 'c')
+      normal! hh
     elseif a:num == 3
       Defx `expand(g:_my_vimrc_dir)`
     elseif a:num == 4
@@ -262,7 +266,8 @@ function! s:open_plugins_dir(cmd) abort "{{{
     endif
   endif
   let @a = temp
-endfunction "}}} }}} }}}
+endfunction "}}} }}} 
+" }}}
 
 function! s:comment() abort " {{{
   if g:is_spacevim
@@ -368,54 +373,32 @@ function! s:open_browser() abort " {{{
   vmap <leader>oo  <Plug>(openbrowser-smart-search)
   if g:is_spacevim
     let g:_spacevim_mappings.o   = {'name': '+@ OpenBrowser'}
-    let g:_spacevim_mappings.o.a = ['call feedkeys(":OpenBrowser ")'                    , 'OpenBrowser prefix']
-    let g:_spacevim_mappings.o.o = ['call feedkeys("\<Plug>(openbrowser-smart-search)")', 'cursor word search /default engine']
+    let g:_spacevim_mappings.o.a = ['call feedkeys(":OpenBrowserSmartSearch -")'        , 'OpenBrowser prefix']
+    let g:_spacevim_mappings.o.o = ['call feedkeys("\<Plug>(openbrowser-smart-search)")', 'cword search with default engine']
     let g:_spacevim_mappings.o.b = ['call feedkeys(":OpenBrowserSmartSearch -baidu  ")' , 'keyword search /baidu' ]
     let g:_spacevim_mappings.o.g = ['call feedkeys(":OpenBrowserSmartSearch -google ")' , 'keyword search /google']
     let g:_spacevim_mappings.o.h = ['call feedkeys(":OpenBrowserSmartSearch -github ")' , 'keyword search /github']
-    let g:_spacevim_mappings.o.c = ['OpenlinkOrSearch arec'                             , 'open my asciinema cast']
     let g:_spacevim_mappings.o.r = ['call util#Open_curPlugin_repo()', 'open github mainpage/cursor plugin`s repo']
-    let g:_spacevim_mappings.o['.']     = ['call util#vg_starred_repos()'            , 'view github starred repos']
-    let g:_spacevim_mappings.o['[SPC]'] = ['OpenlinkOrSearch spc'                     , 'open SpaceVim CN website']
+    " let g:_spacevim_mappings.o['.']     = ['call util#vg_starred_repos()'            , 'view github starred repos']
 
-    " language docs
-    augroup layer_core_openbrowser
-      autocmd!
-      auto FileType python,ipynb call SpaceVim#mapping#def('nnoremap', '<leader>op',
-            \ 'call feedkeys(":OpenBrowserSmartSearch -python ")', 'docs search /python', 1)
-      auto FileType scala call SpaceVim#mapping#def('nnoremap', '<leader>os',
-            \ 'call feedkeys(":OpenlinkOrSearch scala ")', 'docs search /scala', 1)
-    augroup END
   else
     nnoremap <leader>oa        :call feedkeys(':OpenBrowser ')<CR>
     nnoremap <leader>oo        <Plug>(openbrowser-smart-search)
     nnoremap <leader>ob        :call feedkeys(':OpenBrowserSmartSearch -baidu ')<CR>
     nnoremap <leader>og        :call feedkeys(':OpenBrowserSmartSearch -google ')<CR>
     nnoremap <leader>oh        :call feedkeys(':OpenBrowserSmartSearch -github ')<CR>
-    nnoremap <leader>oc        :OpenlinkOrSearch arec<CR>
     nnoremap <leader>or        :call util#Open_curPlugin_repo()<CR>
-    nnoremap <leader>o<Space>  :OpenlinkOrSearch spc<CR>
-    " language docs
-    augroup layer_core_openbrowser
-      autocmd!
-      auto FileType python, ipynb nnoremap <leader>op  :call feedkeys(':OpenBrowserSmartSearch -python ')<CR>
-      auto FileType scala nnoremap <leader>os  :call feedkeys(':OpenlinkOrSearch scala ')<CR>
-    augroup END
   endif
+  exec 'so '.g:home.'cheat/toolswebsite.vim'
+  command! -nargs=+  OpenlinkOrSearch  call OpenlinkOrSearch(<f-args>)
 endfunction
-" open or search websites {{{
-function! layers#core#OpenlinkOrSearch(key, ...) abort
-  let url = {
-        \ 'scala': 'https://www.scala-lang.org/api/current/index.html?search=',
-        \ 'arec' : 'https://asciinema.org/~alanding',
-        \ 'spc'  : 'https://spacevim.org/cn/layers',
-        \ }
-  if a:0 > 0
-    exec 'OpenBrowser '.url[a:key].a:1
+function! layers#core#OpenGithub(repo, ...) abort
+  if exists(':OpenBrowser')
+    exec 'OpenBrowser https://github.com/' . a:repo . (a:0 ? '/commit/'. a:1 : '')
   else
-    exec 'OpenBrowser '.url[a:key]
+    call util#echohl('you must install open-browser.vim')
   endif
-endfunction "}}} }}}
+endfunction " }}}
 "}}}
 
 

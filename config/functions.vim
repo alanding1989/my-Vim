@@ -16,6 +16,12 @@ function! Winjump(n) abort
 endfunction "}}}
 
 
+function! Statusline(name) abort " {{{
+  return util#statusline#{a:name}()
+endfunction 
+"}}}
+
+
 function! Foldtext() abort " {{{
   " get first non-blank line
   let fs = v:foldstart
@@ -156,9 +162,7 @@ function! MatchDel(char, regex, ...) abort
   " Matched {{{
   if match(getline('.'), a:regex) > -1
     if s:autodelimiter_debug "{{{
-      echohl WarningMsg
-      echo ' Matched'
-      echohl NONE
+      call util#echohl('Matched')
     endif "}}}
     if a:char =~# '\d'
       return "\<BS>".a:char
@@ -175,9 +179,7 @@ function! MatchDel(char, regex, ...) abort
 
   " Nomatch Echo reminder {{{
   if s:autodelimiter_debug
-    echohl WarningMsg
-    echo ' Nomatch'
-    echohl NONE
+    call util#echohl('Nomatch')
   endif
   "}}}
 
@@ -396,14 +398,3 @@ function! s:getcln(pos, ...) abort
 endfunction " }}}
 "}}}
 
-
-" Autoload functions wrapper " {{{
-function! Statusline(name) abort
-  return util#statusline#{a:name}()
-endfunction 
-
-function! UtilMap(name, ...) abort
-  return a:0 ? mapping#util#{a:name}(a:1)
-        \ : mapping#util#{a:name}()
-endfunction
-"}}}
