@@ -32,6 +32,7 @@ function! layers#lang#python#plugins() abort
     call add(plugins, ['heavenshell/vim-pydocstring'  , {'on_cmd': 'Pydocstring', 'on' : 'Pydocstring'}])
     call add(plugins, ['Vimjas/vim-python-pep8-indent', {'on_ft' : 'python'     , 'for': 'python'}])
     call add(plugins, ['jeetsukumaran/vim-pythonsense', {'on_ft' : 'python'     , 'for': 'python'}])
+    call add(plugins, ['alfredodeza/coveragepy.vim'   , { 'merged' : 0}])
   endif
   return plugins
 endfunction
@@ -61,34 +62,38 @@ if !g:is_spacevim
 endif
 
 function! s:language_specified_mappings() abort
-  nmap <silent><buffer> gd         :call <sid>go_to_def()<CR>
-  nmap <silent><buffer><space>lis  :Neoformat isort<CR>
-  nmap <silent><buffer><space>lir  :Neoformat autoflake<CR>
-  nmap <silent><buffer><space>lg   :Pydocstring<CR>
+  nnoremap <silent><buffer> gd         :call <sid>go_to_def()<CR>
+  nnoremap <silent><buffer><Space>lis  :Neoformat isort<CR>
+  nnoremap <silent><buffer><Space>lir  :Neoformat autoflake<CR>
+  nnoremap <silent><buffer><Space>lg   :Pydocstring<CR>
   if layers#lsp#check_ft('python')
     nnoremap <silent><buffer> K         :call layers#lsp#show_doc()<CR>
-    nnoremap <silent><buffer> <space>ld :call layers#lsp#show_doc()<CR>
-    nnoremap <silent><buffer> <space>le :call layers#lsp#rename()<CR>
-    nnoremap <silent><buffer> <space>lr :call layers#lsp#references()<CR>
+    nnoremap <silent><buffer> <Space>ld :call layers#lsp#show_doc()<CR>
+    nnoremap <silent><buffer> <Space>le :call layers#lsp#rename()<CR>
+    nnoremap <silent><buffer> <Space>lr :call layers#lsp#references()<CR>
   else
     nnoremap <silent><buffer> K         :call jedi#show_documentation()<CR>
-    nnoremap <silent><buffer> <space>ld :call jedi#show_documentation()<CR>
-    nnoremap <silent><buffer> <space>le :call jedi#rename()<CR>
-    nnoremap <silent><buffer> <space>lr :call jedi#usages()<CR>
+    nnoremap <silent><buffer> <Space>ld :call jedi#show_documentation()<CR>
+    nnoremap <silent><buffer> <Space>le :call jedi#rename()<CR>
+    nnoremap <silent><buffer> <Space>lr :call jedi#usages()<CR>
   endif
 
-  imap <silent><buffer> <c-;>       <esc>:VimpyterInsertPythonBlock<CR>i
-  nmap <silent><buffer> <space>lj   :VimpyterInsertPythonBlock<CR>
-  nmap <silent><buffer> <space>ls   :VimpyterStartJupyter<CR>
-  nmap <silent><buffer> <space>lu   :vimpyter#updateNotebook()<CR>
-  nmap <silent><buffer> <space>lv   :vimpyter#createView()<CR>
-  nmap <silent><buffer> <space>ln   :VimpyterStartNteract<CR>
+  nnoremap <silent><buffer> <Space>lcr  :Coveragepy report<CR>
+  nnoremap <silent><buffer> <Space>lcs  :Coveragepy show<CR>
+  nnoremap <silent><buffer> <Space>lce  :Coveragepy session<CR>
+  nnoremap <silent><buffer> <Space>lcf  :Coveragepy refresh<CR>
+  inoremap <silent><buffer> <c-;>       <Esc>:VimpyterInsertPythonBlock<CR>i
+  nnoremap <silent><buffer> <Space>lj   :VimpyterInsertPythonBlock<CR>
+  nnoremap <silent><buffer> <Space>ls   :VimpyterStartJupyter<CR>
+  nnoremap <silent><buffer> <Space>lu   :vimpyter#updateNotebook()<CR>
+  nnoremap <silent><buffer> <Space>lv   :vimpyter#createView()<CR>
+  nnoremap <silent><buffer> <Space>ln   :VimpyterStartNteract<CR>
 
-  nmap <silent><buffer> <Leader>jj  :VimpyterInsertPythonBlock<CR>
-  nmap <silent><buffer> <Leader>js  :VimpyterStartJupyter<CR>
-  nmap <silent><buffer> <Leader>ju  :vimpyter#updateNotebook<CR>
-  nmap <silent><buffer> <Leader>jv  :vimpyter#createView<CR>
-  nmap <silent><buffer> <Leader>jn  :VimpyterStartNteract<CR>
+  nnoremap <silent><buffer> <Leader>jj  :VimpyterInsertPythonBlock<CR>
+  nnoremap <silent><buffer> <Leader>js  :VimpyterStartJupyter<CR>
+  nnoremap <silent><buffer> <Leader>ju  :vimpyter#updateNotebook<CR>
+  nnoremap <silent><buffer> <Leader>jv  :vimpyter#createView<CR>
+  nnoremap <silent><buffer> <Leader>jn  :VimpyterStartNteract<CR>
 endfunction
 
 
