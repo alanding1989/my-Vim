@@ -321,9 +321,17 @@ endfunction "}}}
 " SpaceVim Related {{{
 " Check SpaceVim merge diff after pushing to github " {{{
 function! util#CheckSPCMergeDiff() abort 
-  let commit = split(util#git#cache_commits()[0], ' ')[0]
-  call layers#core#OpenGithub('alanding1989/SpaceVim', commit)
-endfunction  " }}}
+  let commit = util#git#cache_commits('~/.SpaceVim')[0]
+  if match(commit, 'merge\sSPC')
+    let commit = split(commit, ' ')[0]
+    call layers#core#OpenGithub('alanding1989/SpaceVim', commit)
+  else
+    call util#echohl('haven`t merged upstream')
+    if &ft ==# 'gitcommit'
+      call append('.', 'merge SPC')
+    endif
+  endif
+endfunction " }}}
 
 " SpaceVim test mode {{{
 function! util#test_SPC() abort

@@ -8,8 +8,18 @@ scriptencoding utf-8
 
 
 
-function! util#git#cache_commits() abort
-  let rst = systemlist("git log --oneline -n 50 --pretty=format:'%h %s' --abbrev-commit")
+function! util#git#cache_commits(...) abort
+  if a:0
+    if len(glob(a:1))
+      let dir = glob(a:1)
+    else
+      call util#echohl('invalid dirname')
+      return
+    endif
+    let rst = systemlist('git -C '.dir." log --oneline -n 50 --pretty=format:'%h %s' --abbrev-commit")
+  else
+    let rst = systemlist("git log --oneline -n 50 --pretty=format:'%h %s' --abbrev-commit")
+  endif
   return rst
 endfunction
 
