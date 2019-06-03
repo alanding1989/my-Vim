@@ -44,6 +44,7 @@ else
 
   elseif get(g:, 'plugmanager') ==# 'dein'
     let g:spacevim_plugin_manager_processes = 1000
+    let g:spacevim_plugin_manager           = 'dein'
     command! -nargs=*
           \ PlugInstall   call SpaceVim#commands#install_plugin(<f-args>)
 
