@@ -91,8 +91,8 @@ function! layers#git#config() abort
       autocmd!
       auto FileType vim
             \ call SpaceVim#mapping#space#def('nnoremap', ['q', 'l'], 'call util#Show_curPlugin_log()',
-            \ '@ show cursor plugin`s commit log', 1)|
-            \ call SpaceVim#mapping#space#def('nnoremap', ['g', 'i', 'z'], 'call util#CheckSPCMergeDiff()',
+            \ '@ show cursor plugin`s commit log', 1) |
+            \ call SpaceVim#mapping#space#def('nnoremap', ['g', 'i', 'd'], 'call util#CheckSPCMergeDiff()',
             \ '@ open github page of SpaceVim merge diff', 1)
     augroup END
     "}}}
@@ -151,7 +151,7 @@ function! layers#git#config() abort
       auto FileType gitcommit auto! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
       auto FileType vim
             \ nnoremap <buffer><silent> <Space>ql   :call util#Show_curPlugin_log()<CR>|
-            \ nnoremap <buffer><silent> <Space>giz  :call util#CheckSPCMergeDiff()<CR>
+            \ nnoremap <buffer><silent> <Space>gid  :call util#CheckSPCMergeDiff()<CR>
     augroup END
   endif "}}}
 endfunction
