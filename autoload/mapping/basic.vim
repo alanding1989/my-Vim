@@ -39,18 +39,21 @@ function! mapping#basic#load() abort
   inoremap <C-a>        <Esc>^i
   inoremap <C-b>        <left>
   inoremap <C-f>        <right>
+  inoremap <C-l>        <right>
   inoremap <C-p>        <C-left>
   inoremap <C-n>        <C-right>
-  inoremap <M-b>        <C-left>
-  inoremap <M-f>        <C-right>
   inoremap <expr><C-h>  pumvisible() ? "\<C-e><BS>" : DelEmptyPair()
   inoremap <C-d>        <Del>
-  inoremap <C-l>        <Esc>lviwc
   inoremap <C-q>        <Esc>lC
   inoremap <C-u>        <C-g>u<C-u>
   inoremap <C-z>        <Esc>ua
   inoremap <C-v>        <Esc><C-r>a
   inoremap <C-_>        <C-k>
+  inoremap <M-j>        <CR>
+  inoremap <expr><M-k>  col('.') <= col('$') ? "\<Esc>lc$"  : "\<Esc>lce"
+  inoremap <M-d>        <Esc>lce
+  inoremap <M-b>        <C-left>
+  inoremap <M-f>        <C-right>
 
   map  <expr> <BS>      exists('loaded_matchup') ? "\<Plug>(matchup-%)"  : "\<BS>"
   xmap <expr>i<BS>      exists('loaded_matchup') ? "\<Plug>(matchup-i%)" : "\<BS>"
