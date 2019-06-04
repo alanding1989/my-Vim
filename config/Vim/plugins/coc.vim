@@ -117,7 +117,7 @@ function! s:g_mappings() abort
 endfunction
 
 if g:is_spacevim
-  let g:_spacevim_mappings.c     = {'name': '+@ Coc...'}
+  let g:_spacevim_mappings.c     = {'name': '+@ Coc ...'}
   let g:_spacevim_mappings.c.p   = {'name': '+CocUtil actions'}
   let g:_spacevim_mappings.c.p.i = ['call feedkeys(":CocInstall ")'  , 'coc install plugins' ]
   let g:_spacevim_mappings.c.p.u = ['call feedkeys(":CocUninstall ")', 'coc remove plugins'  ]
