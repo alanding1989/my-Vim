@@ -30,8 +30,8 @@ function! layers#chinese#config() abort
     call SpaceVim#custom#SPC('vmap', ['x', 'g', 't'], '<Plug>TranslateWV'            , 'translate cursor word'              , 0)
     call SpaceVim#custom#SPC('nmap', ['x', 'g', 'r'], 'TranslateR'                   , 'replace cursor word with translate one', 1)
     call SpaceVim#custom#SPC('vmap', ['x', 'g', 'r'], '<Plug>TranslateRV'            , 'replace cursor word with translate one', 0)
-    nmap <c-q>        :TranslateW<CR>
-    vmap <c-q>        <Plug>TranslateWV
+    nmap <M-e>        <Plug>TranslateW
+    vmap <M-e>        <Plug>TranslateWV
 
   else
     let g:loaded_vimcdoc = 1
@@ -41,7 +41,7 @@ function! layers#chinese#config() abort
     vmap <space>xgt   <Plug>TranslateWV
     nmap <space>xgr   :TranslateR<CR>
     vmap <space>xgr   <Plug>TranslateRV
-    nmap <c-q>        <Plug>TranslateW
-    vmap <c-q>        <Plug>TranslateWV
+    nmap <M-e>        <Plug>TranslateW
+    vmap <M-e>        <Plug>TranslateWV
   endif
 endfunction

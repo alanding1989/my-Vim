@@ -5,6 +5,7 @@
 scriptencoding utf-8
 
 
+
 " ================================================================================
 " Leader mapping --- define personal leader key for SpaceVim
 " ================================================================================
@@ -15,18 +16,18 @@ scriptencoding utf-8
 let g:_spacevim_mappings.e         = get(g:_spacevim_mappings, 'e'   , {})
 let g:_spacevim_mappings.e['name'] = get(g:_spacevim_mappings.e, 'name', '+@ Echo value/Edit snippets')
 
-let g:_spacevim_mappings.e.c = ["echo '  '.g:spacevim_autocomplete_method", 'show autocomplete method'  ]
-let g:_spacevim_mappings.e.e = ['call feedkeys(":echo ")'                 , 'echo prefix'               ]
-let g:_spacevim_mappings.e.f = ['call feedkeys(":call ")'                 , 'function call prefix'      ]
-let g:_spacevim_mappings.e.h = ['call feedkeys(":EchoHlight ")'           , 'echo highlight'            ]
-let g:_spacevim_mappings.e.l = ['call layers#checkers#showlinter()'       , 'show syntax linter'        ]
-let g:_spacevim_mappings.e.g = ['syntax'                                  , 'show syntax summary'       ]
-let g:_spacevim_mappings.e.m = ['call feedkeys(":EchoMap ")'              , 'echo specific keymap'      ]
-let g:_spacevim_mappings.e.o = ['call feedkeys(":set ")'                  , 'echo vim options'          ]
-let g:_spacevim_mappings.e.s = ["echo '  '.g:spacevim_snippet_engine"     , 'show snippet engine'       ]
-let g:_spacevim_mappings.e.t = ["echo 'Current Theme is: '.g:colors_name" , 'show current colortheme'   ]
-let g:_spacevim_mappings.e.v = ['version'                                 , 'show neovim/vim version'   ]
-let g:_spacevim_mappings.e.i = ['call feedkeys(":CheckInstall ")'         , 'show plug installed or not']
+let g:_spacevim_mappings.e.c = ['echo "  ".g:spacevim_autocomplete_method' , 'show autocomplete method'  ]
+let g:_spacevim_mappings.e.e = ['call feedkeys(":echo ")'                  , 'echo prefix'               ]
+let g:_spacevim_mappings.e.f = ['call feedkeys(":call ")'                  , 'function call prefix'      ]
+let g:_spacevim_mappings.e.g = ['syntax'                                   , 'show syntax summary'       ]
+let g:_spacevim_mappings.e.h = ['call feedkeys(":EchoHlight ")'            , 'echo highlight'            ]
+let g:_spacevim_mappings.e.i = ['call feedkeys(":CheckInstall ")'          , 'show plug installed or not']
+let g:_spacevim_mappings.e.l = ['call layers#checkers#showlinter()'        , 'show syntax linter'        ]
+let g:_spacevim_mappings.e.m = ['call feedkeys(":EchoMap ")'               , 'echo specific keymap'      ]
+let g:_spacevim_mappings.e.o = ['call feedkeys(":set ")'                   , 'echo vim options'          ]
+let g:_spacevim_mappings.e.t = ['echo "Current Theme is: ".g:colors_name'  , 'show current colortheme'   ]
+let g:_spacevim_mappings.e.v = ['version'                                  , 'show neovim/vim version'   ]
+let g:_spacevim_mappings.e.s = ['echo "  ".g:spacevim_snippet_engine'      , 'show snippet engine'       ]
 
 " Directory operatios
 let g:_spacevim_mappings.d   = {'name': '+@ Directory operatios' }

@@ -17,7 +17,7 @@ function! util#maparg_wrapper(...) abort
   " }}}
 
   if a:0 == 2 " {{{
-    if a:1 =~# 'v\w'
+    if a:1 =~# '^v\w'
       if a:2 =~? '.*space.*'
         exec 'verbose '.a:1[1].'map [SPC]'.matchstr(a:2, 'space\W\ze\w\+')
       else
@@ -32,7 +32,7 @@ function! util#maparg_wrapper(...) abort
       elseif a:1 =~# '^g\|^z'
         exec 'verbose '.a:2.'map '.a:1
       else
-        echo  maparg('<'.a:1.'>', a:2)
+        echo  len(maparg('<'.a:1.'>', a:2))
               \ ? maparg('<'.a:1.'>', a:2)
               \ : maparg(a:1, a:2)
       endif

@@ -17,6 +17,7 @@ function! mapping#basic#load() abort
   " mode mapping {{{
   noremap  <C-a>        ^
   noremap  <C-e>        $
+  noremap  <C-q>        :
 
   nnoremap  -           q
   nnoremap  --          @a
@@ -263,14 +264,20 @@ function! mapping#basic#load() abort
   nnoremap <leader>ee             :call feedkeys(':echo ')<CR>
   " call function
   nnoremap <leader>ef             :call feedkeys(':call ')<CR>
-  " set options
-  noremap  <leader>eo             :call feedkeys(':set ')<CR>
+  " show syntax summary
+  nnoremap <leader>eg             :syntax<CR>
   " highlight
   nnoremap <leader>eh             :call feedkeys(':EchoHlight ')<CR>
+  " show plugin installed or not
+  nnoremap <leader>eh             :call feedkeys(':CheckInstall ')<CR>
   " maparp
   noremap  <leader>em             :call feedkeys(':EchoMap ')<CR>
+  " set options
+  noremap  <leader>eo             :call feedkeys(':set ')<CR>
   " show version
   nnoremap <leader>ev             :version<CR>
+  " echo last paste
+  xnoremap <leader>er             "ry:<C-u>try\|echo <C-r>=@r<CR>\|catch\|endtry<CR>
 
   " directory operatios
   nnoremap <leader>db             :lcd %:p:h<CR>

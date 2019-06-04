@@ -243,9 +243,8 @@ endfunction
 
 
 function! layers#checkers#showlinter() abort
-  if exists(':ALEInfo')
-    echo '  Now the syntax checker is Ale!'
-  elseif exists(':Neomake')
-    echo '  Now the syntax checker is Neomake!'
-  endif
+  echo '  Now the syntax checker is '. (
+        \ exists(':ALEInfo') ? 'Ale!' : 
+        \ exists(':Neomake') ? 'Neomake!' : 
+        \ 'LanguageClient' )
 endfunc

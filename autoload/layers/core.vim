@@ -147,7 +147,7 @@ function! s:filetree() abort " {{{
     nnoremap <silent><Space>fp    :call <SID>open_filetree(5)<CR>
     nnoremap <silent><Space>f.    :call <SID>open_filetree(6)<CR>
     nnoremap <silent><Space>fn    :call <SID>open_filetree(7)<CR>
-    nnoremap <silent><Space>fn    :call <SID>open_filetree(8)<CR>
+    nnoremap <silent><Space>fd    :call <SID>open_filetree(8)<CR>
   endif
 endfunction
 
