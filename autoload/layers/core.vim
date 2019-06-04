@@ -389,7 +389,7 @@ function! s:open_browser() abort " {{{
     nnoremap <leader>oh        :call feedkeys(':OpenBrowserSmartSearch -github ')<CR>
     nnoremap <leader>or        :call util#Open_curPlugin_repo()<CR>
   endif
-  exec 'so '.g:home.'cheat/toolswebsite.vim'
+  exec 'so '.g:home.'cheats/toolswebsite.vim'
   command! -nargs=+  OpenlinkOrSearch  call OpenlinkOrSearch(<f-args>)
 endfunction
 function! layers#core#OpenGithub(repo, ...) abort

@@ -70,6 +70,7 @@ let g:guifont                      = 'SauceCodePro Nerd Font Mono:h11'
 " }}}
 
 " System {{{
+let g:cheats_dir                   = g:home.'cheats/'
 let g:github_username              = 'alanding1989'
 let g:vim_plugindir                = expand(g:home.'config/Vim/plugins/')
 let g:project_root_marker          = ['.root', '.project', '.idea', '.vscode', '.editorconfig', '.git', '.svn']

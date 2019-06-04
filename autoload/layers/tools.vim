@@ -44,6 +44,8 @@ endfunction
 
 function! layers#tools#config() abort
   nnoremap <silent><F6> :MundoToggle<CR>
+  call <sid>vnote()
+  call <sid>vim_cheat()
 
   if !g:is_spacevim
     nnoremap <silent> <Space>al  :Calendar<CR>
@@ -56,6 +58,53 @@ function! layers#tools#config() abort
   endif
 endfunction
 
+function! s:vim_cheat() abort 
+  let g:Cheat_EnableDefaultMappings = 0
+  if g:is_spacevim
+    let g:_spacevim_mappings.C = {'name': '+@ CheatSheet'}
+    call SpaceVim#mapping#def('nnoremap', '<leader>Co', ':Cheat<CR>',
+          \ 'open CheatSheet'           , '', 'open CheatSheet')
+    call SpaceVim#mapping#def('nnoremap', '<leader>Ca', ':Cheat -add ',
+          \ 'add new CheatSheet'        , '', 'add new CheatSheet')
+    call SpaceVim#mapping#def('nnoremap', '<leader>Cu', ':Cheat -update ',
+          \ 'update specific CheatSheet', '', 'update specific CheatSheet')
+    call SpaceVim#mapping#def('nnoremap', '<leader>Cc', ':CheatCurrent<CR>',
+          \ 'open cursor CheatSheet'    , '', 'open cursor CheatSheet')
+  else
+    nnoremap <silent><leader>Co   :Cheat<CR>
+    nnoremap <silent><leader>Ca   :call feedkeys(":Cheat -add ")<CR>
+    nnoremap <silent><leader>Cu   :call feedkeys(":Cheat -update ")<CR>
+    nnoremap <silent><leader>Cc   :CheatCurrent<CR>
+  endif
+endfunction
+
+function! s:vnote() abort
+  if g:is_spacevim
+    let g:_spacevim_mappings.n = {'name': '+@ NoteBook'}
+    call SpaceVim#mapping#def('nnoremap', '<leader>no', ':NoteBook<CR>'  ,
+          \ 'open NoteBook'    , '', 'open NoteBook')
+    call SpaceVim#mapping#def('nnoremap', '<leader>nn', ':NoteNew<CR>'   ,
+          \ 'creat new Note'   , '', 'creat new Note')
+    call SpaceVim#mapping#def('nnoremap', '<leader>ne', ':NoteEdit<CR>'  ,
+          \ 'edit today`s Note', '', 'edit today`s Note')
+    call SpaceVim#mapping#def('nnoremap', '<leader>nl', ':NoteList<CR>'  ,
+          \ 'check Notelist'   , '', 'check Note list')
+    call SpaceVim#mapping#def('nnoremap', '<leader>nc', ':NoteConfig<CR>',
+          \ 'change NoteConfig', '', 'change NoteConfig')
+    call SpaceVim#mapping#def('nnoremap', '<leader>ni', ':NoteImport<CR>',
+          \ 'import Notes'     , '', 'import Notes')
+    call SpaceVim#mapping#def('nnoremap', '<leader>ns', ':NoteList<CR>'  ,
+          \ 'check Noteindex'  , '', 'check Noteindex')
+  else
+    nnoremap <silent><leader>no  :NoteBook<CR>
+    nnoremap <silent><leader>nn  :NoteNew<CR>
+    nnoremap <silent><leader>ne  :NoteEdit<CR>
+    nnoremap <silent><leader>nl  :NoteList<CR>
+    nnoremap <silent><leader>nc  :NoteConfig<CR>
+    nnoremap <silent><leader>ni  :NoteImport<CR>
+    nnoremap <silent><leader>ns  :NoteList<CR>
+  endif
+endfunction
 
 function! s:vimcalc() abort
   augroup my_rainbow
