@@ -154,9 +154,9 @@ function! s:Mylayers_config_load() abort
 endfunction
 
 " NOTE:
-" 1. Personal config which need to amend SpaceVim`s, some of them can be defined after VimEnter
-"    to override. But some variable only take effect before loading plugins, i.e. before VimEnter
-"    or lazyload time, (SpaceVim defined these var after sourcing custom config, before VimEnter),
+" 1. Plugin config which need to amend SpaceVim`s, lazyload ones can be defined after VimEnter
+"    to override. Non-lazyload ones only take effect before sourcing plugins( before VimEnter),
+"    ( SpaceVim defines these var after sourcing custom config, before VimEnter),
 "    these can`t-changed var`s source code has been amended and copied in '/.SpaceVim.d/backup'.
 " 2. Plugins which has global var must be defined before VimEnter to take effect. Due to reason 1,
 "    for layers which need to amend SpaceVim`s, if there has global var that SpaceVim hasn`t defined,

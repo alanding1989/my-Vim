@@ -92,27 +92,28 @@ nmap g0 <Plug>(incsearch-nohl-g*)
 
 
 let g:_spacevim_mappings_g      = get(g:, '_spacevim_mappings_g', {})
-let g:_spacevim_mappings_g['='] = ['call feedkeys("g=", "n")'                           , 'format code (origin)'    ]
-let g:_spacevim_mappings_g['9'] = ['call feedkeys("gf", "n")'                           , 'edit file under cursor'  ]
+let g:_spacevim_mappings_g['='] = ['call feedkeys("g=", "n")'                           , 'format code (origin)'     ]
+let g:_spacevim_mappings_g['9'] = ['call feedkeys("gf", "n")'                           , 'edit file under cursor'   ]
+let g:_spacevim_mappings_g['y'] = ['call feedkeys("`[v`]")'                             , 'select last yanked region']
 
 " plugin mappings
-let g:_spacevim_mappings_g['0'] = ['call feedkeys("\<Plug>(incsearch-nohl-g*)")'        , 'forward search cword'    ]
+let g:_spacevim_mappings_g['0'] = ['call feedkeys("\<Plug>(incsearch-nohl-g*)")'        , 'forward search cword'     ]
 
-let g:_spacevim_mappings_g['c'] = ['call feedkeys("'.escape(maparg('gc', 'n'), '<').'")', 'do CodeActions'          ]
-let g:_spacevim_mappings_g['d'] = ['call feedkeys("'.escape(maparg('gd', 'n'), '<').'")', 'goto Definition'         ]
-let g:_spacevim_mappings_g['t'] = ['call feedkeys("'.escape(maparg('gt', 'n'), '<').'")', 'goto TypeDefinition'     ]
-let g:_spacevim_mappings_g['i'] = ['call feedkeys("'.escape(maparg('gi', 'n'), '<').'")', 'goto Implementation'     ]
-let g:_spacevim_mappings_g['r'] = ['call feedkeys("'.escape(maparg('gr', 'n'), '<').'")', 'find References'         ]
-let g:_spacevim_mappings_g['e'] = ['call feedkeys("'.escape(maparg('ge', 'n'), '<').'")', 'rename Symbol'           ]
-let g:_spacevim_mappings_g['f'] = ['call feedkeys("'.escape(maparg('gf', 'n'), '<').'")', 'format Code'             ]
-let g:_spacevim_mappings_g['h'] = ['call feedkeys("'.escape(maparg('gh', 'n'), '<').'")', 'show Documentation'      ]
-let g:_spacevim_mappings_g['s'] = ['call feedkeys("'.escape(maparg('gs', 'n'), '<').'")', 'get Symbols of Document' ]
-let g:_spacevim_mappings_g['S'] = ['call feedkeys("'.escape(maparg('gS', 'n'), '<').'")', 'get Symbols of WorkSpace']
-let g:_spacevim_mappings_g['p'] = ['call feedkeys("'.escape(maparg('gp', 'n'), '<').'")', 'show GitHunk Info'       ]
-let g:_spacevim_mappings_g['l'] = ['call feedkeys("'.escape(maparg('gl', 'n'), '<').'")', 'show Diagnostic Info'    ]
+let g:_spacevim_mappings_g['c'] = ['call feedkeys("'.escape(maparg('gc', 'n'), '<').'")', 'do CodeActions'           ]
+let g:_spacevim_mappings_g['d'] = ['call feedkeys("'.escape(maparg('gd', 'n'), '<').'")', 'goto Definition'          ]
+let g:_spacevim_mappings_g['t'] = ['call feedkeys("'.escape(maparg('gt', 'n'), '<').'")', 'goto TypeDefinition'      ]
+let g:_spacevim_mappings_g['i'] = ['call feedkeys("'.escape(maparg('gi', 'n'), '<').'")', 'goto Implementation'      ]
+let g:_spacevim_mappings_g['r'] = ['call feedkeys("'.escape(maparg('gr', 'n'), '<').'")', 'find References'          ]
+let g:_spacevim_mappings_g['e'] = ['call feedkeys("'.escape(maparg('ge', 'n'), '<').'")', 'rename Symbol'            ]
+let g:_spacevim_mappings_g['f'] = ['call feedkeys("'.escape(maparg('gf', 'n'), '<').'")', 'format Code'              ]
+let g:_spacevim_mappings_g['h'] = ['call feedkeys("'.escape(maparg('gh', 'n'), '<').'")', 'show Documentation'       ]
+let g:_spacevim_mappings_g['s'] = ['call feedkeys("'.escape(maparg('gs', 'n'), '<').'")', 'get Symbols of Document'  ]
+let g:_spacevim_mappings_g['S'] = ['call feedkeys("'.escape(maparg('gS', 'n'), '<').'")', 'get Symbols of WorkSpace' ]
+let g:_spacevim_mappings_g['p'] = ['call feedkeys("'.escape(maparg('gp', 'n'), '<').'")', 'show GitHunk Info'        ]
+let g:_spacevim_mappings_g['l'] = ['call feedkeys("'.escape(maparg('gl', 'n'), '<').'")', 'show Diagnostic Info'     ]
 
 if g:spacevim_autocomplete_method ==# 'coc'
-let g:_spacevim_mappings_g['m'] = ['call feedkeys("'.escape(maparg('gm', 'n'), '<').'")', 'fix cursor CodeError'    ]
-let g:_spacevim_mappings_g['.'] = ['call feedkeys("'.escape(maparg('g.', 'n'), '<').'")', 'do Codelens Action'      ]
+let g:_spacevim_mappings_g['m'] = ['call feedkeys("'.escape(maparg('gm', 'n'), '<').'")', 'fix cursor CodeError'     ]
+let g:_spacevim_mappings_g['.'] = ['call feedkeys("'.escape(maparg('g.', 'n'), '<').'")', 'do Codelens Action'       ]
 endif
 

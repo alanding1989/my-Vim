@@ -212,7 +212,11 @@ function! mapping#basic#load() abort
   nnoremap <leader>ae             VG
   " Easier search and replace
   xnoremap <C-r>                  :<C-u>call <sid>VSetSearch()<CR>:,$s/<C-R>=@/<CR>//gc<left><left><left>
-  vnoremap <C-s>                  :s///g<left><left><left><CR>
+  xnoremap <C-s>                  :s///g<left><left><left><CR>
+
+  " Select last paste
+  nnoremap <expr> g1              '`['.strpart(getregtype(), 0, 1).'`]'
+
 
   " yank and paste {{{
   if has('unnamedplus')

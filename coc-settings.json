@@ -24,7 +24,7 @@
   "diagnostic.displayByAle"                         : true,
 
   "signature.enable"                                : true,
-  "signature.target"                                : "float",
+  "signature.target"                                : "echo",
 
   "codeLens.enable"                                 : true,
 
