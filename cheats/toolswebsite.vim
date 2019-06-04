@@ -36,14 +36,14 @@ function! s:defineKeyMapping() abort
     augroup layer_core_openbrowser
       autocmd!
       auto FileType python,ipynb call SpaceVim#mapping#def('nnoremap', '<leader>op',
-            \ 'call feedkeys(":OpenBrowserSmartSearch -python ")',
-            \ 'docs search /python', 1)
+            \ ':call feedkeys(":OpenBrowserSmartSearch -python ")<CR>',
+            \ 'docs search /python', '',  'docs search /python')
       auto FileType scala        call SpaceVim#mapping#def('nnoremap', '<leader>os',
-            \ 'call feedkeys(":OpenlinkOrSearch scala ")',
-            \ 'docs search /scala', 1)
+            \ ':call feedkeys(":OpenlinkOrSearch scala ")<CR>',
+            \ 'docs search /scala', '',  'docs search /scala')
       auto FileType sh           call SpaceVim#mapping#def('nnoremap', '<leader>os',
-            \ 'call feedkeys(":OpenlinkOrSearch sh ")',
-            \ 'explainshell.com', 1)
+            \ ':call feedkeys(":OpenlinkOrSearch sh ")<CR>',
+            \ 'explainshell.com', '',  'explainshell.com')
     augroup END
      " }}}
 
