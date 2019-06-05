@@ -33,12 +33,47 @@ cryptorepo=git@github.com:golang/crypto.git
 syncpath=/home/alanding/go/src/golang.org/x/sync
 syncrepo=git@github.com:golang/sync.git
 
+gosyspath=/home/alanding/go/src/golang.org/x/sys
+gosysrepo=git@github.com:golang/sys.git
 
-checkclone $gotoolspath $gotoolsrepo
-checkclone $golintpath  $golintrepo
-checkclone $keyifypath  $keyifyrepo
-checkclone $cryptopath  $cryptorepo
-checkclone $syncpath    $syncrepo
+gonetpath=/home/alanding/go/src/golang.org/x/net
+gonetrepo=git@github.com:golang/net.git
+
+gotourpath=/home/alanding/go/src/golang.org/x/tour
+gotourrepo=git@github.com:golang/tour.git
+
+goperfpath=/home/alanding/go/src/golang.org/x/perf
+goperfrepo=git@github.com:golang/perf.git
+
+govgopath=/home/alanding/go/src/golang.org/x/vgo
+govgorepo=git@github.com:golang/vgo.git
+
+goimagepath=/home/alanding/go/src/golang.org/x/image
+goimagerepo=git@github.com:golang/image.git
+
+goreviewpath=/home/alanding/go/src/golang.org/x/review
+goreviewrepo=git@github.com:golang/review.git
+
+gotextpath=/home/alanding/go/src/golang.org/x/text
+gotextrepo=git@github.com:golang/text.git
+
+gotimepath=/home/alanding/go/src/golang.org/x/time
+gotimerepo=git@github.com:golang/time.git
+
+checkclone $gotoolspath  $gotoolsrepo
+checkclone $golintpath   $golintrepo
+checkclone $keyifypath   $keyifyrepo
+checkclone $cryptopath   $cryptorepo
+checkclone $syncpath     $syncrepo
+checkclone $gosyspath    $gosysrepo
+checkclone $gonetpath    $gonetrepo
+checkclone $gotourpath   $gotourrepo
+checkclone $goperfpath   $goperfrepo
+checkclone $govgopath    $govgorepo
+checkclone $goimagepath  $goimagerepo
+checkclone $goreviewpath $goreviewrepo
+checkclone $gotextpath   $gotextrepo
+checkclone $gotimepath   $gotimerepo
 
 
 if [ ! -x dep ]; then
