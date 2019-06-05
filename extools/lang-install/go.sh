@@ -8,73 +8,90 @@
 
 # lang install released binary
 
+# memo
+# replace (
+  # => github.com/golang/text latest
+# )
 
-checkclone()
-{
-  if [ ! -e "$1" ]; then
-    git clone "$2" "$1" && cd "$1" || return
-  else
-    cd "$1" || return && git pull
-  fi
+
+xpath="/home/alanding/go/src/golang.org/x"
+golangrepo="git@github.com:golang"
+
+# declare -A dic
+# dic=(
+  # ["lint"]="$golangrepo/lint.git"
+  # ["tools"]="$golangrepo/tools.git"
+  # ["crypto"]="$golangrepo/crypto.git"
+  # ["sys"]="$golangrepo/sys.git"
+  # ["net"]="$golangrepo/net.git"
+  # ["tour"]="$golangrepo/tour.git"
+  # ["perf"]="$golangrepo/perf.git"
+  # ["image"]="$golangrepo/image.git"
+  # ["review"]="$golangrepo/review.git"
+  # ["text"]="$golangrepo/text.git"
+  # ["time"]="$golangrepo/time.git"
+  # ["sync"]="$golangrepo/sync.git"
+  # ["vgo"]="$golangrepo/vgo.git"
+# )
+
+declare -a modname
+modname=($(ls $xpath))
+
+# checkclone() {
+  # if [ ! -e "$1" ]; then
+    # git clone "$2" "$1" && cd "$1" || return
+  # else
+    # cd "$1" || return && git pull
+  # fi
+# }
+
+# function gomodtidy() {
+  # for item in ${modname[*]}; do
+    # cd "$xpath/$item" || return && go mod tidy -v
+  # done
+# }
+
+gitsubmodadd() {
+  git submodule add "$1" "$2"
 }
 
-gotoolspath=/home/alanding/go/src/golang.org/x/tools
-gotoolsrepo=git@github.com:golang/tools.git
+function addsubmod() {
+  for item in ${modname[*]}; do
+    gitsubmodadd  "$golangrepo/$item.git"  "./$item"
+  done
+}
 
-golintpath=/home/alanding/go/src/golang.org/x/lint
-golintrepo=git@github.com:golang/lint.git
+cd $xpath && addsubmod
+
+# gomodtidy
+
+
+if [ ! -e $xpath ]; then
+  git clone git@github.com:alanding1989/golang-x.git $xpath
+fi
+
+install=(
+  ["goimports"]="golang.org/x/tools/cmd/goimports"
+  ["golint"]="golang.org/x/lint/golint"
+  ["gopls"]="golang.org/x/tools/cmd/gopls"
+  ["gorename"]="golang.org/x/tools/cmd/gorename"
+  ["guru"]="golang.org/x/tools/cmd/guru"
+  ["tour"]="golang.org/x/tour"
+)
+
+cd "$GOPATH/src" || return
+for item in ${!install[*]}; do
+  if [ ! -x "$item" ]; then
+    go install "${install[$item]}"
+  fi
+done
 
 keyifypath=/home/alanding/go/src/honnef.co/go/tools
 keyifyrepo=git@github.com:dominikh/go-tools.git
 
-cryptopath=/home/alanding/go/src/golang.org/x/crypto
-cryptorepo=git@github.com:golang/crypto.git
-
-syncpath=/home/alanding/go/src/golang.org/x/sync
-syncrepo=git@github.com:golang/sync.git
-
-gosyspath=/home/alanding/go/src/golang.org/x/sys
-gosysrepo=git@github.com:golang/sys.git
-
-gonetpath=/home/alanding/go/src/golang.org/x/net
-gonetrepo=git@github.com:golang/net.git
-
-gotourpath=/home/alanding/go/src/golang.org/x/tour
-gotourrepo=git@github.com:golang/tour.git
-
-goperfpath=/home/alanding/go/src/golang.org/x/perf
-goperfrepo=git@github.com:golang/perf.git
-
-govgopath=/home/alanding/go/src/golang.org/x/vgo
-govgorepo=git@github.com:golang/vgo.git
-
-goimagepath=/home/alanding/go/src/golang.org/x/image
-goimagerepo=git@github.com:golang/image.git
-
-goreviewpath=/home/alanding/go/src/golang.org/x/review
-goreviewrepo=git@github.com:golang/review.git
-
-gotextpath=/home/alanding/go/src/golang.org/x/text
-gotextrepo=git@github.com:golang/text.git
-
-gotimepath=/home/alanding/go/src/golang.org/x/time
-gotimerepo=git@github.com:golang/time.git
-
-checkclone $gotoolspath  $gotoolsrepo
-checkclone $golintpath   $golintrepo
-checkclone $keyifypath   $keyifyrepo
-checkclone $cryptopath   $cryptorepo
-checkclone $syncpath     $syncrepo
-checkclone $gosyspath    $gosysrepo
-checkclone $gonetpath    $gonetrepo
-checkclone $gotourpath   $gotourrepo
-checkclone $goperfpath   $goperfrepo
-checkclone $govgopath    $govgorepo
-checkclone $goimagepath  $goimagerepo
-checkclone $goreviewpath $goreviewrepo
-checkclone $gotextpath   $gotextrepo
-checkclone $gotimepath   $gotimerepo
-
+if [ ! -e $keyifypath ]; then
+  git clone $keyifyrepo $keyifypath
+fi
 
 if [ ! -x dep ]; then
   # go dependency manager

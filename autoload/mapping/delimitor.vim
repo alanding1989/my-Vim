@@ -73,6 +73,11 @@ endfunction " }}}
 function! s:Bash() abort " {{{
   for char in range(97, 122)
     let char = nr2char(char)
-    exec 'inoremap <buffer><expr> '.char.' MatchDel('.string(char).', ".*-[a-z]*\\s\\_$", 0, 00)'
+    exec 'inoremap <buffer><expr> '.char.' MatchCl(".*-\\s\\_$") ? "\<BS>'.char.'" : '.string(char)
   endfor
+  for char in range(65, 90)
+    let char = nr2char(char)
+    exec 'inoremap <buffer><expr> '.char.' MatchCl(".*-\\s\\_$") ? "\<BS>'.char.'" : '.string(char)
+  endfor
+  inoremap = =
 endfunction "}}}

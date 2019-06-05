@@ -30,7 +30,7 @@ augroup my_coc_settings
   autocmd!
   " show func signature after jump code placehold
   auto CursorHoldI,CursorMovedI * silent call CocActionAsync('showSignatureHelp')
-  auto CursorHold               * silent call CocActionAsync('highlight')
+  auto CursorHold               * if getline('.')[col('.')-1] =~? '\w' | silent call CocActionAsync('highlight') | endif
   auto VimEnter * call <sid>g_mappings()
   if (g:is_spacevim && !SpaceVim#layers#isLoaded('core#statusline')) || get(g:, 'statusline', '') =~# 'airline'
     auto User     CocDiagnosticChange  AirlineRefresh
