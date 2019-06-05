@@ -5,7 +5,7 @@
 " Created Time : Thu 04 Apr 2019 01:10:53 AM CST
 "=========================================================================
 scriptencoding utf-8
-if get(s:, 'loaded', 0)
+if get(s:, 'loaded', 0) 
   finish
 endif
 let s:loaded = 1
@@ -13,14 +13,12 @@ let s:loaded = 1
 
 " Setting LanguageTool dir executable path {{{
 function! s:make_link() abort
-  if glob(s:misc_path.'LanguageTool') ==# ''
-    if g:is_unix
-      exec '!ln -s -d "'.expand($LANGUAGE_TOOL_HOME)
-            \ .'" "'.expand(s:misc_path.'LanguageTool').'"'
-    elseif g:is_win
-      exec '!mklink /D "'.expand(s:misc_path.'LanguageTool')
-            \ .'" "'.expand('D:/devtools/LanguageTool').'"'
-    endif
+  if g:is_unix
+    exec '!ln -s -d "'.expand($LANGUAGE_TOOL_HOME)
+          \ .'" "'.expand(s:misc_path.'LanguageTool').'"'
+  elseif g:is_win
+    exec '!mklink /D "'.expand(s:misc_path.'LanguageTool')
+          \ .'" "'.expand('D:/devtools/LanguageTool').'"'
   endif
 endfunction
 function! s:set_languageTool() abort
@@ -38,6 +36,11 @@ function! s:set_languageTool() abort
     endif
   endif
 
+  
+  if glob(fnamemodify(s:misc_path, ':p:h:h')) ==# '' || glob(s:misc_path.'LanguageTool') !=# ''
+    return
+  endif
+  
   if glob(s:misc_path) ==# ''
     call mkdir(expand(s:misc_path), 'p', 0700)
     call <sid>make_link()

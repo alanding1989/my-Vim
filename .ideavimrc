@@ -35,6 +35,7 @@ nnoremap s                <nop>
 noremap <bs>              %
 noremap <c-a>             ^
 noremap <c-e>             $
+noremap i                 zzi
 
 nnoremap <C-h>            <Left>
 nnoremap <C-l>            <Right>
@@ -44,17 +45,17 @@ nnoremap <C-k>            <Up>
 " insert mode
 inoremap <c-b>            <Left>
 inoremap <c-f>            <Right>
+inoremap <c-l>            <Right>
 inoremap <c-a>            <Esc>^i
 inoremap <c-e>            <End>
 inoremap <c-h>            <BS>
 inoremap <c-d>            <Del>
-inoremap <c-l>            <Esc>lviwc
 inoremap <c-q>            <Esc>lC
 inoremap <c-_>            <c-k>
 inoremap <C-p>            <C-left>
 inoremap <C-n>            <C-right>
-inoremap <M-b>            <C-left>
-inoremap <M-f>            <C-right>
+" does not work for M
+" inoremap <M-j>            <CR>
 
 " faster command mode
 cnoremap qw               <Esc>
@@ -170,6 +171,7 @@ nnoremap <c-i>            :action Forward<CR>
 nnoremap ]]               :action MethodDown<CR>
 nnoremap [[               :action MethodUp<CR>
 
+nnoremap <Space>0         :action ActivateTerminalToolWindow<CR>
 
 nnoremap <Space>hh        :action HighlightUsagesInFile<CR>
 

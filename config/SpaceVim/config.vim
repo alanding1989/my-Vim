@@ -161,7 +161,20 @@ endfunction
 "     DefaultLayers:
 "     autocomplete, checkers, core, edit, format, ui,
 "============================================================================= {{{
-let g:My_SpaceVim_layers = {
+let g:My_SpaceVim_layers = extend(get(g:, 'My_SpaceVim_layers', {
+      \ 'lang#c'            : 1,
+      \ 'lang#go'           : 1,
+      \ 'lang#java'         : 0,
+      \ 'lang#scala'        : 1,
+      \ 'lang#python'       : 1,
+      \ 'lang#ipynb'        : 1,
+      \ 'lang#lua'          : 1,
+      \ 'lang#lisp'         : 0,
+      \ 'lang#javascript'   : 0,
+      \ 'lang#markdown'     : 1,
+      \ 'lang#latex'        : 0,
+      \ 'VersionControl'    : 0,
+      \ }), {
       \ 'chat'              : 1,
       \ 'checkers'          : 1,
       \ 'chinese'           : 1,
@@ -170,30 +183,18 @@ let g:My_SpaceVim_layers = {
       \ 'git'               : 1,
       \ 'github'            : 1,
       \ 'lsp'               : 1,
-      \ 'lang#c'            : 1,
-      \ 'lang#go'           : 1,
-      \ 'lang#java'         : 1,
-      \ 'lang#scala'        : 1,
-      \ 'lang#python'       : 1,
-      \ 'lang#ipynb'        : 1,
-      \ 'lang#vim'          : 1,
       \ 'lang#sh'           : 1,
-      \ 'lang#lua'          : 1,
-      \ 'lang#lisp'         : 1,
-      \ 'lang#javascript'   : 0,
-      \ 'lang#markdown'     : 1,
-      \ 'lang#latex'        : 0,
+      \ 'lang#vim'          : 1,
       \ 'incsearch'         : 1,
       \ 'shell'             : 1,
       \ 'tmux'              : 1,
       \ 'tools'             : 1,
-      \ 'VersionControl'    : 0,
       \
-      \ 'denite'            : 0,
+      \ 'denite'            : 1,
       \ 'fzf'               : 0,
       \ 'leaderf'           : 1,
       \ 'unite'             : 0,
-      \ }
+      \ })
 
 if g:spacevim_fuzzyfinder ==# 'leaderf' " {{{
       \ && g:My_SpaceVim_layers['leaderf']
@@ -288,11 +289,6 @@ if g:spacevim_snippet_engine !=# 'neosnippet'
 endif
 if g:My_SpaceVim_layers.git && g:spacevim_autocomplete_method ==# 'coc'
   let g:spacevim_disabled_plugins += ['vim-gitgutter']
-endif
-if g:My_SpaceVim_layers.git && g:My_SpaceVim_layers.VersionControl
-      \ && g:currentbranch !=# 'master'
-  let g:spacevim_disabled_plugins += ['vim-gitgutter']
-  let g:spacevim_custom_plugins   += [['mhinz/vim-signify', {'merged': 0}]]
 endif
 if g:spacevim_fuzzyfinder !=# 'denite' && g:My_SpaceVim_layers.denite
   let g:spacevim_disabled_plugins += ['neomru.vim', 'unite-outline']

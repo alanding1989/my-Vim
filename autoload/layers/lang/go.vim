@@ -52,10 +52,10 @@ endfunction
 
 function! layers#lang#go#config() abort
   let g:go_highlight_types = 1
-  let g:go_highlight_extra_types = 1
   let g:go_highlight_fields = 1
   let g:go_highlight_function_parameters = 1
   let g:go_highlight_variable_declarations = 1
+  let g:go_highlight_extra_types = 1
   " let g:go_highlight_variable_assignments = 1
   if g:is_spacevim
     call SpaceVim#custom#Reg_langSPC('go', function('s:language_specified_mappings'))

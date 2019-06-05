@@ -163,11 +163,11 @@
       "command": "lua-lsp",
       "filetypes": ["lua"]
     },
-    "golang": {
-      "command": "gopls",
-      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-      "filetypes": ["go"]
-    },
+//    "golang": {
+//      "command": "gopls",
+//      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+//      "filetypes": ["go"]
+//    },
     "javascript" : {
       "command": "javascript-typescript-stdio",
       "args": [],

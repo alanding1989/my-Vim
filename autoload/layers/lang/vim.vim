@@ -50,7 +50,7 @@ function! s:language_specified_mappings() abort
   if g:is_spacevim
     call SpaceVim#mapping#space#langSPC('nnoremap', ['l', 't'],
           \ 'call setline(line("$"), "\" vim:set sw=2 ts=2 sts=2 et tw=78 fmd=marker")',
-          \ 'insert Vim file tail', 1)
+          \ '@ insert Vim file tail', 1)
     call SpaceVim#mapping#space#langSPC('nnoremap', ['l', 'a'], 'call call('
           \ . string(s:_function('s:addParam')) . ', [])',
           \ '@ add debug Parameter', 1)
@@ -120,7 +120,7 @@ else
 endif
 
 function! s:addParam() abort
-  let  char = ''
+  let char = ''
   for i in range(97, 122)
     let char = nr2char(i)
     if exists('g:'.char.'lan') || search('\%^\_.\{-}\zsg:'.char.'lan', 'nw')
@@ -130,7 +130,7 @@ function! s:addParam() abort
     endif
   endfor
   call append(line('.'), 'let g:'.char.'lan = 1')
-  normal! j
+  normal! j==
 endfunction
 
 " function() wrapper "{{{
