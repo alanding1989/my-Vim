@@ -166,7 +166,6 @@ let g:My_SpaceVim_layers = extend(get(g:, 'My_SpaceVim_layers', {
       \ 'lang#lua'          : 0,
       \ 'lang#lisp'         : 0,
       \ 'lang#javascript'   : 0,
-      \ 'lang#markdown'     : 0,
       \ 'lang#latex'        : 0,
       \ }), {
       \ 'checkers'          : 1,
