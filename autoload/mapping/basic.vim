@@ -603,7 +603,7 @@ function! <sid>EqualBox() abort
   if &ft ==# 'vim'
     call s:inshbox('"', '=')
   elseif &ft ==# 'sh' || &ft ==# 'python' || &ft ==# 'ps1'
-    call s:inshbox('# ', '=')
+    call s:inshbox('#', '=')
   elseif &ft ==# 'scala' || &ft ==# 'cpp' || &ft ==# 'c'
     call s:inshbox('//', '=')
   endif
@@ -612,7 +612,7 @@ function! <sid>MinusBox() abort
   if &ft ==# 'vim'
     call s:inshbox('"', '-')
   elseif &ft ==# 'sh' || &ft ==# 'python' || &ft ==# 'ps1'
-    call s:inshbox('# ', '-')
+    call s:inshbox('#', '-')
   elseif &ft ==# 'scala' || &ft ==# 'cpp' || &ft ==# 'c'
     call s:inshbox('//', '-')
   endif

@@ -9,31 +9,31 @@
 
 
 cd_mkdircd() {
-  if [ ! -e $1 ]; then
-    sudo mkdir -p $1
+  if [ ! -e "$2" ]; then
+    sudo mkdir -p "$2"
   fi
-  cd $1 || return
+  cd "$2" || return
 }
 
 cd_tmp_down() {
-  # $1: curl or git
+  # $2: curl or git
   # $2: url
   # $3: dir or file
   cd /tmp || return
-  if [ $1 = "curl" ]; then
-    curl -R -O $2 && tar -zxf $3
-  elif [ $1 = "git" ]; then
-    git clone $2 && cd $3
+  if [ "$2" = "curl" ]; then
+    curl -R -O "$2" && tar -zxf "$3"
+  elif [ "$2" = "git" ]; then
+    git clone "$2" && cd "$3" || return
   fi
 }
 
 CheckRepo_Update() {
-  # $1: repodir
+  # ""$2"": repodir
   # $2: git repo url
-  if [ ! -e $1 ]; then
-    git clone $2 && cd $1
+  if [ ! -e "$2" ]; then
+    git clone "$2" && cd "$2" || return
   else
-    cd $1 && git pull
+    cd "$2" && git pull
   fi
 }
 

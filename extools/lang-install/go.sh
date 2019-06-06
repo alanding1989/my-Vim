@@ -15,7 +15,7 @@
 
 
 xpath="/home/alanding/go/src/golang.org/x"
-golangrepo="git@github.com:golang"
+# golangrepo="git@github.com:golang"
 
 # declare -A dic
 # dic=(
@@ -34,8 +34,8 @@ golangrepo="git@github.com:golang"
   # ["vgo"]="$golangrepo/vgo.git"
 # )
 
-declare -a modname
-modname=($(ls $xpath))
+# declare -a modname
+# modname=($(ls $xpath))
 
 # checkclone() {
   # if [ ! -e "$1" ]; then
@@ -51,17 +51,17 @@ modname=($(ls $xpath))
   # done
 # }
 
-gitsubmodadd() {
-  git submodule add "$1" "$2"
-}
+# gitsubmodadd() {
+  # git submodule add "$1" "$2"
+# }
 
-function addsubmod() {
-  for item in ${modname[*]}; do
-    gitsubmodadd  "$golangrepo/$item.git"  "./$item"
-  done
-}
+# function addsubmod() {
+  # for item in ${modname[*]}; do
+    # gitsubmodadd  "$golangrepo/$item.git"  "./$item"
+  # done
+# }
 
-cd $xpath && addsubmod
+# cd $xpath && addsubmod
 
 # gomodtidy
 
@@ -109,5 +109,13 @@ fi
 
 if [ ! -x impl ]; then
   go get - u github.com/josharian/impl
+fi
+
+if [ ! -x go-langserver ]; then
+  go get -u github.com/sourcegraph/go-langserver
+fi
+
+if [ ! -x vimlparser ]; then
+  go get -u github.com/haya14busa/go-vimlparser/cmd/vimlparser
 fi
 
