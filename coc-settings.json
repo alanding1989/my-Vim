@@ -104,6 +104,7 @@
     "**/archetype-resources/**",
     "**/META-INF/maven/**"
   ],
+  "java.errors.incompleteClasspath.severity"    : "ignore",
   "java.contentProvider.preferred": "",
 
 
@@ -232,7 +233,6 @@
   "git.topRemovedSign.hlGroup"   : "SignifySignDelete",
   "git.changedSign.hlGroup"      : "SignifySignChange",
   "git.changeRemovedSign.hlGroup": "SignifySignChange",
-  "git.addGlameToVirtualText": true,
-  "java.errors.incompleteClasspath.severity": "ignore"
+  "git.addGlameToVirtualText"    : true
 
 }

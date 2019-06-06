@@ -5,8 +5,8 @@ scriptencoding utf-8
 
 
 
-"================================================================================
-" airline && lightline
-"================================================================================
-" ~/.SpaceVim.d/config/Vim/plugins/ui.vim
+if SpaceVim#layers#isLoaded('core#statusline')
+  finish
+endif
+
 exec 'so '.g:vim_plugindir.'ui.vim'

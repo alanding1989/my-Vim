@@ -48,9 +48,9 @@ function! Foldtext() abort " {{{
 endfunction "}}}
 
 
-" Delimiter edit Enhancement " {{{
+" Delimiter edit Enhancement " 1{{{
 
-" Params init {{{
+" Params init 2{{{
 let s:autodelimiter_debug = get(g:, 'autodelimiter_debug', 1)
 let s:withinpairs = get(b:, 'autopairs', get(g:, 'autopairs', {
       \ '('  : ')' ,
@@ -75,18 +75,11 @@ let s:withinquotes = get(b:, 'withinquotes', get(g:, 'autopairs', {
 let s:exc_rchar = ['}', ']', ')']
 " }}}
 
-function! DelEmptyPair() abort
-  return WithinEmptyPair() ? "\<Right>\<BS>\<BS>" : "\<BS>"
-endfunction
-
-function! ExpandEmptyPair() abort
-  return WithinEmptyPair() ? "\<Space>\<Space>\<left>" : "\<Space>"
-endfunction
-
-" AutoClo {{{
+" AutoClo 2{{{
 function! AutoClo(char, ...) abort
   if col('.') == 1
-    return a:0 ? a:char. a:1. "\<left>"
+    return a:0 ? a:0 == 1
+          \ ? a:char. a:1. "\<left>" : a:1
           \ : a:char. a:char. "\<left>"
   endif
 
@@ -150,9 +143,25 @@ function! AutoClo(char, ...) abort
     return a:char
   endif
   return a:char
+endfunction
+" get current line char {{{
+function! s:getcln(pos, ...) abort
+  " a:pos, cursor pos: left 0, right 1
+  " a:1, regex pattern
+  let char  = getline('.')
+  let col   = col('.') - 1
+  let char0 = char[:col]   " include curpos
+  let char1 = char[col+1:] " exinclude
+  if !a:0
+    return a:pos ? char1 : char0
+  else
+    return a:pos ? match(char1, a:1) > -1
+          \ : match(char0, a:1) > -1
+  endif
 endfunction " }}}
+" }}}
 
-" MatchDel function " {{{
+" MatchDel 2{{{
 function! MatchDel(char, regex, ...) abort
   if Within('pair')
     echo 'within pair'
@@ -223,6 +232,16 @@ function! MatchDel(char, regex, ...) abort
   endif " }}}
 endfunction " }}}
 
+" EmptyPair 2{{{
+function! DelEmptyPair() abort
+  return WithinEmptyPair() ? "\<Right>\<BS>\<BS>" : "\<BS>"
+endfunction
+
+function! ExpandEmptyPair() abort
+  return WithinEmptyPair() ? "\<Space>\<Space>\<left>" : "\<Space>"
+endfunction " }}}
+
+" Utils 2{{{
 " check char before or after cursor {{{
 function! CurChar(pos, char, ...) abort 
   " left 0, right 1, a:1 pos
@@ -358,10 +377,6 @@ function! LeftPair(...) abort
   endif
   return 0
 endfunction
-
-" function! s:NearPair() abort
-  " return RightPair() || LeftPair() ? 1 : 0
-" endfunction
 "}}}
 
 " check curline match pattern or not {{{
@@ -371,30 +386,15 @@ function! MatchCl(reg, ...) abort
       echo 'matched'
     endif
     return 1
-  elseif a:0 && a:1 ==# 'e'
-    let res = matchend(getline('.'), a:reg)
+  elseif a:0 && a:1 ==# 1
+    let res = matchstr(getline('.'), a:reg)
     if s:autodelimiter_debug
       echo res
     endif
-    return res
+    return len(res) ? [1, res] : [0, '']
   endif
   return 0
 endfunction " }}}
-
-" get current line char {{{
-function! s:getcln(pos, ...) abort
-  " a:pos, cursor pos: left 0, right 1
-  " a:1, regex pattern
-  let char  = getline('.')
-  let col   = col('.') - 1
-  let char0 = char[:col]   " include curpos
-  let char1 = char[col+1:] " exinclude
-  if !a:0
-    return a:pos ? char1 : char0
-  else
-    return a:pos ? match(char1, a:1) > -1
-          \ : match(char0, a:1) > -1
-  endif
-endfunction " }}}
-"}}}
+" }}}
+" 1}}}
 

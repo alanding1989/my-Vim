@@ -9,9 +9,7 @@ let s:loaded = 1
 
 
 
-if g:is_spacevim && SpaceVim#layers#isLoaded('core#statusline')
-  finish
-elseif !g:is_spacevim
+if !g:is_spacevim
 "--------------------------------------------------------------------------------
 " Yggdroot/indentLine
 "----------------------------------------------------------------------------- {{{

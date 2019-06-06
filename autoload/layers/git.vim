@@ -82,7 +82,7 @@ function! layers#git#config() abort
       unlet g:_spacevim_mappings_space.g.h.v | nunmap [SPC]ghv
     catch
     endtry
-    call SpaceVim#mapping#space#def('nnoremap'  , ['g', 'j']     , 'Twiggy'                   , 'open git branch manager'     , 1)
+    call SpaceVim#mapping#space#def('nnoremap'  , ['g', 'j'], 'Twiggy', 'open git branch manager', 1)
     let g:_spacevim_mappings_space.g.i = get(g:_spacevim_mappings_space.g, 'i', {'name': '+GitHub'})
     call SpaceVim#mapping#space#def('nmap'      , ['g', 'i', 'y'], '<Plug>(CopyCursorCodeUrl)',
           \ 'Copy current/selected line of github url to clipboard', 0)

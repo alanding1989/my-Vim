@@ -49,9 +49,10 @@ endfunction " }}}
 " mappings
 function! layers#edit#config() abort
   call s:vim_edgemotion()
-  call s:vim_quickhl()
   call s:tabularize()
   call s:vim_table_mode()
+  call s:better_whitespace()
+  call s:vim_quickhl()
 
   if g:is_spacevim " {{{
     let g:_spacevim_mappings[';'] = ['', 'MultiVisul prefix']
@@ -294,6 +295,17 @@ function! s:vim_table_mode() abort "{{{
   endif
 endfunction "}}}
 
+function! s:better_whitespace() abort " {{{
+  " Set the highlight color for trailing whitespaces
+  let g:better_whitespace_ctermcolor = '114'
+  let g:better_whitespace_guicolor   = '#98c379'
+  if !g:is_spacevim
+    let g:better_whitespace_filetypes_blacklist = 
+          \ ['diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown', 'leaderGuide']
+    nnoremap <silent><space>tw  :call <sid>toggle_whitespace()<CR>
+  endif
+endfunction
+" }}}
 
 " local func {{{
 function! s:transpose_with_previous(type) abort

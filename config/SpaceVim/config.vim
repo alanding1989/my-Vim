@@ -49,22 +49,19 @@ let g:enable_fat_statusline                  = 1
 let g:statusline_separator                   = get(['fire', 'arrow', 'curve', 'slant'], 1)
 let g:spacevim_statusline_left_sections      =  ['winnr', 'filename', 'syntax checking', 'minor mode lighters']
 let g:spacevim_statusline_right_sections     += g:enable_smart_clock_startup ? ['date'] : ['time', 'date']
-let g:spacevim_enable_cursorcolumn           = 0
+let g:spacevim_enable_statusline_mode        = 1
+let g:spacevim_enable_statusline_bfpath      = 1
 let g:spacevim_buffer_index_type             = 1
 let g:spacevim_windows_index_type            = 0
 let g:spacevim_enable_tabline_ft_icon        = 1
-let g:spacevim_enable_statusline_mode        = 1
-let g:spacevim_enable_statusline_bfpath      = 1
 let g:spacevim_enable_os_fileformat_icon     = 1
-let g:spacevim_error_symbol                  = g:linter_error_symbol
-let g:spacevim_warning_symbol                = g:linter_warning_symbol
-let g:spacevim_info_symbol                   = g:linter_info_symbol
-
 let g:spacevim_sidebar_width                 = g:sidebar_width
 let g:spacevim_filetree_direction            = g:filetree_direction
 let g:spacevim_enable_vimfiler_welcome       = 0
-let g:spacevim_enable_vimfiler_gitstatus     = 1
-let g:spacevim_enable_vimfiler_filetypeicon  = 0
+
+let g:spacevim_error_symbol                  = g:linter_error_symbol
+let g:spacevim_warning_symbol                = g:linter_warning_symbol
+let g:spacevim_info_symbol                   = g:linter_info_symbol
 "}}}
 
 " System: {{{
@@ -79,10 +76,8 @@ let g:spacevim_guifont                       = g:guifont
 let g:spacevim_music_path                    = g:is_win ? 'E:\娱乐影音\音乐' : '/mnt/fun+downloads/娱乐影音/音乐'
 let g:spacevim_project_rooter_patterns       = uniq(sort(g:spacevim_project_rooter_patterns
       \ + deepcopy(g:project_root_marker)))
-let g:currentbranch                          = len(glob('~/.SpaceVim')) 
-      \ ? split(filter(systemlist('git -C ~/.SpaceVim branch'),
+let g:currentbranch                          = split(filter(systemlist('git -C ~/.SpaceVim branch'),
       \ 'match(v:val, "*") > -1')[0], ' ')[1]
-      \ : ''
 "}}}
 
 
@@ -162,44 +157,44 @@ endfunction
 "     autocomplete, checkers, core, edit, format, ui,
 "============================================================================= {{{
 let g:My_SpaceVim_layers = extend(get(g:, 'My_SpaceVim_layers', {
-      \ 'lang#c'            : 1,
-      \ 'lang#go'           : 1,
+      \ 'lang#c'            : 0,
+      \ 'lang#go'           : 0,
       \ 'lang#java'         : 0,
-      \ 'lang#scala'        : 1,
-      \ 'lang#python'       : 1,
-      \ 'lang#ipynb'        : 1,
-      \ 'lang#lua'          : 1,
+      \ 'lang#scala'        : 0,
+      \ 'lang#python'       : 0,
+      \ 'lang#ipynb'        : 0,
+      \ 'lang#lua'          : 0,
       \ 'lang#lisp'         : 0,
       \ 'lang#javascript'   : 0,
-      \ 'lang#markdown'     : 1,
+      \ 'lang#markdown'     : 0,
       \ 'lang#latex'        : 0,
       \ 'VersionControl'    : 0,
       \ }), {
-      \ 'chat'              : 1,
       \ 'checkers'          : 1,
-      \ 'chinese'           : 1,
       \ 'colorscheme'       : 1,
       \ 'debug'             : 1,
       \ 'git'               : 1,
       \ 'github'            : 1,
       \ 'lsp'               : 1,
-      \ 'lang#sh'           : 1,
-      \ 'lang#vim'          : 1,
       \ 'incsearch'         : 1,
       \ 'shell'             : 1,
-      \ 'tmux'              : 1,
       \ 'tools'             : 1,
+      \ 'lang#vim'          : 1,
+      \ 'lang#sh'           : g:is_unix,
+      \ 'lang#ps1'          : g:is_win,
       \
-      \ 'denite'            : 1,
-      \ 'fzf'               : 0,
+      \ 'denite'            : 0,
       \ 'leaderf'           : 1,
-      \ 'unite'             : 0,
+      \
+      \ 'chinese'           : 1,
+      \ 'tmux'              : 0,
+      \ 'chat'              : 0,
       \ })
 
 if g:spacevim_fuzzyfinder ==# 'leaderf' " {{{
       \ && g:My_SpaceVim_layers['leaderf']
   let g:My_SpaceVim_layers['leaderf'] = 1
-  let g:My_SpaceVim_layers['denite']  = 1
+  " let g:My_SpaceVim_layers['denite']  = 1
   let g:My_SpaceVim_layers['fzf']     = 0
 elseif g:spacevim_fuzzyfinder ==# 'denite'
   let g:My_SpaceVim_layers['denite']  = 1
@@ -210,12 +205,6 @@ elseif g:spacevim_fuzzyfinder ==# 'fzf'
   let g:My_SpaceVim_layers['denite']  = 0
   let g:My_SpaceVim_layers['leaderf'] = 0
 endif "}}}
-
-" powershell {{{
-if g:is_win
-  let g:My_SpaceVim_layers['lang#ps1'] = 1
-endif
-"}}}
 
 if g:spacevim_autocomplete_method ==# 'coc' "{{{
   let g:spacevim_snippet_engine   = 'coc'
@@ -231,25 +220,18 @@ if g:pure_viml || !g:has_py " {{{
   let g:spacevim_filemanager         = 'vimfiler'
   let g:enable_smart_clock           = 0
   let g:My_SpaceVim_layers = {
-        \ 'core#statusline' : 1,
         \ 'checkers'        : 1,
-        \ 'chinese'         : 1,
         \ 'colorscheme'     : 1,
         \ 'debug'           : 1,
         \ 'git'             : 1,
         \ 'github'          : 1,
         \ 'lsp'             : 1,
-        \ 'lang#java'       : 0,
-        \ 'lang#javascript' : 0,
         \ 'lang#markdown'   : 1,
-        \ 'lang#scala'      : 1,
         \ 'lang#vim'        : 1,
         \ 'lang#sh'         : 1,
         \ 'incsearch'       : 1,
         \ 'shell'           : 1,
-        \ 'tmux'            : 1,
         \ 'tools'           : 1,
-        \ 'VersionControl'  : 0,
         \ 'unite'           : 1,
         \ }
 endif
@@ -260,13 +242,13 @@ endif
 "================================================================================
 " Disable Plugins:
 "============================================================================= {{{
-      " \ 'vim-grepper'          ,
 let g:spacevim_disabled_plugins = [
       \ 'molokai'              ,
       \ 'jellybeans.vim'       ,
       \ 'vim=hybrid'           ,
       \ 'vim-material'         ,
       \ 'srcery-vim'           ,
+      \ 'vim-grepper'          ,
       \ 'neosnippet-snippets'  ,
       \ 'vim-snippets'         ,
       \ 'CompleteParameter.vim',

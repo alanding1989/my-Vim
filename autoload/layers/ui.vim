@@ -41,15 +41,14 @@ function! layers#ui#config() abort
   " general
   call s:startify()
   call s:indent_line()
-  call s:better_whitespace()
 
   augroup rainbow_lisp
     autocmd!
     autocmd BufWinEnter * RainbowParentheses
-    autocmd FileType vimcalc setlocal nonu nornu nofoldenable | inoremap <silent> <buffer> <c-d> <c-[>:q<CR>
+    autocmd FileType vimcalc setlocal nonu nornu nofoldenable
+          \ | inoremap <silent> <buffer> <c-d> <c-[>:q<CR>
           \ | nnoremap <silent> <buffer> qd :bdelete<CR>
   augroup END
-
 endfunction
 
 
@@ -75,16 +74,6 @@ function! s:indent_line() abort
   else
     noremap <silent><space>ti  :IndentLinesToggle<CR>
     noremap <silent><space>tl  :call <sid>toggle_indent_length()<CR>
-  endif
-endfunction
-
-
-function! s:better_whitespace() abort
-  let g:better_whitespace_ctermcolor = '114'
-  let g:better_whitespace_guicolor   = '#98c379'
-  if !g:is_spacevim
-    let g:better_whitespace_filetypes_blacklist = ['diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown', 'leaderGuide']
-    nnoremap <silent><space>tw  :call <sid>toggle_whitespace()<CR>
   endif
 endfunction
 
@@ -115,7 +104,7 @@ function! s:toggle_whitespace() abort
 endfunction
 
 
-" function() wrapper
+" function() wrapper " {{{
 if v:version > 703 || v:version == 703 && has('patch1170')
   function! s:_function(fstr) abort
     return function(a:fstr)
@@ -129,3 +118,5 @@ else
     return function(substitute(a:fstr, 's:', s:_s, 'g'))
   endfunction
 endif
+" }}}
+

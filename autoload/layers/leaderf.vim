@@ -65,7 +65,7 @@ function! layers#leaderf#config() abort
     call SpaceVim#mapping#def('nnoremap', '<leader>fi', ':Leaderf self<cr>',
           \ 'fuzzy finder interactive'  , '', 'fuzzy finder interactive')
     call SpaceVim#mapping#def('nnoremap', '<leader>fg', ':Leaderf gtags<cr>',
-          \ 'fuzzy find gtags'      , '', 'fuzzy find gtags')
+          \ 'fuzzy find gtags'          , '', 'fuzzy find gtags')
 
   else
     nnoremap <silent><c-p>       :call feedkeys(':LeaderfFile ')<CR>

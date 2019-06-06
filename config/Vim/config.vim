@@ -80,31 +80,31 @@ endfunction
 "   autocomplete,  checkers,  core,  edit,  format,  leaderf
 "============================================================================= {{{
 let g:My_Vim_layers = {
-      \ 'chinese'           : 1,
+      \ 'git'               : 1,
+      \ 'lsp'               : 1,
+      \ 'langtools'         : 1,
       \ 'tags'              : 1,
       \ 'tools'             : 1,
-      \ 'langtools'         : 1,
-      \ 'lsp'               : 1,
       \ 'lang#markdown'     : 1,
       \ 'lang#ipynb'        : 0,
       \ 'lang#python'       : 1,
       \ 'lang#latex'        : 0,
       \ 'lang#scala'        : 0,
       \ 'lang#vim'          : 1,
+      \ 'lang#ps1'          : g:is_win,
       \ 'tools#clock'       : 1,
-      \ 'git'               : 1,
-      \ 'VersionControl'    : 0,
       \
       \ 'denite'            : 0,
-      \ 'fzf'               : 0,
       \ 'leaderf'           : 1,
-      \ 'unite'             : 0,
+      \
+      \ 'chinese'           : 1,
+      \ 'VersionControl'    : 0,
       \ }
 
 if g:fuzzyfinder ==# 'leaderf' " {{{
       \ && g:My_Vim_layers['leaderf']
   let g:My_Vim_layers['leaderf'] = 1
-  let g:My_Vim_layers['denite']  = 1
+  let g:My_Vim_layers['denite']  = 0
 elseif g:fuzzyfinder ==# 'denite'
   let g:My_Vim_layers['denite']  = 1
   let g:My_Vim_layers['leaderf'] = 0
@@ -113,12 +113,6 @@ elseif g:fuzzyfinder ==# 'fzf'
   let g:My_Vim_layers['denite']  = 0
   let g:My_Vim_layers['leaderf'] = 0
 endif "}}}
-
-" powershell {{{
-if g:is_win
-  let g:My_Vim_layers['lang#ps1'] = 1
-endif
-"}}}
 
 if g:autocomplete_method ==# 'coc' " {{{
   let g:snippet_engine = 'coc'
@@ -134,17 +128,14 @@ if g:pure_viml || !g:has_py " {{{
   let g:filemanager         = 'vimfiler'
   let g:enable_smart_clock  = 0
   let g:My_Vim_layers = {
-        \ 'chinese'         : 1,
         \ 'colorscheme'     : 1,
         \ 'tags'            : 1,
         \ 'tools'           : 1,
         \ 'lsp'             : 1,
-        \ 'lang#latex'      : 0,
         \ 'lang#scala'      : 0,
+        \ 'lang#python'     : 1,
         \ 'lang#vim'        : 1,
-        \ 'tools#clock'     : 1,
         \ 'ui'              : 1,
-        \ 'VersionControl'  : 1,
         \ 'unite'           : 1,
         \ }
 endif "}}}
@@ -158,3 +149,4 @@ endif "}}}
       " \ '',
       " \ ]
 "}}}
+

@@ -51,11 +51,13 @@ endfunction
 
 function! s:AutoPairs(...) abort " {{{
   let single = extend(["'", '"', '`'], a:0 && a:000[-1] == 1 ? [a:1] : [])
+  " string a:1 " ' *
   for r in single
     exec 'inoremap <expr> '.r.' AutoClo('.string(r).')'
   endfor
 
   let autopairs = extend({'(':')', '[':']', '{':'}'}, a:0 && a:000[-1] == 2 ? a:1 : {})
+  " dict a:1 {} () []
   for [l, r] in items(autopairs)
     exec 'inoremap <expr> '.l.' AutoClo('.string(l).', '.string(r).')'
     exec 'inoremap <expr> '.r.' AutoClo('.string(l).', '.string(r).', 1)'

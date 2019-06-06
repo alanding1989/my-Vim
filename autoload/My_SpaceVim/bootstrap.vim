@@ -17,7 +17,7 @@ endfunction
 function! My_SpaceVim#bootstrap#after() abort
   call SpaceVim#custom#Reg_langSPC('vim', function('s:language_specified_mappings'))
   call util#so_file('keymap.vim', 'SPC')
-  call s:loadconfig([ 'core', 'autocomplete' ])
+  call s:loadconfig(['core', 'autocomplete'])
 
 endfunction
 
@@ -44,10 +44,6 @@ endfunction
 
 
 " function() wrapper "{{{
-function! util#valid(type, ...) abort
-  return util#{a:type}#valid(a:000)
-endfunction
-
 if v:version > 703 || v:version == 703 && has('patch1170')
   function! s:_function(fstr) abort
     return function(a:fstr)
