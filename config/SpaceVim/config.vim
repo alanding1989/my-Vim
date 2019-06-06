@@ -179,6 +179,7 @@ let g:My_SpaceVim_layers = extend(get(g:, 'My_SpaceVim_layers', {
       \ 'shell'             : 1,
       \ 'tools'             : 1,
       \ 'lang#vim'          : 1,
+      \ 'lang#markdown'     : 1,
       \ 'lang#sh'           : g:is_unix,
       \ 'lang#ps1'          : g:is_win,
       \
