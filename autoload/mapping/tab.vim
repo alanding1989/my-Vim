@@ -43,7 +43,7 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
               \ })
         return "\<plug>(neosnippet_jump)"
       elseif !s:check_bs()
-        return "\<tab>"
+        return RightPair() ? "\<right>" : "\<tab>"
       else
         return    s:md ==# 'coc'          ? coc#refresh()
               \ : s:md ==# 'deoplete'     ? deoplete#manual_complete()
@@ -106,7 +106,7 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
     elseif g:ulti_expand_or_jump_res == 2
       return sni
     elseif !s:check_bs()
-      return "\<tab>"
+      return RightPair() ? "\<right>" : "\<tab>"
     else
       return    s:md ==# 'coc'          ? coc#refresh()
             \ : s:md ==# 'deoplete'     ? deoplete#manual_complete()
@@ -150,7 +150,7 @@ elseif s:md ==# 'coc'
       elseif coc#jumpable()
         return "\<Plug>(coc-snippets-expand-jump)"
       elseif !s:check_bs()
-        return "\<tab>"
+        return RightPair() ? "\<right>" : "\<tab>"
       else
         return coc#refresh()
       endif

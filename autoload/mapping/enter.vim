@@ -5,7 +5,10 @@
 scriptencoding utf-8
 
 
-let s:md = get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method', 'asyncomplete'))
+let s:md = get(g:, 'spacevim_autocomplete_method',
+      \ get(g:, 'autocomplete_method', 'asyncomplete'))
+let s:autocomplete_parens = get(g:, 'spacevim_autocomplete_parens',
+      \ get(g:, 'autocomplete_parens', 0))
 
 " ================================================================================
 " neosnippet
@@ -114,9 +117,15 @@ endif
 "}}}
 
 
-
-inoremap <expr><Plug>(EolCR)    exists('b:eol_marker') && MatchCl('^$') 
-      \ ? b:eol_marker."\<CR>" : "\<CR>"
+" MatchCl('^$')
+if s:autocomplete_parens
+  imap <Plug>(EolCR)  <Plug>delimitMateCR
+else
+  inoremap <expr><Plug>(EolCR)  exists('b:eol_marker')
+        \ && ( CurChar(0, '\w') \|\| MatchCl('return.*)') )
+        \ ? b:eol_marker."\<CR>" 
+        \ : "\<CR>"
+endif
 
 inoremap <expr><Plug>(SmartCR)  <sid>SmartCR()
 

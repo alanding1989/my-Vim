@@ -10,7 +10,8 @@ let s:snippet_engine      = get(g:, 'spacevim_snippet_engine',
       \ get(g:, 'snippet_engine', 'neosnippet'))
 let s:autocomplete_method = get(g:, 'spacevim_autocomplete_method',
       \ get(g:, 'autocomplete_method', 'deoplete'))
-
+let s:autocomplete_parens = get(g:, 'spacevim_autocomplete_parens',
+      \ get(g:, 'autocomplete_parens', 0))
 
 function! layers#autocomplete#plugins() abort
   let plugins = [
@@ -92,7 +93,9 @@ function! layers#autocomplete#plugins() abort
           \ ['Shougo/context_filetype.vim'     , {'on_event': 'InsertEnter'}],
           \ ['Shougo/echodoc.vim', {'on_event' : 'CompleteDone'}]
           \ ]
-          " \ ['Raimondi/delimitMate'            , {'merged'  : 0}],
+    if s:autocomplete_parens
+      call add(plugins, ['Raimondi/delimitMate' ,  { 'merged' : 0}])
+    endif
     if g:snippet_engine ==# 'neosnippet'
       call add(plugins, ['Shougo/neosnippet.vim', {'on_event': 'InsertEnter',
             \ 'on_ft': 'neosnippet', 'on_cmd': 'NeoSnippetEdit'}])
@@ -125,11 +128,16 @@ function! layers#autocomplete#config() abort
   imap     <silent><expr><CR>    mapping#enter#Super_Enter()
   call mapping#tab#S_Tab()
   call mapping#space#C_Space()
-  inoremap <expr><Space>         ExpandEmptyPair()
-  inoremap <silent><expr><C-h>   pumvisible() ? "\<C-e>\<C-r>=DelEmptyPair()\<CR>" :
-        \ CurChar(0, '\s') && CurChar(0, '\S', -3) && CurChar(0, '\s', -4)
-        \ ? "\<BS>\<left>\<BS>\<right>" : DelEmptyPair()
+  if !s:autocomplete_parens
+    inoremap <expr><Space>         ExpandEmptyPair()
+    inoremap <silent><expr><C-h>   pumvisible() 
+          \ ? "\<C-e>\<C-r>=DelEmptyPair()\<CR>" 
+          \ : DelEmptyPair()
+  endif
 
+  " inoremap <silent><expr><C-h>   pumvisible() ? "\<C-e>\<C-r>=DelEmptyPair()\<CR>" :
+        " \ CurChar(0, '\s') && CurChar(0, '\S', -3) && CurChar(0, '\s', -4)
+        " \ ? "\<BS>\<left>\<BS>\<right>" : DelEmptyPair()
   call s:editsnippet()
   augroup layer_autocmplete
     autocmd!

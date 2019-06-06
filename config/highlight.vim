@@ -123,13 +123,16 @@ endif
 " }}}
 
 " C Cpp: {{{
-let g:_defhighlight_var.hlcolor.cpp = {
-      \ 'cInclude'                     : ['#f92672',   -1,  -1, -1, 0, 0],
+let s:enable_cpp_dark_type = 0
+      " \ 'cInclude'                     : ['#f92672',   -1,  -1, -1, 0, 0],
+let g:_defhighlight_var.hlcolor.cpp = extend({
       \ 'cIncluded'                    : ['#f92672',   -1,  -1, -1, 0, 0],
       \ 'cStatement'                   : ['#f92672',   -1,  -1, -1, 0, 0],
       \ 'chromaticaKeyword'            : ['#f92672',   -1,  -1, -1, 0, 0],
       \ 'chromaticaException'          : ['#f92672',   -1,  -1, -1, 0, 0],
+      \
       \ 'chromaticaIncludedHeaderFile' : ['#abb2bf',   -1, 145, -1, 0, 0],
+      \ 'chromaticaTypeRef'            : ['#607fbf',   -1, 180, -1, 0, 0],
       \
       \ 'Namespace'                    : ['#1aa3a1',   -1,  -1, -1, 0, 1],
       \ 'chromaticaClassDecl'          : ['#1aa3a1',   -1,  -1, -1, 0, 1],
@@ -141,7 +144,17 @@ let g:_defhighlight_var.hlcolor.cpp = {
       \ 'Variable'                     : ['#ffaf00',   -1, 214, -1, 0, 0],
       \ 'Type'                         : ['#e5c07b',   -1, 207, -1, 0, 0],
       \ 'cStorageClass'                : ['#aab6e1',   -1,  -1, -1, 1, 0],
+      \ }, !executable('clang') ? {
+      \ 'cIncluded'                    : ['#1aa3a1',   -1,  -1, -1, 0, 1],
+      \ } : {})
+let s:cpp_darktype = {
+      \ 'Type'                         : ['#607fbf',   -1, 207, -1, 0, 0],
+      \ 'chromaticaTypeRef'            : ['Grey'   ,   -1, 'Grey', -1, 0, 0],
       \ }
+if s:enable_cpp_dark_type
+  call s:addColor(s:cpp_darktype, 'c')
+  call s:addColor(s:cpp_darktype, 'cpp')
+endif
 let g:_defhighlight_var.hlcolor.c = g:_defhighlight_var.hlcolor.cpp
 " }}}
 
