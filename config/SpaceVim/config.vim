@@ -157,7 +157,7 @@ endfunction
 "     autocomplete, checkers, core, edit, format, ui,
 "============================================================================= {{{
 let g:My_SpaceVim_layers = extend(get(g:, 'My_SpaceVim_layers', {
-      \ 'lang#c'            : 0,
+      \ 'lang#c'            : 1,
       \ 'lang#go'           : 0,
       \ 'lang#java'         : 0,
       \ 'lang#scala'        : 0,

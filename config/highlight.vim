@@ -37,7 +37,6 @@ let g:_defhighlight_var.hlcolor.general = extend({
       \
       \ 'Function'    : ['#a3e234',        -1,  -1, -1, 0, 0],
       \ 'Identifier'  : ['#ffaf00',        -1, 214, -1, 0, 0],
-      \ 'Type'        : ['#607fbf',        -1, 180, -1, 0, 1],
       \
       \ 'Statement'   : ['#f92672',        -1,  -1, -1, 0, 0],
       \ 'Conditional' : ['#f92672',        -1,  -1, -1, 0, 0],
@@ -53,6 +52,7 @@ let g:_defhighlight_var.hlcolor.general = extend({
       \ }, s:general_enable_light ? {
       \ 'Type'        : ['#e5c07b',        -1, 207, -1, 0, 0],
       \ } : {})
+      " \ 'Type'        : ['#607fbf',        -1, 180, -1, 0, 0],
 " darker String background
 let s:general_darkstring = {
       \ 'Constant'    : ['#98c379', '#3c3836',  -1, -1, 1, 0],
@@ -123,22 +123,24 @@ endif
 " }}}
 
 " C Cpp: {{{
-      " \ 'Statement'           : ['#f92672',   -1,  -1, -1, 0, 0],
-      " \ 'Repeat'              : ['#f92672',   -1,  -1, -1, 0, 0],
-      " \ 'Conditional'         : ['#f92672',   -1,  -1, -1, 0, 0],
-      " \ 'Function'            : ['#a3e234',   -1,  -1, -1, 0, 0],
-      " \ 'Number'              : ['#d19a66',   -1,  -1, -1, 0, 0],
 let g:_defhighlight_var.hlcolor.cpp = {
-      \ 'cInclude'            : ['#f92672',   -1,  -1, -1, 0, 0],
-      \ 'chromaticaKeyword'   : ['#f92672',   -1,  -1, -1, 0, 0],
-      \ 'chromaticaException' : ['#f92672',   -1,  -1, -1, 0, 0],
+      \ 'cInclude'                     : ['#f92672',   -1,  -1, -1, 0, 0],
+      \ 'cIncluded'                    : ['#f92672',   -1,  -1, -1, 0, 0],
+      \ 'cStatement'                   : ['#f92672',   -1,  -1, -1, 0, 0],
+      \ 'chromaticaKeyword'            : ['#f92672',   -1,  -1, -1, 0, 0],
+      \ 'chromaticaException'          : ['#f92672',   -1,  -1, -1, 0, 0],
+      \ 'chromaticaIncludedHeaderFile' : ['#abb2bf',   -1, 145, -1, 0, 0],
       \
-      \ 'Namespace'           : ['#1aa3a1',   -1,  -1, -1, 0, 1],
+      \ 'Namespace'                    : ['#1aa3a1',   -1,  -1, -1, 0, 1],
+      \ 'chromaticaClassDecl'          : ['#1aa3a1',   -1,  -1, -1, 0, 1],
+      \ 'chromaticaStructDecl'         : ['#1aa3a1',   -1,  -1, -1, 0, 1],
+      \ 'chromaticaUnionDecl'          : ['#1aa3a1',   -1,  -1, -1, 0, 1],
+      \ 'chromaticaEnumDecl'           : ['#1aa3a1',   -1,  -1, -1, 0, 1],
       \
-      \ 'Type'                : ['#607fbf',   -1, 207, -1, 1, 0],
-      \ 'Member'              : ['#c678dd',   -1,  -1, -1, 1, 0],
-      \
-      \ 'Variable'            : ['#ffaf00',   -1, 214, -1, 0, 0],
+      \ 'Member'                       : ['#c678dd',   -1,  -1, -1, 1, 0],
+      \ 'Variable'                     : ['#ffaf00',   -1, 214, -1, 0, 0],
+      \ 'Type'                         : ['#e5c07b',   -1, 207, -1, 0, 0],
+      \ 'cStorageClass'                : ['#aab6e1',   -1,  -1, -1, 1, 0],
       \ }
 let g:_defhighlight_var.hlcolor.c = g:_defhighlight_var.hlcolor.cpp
 " }}}

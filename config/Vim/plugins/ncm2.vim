@@ -28,7 +28,7 @@ augroup my_ncm2_settings
 " language setting
 "--------------------------------------------------------------------------------
   auto FileType python,ipynb call <sid>python_source()
-  auto FileType markdown let b:ncm2_look_enabled = 1
+  " auto FileType markdown let b:ncm2_look_enabled = 1
   auto FileType vim call ncm2#override_source('vim', {
         \ 'name'       : 'vim',
         \ 'mark'       : 'vim',

@@ -53,6 +53,7 @@ function! layers#autocomplete#plugins() abort
           \ ['fgrsnau/ncm2-otherbuf'     , {'on_event': 'InsertEnter'}],
           \ ['ncm2/ncm2-tern'            , {'on_event': 'InsertEnter', 'build': 'npm install', 'do': 'npm install'}],
           \ ]
+    call add(plugins, ['filipekiss/ncm2-look.vim'   , {'on_event': 'InsertEnter'}])
     if !g:is_win
       call add(plugins, ['ncm2/ncm2-match-highlight'  , {'on_event': 'InsertEnter'}])
     endif
