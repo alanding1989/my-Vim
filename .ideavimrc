@@ -33,40 +33,46 @@ nnoremap s                <nop>
 
 " all mode init
 noremap <bs>              %
-noremap <c-a>             ^
-noremap <c-e>             $
+noremap <C-a>             ^
+noremap <C-e>             $
 noremap i                 zzi
 
 nnoremap <C-h>            <Left>
 nnoremap <C-l>            <Right>
 nnoremap <C-j>            <Down>
 nnoremap <C-k>            <Up>
+nnoremap <C-i>            :action Forward<CR>
+nnoremap <C-o>            :action Back<CR>
 
 " insert mode
-inoremap <c-b>            <Left>
-inoremap <c-f>            <Right>
-inoremap <c-l>            <Right>
-inoremap <c-a>            <Esc>^i
-inoremap <c-e>            <End>
-inoremap <c-h>            <BS>
-inoremap <c-d>            <Del>
-inoremap <c-q>            <Esc>lC
-inoremap <c-_>            <c-k>
+inoremap <C-b>            <Left>
+inoremap <C-f>            <Right>
+inoremap <C-l>            <Right>
+inoremap <C-a>            <Esc>^i
+inoremap <C-e>            <End>
+inoremap <C-h>            <BS>
+inoremap <C-d>            <Del>
+" inoremap <C-u>            <Esc>:action EditorDeleteToLineStart<CR>i
+inoremap <C-u>            <C-g>u<C-u>
+inoremap <C-q>            <Esc>lC
+inoremap <C-_>            <C-k>
 inoremap <C-p>            <C-left>
 inoremap <C-n>            <C-right>
+inoremap <C-i>            <Esc>:action InsertLiveTemplate<CR>i
+inoremap <C-o>            <Esc>:action PreviousTemplateVariable<CR>i
 " does not work for M
 " inoremap <M-j>            <CR>
 
 " faster command mode
 cnoremap qw               <Esc>
-cnoremap <c-h>            <BS>
-cnoremap <c-b>            <Left>
-cnoremap <c-l>            <Right>
-cnoremap <c-f>            <Right>
-cnoremap <c-a>            <Home>
-cnoremap <c-e>            <End>
-cnoremap <c-d>            <Del>
-cnoremap <c-_>            <c-k>
+cnoremap <C-h>            <BS>
+cnoremap <C-b>            <Left>
+cnoremap <C-l>            <Right>
+cnoremap <C-f>            <Right>
+cnoremap <C-a>            <Home>
+cnoremap <C-e>            <End>
+cnoremap <C-d>            <Del>
+cnoremap <C-_>            <C-k>
 
 " tabn tabp
 nnoremap <leader><tab>    gt
@@ -89,13 +95,13 @@ nnoremap sh               :action PreviousTab<CR>
 nnoremap sm               :action MaximizeToolWindow<CR>
 nnoremap so               :action OpenFile<CR>
 nnoremap sv               :vs<CR>
-nnoremap sp               :sp<CR>
+nnoremap ss               :sp<CR>
 nnoremap su               :nohl<CR>
 
 nnoremap g0               g*
 
-nnoremap <c-w>r           :action MoveTabRight<CR>
-nnoremap <c-w>d           :action MoveTabDown<CR>
+nnoremap <C-w>r           :action MoveTabRight<CR>
+nnoremap <C-w>d           :action MoveTabDown<CR>
 
 " scroll
 nnoremap <C-f>            <C-d>M
@@ -104,6 +110,8 @@ nnoremap <C-d>            3<C-e>
 nnoremap <C-u>            3<C-y>
 
 " folding
+nnoremap zo               zRzz
+nnoremap zi               zMzz
 nnoremap <CR>             zozz
 nnoremap <S-CR>           zMzozz
 nnoremap zj               zjzz
@@ -148,8 +156,8 @@ noremap  <leader>P        "*P
 xnoremap <                <gv
 xnoremap >                >gv|
 " Use tab for indenting in visual mode
-xnoremap <c-l>            >gv|
-xnoremap <c-h>            <gv
+xnoremap <C-l>            >gv|
+xnoremap <C-h>            <gv
 nnoremap >                >>_
 nnoremap <                <<_
 
@@ -165,8 +173,8 @@ nnoremap <leader>og       :action SearchWithGoogle<CR>
 
 
 " built-in navigation to navigate items works better
-nnoremap <c-o>            :action Back<CR>
-nnoremap <c-i>            :action Forward<CR>
+nnoremap <C-o>            :action Back<CR>
+nnoremap <C-i>            :action Forward<CR>
 
 nnoremap ]]               :action MethodDown<CR>
 nnoremap [[               :action MethodUp<CR>
@@ -268,9 +276,9 @@ nnoremap <leader>a        :action HideAllWindows<CR>
 " plugins
 set surround
 set multiple-cursors
-nnoremap <c-m>                 <A-n>
-nnoremap <c-x>                 <A-x>
-nnoremap <c-q>                 <ESC>:action EditorTranslateAction<CR>
+nnoremap <C-m>                 <A-n>
+nnoremap <C-x>                 <A-x>
+nnoremap <C-q>                 <ESC>:action EditorTranslateAction<CR>
 
 nnoremap <leader><leader>f     :action KJumpAction<CR>
 nnoremap <leader><leader>l     :action KJumpAction.Line<CR>

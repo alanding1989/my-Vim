@@ -11,7 +11,7 @@ function! mapping#basic#load() abort
   set timeout
   set timeoutlen=400
   call <sid>DefinePlug()
-  " call mapping#delimitor#init()
+  call mapping#delimitor#init()
   auto VimEnter * call s:unmap_SPC()
 
   " mode mapping {{{
