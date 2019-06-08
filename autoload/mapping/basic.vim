@@ -263,7 +263,7 @@ function! mapping#basic#load() abort
 
   " help
   nnoremap <expr><F1>             &ft ==# 'vim' ? ":update\<CR>:source %<CR>" 
-                                  \ : &ft ==# 'python' && !&modified ? ":e\<CR>" : "\<F1>"
+                                  \ : !&modified ? ":e\<CR>" : "\<F1>"
   nnoremap <silent>K              :call util#help_wrapper()<CR>
   nnoremap <Space>hh              :call feedkeys(':EchoHelp ')<CR>
   " show full path

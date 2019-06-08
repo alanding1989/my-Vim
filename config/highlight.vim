@@ -46,6 +46,7 @@ let g:_defhighlight_var.hlcolor.general = extend({
       \ 'Keyword'     : ['#f92672',        -1,  -1, -1, 0, 0],
       \ 'Exception'   : ['#f92672',        -1,  -1, -1, 0, 0],
       \ 'Include'     : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ 'Typedef'     : ['#f92672',        -1,  -1, -1, 0, 0],
       \
       \ 'Structure'   : ['#1aa3a1',        -1,  -1, -1, 0, 1],
       \ 'StorageClass': ['#aab6e1',        -1,  -1, -1, 1, 0],
