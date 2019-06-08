@@ -56,6 +56,14 @@ set mouse=nv
 set autoread
 set hidden
 
+if has('clipboard')
+  if has('unnamedplus')  " use @+ for system clipboard
+    set clipboard=unnamed,unnamedplus
+  else         " On mac and Windows, use @*
+    set clipboard=unnamed
+  endif
+endif
+
 " speed up
 set lazyredraw
 set synmaxcol=300
