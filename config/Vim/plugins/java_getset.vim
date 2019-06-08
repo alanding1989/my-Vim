@@ -1,3 +1,10 @@
+scriptencoding utf-8
+if get(s:, 'loaded', 0)
+  finish
+endif
+let s:loaded = 1
+
+
 let g:java_getset_disable_map = get(g:, 'java_getset_disable_map', 1)
 let g:javagetset_setterTemplate = get(g:, 'javagetset_setterTemplate',
       \ "/**\n" .

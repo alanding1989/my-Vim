@@ -5,6 +5,10 @@
 " Created Time : Sun 12 May 2019 07:51:54 PM CST
 "================================================================================
 scriptencoding utf-8
+if get(s:, 'loaded', 0)
+  finish
+endif
+let s:loaded = 1
 
 
 " in neovim, we can use deoplete-jedi together with jedi-vim,
