@@ -262,7 +262,7 @@ function! mapping#basic#load() abort
   nnoremap <silent><leader>qc     :call setqflist([])<CR>
 
   " help
-  nnoremap <expr><F1>             &ft ==# 'vim' ? ":update\<CR>:source %<CR>" 
+  nnoremap <expr><F1>             &ft ==# 'vim' ? ":update\<CR>:source %<CR>"
                                   \ : !&modified ? ":e\<CR>" : "\<F1>"
   nnoremap <silent>K              :call util#help_wrapper()<CR>
   nnoremap <Space>hh              :call feedkeys(':EchoHelp ')<CR>
@@ -634,44 +634,36 @@ endfun
 " insert file head {{{
 function! <sid>SetFileHead(...) abort
   let info = a:0 ? a:1 : ''
-  if &filetype ==# 'vim' || &filetype ==# ''
-    call s:insfhead('"', 'scriptencoding utf-8', 'info1')
-
-  elseif &filetype ==# 'sh'
-    call s:insfhead('#', '#! /usr/bin/env bash', info)
-
-  elseif &filetype ==# 'ps1'
-    call s:insfhead('#', '', info)
-
-  elseif &filetype ==# 'python' || &filetype ==# 'ipynb'
-    call s:insfhead('#', '#! /usr/bin/env python3', '# -*- coding: utf-8 -*-', info)
-
-  elseif &filetype ==# 'scala'
-    call s:insfhead('*', '', '/*', info)
-
-  elseif &filetype ==# 'cpp'
-    call s:insfhead('*', '#include <iostream>', 'using namespace std;', '/*', info)
-
-  elseif &filetype ==# 'c'
-    call s:insfhead('*', '#include <stdio.h>', '/*', info)
-  endif
-endfun
-function! s:insfhead(cmsign, ...) abort
+  let dict = {
+        \ ''       : ['"', 'scriptencoding utf-8', 'info1'],
+        \ 'vim'    : ['"', 'scriptencoding utf-8', 'info1'],
+        \ 'sh'     : ['#', '#! /usr/bin/env bash', info],
+        \ 'ps1'    : ['#', '', info],
+        \ 'python' : ['#', '#! /usr/bin/env python3', '# -*- coding: utf-8 -*-', info],
+        \ 'ipynb'  : ['#', '#! /usr/bin/env python3', '# -*- coding: utf-8 -*-', info],
+        \ 'scala'  : ['*', '', '/*', info],
+        \ 'c'      : ['*', '#include <stdio.h>', '/*', info],
+        \ 'cpp'    : ['*', '#include <iostream>', 'using namespace std;', '/*', info],
+        \ 'text'   : ['*', '', '/*', info],
+        \ }
+  call <sid>insfhead(dict[&ft][0], dict[&ft][1:])
+endfunction
+function! s:insfhead(cmsign, list) abort
   let head = []
   if &filetype ==# 'vim'
-    let head += <sid>insinfo(a:cmsign, 1, a:000[-2])[:-2]
-    let head += a:000[:-2] + ['']
+    let head += <sid>insinfo(a:cmsign, 1, a:list[-2])[:-2]
+    let head += a:list[:-2] + ['']
   else
-    let head += a:000[-2] ==# '/*' ? a:000[0:-3] : a:000[0:-2]
-    let head += len(a:000[-1]) && a:1 !=# '' ? [''] : []
-    let head += a:000[-1] ==# 'info0' ? <sid>insinfo(a:cmsign, 0, a:000[-2])
-          \ :   a:000[-1] ==# 'info1' ? <sid>insinfo(a:cmsign, 1, a:000[-2])
+    let head += a:list[-2] ==# '/*' ? a:list[0:-3] : a:list[0:-2]
+    let head += len(a:list[-1]) && a:list[0] !=# '' ? [''] : []
+    let head += a:list[-1] ==# 'info0' ? <sid>insinfo(a:cmsign, 0, a:list[-2])
+          \ :   a:list[-1] ==# 'info1' ? <sid>insinfo(a:cmsign, 1, a:list[-2])
           \ :   ['', '']
   endif
   call append(0, head)
   call setpos('.', [0, len(head)+1, 1])
   startinsert
-endfunc
+endfunction
 function! s:insinfo(cmsign, hasEqual, ...) abort
   if a:0 && a:1 ==# '/*'
     let head = a:hasEqual ? [

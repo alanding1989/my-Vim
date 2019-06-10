@@ -1,0 +1,23 @@
+
+新来的小伙伴:
+
+由于新手用户提问的大多都是重复问题，因此请在提问前详读官网(https://spacevim.org/cn/documentation/)
+使用文档，善用<Ctrl-F>浏览器页面关键词搜索。
+提问前请说明使用系统平台。
+
+
+常见问题
+
+1), 安装SpaceVim结束，进入neovim或者vim不自动安装插件。
+  1, 请确保进入vim后是SpaceVim界面，而不是原生vim界面。
+  2, 如果原来安装过vim其他版本或者有vimrc在系统根目录，请移至别处后用
+  官网安装脚本安装，不要手动克隆仓库，否则路径会出现问题。
+2), markdown Buiding failed或任何其他插件出现同样问题。
+  1，请确保插件依赖, 如node，yarn, make等可执行。
+  2, 请在vim命令行执行:SPInstall [plugin name], 再次安装，如还不成功
+  请在该插件顶层目录手动build, 如yarn install。
+  默认插件顶层目录linux系统为'~/.cache/vimfiles/repos/github.com/pluginAthorname/pluginname'。
+  windows系统为C盘相应用根目录下对应的地址。
+3), python环境配置问题请参考
+  (https://github.com/SpaceVim/SpaceVim/blob/f5c8244f2c4411482b978239d3986dd719e0a174/docs/faq.md#how-to-enable-py-and-py3-in-neovim)
+
