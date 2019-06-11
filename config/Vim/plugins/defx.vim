@@ -1,23 +1,19 @@
 "=============================================================================
-" defx.vim --- defx config
+" defx.vim --- defx configuration
 "=============================================================================
 scriptencoding utf-8
-if get(s:, 'loaded', 0)
-  finish
-endif
-let s:loaded = 1
 
 
 let s:SYS = SpaceVim#api#import('system')
 
-if g:filetree_direction ==# 'right'
+if g:spacevim_filetree_direction ==# 'right'
   let s:direction = 'rightbelow'
 else
   let s:direction = 'leftabove'
 endif
 
 call defx#custom#option('_', {
-      \ 'winwidth'          : g:sidebar_width,
+      \ 'winwidth'          : g:spacevim_sidebar_width,
       \ 'split'             : 'vertical',
       \ 'direction'         : s:direction,
       \ 'show_ignored_files': 0,
@@ -45,15 +41,15 @@ augroup vfinit
   autocmd FileType defx call s:defx_init()
   " auto close last defx windows
   autocmd BufEnter * nested if
-        \ (!has('vim_starting') && winnr('$') == 1
+        \ (!has('vim_starting') && winnr('$') == 1  && g:_spacevim_autoclose_filetree
         \ && &filetype ==# 'defx') |
         \ call s:close_last_vimfiler_windows() | endif
 augroup END
 
 " in this function, we should check if shell terminal still exists,
-" then close the terminal job before close defx
-function! s:close_last_defx_windows() abort
-  " call SpaceVim#layers#shell#close_terminal()
+" then close the terminal job before close vimfiler
+function! s:close_last_vimfiler_windows() abort
+  call SpaceVim#layers#shell#close_terminal()
   q
 endfunction
 
@@ -63,6 +59,11 @@ function! s:defx_init()
   setl listchars=
   setl nofoldenable
   setl foldmethod=manual
+
+  " disable this mappings
+  nnoremap <silent><buffer> <3-LeftMouse> <Nop>
+  nnoremap <silent><buffer> <4-LeftMouse> <Nop>
+  nnoremap <silent><buffer> <LeftMouse> <LeftMouse><Home>
 
   silent! nunmap <buffer> <Space>
   silent! nunmap <buffer> <C-l>
@@ -98,8 +99,15 @@ function! s:defx_init()
   nnoremap <silent><buffer><expr> o defx#do_action('call', 'DefxSmartL')
   nnoremap <silent><buffer><expr> <Right> defx#do_action('call', 'DefxSmartL')
   nnoremap <silent><buffer><expr> <2-LeftMouse>
-        \ defx#is_directory() ?
-        \ defx#do_action('open_tree') : defx#do_action('drop')
+        \ defx#is_directory() ? 
+        \     (
+        \     defx#is_opened_tree() ?
+        \     defx#do_action('close_tree') :
+        \     defx#do_action('open_tree')
+        \     )
+        \ : defx#do_action('drop')
+  nnoremap <silent><buffer><expr> sg
+        \ defx#do_action('drop', 'vsplit')
   nnoremap <silent><buffer><expr> sv
         \ defx#do_action('drop', 'vsplit')
   nnoremap <silent><buffer><expr> ss
