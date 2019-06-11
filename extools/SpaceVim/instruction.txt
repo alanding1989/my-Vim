@@ -9,8 +9,9 @@
 常见问题
 
 1), 安装SpaceVim结束，进入neovim或者vim不自动安装插件。
-  1, 请确保进入vim后是SpaceVim界面，而不是原生vim界面。
-  2, 如果原来安装过vim其他版本或者有vimrc在系统根目录，请移至别处后用
+  1, 请升级至最新版本vim或者neovim。
+  2, 请确保进入vim后是SpaceVim界面，而不是原生vim界面。
+  3, 如果原来安装过vim其他版本或者有vimrc在系统根目录，请移至别处后用
   官网安装脚本安装，不要手动克隆仓库，否则路径会出现问题。
 2), markdown Buiding failed或任何其他插件出现同样问题。
   1，请确保插件依赖, 如node，yarn, make等可执行。
