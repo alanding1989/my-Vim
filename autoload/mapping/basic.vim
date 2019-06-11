@@ -32,9 +32,9 @@ function! mapping#basic#load() abort
 
   " insert mode
   inoremap <nowait>\    \
-  inoremap <Expr><C-j>  pumvisible() ? "\<C-n>" : "\<down>"
-  inoremap <Expr><C-k>  pumvisible() ? "\<C-p>" : "\<up>"
-  inoremap <Expr><C-e>  pumvisible() ? (!g:has_py ?
+  inoremap <expr><C-j>  pumvisible() ? "\<C-n>" : "\<down>"
+  inoremap <expr><C-k>  pumvisible() ? "\<C-p>" : "\<up>"
+  inoremap <expr><C-e>  pumvisible() ? (!g:has_py ?
         \ asyncomplete#cancel_popup() : "\<C-e>") : "\<End>"
   inoremap <C-a>        <Esc>^i
   inoremap <C-b>        <left>
@@ -42,7 +42,7 @@ function! mapping#basic#load() abort
   inoremap <C-l>        <right>
   inoremap <C-p>        <C-left>
   inoremap <C-n>        <C-right>
-  inoremap <Expr><C-h>  pumvisible() ? "\<C-e><BS>" : DelEmptyPair()
+  inoremap <expr><C-h>  pumvisible() ? "\<C-e><BS>" : DelEmptyPair()
   inoremap <C-d>        <Del>
   inoremap <C-q>        <Esc>lC
   inoremap <C-u>        <C-g>u<C-u>
@@ -50,16 +50,16 @@ function! mapping#basic#load() abort
   inoremap <C-v>        <Esc><C-r>a
   inoremap <C-_>        <C-k>
   inoremap <M-j>        <CR>
-  inoremap <Expr><M-k>  col('.') <= col('$') ? "\<Esc>lc$"  : "\<Esc>lce"
+  inoremap <expr><M-k>  col('.') <= col('$') ? "\<Esc>lc$"  : "\<Esc>lce"
   inoremap <M-d>        <Esc>lce
   inoremap <M-b>        <C-left>
   inoremap <M-f>        <C-right>
 
-  map  <Expr> <BS>      exists('loaded_matchup') ? "\<Plug>(matchup-%)"  : "\<BS>"
-  xmap <Expr>i<BS>      exists('loaded_matchup') ? "\<Plug>(matchup-i%)" : "\<BS>"
-  omap <Expr>i<BS>      exists('loaded_matchup') ? "\<Plug>(matchup-i%)" : "\<BS>"
-  xmap <Expr>a<BS>      exists('loaded_matchup') ? "\<Plug>(matchup-a%)" : "\<BS>"
-  omap <Expr>a<BS>      exists('loaded_matchup') ? "\<Plug>(matchup-a%)" : "\<BS>"
+  map  <expr> <BS>      exists('loaded_matchup') ? "\<Plug>(matchup-%)"  : "\<BS>"
+  xmap <expr>i<BS>      exists('loaded_matchup') ? "\<Plug>(matchup-i%)" : "\<BS>"
+  omap <expr>i<BS>      exists('loaded_matchup') ? "\<Plug>(matchup-i%)" : "\<BS>"
+  xmap <expr>a<BS>      exists('loaded_matchup') ? "\<Plug>(matchup-a%)" : "\<BS>"
+  omap <expr>a<BS>      exists('loaded_matchup') ? "\<Plug>(matchup-a%)" : "\<BS>"
 
   " command line mode
   cnoremap qw           <Esc>
@@ -162,21 +162,21 @@ function! mapping#basic#load() abort
 
   " improve window scroll
   auto VimEnter * noremap
-        \  <Expr> zz              <sid>win_scroll(1, 'z')
-  nnoremap <Expr> <C-f>           <sid>win_scroll(1, 'f')
-  nnoremap <Expr> <C-b>           <sid>win_scroll(0, 'f')
-  nnoremap <Expr> <C-d>           <sid>win_scroll(1, 'd')
-  nnoremap <Expr> <C-u>           <sid>win_scroll(0, 'd')
-  nnoremap <Expr> i               winline() != winheight(0) ? "zzi" : "i"
-  nnoremap <Expr> a               winline() != winheight(0) ? "zza" : "a"
+        \  <expr> zz              <sid>win_scroll(1, 'z')
+  nnoremap <expr> <C-f>           <sid>win_scroll(1, 'f')
+  nnoremap <expr> <C-b>           <sid>win_scroll(0, 'f')
+  nnoremap <expr> <C-d>           <sid>win_scroll(1, 'd')
+  nnoremap <expr> <C-u>           <sid>win_scroll(0, 'd')
+  nnoremap <expr> i               winline() != winheight(0) ? "zzi" : "i"
+  nnoremap <expr> a               winline() != winheight(0) ? "zza" : "a"
 
   " improve fold mapping
   auto VimEnter *
         \ nnoremap zj  zjzz |
         \ nnoremap zk  zkzz
-  nnoremap <Expr> l               foldclosed('.') > -1 ? 'zazz' : 'l'
-  nnoremap <Expr> <CR>            <sid>OpenFoldOrGotoMiddle(1)
-  nnoremap <Expr> s<CR>           <sid>OpenFoldOrGotoMiddle(0)
+  nnoremap <expr> l               foldclosed('.') > -1 ? 'zazz' : 'l'
+  nnoremap <expr> <CR>            <sid>OpenFoldOrGotoMiddle(1)
+  nnoremap <expr> s<CR>           <sid>OpenFoldOrGotoMiddle(0)
 
   " Toggle zz mode
   nnoremap <silent><leader>az     :call <sid>Toggle_ZZMode()<CR>
@@ -219,7 +219,7 @@ function! mapping#basic#load() abort
   xnoremap <C-s>                  :s///g<left><left><left><CR>
 
   " Select last paste
-  nnoremap <Expr> g1              '`['.strpart(getregtype(), 0, 1).'`]'
+  nnoremap <expr> g1              '`['.strpart(getregtype(), 0, 1).'`]'
 
 
   " yank and paste {{{
@@ -262,7 +262,7 @@ function! mapping#basic#load() abort
   nnoremap <silent><leader>qc     :call setqflist([])<CR>
 
   " help
-  nnoremap <Expr><F1>             &ft ==# 'vim' ? ":update\<CR>:source %<CR>"
+  nnoremap <expr><F1>             &ft ==# 'vim' ? ":update\<CR>:source %<CR>"
                                   \ : !&modified ? ":e\<CR>" : "\<F1>"
   nnoremap <silent>K              :call util#help_wrapper()<CR>
   nnoremap <Space>hh              :call feedkeys(':EchoHelp ')<CR>
