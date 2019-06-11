@@ -16,7 +16,7 @@
   1，请确保插件依赖, 如node，yarn, make等可执行。
   2, 请在vim命令行执行:SPInstall [plugin name], 再次安装，如还不成功
   请在该插件顶层目录手动build, 如yarn install。
-  默认插件顶层目录linux系统为'~/.cache/vimfiles/repos/github.com/pluginAthorname/pluginname'。
+  默认插件顶层目录linux系统为'~/.cache/vimfiles/repos/github.com/Shougo/dein.vim/pluginAthorname/pluginname'。
   windows系统为C盘相应用根目录下对应的地址。
 3), python环境配置问题请参考
   (https://github.com/SpaceVim/SpaceVim/blob/f5c8244f2c4411482b978239d3986dd719e0a174/docs/faq.md#how-to-enable-py-and-py3-in-neovim)
