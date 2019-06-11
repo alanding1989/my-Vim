@@ -144,6 +144,7 @@ let g:_defhighlight_var.hlcolor.cpp = extend({
       \ 'Member'                       : ['#c678dd',   -1,  -1, -1, 1, 0],
       \ 'Variable'                     : ['#ffaf00',   -1, 214, -1, 0, 0],
       \ 'Type'                         : ['#e5c07b',   -1, 207, -1, 0, 0],
+      \ 'Linkage'                      : ['#09AA08',   -1, 239, -1, 0, 1],
       \ 'cStorageClass'                : ['#aab6e1',   -1,  -1, -1, 1, 0],
       \ }, !executable('clang') ? {
       \ 'cIncluded'                    : ['#1aa3a1',   -1,  -1, -1, 0, 1],
