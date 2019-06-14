@@ -7,8 +7,13 @@
 scriptencoding utf-8
 
 
+let s:extra = 1
 
 function! mapping#delimitor#init() abort " {{{
+  call s:AutoPairs()
+
+  if s:extra
+  call s:Numfix()
   " -= += != =~ == <= >= -> => ==# ==? || &&
   " match del space before
 
@@ -28,22 +33,20 @@ function! mapping#delimitor#init() abort " {{{
   inoremap <expr> :   (CurChar(0, '\s') \|\| CurChar(0, '\w') \|\| Curchar(0, '\d')) ? ': ' : Within('pair') ? ':' : ' : '
   inoremap <expr> <   MatchDel('<', '\v^\s*(if\|el\|wh\|let).*\S$', '>')
   inoremap <expr> ,   CurChar(0, '\s') ? "\<BS>,\<Space>" : (CurChar(1, '\s') ? "," : ",\<Space>")
-
-  call s:AutoPairs()
-  call s:Numfix()
+endif
 
   augroup Delimitor_init
     auto!
     autocmd  FileType c,cpp    let b:eol_marker = ';'
-
-    autocmd  FileType sh       call <sid>Bash()
-
     autocmd  FileType vim
                  \ inoremap <buffer><expr> "  MatchCl('\v(^\_$)\|(^\s*\w*\s\_$)\|(^\s+\_$)') ? "\"\<Space>" : AutoClo('"')|
                  \ inoremap <buffer><expr> :  MatchCl('\v\s(s)\|(g)\|(a)\|(l)\|(\S\W\s)$')
                  \ ? ':' : Within('pair') ? ':' : CurChar(0, '\s') ? ': ' : ' : '
-
     autocmd  FileType markdown  call <sid>AutoPairs({'《':'》'}, 2) | call <sid>AutoPairs('*', 1)
+
+    if s:extra
+      autocmd  FileType sh       call <sid>Bash()
+    endif
   augroup END
 endfunction
 " }}}
@@ -83,3 +86,4 @@ function! s:Bash() abort " {{{
   endfor
   inoremap = =
 endfunction "}}}
+

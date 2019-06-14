@@ -9,9 +9,9 @@ AlignEscapedNewlines: Left
 AlignOperands:   true
 AlignTrailingComments: true
 AllowAllParametersOfDeclarationOnNextLine: true
-AllowShortBlocksOnASingleLine: false
+AllowShortBlocksOnASingleLine: true
 AllowShortCaseLabelsOnASingleLine: true
-AllowShortFunctionsOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: Inline
 AllowShortIfStatementsOnASingleLine: false
 AllowShortLoopsOnASingleLine: false
 AlwaysBreakAfterDefinitionReturnType: None
@@ -20,24 +20,24 @@ AlwaysBreakBeforeMultilineStrings: false
 AlwaysBreakTemplateDeclarations: false
 BinPackArguments: true
 BinPackParameters: true
+BreakBeforeBraces: Custom
 BraceWrapping:
-  AfterClass:      false
+  AfterClass:      true
   AfterControlStatement: false
   AfterEnum:       false
-  AfterFunction:   true
+  AfterFunction:   false
   AfterNamespace:  false
   AfterObjCDeclaration: false
   AfterStruct:     false
   AfterUnion:      false
   AfterExternBlock: false
-  BeforeCatch:     true
+  BeforeCatch:     false
   BeforeElse:      false
   IndentBraces:    false
   SplitEmptyFunction: false
   SplitEmptyRecord: false
   SplitEmptyNamespace: false
 BreakBeforeBinaryOperators: NonAssignment
-BreakBeforeBraces: Custom
 BreakBeforeInheritanceComma: false
 BreakInheritanceList: AfterColon
 BreakBeforeTernaryOperators: true

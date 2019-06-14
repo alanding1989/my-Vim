@@ -10,9 +10,8 @@ scriptencoding utf-8
 
 function! util#git#cache_commits(...) abort
   if a:0
-    if len(glob(a:1))
-      let dir = glob(a:1)
-    else
+    let dir = glob(a:1)
+    if !len(glob(a:1))
       call util#echohl('invalid dirname')
       return
     endif

@@ -12,7 +12,7 @@ nvim --version
 [ -d /opt/vim ] || mkdir -p /opt/vim
 
 
-cd /tmp && sudo curl -fSLO \
+cd /tmp && rm -rf sudo curl -fSLO \
   https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz \
   && tar -zxvf nvim-linux64.tar.gz
 
@@ -27,7 +27,7 @@ function build_install() {
 
 if [ -e /tmp/nvim-linux64 ]; then
   build_install && \
-  cp /tmp/nvim-linux64 /opt/vim/
+  cp -r /tmp/nvim-linux64 /opt/vim/
   nvim --version
 fi
 

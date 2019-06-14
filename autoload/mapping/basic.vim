@@ -24,6 +24,7 @@ function! mapping#basic#load() abort
   nnoremap  s           <nop>
   nnoremap  q           <nop>
   nnoremap  ,           <Space>l
+  nnoremap <silent>\    :nohl<CR>:redraw<CR>
   " NOTE: below 4 used in edgemotion, tmux-navigate
   nnoremap <C-k>        <C-w>k
   nnoremap <C-j>        <C-w>j
@@ -123,7 +124,6 @@ function! mapping#basic#load() abort
   nnoremap <silent>st       :tabnew<CR>
   nnoremap <silent>s3       :vs\|vs\|<CR>
   nnoremap <silent>s0       :vert rightb new<CR>
-  nnoremap <silent>su       :nohl<CR>
   " last edit buffer
   nnoremap <silent><leader><tab>  :b#<CR>
   nnoremap <silent><M-tab>  :b#<CR>

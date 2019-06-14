@@ -30,6 +30,7 @@ nnoremap -                q
 nnoremap --               @a
 nnoremap q                <nop>
 nnoremap s                <nop>
+nnoremap \                :nohl<CR>
 
 " all mode init
 noremap <bs>              %
@@ -52,8 +53,7 @@ inoremap <C-a>            <Esc>^i
 inoremap <C-e>            <End>
 inoremap <C-h>            <BS>
 inoremap <C-d>            <Del>
-" inoremap <C-u>            <Esc>:action EditorDeleteToLineStart<CR>i
-inoremap <C-u>            <C-g>u<C-u>
+inoremap <C-u>            <Esc>l:action EditorDeleteToLineStart<CR>a
 inoremap <C-q>            <Esc>lC
 inoremap <C-_>            <C-k>
 inoremap <C-p>            <C-left>
@@ -92,7 +92,6 @@ nnoremap qf               :action FileChooser.Delete<CR>
 nnoremap s0               :action NewFile<CR>
 nnoremap sl               :action NextTab<CR>
 nnoremap sh               :action PreviousTab<CR>
-nnoremap sm               :action MaximizeToolWindow<CR>
 nnoremap so               :action OpenFile<CR>
 nnoremap sv               :vs<CR>
 nnoremap ss               :sp<CR>
@@ -213,24 +212,26 @@ nnoremap ghm              :action MethodHierarchy<CR>
 nnoremap ght              :action TypeHierarchy<CR>
 nnoremap ghc              :action CallHierarchy<CR>
 
+
+nnoremap <Space>dk        :action Resume<CR>
+nnoremap <Space>rq        :action Stop<CR>
+
 " run
 nnoremap <Space>rr        :action Run<CR>
 nnoremap <Space>lr        :action Run<CR>
 nnoremap <Space>rc        :action RunClass<CR>
 nnoremap <Space>ra        :action Rerun<CR>
 nnoremap <Space>re        :action RunConfiguration<CR>
-nnoremap <Space>rq        :action Stop<CR>
 nnoremap <Space>rb        :action XMake.Build<CR>
 nnoremap <Space>rbb       :action XMake.Rebuild<CR>
 
 " debug
-nnoremap <Space>dk        :action Resume<CR>
 nnoremap <Space>dd        :action Debug<CR>
 nnoremap <Space>dl        :action Debug<CR>
 nnoremap <Space>dc        :action DebugClass<CR>
 nnoremap <Space>dk        :action ChooseDebugConfiguration<CR>
 nnoremap <Space>do        :action StepOver<CR>
-nnoremap <Space>di        :action SmartStepInto<CR>
+nnoremap <Space>di        :action StepInto<CR>
 nnoremap <Space>de        :action EvaluateExpression<CR>
 nnoremap <Space>dv        :action ViewBreakpoints<CR>
 nnoremap <Space>db        :action ToggleLineBreakpoint<CR>
@@ -276,9 +277,9 @@ nnoremap <leader>a        :action HideAllWindows<CR>
 " plugins
 set surround
 set multiple-cursors
-nnoremap <C-m>                 <A-n>
-nnoremap <C-x>                 <A-x>
-nnoremap <C-q>                 <ESC>:action EditorTranslateAction<CR>
+map <A-q>  <A-x>
+map <A-a>  <A-n>
+map <A-a>  g<A-n>
 
 nnoremap <leader><leader>f     :action KJumpAction<CR>
 nnoremap <leader><leader>l     :action KJumpAction.Line<CR>
