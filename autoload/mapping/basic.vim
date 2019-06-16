@@ -284,7 +284,7 @@ function! mapping#basic#load() abort
   noremap  <leader>eo             :call feedkeys(':set ')<CR>
   " show version
   nnoremap <leader>ev             :version<CR>
-  " echo last paste
+  " echo last paste, selected must be expr, also can execute selected
   xnoremap <leader>er             "ry:<C-u>try\|echo <C-r>=@r<CR>\|catch\|endtry<CR>
 
   " directory operatios
