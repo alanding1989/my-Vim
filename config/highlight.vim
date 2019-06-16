@@ -131,9 +131,11 @@ let g:_defhighlight_var.hlcolor.cpp = extend({
       \ 'cStatement'                   : ['#f92672',   -1,  -1, -1, 0, 0],
       \ 'chromaticaKeyword'            : ['#f92672',   -1,  -1, -1, 0, 0],
       \ 'chromaticaException'          : ['#f92672',   -1,  -1, -1, 0, 0],
+      \ 'Type'                         : ['#f92672',   -1, 207, -1, 0, 0],
       \
-      \ 'chromaticaIncludedHeaderFile' : ['#abb2bf',   -1, 145, -1, 0, 0],
-      \ 'chromaticaTypeRef'            : ['#607fbf',   -1, 180, -1, 0, 0],
+      \ 'chromaticaTypeRef'            : ['#e5c07b',   -1,  -1, -1, 0, 0],
+      \ 'chromaticaCXXBaseSpecifier'   : ['#1aa3a1',   -1, 207, -1, 0, 1],
+      \ 'chromaticaSpecifier'          : ['#1aa3a1',   -1, 207, -1, 0, 1],
       \
       \ 'Namespace'                    : ['#1aa3a1',   -1,  -1, -1, 0, 1],
       \ 'chromaticaClassDecl'          : ['#1aa3a1',   -1,  -1, -1, 0, 1],
@@ -142,9 +144,9 @@ let g:_defhighlight_var.hlcolor.cpp = extend({
       \ 'chromaticaEnumDecl'           : ['#1aa3a1',   -1,  -1, -1, 0, 1],
       \
       \ 'Member'                       : ['#c678dd',   -1,  -1, -1, 1, 0],
-      \ 'Variable'                     : ['#ffaf00',   -1, 214, -1, 0, 0],
-      \ 'Type'                         : ['#e5c07b',   -1, 207, -1, 0, 0],
+      \ 'Variable'                     : ['#fd971f',   -1, 214, -1, 0, 0],
       \ 'Linkage'                      : ['#09AA08',   -1, 239, -1, 0, 1],
+      \ 'OperatorOverload'             : ['#6c9f9d',   -1,  -1, -1, 1, 0],
       \ 'cStorageClass'                : ['#aab6e1',   -1,  -1, -1, 1, 0],
       \ }, !executable('clang') ? {
       \ 'cIncluded'                    : ['#1aa3a1',   -1,  -1, -1, 0, 1],

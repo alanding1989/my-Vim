@@ -277,9 +277,10 @@ nnoremap <leader>a        :action HideAllWindows<CR>
 " plugins
 set surround
 set multiple-cursors
-map <A-q>  <A-x>
-map <A-a>  <A-n>
-map <A-a>  g<A-n>
+vmap q     <A-x>
+xmap q     <A-x>
+map <C-n>  <A-n>
+map <C-n>  g<A-n>
 
 nnoremap <leader><leader>f     :action KJumpAction<CR>
 nnoremap <leader><leader>l     :action KJumpAction.Line<CR>

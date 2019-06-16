@@ -7,7 +7,7 @@
 scriptencoding utf-8
 
 
-let s:extra = 1
+let s:extra = 0
 
 function! mapping#delimitor#init() abort " {{{
   call s:AutoPairs()

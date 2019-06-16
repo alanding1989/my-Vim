@@ -161,7 +161,7 @@ let g:My_SpaceVim_layers = extend(get(g:, 'My_SpaceVim_layers', {
       \ 'lang#go'           : 0,
       \ 'lang#java'         : 0,
       \ 'lang#scala'        : 0,
-      \ 'lang#python'       : 0,
+      \ 'lang#python'       : 1,
       \ 'lang#ipynb'        : 0,
       \ 'lang#lua'          : 0,
       \ 'lang#lisp'         : 0,
@@ -193,7 +193,7 @@ let g:My_SpaceVim_layers = extend(get(g:, 'My_SpaceVim_layers', {
 if g:spacevim_fuzzyfinder ==# 'leaderf' " {{{
       \ && g:My_SpaceVim_layers['leaderf']
   let g:My_SpaceVim_layers['leaderf'] = 1
-  " let g:My_SpaceVim_layers['denite']  = 1
+  let g:My_SpaceVim_layers['denite']  = 1
   let g:My_SpaceVim_layers['fzf']     = 0
 elseif g:spacevim_fuzzyfinder ==# 'denite'
   let g:My_SpaceVim_layers['denite']  = 1
