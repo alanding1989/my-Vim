@@ -220,11 +220,13 @@ nnoremap <Space>rq        :action Stop<CR>
 " run
 nnoremap <Space>rr        :action Run<CR>
 nnoremap <Space>lr        :action Run<CR>
+nnoremap <Space>rb        :action Build<CR>
+nnoremap <Space>lb        :action Build<CR>
 nnoremap <Space>rc        :action RunClass<CR>
 nnoremap <Space>ra        :action Rerun<CR>
 nnoremap <Space>re        :action RunConfiguration<CR>
-nnoremap <Space>rb        :action XMake.Build<CR>
-nnoremap <Space>rbb       :action XMake.Rebuild<CR>
+nnoremap <Space>xb        :action XMake.Build<CR>
+nnoremap <Space>xbb       :action XMake.Rebuild<CR>
 
 " debug
 nnoremap <Space>dd        :action Debug<CR>
