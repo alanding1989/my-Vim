@@ -31,6 +31,7 @@ nnoremap --               @a
 nnoremap q                <nop>
 nnoremap s                <nop>
 nnoremap \                :nohl<CR>
+nnoremap sm               :action Switcher<CR>
 
 " all mode init
 noremap <bs>              %
@@ -220,11 +221,15 @@ nnoremap <Space>rq        :action Stop<CR>
 " run
 nnoremap <Space>rr        :action Run<CR>
 nnoremap <Space>lr        :action Run<CR>
+nnoremap <Space>ra        :action Rerun<CR>
+nnoremap <Space>rc        :action RunClass<CR>
+nnoremap <Space>re        :action RunConfiguration<CR>
+
 nnoremap <Space>rb        :action Build<CR>
 nnoremap <Space>lb        :action Build<CR>
-nnoremap <Space>rc        :action RunClass<CR>
-nnoremap <Space>ra        :action Rerun<CR>
-nnoremap <Space>re        :action RunConfiguration<CR>
+nnoremap <Space>rbb       :action RebuildProject<CR>
+nnoremap <Space>lbb       :action RebuildProject<CR>
+
 nnoremap <Space>xb        :action XMake.Build<CR>
 nnoremap <Space>xbb       :action XMake.Rebuild<CR>
 
@@ -274,7 +279,6 @@ nnoremap ]g               :action VcsShowNextChangeMarker<CR>
 nnoremap <Space>ts        :action EditorToggleUseSoftWraps<CR>
 nnoremap <Space>tw        :action EditorToggleShowWhitespaces<CR>
 
-nnoremap <leader>a        :action HideAllWindows<CR>
 
 
 " plugins
