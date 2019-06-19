@@ -135,7 +135,7 @@
 //    },
     "clangd": {
       "command": "clangd",
-      "rootPatterns": [".clangd", "compile_commands.json", ".root", ".git/", ".hg/"],
+      "rootPatterns": [".clangd", "compile_commands.json", ".root", ".clang-format", ".git/", ".hg/"],
       "filetypes": ["c", "cpp", "objc", "objcpp"]
     },
     "metals" : {

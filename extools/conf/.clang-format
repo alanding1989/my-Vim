@@ -1,6 +1,6 @@
 ---
 Language:        Cpp
-# BasedOnStyle:  LLVM
+BasedOnStyle:  LLVM
 AccessModifierOffset: -4
 AlignAfterOpenBracket: Align
 AlignConsecutiveAssignments: true
@@ -8,27 +8,29 @@ AlignConsecutiveDeclarations: false
 AlignEscapedNewlines: Left
 AlignOperands:   true
 AlignTrailingComments: true
-# AllowAllConstructorInitializersOnNextLine: false
+# ===================================================
+#AllowAllConstructorInitializersOnNextLine: false
 AllowAllParametersOfDeclarationOnNextLine: true
+AlwaysBreakAfterReturnType: None
 BinPackArguments: false
 BinPackParameters: false
-AlwaysBreakAfterReturnType: None
+# ===================================================
 AllowShortBlocksOnASingleLine: true
 AllowShortCaseLabelsOnASingleLine: true
 AllowShortFunctionsOnASingleLine: Inline
-AllowShortIfStatementsOnASingleLine: false
+AllowShortIfStatementsOnASingleLine: true
 AllowShortLoopsOnASingleLine: false
 AlwaysBreakBeforeMultilineStrings: false
 AlwaysBreakTemplateDeclarations: false
 BreakBeforeBraces: Custom
 BraceWrapping:
   AfterClass:      true
+  AfterStruct:     true
   AfterControlStatement: false
   AfterEnum:       false
   AfterFunction:   true
   AfterNamespace:  false
   AfterObjCDeclaration: false
-  AfterStruct:     false
   AfterUnion:      false
   AfterExternBlock: false
   BeforeCatch:     false
@@ -41,8 +43,8 @@ BreakBeforeBinaryOperators: NonAssignment
 BreakBeforeInheritanceComma: false
 BreakInheritanceList: AfterColon
 BreakBeforeTernaryOperators: true
-BreakConstructorInitializersBeforeComma: false
 BreakConstructorInitializers: AfterColon
+BreakConstructorInitializersBeforeComma: false
 BreakAfterJavaFieldAnnotations: false
 BreakStringLiterals: true
 ColumnLimit:     80
@@ -50,7 +52,7 @@ CommentPragmas:  '^ IWYU pragma:'
 CompactNamespaces: false
 ConstructorInitializerAllOnOneLineOrOnePerLine: false
 ConstructorInitializerIndentWidth: 4
-ContinuationIndentWidth: 4
+ContinuationIndentWidth: 0
 Cpp11BracedListStyle: false
 DerivePointerAlignment: false
 ExperimentalAutoDetectBinPacking: false
@@ -117,4 +119,5 @@ StatementMacros:
 TabWidth:        4
 UseTab:          Never
 ...
+
 

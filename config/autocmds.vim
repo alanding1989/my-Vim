@@ -11,6 +11,7 @@ augroup edit_related
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$")
         \ | exec "normal! g`\"" 
         \ | endif
+  autocmd BufWritePost init.toml source $MYVIMRC
 augroup END
 
 
