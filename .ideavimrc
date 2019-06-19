@@ -226,12 +226,17 @@ nnoremap <Space>rc        :action RunClass<CR>
 nnoremap <Space>re        :action RunConfiguration<CR>
 
 nnoremap <Space>rb        :action Build<CR>
+nnoremap <Space>rc        :action Clean<CR>
 nnoremap <Space>lb        :action Build<CR>
+nnoremap <Space>lc        :action Clean<CR>
 nnoremap <Space>rbb       :action RebuildProject<CR>
 nnoremap <Space>lbb       :action RebuildProject<CR>
 
+nnoremap <Space>xj        :action XMake.QuickStart<CR>
+nnoremap <Space>xx        :action XMake.Run<CR>
 nnoremap <Space>xb        :action XMake.Build<CR>
 nnoremap <Space>xbb       :action XMake.Rebuild<CR>
+nnoremap <Space>xc        :action XMake.Clean<CR>
 
 " debug
 nnoremap <Space>dd        :action Debug<CR>
