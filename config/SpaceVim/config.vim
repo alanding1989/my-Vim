@@ -58,6 +58,7 @@ let g:spacevim_enable_os_fileformat_icon     = 1
 let g:spacevim_sidebar_width                 = g:sidebar_width
 let g:spacevim_filetree_direction            = g:filetree_direction
 let g:spacevim_enable_vimfiler_welcome       = 0
+let g:spacevim_home_files_number             = 4
 
 let g:spacevim_error_symbol                  = g:linter_error_symbol
 let g:spacevim_warning_symbol                = g:linter_warning_symbol

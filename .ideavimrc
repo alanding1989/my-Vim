@@ -61,7 +61,7 @@ inoremap <C-n>            <C-right>
 inoremap <C-i>            <Esc>:action InsertLiveTemplate<CR>i
 inoremap <C-o>            <Esc>:action PreviousTemplateVariable<CR>i
 " does not work for M
-" inoremap <M-j>            <CR>
+inoremap <A-j>            <CR>
 
 " faster command mode
 cnoremap qw               <Esc>
@@ -211,8 +211,9 @@ nnoremap gr               :action FindUsages<CR>
 nnoremap ghm              :action MethodHierarchy<CR>
 nnoremap ght              :action TypeHierarchy<CR>
 nnoremap ghc              :action CallHierarchy<CR>
+nnoremap ghi              :action CIDR.Lang.ImportsHierarchy<CR>
 
-
+nnoremap vaf v%^
 nnoremap <Space>dk        :action Resume<CR>
 nnoremap <Space>rq        :action Stop<CR>
 
