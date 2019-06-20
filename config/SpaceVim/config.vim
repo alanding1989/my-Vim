@@ -157,6 +157,10 @@ endfunction
 "     DefaultLayers:
 "     autocomplete, checkers, core, edit, format, ui,
 "============================================================================= {{{
+" NOTE: 
+"   1, if project root dir doesnt have .SpaceVim.d/init.vim, load the former, or
+"      load layers defined in project root .SpaceVim.d/init.vim.
+"   2, the latter will always been loaded.
 let g:My_SpaceVim_layers = extend(get(g:, 'My_SpaceVim_layers', {
       \ 'lang#c'            : 1,
       \ 'lang#go'           : 0,
