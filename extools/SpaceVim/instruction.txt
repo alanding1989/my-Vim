@@ -13,12 +13,18 @@
   2, 请确保进入vim后是SpaceVim界面，而不是原生vim界面。
   3, 如果原来安装过vim其他版本或者有vimrc在系统根目录，请移至别处后用
   官网安装脚本安装，不要手动克隆仓库，否则路径会出现问题。
+
 2), markdown Buiding failed或任何其他插件出现同样问题。
-  1，请确保插件依赖, 如node，yarn, make等可执行。
+  1，请确保插件依赖, 如node，yarn, make等可执行（搜索github，查看插件文档）。
   2, 请在vim命令行执行:SPInstall [plugin name], 再次安装，如还不成功
-  请在该插件顶层目录手动build, 如yarn install。
-  默认插件顶层目录linux系统为'~/.cache/vimfiles/repos/github.com/Shougo/dein.vim/pluginAthorname/pluginname'。
-  windows系统为C盘相应用根目录下对应的地址。
+     请在该插件顶层目录手动build, 如yarn install。
+     默认插件顶层目录:
+         linux系统为'~/.cache/vimfiles/repos/github.com/Shougo/dein.vim/pluginAthorname/pluginname'。
+         windows系统为C盘相应用根目录下对应的地址。
+
 3), python环境配置问题请参考
   (https://github.com/SpaceVim/SpaceVim/blob/f5c8244f2c4411482b978239d3986dd719e0a174/docs/faq.md#how-to-enable-py-and-py3-in-neovim)
+
+4), 要进行个性化定制，请先详读官网-启动函数介绍，链接地址：<https://spacevim.org/cn/documentation/#启动函数> 。
+要理解其原理并使用需要了解一些vim脚本及基础知识，建议查看vim内置帮助文档，F1呼出或命令行 :help `keyword`
 
