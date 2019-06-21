@@ -14,6 +14,7 @@ AllowAllParametersOfDeclarationOnNextLine: true
 AlwaysBreakAfterReturnType: None
 BinPackArguments: false
 BinPackParameters: false
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
 # ===================================================
 AllowShortBlocksOnASingleLine: true
 AllowShortCaseLabelsOnASingleLine: true
