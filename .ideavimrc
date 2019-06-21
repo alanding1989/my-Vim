@@ -103,6 +103,16 @@ nnoremap g0               g*
 nnoremap <C-w>r           :action MoveTabRight<CR>
 nnoremap <C-w>d           :action MoveTabDown<CR>
 
+nnoremap <A-1>            :action GoToTab1<CR>
+nnoremap <A-2>            :action GoToTab2<CR>
+nnoremap <A-3>            :action GoToTab3<CR>
+nnoremap <A-4>            :action GoToTab4<CR>
+nnoremap <A-5>            :action GoToTab5<CR>
+nnoremap <A-6>            :action GoToTab6<CR>
+nnoremap <A-7>            :action GoToTab7<CR>
+nnoremap <A-8>            :action GoToTab8<CR>
+nnoremap <A-9>            :action GoToTab9<CR>
+
 " scroll
 nnoremap <C-f>            <C-d>M
 nnoremap <C-b>            <C-u>M
@@ -300,3 +310,4 @@ nnoremap <leader><leader>w     :action KJumpAction.Word0<CR>
 nnoremap <Space>jj             :action KJumpAction<CR>
 nnoremap <Space>jl             :action KJumpAction.Line<CR>
 nnoremap <Space>jw             :action KJumpAction.Word0<CR>
+
