@@ -28,8 +28,8 @@ nnoremap <leader>r        :source ~/.ideavimrc<CR>
 
 nnoremap -                q
 nnoremap --               @a
-nnoremap q                <nop>
-nnoremap s                <nop>
+nnoremap q                :nohl<CR>
+nnoremap s                :nohl<CR>
 nnoremap \                :nohl<CR>
 nnoremap sm               :action Switcher<CR>
 
