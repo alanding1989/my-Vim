@@ -15,8 +15,8 @@ set history=1000
 set scrolloff=2
 set sidescrolloff=5
 set visualbell
-" set timeoutlen=350
-" set ttimeoutlen=50
+set timeoutlen=350
+set ttimeoutlen=50
 
 "================================================================================
 " Mappings
@@ -224,7 +224,6 @@ nnoremap ght              :action TypeHierarchy<CR>
 nnoremap ghc              :action CallHierarchy<CR>
 nnoremap ghi              :action CIDR.Lang.ImportsHierarchy<CR>
 
-nnoremap vaf v%^
 nnoremap <Space>dk        :action Resume<CR>
 nnoremap <Space>rq        :action Stop<CR>
 
