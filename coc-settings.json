@@ -14,7 +14,7 @@
   "coc.preferences.previewAutoClose"                : false,
   "coc.preferences.currentFunctionSymbolAutoUpdate" : true,
   "coc.preferences.rootPatterns"                    : [ ".root","*.sbt",".vim",".git",".hg",".projections.json" ],
-  "coc.preferences.formatOnSaveFiletypes"           : ["css", "Markdown", "scala", "cpp", "java", "vim", "sh", "lua"],
+  "coc.preferences.formatOnSaveFiletypes"           : ["css", "Markdown", "scala", "cpp", "java", "sh", "lua"],
   //"coc.preferences.formatOnSaveFiletypes"           : ["css", "Markdown", "python", "scala", "c", "cpp", "java", "vim", "sh", "lua"],
   
   "diagnostic.enable"                               : false,
@@ -88,7 +88,7 @@
   "java.format.enabled"                         : true,
   "java.format.comments.enabled"                : true,
   "java.foldingRange.enabled"                   : true,
-  "java.format.settings.url"                    : "",
+  "java.format.settings.url"                    : "/home/alanding/.config/coc/extensions/node_modules/redhat.java/eclipse-formatter.xml",
   "java.signatureHelp.enabled"                  : true,
   "java.referencesCodeLens.enabled"             : true,
   "java.implementationsCodeLens.enabled"        : false,

@@ -437,7 +437,7 @@ function! s:win_scroll(forward, mode)
     let key = (winline() == (winheight(0)+1) / 2) ? 'zt' : (winline() == &scrolloff + 1) ? 'zb' : 'zz'
   endif
   if winnr
-    return winnr."\<C-w>w\<C-w>L".'zn'.key."\<C-w>p"
+    return winnr."\<C-w>w\<C-w>K".'zngg'.key."\<C-w>p"
     " return winnr."\<C-w>w".'zn'.key."\<C-w>p"
   else
     return key

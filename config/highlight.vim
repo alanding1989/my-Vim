@@ -163,19 +163,37 @@ let g:_defhighlight_var.hlcolor.c = g:_defhighlight_var.hlcolor.cpp
 " }}}
 
 " Java: {{{
+let g:java_highlight_all = 1
+let g:java_highlight_functions = 1
+" let g:java_mark_braces_in_parens_as_errors = 1
+let g:java_comment_strings = 1
 let g:_defhighlight_var.hlcolor.java = extend({
-      \ 'javaExternal'                 : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ 'javaStatement'                : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ 'javaConditional'              : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ 'javaRepeat'                   : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ 'javaExceptions'               : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ 'javaAssert'                   : ['#f92672',        -1,  -1, -1, 0, 0],
       \ 'javaScopeDecl'                : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ 'javaConstant  '               : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ 'javaOperator  '               : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ 'javaExternal'                 : ['#f92672',        -1,  -1, -1, 0, 0],
       \
+      \ 'javaLangClass'                : ['#1aa3a1',        -1,  -1, -1, 0, 1],
       \ 'javaClassDecl'                : ['#1aa3a1',        -1,  -1, -1, 0, 1],
-      \
+      \ 'javaC_JavaLang'               : ['#1aa3a1',        -1,  -1, -1, 0, 1],
+      \ 'javaE_JavaLang'               : ['#1aa3a1',        -1,  -1, -1, 0, 1],
+      \ 'javaR_JavaLang'               : ['#1aa3a1',        -1,  -1, -1, 0, 1],
+      \ 'javaX_JavaLang'               : ['#1aa3a1',        -1,  -1, -1, 0, 1],
+      \ 
       \ 'javaTypedef'                  : ['#c678dd',        -1,  -1, -1, 1, 0],
       \
       \ 'javaMethodDecl'               : ['#a3e234',        -1,  -1, -1, 0, 0],
+      \ 'javaLangObject'               : ['#a3e234',        -1,  -1, -1, 0, 0],
       \ 'javaVarArg'                   : ['#ffaf00',        -1, 214, -1, 0, 0],
       \
       \ 'javaDocParam'                 : ['#c678dd',        -1,  -1, -1, 1, 0],
       \ 'javaDocSeeTagParam'           : ['#c678dd',        -1,  -1, -1, 1, 0],
+      \ 'javaAnnotation'               : ['#5fafff',        -1,  -1, -1, 1, 0],
       \ }, 0 ? {
       \ 'javaType'                     : ['#607fbf',        -1, 207, -1, 1, 0],
       \ 'javaStorageClass'             : ['#f92672',        -1,  -1, -1, 0, 0],

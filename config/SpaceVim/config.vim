@@ -79,6 +79,7 @@ let g:spacevim_project_rooter_patterns       = uniq(sort(g:spacevim_project_root
       \ + deepcopy(g:project_root_marker)))
 let g:currentbranch                          = split(filter(systemlist('git -C ~/.SpaceVim branch'),
       \ 'match(v:val, "*") > -1')[0], ' ')[1]
+
 let g:spacevim_layer_lang_java_formatter     = g:is_win 
       \ ? 'D:\devtools\scala\google-java-format.jar' 
       \ : '/opt/lang-tools/java/google-java-format.jar'
@@ -135,16 +136,33 @@ function! My_SpaceVim_layers_variable(layer) abort
         \ 'VersionControl' : {
         \     'enable_gtm_status' : 0,
         \ },
-        \ 'lsp' : {'filetypes' : extend([
-        \     'c',
-        \     'cpp',
-        \     'go',
-        \     'lua',
-        \     'python',
-        \     'ipynb',
-        \     'vim', 
-        \     ], g:is_unix ? ['sh'] : []
-        \ )},
+        \ 'lsp' : { 
+        \     'filetypes' : extend([
+        \         'c'     , 'cpp'   ,
+        \         'java'  ,
+        \         'go'    ,
+        \         'lua'   ,
+        \         'python', 'ipynb' ,
+        \         'vim'   ,
+        \         ], g:is_unix ? ['sh'] : []),
+        \     'override_cmd' : {
+        \         'java' : [
+        \             "java",
+        \             "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+        \             "-Dosgi.bundles.defaultStartLevel=4",
+        \             "-Declipse.product=org.eclipse.jdt.ls.core.product",
+        \             "-Dlog.protocol=true",
+        \             "-Dlog.level=NONE",
+        \             "-noverify",
+        \             "-Xmx1G",
+        \             "-jar",
+        \             "/home/alanding/.config/coc/extensions/coc-java-data/server/plugins/org.eclipse.equinox.launcher_1.5.400.v20190515-0925.jar",
+        \             "-configuration",
+        \             "/home/alanding/.config/coc/extensions/coc-java-data/server/config_win",
+        \             "-data",
+        \             "/home/alanding/.config/coc/extensions/coc-java-data"
+        \         ]}
+        \ },
         \ 'defhighlight' : {
         \     'enable_vim_highlight' : 0,
         \     'hlcolor'  : s:enable_myhl ? g:_defhighlight_var.hlcolor : {}
@@ -166,9 +184,9 @@ endfunction
 "   2, the latter will always been loaded.
 let g:My_SpaceVim_layers = extend(get(g:, 'My_SpaceVim_layers', {
       \ 'lang#c'            : 1,
-      \ 'lang#go'           : 0,
-      \ 'lang#java'         : 0,
-      \ 'lang#scala'        : 0,
+      \ 'lang#go'           : 1,
+      \ 'lang#java'         : 1,
+      \ 'lang#scala'        : 1,
       \ 'lang#python'       : 1,
       \ 'lang#ipynb'        : 0,
       \ 'lang#lua'          : 0,

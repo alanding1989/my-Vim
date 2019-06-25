@@ -42,15 +42,15 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
               \ "\<left>,\<Space>": [1 ,')'],
               \ })
         return "\<plug>(neosnippet_jump)"
-      elseif !s:check_bs()
-        return RightPair() ? "\<right>" : "\<tab>"
-      else
+      elseif CurChar(0, '\w')
         return    s:md ==# 'coc'          ? coc#refresh()
               \ : s:md ==# 'deoplete'     ? deoplete#manual_complete()
               \ : s:md ==# 'ncm2'         ? "\<C-r>=ncm2#manual_trigger()\<CR>"
               \ : s:md ==# 'ycm'          ? "\<tab>"
               \ : s:md ==# 'asyncomplete' ? asyncomplete#force_refresh()
               \ : ''
+      else
+        return "\<tab>"
       endif
     endif
   endfunction
@@ -105,15 +105,15 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
       return "\<right>"
     elseif g:ulti_expand_or_jump_res == 2
       return sni
-    elseif !s:check_bs()
-      return RightPair() ? "\<right>" : "\<tab>"
-    else
+    elseif CurChar(0, '\w')
       return    s:md ==# 'coc'          ? coc#refresh()
             \ : s:md ==# 'deoplete'     ? deoplete#manual_complete()
             \ : s:md ==# 'ncm2'         ? "\<C-r>=ncm2#manual_trigger()\<CR>"
             \ : s:md ==# 'ycm'          ? "\<tab>"
             \ : s:md ==# 'asyncomplete' ? asyncomplete#force_refresh()
             \ : ''
+    else
+      return "\<tab>"
     endif
   endfunction
 
@@ -149,10 +149,10 @@ elseif s:md ==# 'coc'
         return "\<right>"
       elseif coc#jumpable()
         return "\<Plug>(coc-snippets-expand-jump)"
-      elseif !s:check_bs()
-        return RightPair() ? "\<right>" : "\<tab>"
-      else
+      elseif CurChar(0, '\w')
         return coc#refresh()
+      else
+        return "\<tab>"
       endif
     endif
   endfunction
