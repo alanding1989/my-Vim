@@ -59,8 +59,9 @@ inoremap <C-q>            <Esc>lC
 inoremap <C-_>            <C-k>
 inoremap <C-p>            <C-left>
 inoremap <C-n>            <C-right>
-inoremap <C-i>            <Esc>:action InsertLiveTemplate<CR>i
+inoremap <C-i>            <Esc>:action InsertLiveTemplate<CR>a
 inoremap <C-o>            <Esc>:action PreviousTemplateVariable<CR>i
+inoremap <C-m>            <Esc>:action SmartTypeCompletion<CR>a
 " does not work for M
 inoremap <A-j>            <CR>
 
