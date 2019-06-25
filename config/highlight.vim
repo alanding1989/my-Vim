@@ -32,8 +32,8 @@ let g:_defhighlight_var.hlcolor.general = extend({
       \ 'Character'   : ['#98c379', '#3b4048',  -1, -1, 1, 0],
       \
       \ 'Number'      : ['#d19a66',        -1,  -1, -1, 0, 0],
-      \ 'Boolean'     : ['#e5c07b',        -1,  -1, -1, 1, 0],
       \ 'Float'       : ['#d19a66',        -1,  -1, -1, 0, 0],
+      \ 'Boolean'     : ['#e5c07b',        -1,  -1, -1, 1, 0],
       \
       \ 'Function'    : ['#a3e234',        -1,  -1, -1, 0, 0],
       \ 'Identifier'  : ['#ffaf00',        -1, 214, -1, 0, 0],
