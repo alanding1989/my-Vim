@@ -32,7 +32,7 @@ endfunction
 
 function! layers#lang#markdown#config() abort
   if g:is_spacevim
-
+    call SpaceVim#custom#Reg_langSPC('markdown', function('s:language_specified_mappings'))
   elseif !g:is_spacevim
     " do not highlight markdown error
     let g:markdown_hi_error = 0
@@ -73,13 +73,18 @@ function! layers#lang#markdown#config() abort
     augroup layer_lang_markdown
       autocmd!
       autocmd FileType markdown setlocal omnifunc=htmlcomplete#CompleteTags |
-            \ call s:mappings()
+            \ call s:language_specified_mappings()
     augroup END
   endif
 endfunction
 
-function! s:mappings() abort
-  if !g:is_spacevim
+function! s:language_specified_mappings() abort
+  if g:is_spacevim
+    call SpaceVim#mapping#space#langSPC('nnoremap', ['l', 'g'], 'call call('
+          \ . string(s:_function('s:genToc')) . ', [])',
+          \ '@ generate markdown Table of Contents', 1)
+  else
+    nmap <Space>lg  :GenTocGFM<CR>
     nmap <space>lp  :MarkdownPreview<CR>
     nmap <space>lk  <plug>(markdown-insert-link)
     xmap <space>lk  <plug>(markdown-insert-link)
@@ -89,6 +94,18 @@ function! s:mappings() abort
   endif
 endfunction
 
+
+function! s:genToc() abort
+  if search('\%^\_.<!.*->', 'bn')
+    call util#echohl('already has Toc')
+    return
+  endif
+  let save_pos = getpos('.')
+  call append(0, ['',''])
+  normal! gg
+  GenTocGFM
+  call setpos('.', save_pos)
+endfunction
 
 function! s:generate_remarkrc() abort
   let conf = [
@@ -154,3 +171,22 @@ function! s:run_code_in_block() abort
     endif
   endif
 endfunction
+
+" function() wrapper "{{{
+function! util#valid(type, ...) abort
+  return util#{a:type}#valid(a:000)
+endfunction
+
+if v:version > 703 || v:version == 703 && has('patch1170')
+  function! s:_function(fstr) abort
+    return function(a:fstr)
+  endfunction
+else
+  function! s:_SID() abort
+    return matchstr(expand('<sfile>'), '<SNR>\zs\d\+\ze__SID$')
+  endfunction
+  let s:_s = '<SNR>' . s:_SID() . '_'
+  function! s:_function(fstr) abort
+    return function(substitute(a:fstr, 's:', s:_s, 'g'))
+  endfunction
+endif "}}}
