@@ -56,8 +56,8 @@
     filemanager                  = 'defx'
     enable_ale                   = 1
     lint_on_the_fly              = 1
-    bootstrap_before             = 'My_SpaceVim#bootstrap#before'
-    bootstrap_after              = 'My_SpaceVim#bootstrap#after'
+    bootstrap_before             = 'MySpaceVim#bootstrap#before'
+    bootstrap_after              = 'MySpaceVim#bootstrap#after'
 
 # Layers {{{
 [[layers]]

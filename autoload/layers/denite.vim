@@ -82,7 +82,7 @@ function! layers#denite#config() abort
     nnoremap <silent> <Leader>fm     :Denite output:message<CR>
     nnoremap <silent> <Leader>fy     :Denite neoyank<CR>
     nnoremap <silent> <Leader>fq     :Denite quickfix<CR>
-    if !My_Vim#layer#isLoaded('leaderf')
+    if !MyVim#layer#isLoaded('leaderf')
       nnoremap          <C-p>        :call feedkeys(':DeniteFile ')<CR>
       nnoremap <silent> <c-y>        :call <sid>warp_denite('DeniteCursorWord outline')<CR>
       " space mapping

@@ -78,6 +78,6 @@ let g:plugmanager                  = g:is_vim8 ? 'dein' : 'dein'
 " if use init.toml, it will not source <g:home.'config/SpaceVim/config.vim'>
 let g:spacevim_plugin_bundle_dir   = g:is_win ? 'D:\.cache\vimfiles\'
       \ : '/home/alanding/.cache/vimfiles'. (g:is_root ? '-root/' : '-alan/')
-let g:My_Vim_plug_dir              = g:is_win ? 'D:\.cache\My_Vim\'. g:plugmanager .'\'
-      \ : '/home/alanding/.cache/My_Vim'. (g:is_root ? '-root/' : '-alan/'). g:plugmanager .'/'
+let g:MyVim_plug_dir              = g:is_win ? 'D:\.cache\MyVim\'. g:plugmanager .'\'
+      \ : '/home/alanding/.cache/MyVim'. (g:is_root ? '-root/' : '-alan/'). g:plugmanager .'/'
 "}}}

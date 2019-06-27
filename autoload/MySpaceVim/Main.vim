@@ -1,5 +1,5 @@
 " ================================================================================
-" My_SpaceVim.vim
+" MySpaceVim.vim
 " Personal configuration of SpaceVim
 " ================================================================================
 scriptencoding utf-8
@@ -29,7 +29,7 @@ let s:is_fallback = 0
 
 
 " Main Function: {{{
-function! My_SpaceVim#Main#init() abort
+function! MySpaceVim#Main#init() abort
   " NOTE: the order shouldn`t be changed
   call   s:SpaceVim_config_load()
   " try
@@ -58,7 +58,7 @@ function! s:Mainfallback() abort
   " only load core layer modified config
   let s:is_fallback = 1
   let g:spacevim_colorscheme = g:spacevim_colorscheme_default
-  let g:My_SpaceVim_layers = {
+  let g:MySpaceVim_layers = {
         \ 'checkers'          : 1,
         \ 'colorscheme'       : 1,
         \ 'git'               : 1,
@@ -71,7 +71,7 @@ function! s:Mainfallback() abort
   call s:Mainbegin()
 endfunction
 
-function! My_SpaceVim#Main#isfallback() abort
+function! MySpaceVim#Main#isfallback() abort
   return get(s:, 'is_fallback', 0)
 endfunction
 "}}}
@@ -116,8 +116,8 @@ endfunction
 
 " load layer
 function! s:loadlayers() abort
-  for [layer, value] in items(g:My_SpaceVim_layers)
-    let var = My_SpaceVim_layers_variable(layer)
+  for [layer, value] in items(g:MySpaceVim_layers)
+    let var = MySpaceVim_layers_variable(layer)
     if value == 1 && util#dict#valid(var)
       call SpaceVim#layers#load(layer, var)
     elseif value == 1
@@ -144,7 +144,7 @@ function! s:Mylayers_config_load() abort
   endif
   for layer in s:define_my_layers
     if !empty(layer)
-      let var = My_SpaceVim_layers_variable(layer)
+      let var = MySpaceVim_layers_variable(layer)
       if util#dict#valid(var)
         call layers#{layer}#set_variable(var)
       endif

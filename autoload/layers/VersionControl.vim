@@ -19,7 +19,7 @@ endfunction
 function! layers#VersionControl#config() abort
   if g:is_spacevim && !SpaceVim#layers#isLoaded('git')
     call SpaceVim#mapping#space#def('nnoremap', ['g', 'f'], 'SignifyFold'  , '@ toggle folding unchanged lines', 1)
-  elseif !My_Vim#layer#isLoaded('git')
+  elseif !MyVim#layer#isLoaded('git')
     nnoremap <Space>gf   :SignifyFold<CR>
   endif
 endfunction

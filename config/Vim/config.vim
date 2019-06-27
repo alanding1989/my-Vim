@@ -50,7 +50,7 @@ let g:enable_checkinstall          = 1
 "}}}
 
 " Var {{{
-function! My_Vim_layers_variable(layer) abort
+function! MyVim_layers_variable(layer) abort
   return get({
         \ 'lang#scala' : {
         \     'format_on_save'            : 1,
@@ -79,7 +79,7 @@ endfunction
 "   DefaultLayers:
 "   autocomplete,  checkers,  core,  edit,  format,  leaderf
 "============================================================================= {{{
-let g:My_Vim_layers = {
+let g:MyVim_layers = {
       \ 'git'               : 1,
       \ 'lsp'               : 1,
       \ 'langtools'         : 1,
@@ -102,16 +102,16 @@ let g:My_Vim_layers = {
       \ }
 
 if g:fuzzyfinder ==# 'leaderf' " {{{
-      \ && g:My_Vim_layers['leaderf']
-  let g:My_Vim_layers['leaderf'] = 1
-  let g:My_Vim_layers['denite']  = 0
+      \ && g:MyVim_layers['leaderf']
+  let g:MyVim_layers['leaderf'] = 1
+  let g:MyVim_layers['denite']  = 0
 elseif g:fuzzyfinder ==# 'denite'
-  let g:My_Vim_layers['denite']  = 1
-  let g:My_Vim_layers['leaderf'] = 0
+  let g:MyVim_layers['denite']  = 1
+  let g:MyVim_layers['leaderf'] = 0
 elseif g:fuzzyfinder ==# 'fzf'
-  let g:My_Vim_layers['fzf']     = 1
-  let g:My_Vim_layers['denite']  = 0
-  let g:My_Vim_layers['leaderf'] = 0
+  let g:MyVim_layers['fzf']     = 1
+  let g:MyVim_layers['denite']  = 0
+  let g:MyVim_layers['leaderf'] = 0
 endif "}}}
 
 if g:autocomplete_method ==# 'coc' " {{{
@@ -127,7 +127,7 @@ if g:pure_viml || !g:has_py " {{{
   let g:snippet_engine      = 'neosnippet'
   let g:filemanager         = 'vimfiler'
   let g:enable_smart_clock  = 0
-  let g:My_Vim_layers = {
+  let g:MyVim_layers = {
         \ 'colorscheme'     : 1,
         \ 'tags'            : 1,
         \ 'tools'           : 1,

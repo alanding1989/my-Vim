@@ -1,6 +1,6 @@
 " ================================================================================
 " plugin.vim -- load plugins
-" Sector: My_Vim
+" Sector: MyVim
 " ================================================================================
 scriptencoding utf-8
 
@@ -17,7 +17,7 @@ let s:default_layers = [
       \ ]
 
 
-function! My_Vim#plugin#begin() abort
+function! MyVim#plugin#begin() abort
   let s:enabled_plugins_name = []
   let s:uninstalled_plugins  = []
   call s:check_manager_install()
@@ -29,7 +29,7 @@ function! My_Vim#plugin#begin() abort
 endfunction
 
 
-function! My_Vim#plugin#end() abort " {{{
+function! MyVim#plugin#end() abort " {{{
   filetype plugin indent on
   syntax enable
   if s:firstinstall | return | endif
@@ -79,12 +79,12 @@ function! s:plugin_add(layer, plugin) abort " {{{
   if index(get(g:, 'disabled_plugins', []), repo) == -1
     if g:plugmanager ==# 'vim-plug'
       Plug repo, config
-      if finddir(expand(g:My_Vim_plug_dir).plug_name) ==# ''
+      if finddir(expand(g:MyVim_plug_dir).plug_name) ==# ''
         call add(s:uninstalled_plugins, plug_name)
       endif
     elseif g:plugmanager ==# 'dein'
       call dein#add(repo, config)
-      if finddir(expand(g:My_Vim_plug_dir.'repos/github.com/'.repo)) ==# ''
+      if finddir(expand(g:MyVim_plug_dir.'repos/github.com/'.repo)) ==# ''
         call add(s:uninstalled_plugins, plug_name)
       endif
     endif
@@ -138,19 +138,19 @@ function! s:check_manager_install() abort "{{{
     else
       let s:firstinstall = 0
     endif
-    call plug#begin(g:My_Vim_plug_dir) "}}}
+    call plug#begin(g:MyVim_plug_dir) "}}}
 
   elseif g:plugmanager ==# 'dein' "{{{
-    if glob(g:My_Vim_plug_dir.'repos/github.com/Shougo/dein.vim') ==# ''
+    if glob(g:MyVim_plug_dir.'repos/github.com/Shougo/dein.vim') ==# ''
       exec '!git clone git@github.com:Shougo/dein.vim.git "'
-            \.expand(g:My_Vim_plug_dir.'repos/github.com/Shougo/dein.vim').'"'
+            \.expand(g:MyVim_plug_dir.'repos/github.com/Shougo/dein.vim').'"'
       let s:firstinstall = 1
     else
       let s:firstinstall = 0
     endif
-    exec 'set runtimepath+='.expand(g:My_Vim_plug_dir.'repos/github.com/Shougo/dein.vim/')
+    exec 'set runtimepath+='.expand(g:MyVim_plug_dir.'repos/github.com/Shougo/dein.vim/')
 
-    call dein#begin(g:My_Vim_plug_dir)
+    call dein#begin(g:MyVim_plug_dir)
     call dein#add('Shougo/dein.vim')
   endif "}}}
   let g:unite_source_menu_menus = get(g:, 'unite_source_menu_menus', {})
@@ -162,9 +162,9 @@ function! s:check_manager_install() abort "{{{
 endfunction "}}}
 
 function! s:enabled_layers_get() abort
-  if !My_Vim#Main#isfallback()
-    for [layer, value] in items(g:My_Vim_layers)
-      let var = My_Vim_layers_variable(layer)
+  if !MyVim#Main#isfallback()
+    for [layer, value] in items(g:MyVim_layers)
+      let var = MyVim_layers_variable(layer)
       if value == 1 && util#dict#valid(var)
         call add(s:default_layers, layer)
         call layers#{layer}#set_variable(var)
@@ -179,7 +179,7 @@ function! s:enabled_layers_get() abort
   return g:enabled_layers
 endfunction
 
-function! My_Vim#plugin#enabled_plugins_get() abort
+function! MyVim#plugin#enabled_plugins_get() abort
   return s:enabled_plugins_name
 endfunction
 " }}}

@@ -323,8 +323,8 @@ function! mapping#basic#load() abort
     nnoremap <leader>ac<Space>    :LeaderfFile ~/.SpaceVim<CR>
   endif
   if g:is_spacevim
-    nnoremap <leader>aca          :vs ~/.SpaceVim.d/autoload/My_SpaceVim/Main.vim<CR>
-    nnoremap <leader>acu          :vs ~/.SpaceVim.d/autoload/My_Vim/Main.vim<CR>
+    nnoremap <leader>aca          :vs ~/.SpaceVim.d/autoload/MySpaceVim/Main.vim<CR>
+    nnoremap <leader>acu          :vs ~/.SpaceVim.d/autoload/MyVim/Main.vim<CR>
     nnoremap <leader>acc          :vs ~/.SpaceVim.d/config/SpaceVim/config.vim<CR>
     nnoremap <leader>ack          :vs ~/.SpaceVim.d/config/SpaceVim/keymap.vim<CR>
     nnoremap <leader>acy          :vs ~/.SpaceVim.d/config/Vim/option.vim<CR>
@@ -332,10 +332,10 @@ function! mapping#basic#load() abort
     nnoremap <leader>acl          :vs ~/.SpaceVim.d/config/Vim/keymap.vim<CR>
     nnoremap <leader>acp          :vs ~/.SpaceVim.d/config/SpaceVim/plugins_before/
     nnoremap <leader>ac[          :vs ~/.SpaceVim.d/config/Vim/plugins/
-    nnoremap <leader>ace          :vs ~/.SpaceVim.d/autoload/My_SpaceVim/bootstrap.vim<CR>
+    nnoremap <leader>ace          :vs ~/.SpaceVim.d/autoload/MySpaceVim/bootstrap.vim<CR>
   elseif !g:is_spacevim
-    nnoremap <leader>aca          :vs ~/.SpaceVim.d/autoload/My_Vim/Main.vim<CR>
-    nnoremap <leader>acu          :vs ~/.SpaceVim.d/autoload/My_SpaceVim/Main.vim<CR>
+    nnoremap <leader>aca          :vs ~/.SpaceVim.d/autoload/MyVim/Main.vim<CR>
+    nnoremap <leader>acu          :vs ~/.SpaceVim.d/autoload/MySpaceVim/Main.vim<CR>
     nnoremap <leader>acc          :vs ~/.SpaceVim.d/config/Vim/config.vim<CR>
     nnoremap <leader>ack          :vs ~/.SpaceVim.d/config/Vim/keymap.vim<CR>
     nnoremap <leader>acy          :vs ~/.SpaceVim.d/config/SpaceVim/option.vim<CR>

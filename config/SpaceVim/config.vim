@@ -89,7 +89,7 @@ let g:spacevim_layer_lang_java_formatter     = g:is_win
 "================================================================================
 " Layers Variable Settings:
 "============================================================================= {{{
-function! My_SpaceVim_layers_variable(layer) abort
+function! MySpaceVim_layers_variable(layer) abort
   return get({
         \ 'checkers' : {
         \     'show_cursor_error' : 1,
@@ -182,7 +182,7 @@ endfunction
 "   1, if project root dir doesnt have `.SpaceVim.d/init.vim`, load the former.
 "      if has, then load the layers defined in project root `.SpaceVim.d/init.vim`.
 "   2, the latter will always been loaded.
-let g:My_SpaceVim_layers = extend(get(g:, 'My_SpaceVim_layers', {
+let g:MySpaceVim_layers = extend(get(g:, 'MySpaceVim_layers', {
       \ 'lang#c'            : 1,
       \ 'lang#go'           : 1,
       \ 'lang#java'         : 1,
@@ -217,18 +217,18 @@ let g:My_SpaceVim_layers = extend(get(g:, 'My_SpaceVim_layers', {
       \ })
 
 if g:spacevim_fuzzyfinder ==# 'leaderf' " {{{
-      \ && g:My_SpaceVim_layers['leaderf']
-  let g:My_SpaceVim_layers['leaderf'] = 1
-  let g:My_SpaceVim_layers['denite']  = 1
-  let g:My_SpaceVim_layers['fzf']     = 0
+      \ && g:MySpaceVim_layers['leaderf']
+  let g:MySpaceVim_layers['leaderf'] = 1
+  let g:MySpaceVim_layers['denite']  = 1
+  let g:MySpaceVim_layers['fzf']     = 0
 elseif g:spacevim_fuzzyfinder ==# 'denite'
-  let g:My_SpaceVim_layers['denite']  = 1
-  let g:My_SpaceVim_layers['leaderf'] = 0
-  let g:My_SpaceVim_layers['fzf']     = 0
+  let g:MySpaceVim_layers['denite']  = 1
+  let g:MySpaceVim_layers['leaderf'] = 0
+  let g:MySpaceVim_layers['fzf']     = 0
 elseif g:spacevim_fuzzyfinder ==# 'fzf'
-  let g:My_SpaceVim_layers['fzf']     = 1
-  let g:My_SpaceVim_layers['denite']  = 0
-  let g:My_SpaceVim_layers['leaderf'] = 0
+  let g:MySpaceVim_layers['fzf']     = 1
+  let g:MySpaceVim_layers['denite']  = 0
+  let g:MySpaceVim_layers['leaderf'] = 0
 endif "}}}
 
 if g:spacevim_autocomplete_method ==# 'coc' "{{{
@@ -244,7 +244,7 @@ if g:pure_viml || !g:has_py " {{{
   let g:spacevim_snippet_engine      = 'neosnippet'
   let g:spacevim_filemanager         = 'vimfiler'
   let g:enable_smart_clock           = 0
-  let g:My_SpaceVim_layers = {
+  let g:MySpaceVim_layers = {
         \ 'checkers'        : 1,
         \ 'colorscheme'     : 1,
         \ 'debug'           : 1,
@@ -294,10 +294,10 @@ endif
 if g:spacevim_snippet_engine !=# 'neosnippet'
   let g:spacevim_disabled_plugins += ['neopairs.vim']
 endif
-if g:My_SpaceVim_layers.git && g:spacevim_autocomplete_method ==# 'coc'
+if g:MySpaceVim_layers.git && g:spacevim_autocomplete_method ==# 'coc'
   let g:spacevim_disabled_plugins += ['vim-gitgutter']
 endif
-if g:spacevim_fuzzyfinder !=# 'denite' && g:My_SpaceVim_layers.denite
+if g:spacevim_fuzzyfinder !=# 'denite' && g:MySpaceVim_layers.denite
   let g:spacevim_disabled_plugins += ['neomru.vim', 'unite-outline']
 endif
 "}}}

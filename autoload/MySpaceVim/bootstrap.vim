@@ -1,12 +1,12 @@
 "================================================================================
 " bootstrap.vim -- for init.toml entry
-" Section: My_SpaceVim
+" Section: MySpaceVim
 "================================================================================
 scriptencoding utf-8
 
 
 
-function! My_SpaceVim#bootstrap#before() abort
+function! MySpaceVim#bootstrap#before() abort
   " load minimal setting
   let g:home = glob('~/.SpaceVim.d/')
   call default#load()
@@ -14,7 +14,7 @@ function! My_SpaceVim#bootstrap#before() abort
 endfunction
 
 
-function! My_SpaceVim#bootstrap#after() abort
+function! MySpaceVim#bootstrap#after() abort
   call SpaceVim#custom#Reg_langSPC('vim', function('s:language_specified_mappings'))
   call util#so_file('keymap.vim', 'SPC')
   call s:loadconfig(['core', 'autocomplete'])

@@ -5,7 +5,7 @@
 " Created Time : Thu 04 Apr 2019 01:10:53 AM CST
 "=========================================================================
 scriptencoding utf-8
-if get(s:, 'loaded', 0) 
+if get(s:, 'loaded', 0)
   finish
 endif
 let s:loaded = 1
@@ -26,21 +26,21 @@ function! s:set_languageTool() abort
     if g:is_spacevim
       let s:misc_path = g:spacevim_plugin_bundle_dir.'repos/github.com/rhysd/vim-grammarous/misc/'
     else
-      let s:misc_path = g:My_Vim_plug_dir.'repos/github.com/rhysd/vim-grammarous/misc/'
+      let s:misc_path = g:MyVim_plug_dir.'repos/github.com/rhysd/vim-grammarous/misc/'
     endif
   else
     if g:is_spacevim
       let s:misc_path = g:spacevim_plugin_bundle_dir.'vim-grammarous/misc/'
     else
-      let s:misc_path = g:My_Vim_plug_dir.'vim-grammarous/misc/'
+      let s:misc_path = g:MyVim_plug_dir.'vim-grammarous/misc/'
     endif
   endif
 
-  
+
   if glob(fnamemodify(s:misc_path, ':p:h:h')) ==# '' || glob(s:misc_path.'LanguageTool') !=# ''
     return
   endif
-  
+
   if glob(s:misc_path) ==# ''
     call mkdir(expand(s:misc_path), 'p', 0700)
     call <sid>make_link()

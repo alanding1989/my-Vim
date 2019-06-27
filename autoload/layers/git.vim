@@ -26,7 +26,7 @@ function! layers#git#plugins() abort
     "{{{
     call add(plugins, ['junegunn/gv.vim'       , {'on_cmd': 'GV', 'on': 'GV'}])
     call add(plugins, ['tpope/vim-fugitive'    , {'merged': 0}])
-    if !My_Vim#layer#isLoaded('VersionControl') && s:gitgutter_plugin ==# 'vim-gitgutter'
+    if !MyVim#layer#isLoaded('VersionControl') && s:gitgutter_plugin ==# 'vim-gitgutter'
       " show vcs info in sign column, only support git
       call add(plugins, ['airblade/vim-gitgutter', {'merged': 0}])
     elseif s:gitgutter_plugin ==# 'coc'
@@ -129,7 +129,7 @@ function! layers#git#config() abort
       nnoremap <Space>gM   :call <sid>display_last_commit_of_current_line<CR>
       nnoremap <Space>gV   :GV!<CR>
       nnoremap <Space>gv   :GV<CR>
-    if !My_Vim#layer#isLoaded('VersionControl') && s:gitgutter_plugin ==# 'vim-gitgutter'
+    if !MyVim#layer#isLoaded('VersionControl') && s:gitgutter_plugin ==# 'vim-gitgutter'
       nnoremap <Space>gf   :GitGutterFold<CR>
       nmap     <Space>gha  <Plug>GitGutterStageHunk
       nmap     <Space>ghu  <Plug>GitGutterUndoHunk

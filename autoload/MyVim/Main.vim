@@ -1,5 +1,5 @@
 " ================================================================================
-" My_Vim.vim
+" MyVim.vim
 " Core file of my vimrc
 " ================================================================================
 scriptencoding utf-8
@@ -7,7 +7,7 @@ scriptencoding utf-8
 
 
 " init
-function! My_Vim#Main#init() abort
+function! MyVim#Main#init() abort
   call util#so_file('config.vim', 'Vim')
   " try
     call s:Mainbegin()
@@ -18,18 +18,18 @@ endfunction
 
 
 function! s:Mainbegin() abort
-  call My_Vim#plugin#begin()
-  call My_Vim#plugin#end()
+  call MyVim#plugin#begin()
+  call MyVim#plugin#end()
 endfunction
 
 function! s:Mainfallback() abort
   let s:is_fallback = 1
   let g:my_cs = 'nord'
-  let g:My_Vim_layers = {}
-  call My_Vim#plugin#begin()
-  call My_Vim#plugin#end()
+  let g:MyVim_layers = {}
+  call MyVim#plugin#begin()
+  call MyVim#plugin#end()
 endfunction
 
-function! My_Vim#Main#isfallback() abort
+function! MyVim#Main#isfallback() abort
   return get(s:, 'is_fallback', 0)
 endfunction

@@ -6,14 +6,14 @@ scriptencoding utf-8
 
 let s:SYS = SpaceVim#api#import('system')
 
-if g:spacevim_filetree_direction ==# 'right'
+if g:filetree_direction ==# 'right'
   let s:direction = 'rightbelow'
 else
   let s:direction = 'leftabove'
 endif
 
 call defx#custom#option('_', {
-      \ 'winwidth'          : g:spacevim_sidebar_width,
+      \ 'winwidth'          : g:sidebar_width,
       \ 'split'             : 'vertical',
       \ 'direction'         : s:direction,
       \ 'show_ignored_files': 0,
@@ -40,6 +40,7 @@ augroup vfinit
   au!
   autocmd FileType defx call s:defx_init()
   " auto close last defx windows
+  let g:_spacevim_autoclose_filetree = 0
   autocmd BufEnter * nested if
         \ (!has('vim_starting') && winnr('$') == 1  && g:_spacevim_autoclose_filetree
         \ && &filetype ==# 'defx') |

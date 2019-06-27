@@ -208,7 +208,7 @@ function! util#CheckInstall(...) abort
       call util#echohl('Not Installed')
     endif
   else
-    let plugins = My_Vim#plugin#enabled_plugins_get()
+    let plugins = MyVim#plugin#enabled_plugins_get()
     if index(plugins, a:0 ? a:1 : plug_name) >= 0
       call util#echohl('Already Installed')
     else
@@ -246,7 +246,7 @@ function! util#Show_curPlugin_log()
   finally
     let @a = a_save
   endtry
-  let plugdir = g:is_spacevim ? g:spacevim_plugin_bundle_dir : g:My_Vim_plug_dir
+  let plugdir = g:is_spacevim ? g:spacevim_plugin_bundle_dir : g:MyVim_plug_dir
   if !exists(':PlugSnapshot')
     let plugdir = plugdir.'repos/github.com/'
   else
