@@ -12,7 +12,7 @@ let s:define_my_layers  = ['tags', 'langtools', 'tools#clock', 'defhighlight']
 let s:add_plugin_layers = [
       \ 'autocomplete' , 'colorscheme', 'checkers'  , 'core'       , 'edit'    ,
       \ 'git'          , 'langtools'  , 'lang#latex', 'lang#python', 'lang#vim',
-      \ 'lang#markdown', 'lang#ps1'   , 'lang#ipynb', 'ui'         ,
+      \ 'lang#markdown', 'lang#ps1'   , 'lang#ipynb', 'leaderf'    , 'ui'      ,
       \ ]
 let s:modified_conf_layers = [
       \ 'autocomplete', 'chinese' , 'colorscheme'   , 'core'       , 'checkers',

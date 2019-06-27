@@ -6,8 +6,9 @@ scriptencoding utf-8
 
 
 function! layers#leaderf#plugins() abort
-  let plugins = []
-  " \ ['Yggdroot/LeaderF-marks', {'on_cmd' : 'LeaderfMarks'}]
+  let plugins = [
+        \ ['Yggdroot/LeaderF-marks', {'on_cmd' : 'LeaderfMarks'}]
+        \ ]
   if !g:is_spacevim
     if !g:is_win
       call add(plugins , ['Yggdroot/LeaderF', {'merged': 0, 'build': './install.sh', 'do': './install.sh'}])
@@ -32,6 +33,7 @@ function! layers#leaderf#config() abort
           \ ['nnoremap', ['f', 'r'], 'LeaderfMru'        , 'open-recent-file'                      , 1],
           \ ['nnoremap', ['T', 'c'], 'LeaderfColorscheme', 'fuzzy find colorschemes'               , 1],
           \ ['nnoremap', ['j', 'i'], 'LeaderfFunction'   , 'jump to a definition in buffer'        , 1],
+          \ ['nnoremap', ['f', 'b'], 'LeaderfMarks'      , 'check bookmarks'                       , 1],
           \ ]
     " leader mapping
     " NOTE: jump location quickfix register message use Denite/Unite
@@ -76,6 +78,7 @@ function! layers#leaderf#config() abort
     nnoremap <silent><space>fr   :LeaderfMru<cr>
     nnoremap <silent><space>ji   :LeaderfFunction<cr>
     nnoremap <silent><space>hi   :LeaderfHelp<cr>
+    nnoremap <silent><space>fb   :LeaderfMarks<cr>
     " leader mapping
     nnoremap <silent><leader>fa  :call feedkeys(':Leaderf ')<CR>
     nnoremap <silent><leader>fr  :LeaderfMru<cr>

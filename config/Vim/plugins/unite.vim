@@ -2,7 +2,7 @@
 " unite.vim -- settings
 " ================================================================================
 scriptencoding utf-8
-if get(s:, 'loaded', 0)
+if get(s:, 'loaded', 0) || get(g:, 'unite_data_directory', '~/.cache/unite')
   finish
 endif
 let s:loaded = 1
@@ -269,6 +269,7 @@ function! s:view_github_starred_repos() abort
   endif
 endfunction
 " call zvim#util#loadMusics()
+
 augroup unite_buffer_feature
   autocmd FileType unite call s:unite_my_settings()
 augroup END
