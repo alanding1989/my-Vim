@@ -144,6 +144,7 @@ function! MySpaceVim_layers_variable(layer) abort
         \         'lua'   ,
         \         'python', 'ipynb' ,
         \         'vim'   ,
+        \         'javascript',
         \         ], g:is_unix ? ['sh'] : []),
         \     'override_cmd' : {
         \         'java' : [
@@ -168,7 +169,6 @@ function! MySpaceVim_layers_variable(layer) abort
         \     'hlcolor'  : s:enable_myhl ? g:_defhighlight_var.hlcolor : {}
         \ }
         \ }, a:layer, {})
-  " \ 'javascript',
 endfunction
 " }}}
 
@@ -184,9 +184,9 @@ endfunction
 "   2, the latter will always been loaded.
 let g:MySpaceVim_layers = extend(get(g:, 'MySpaceVim_layers', {
       \ 'lang#c'            : 1,
-      \ 'lang#go'           : 1,
-      \ 'lang#java'         : 1,
-      \ 'lang#scala'        : 1,
+      \ 'lang#go'           : 0,
+      \ 'lang#java'         : 0,
+      \ 'lang#scala'        : 0,
       \ 'lang#python'       : 1,
       \ 'lang#ipynb'        : 0,
       \ 'lang#lua'          : 0,

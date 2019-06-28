@@ -84,7 +84,6 @@ endfunction
 
 
 function! s:language_specified_mappings() abort
-  nnoremap <silent><buffer> gd    :call <sid>go_to_def()<CR>
   nnoremap <silent><buffer> gj    :GoGenerate<CR>
   nnoremap <silent><buffer> gk    :GoAddTags<CR>
   nnoremap <silent><buffer> gK    :GoRemoveTags<CR>
@@ -105,6 +104,7 @@ function! s:language_specified_mappings() abort
           \ 'GoReferrers',
           \ 'go referrers', 1)
   else
+    nnoremap  <silent><buffer> gd           :call <sid>go_to_def()<CR>
     nnoremap  <silent><buffer> <Space>la    :GoAlternate<CR><CR>
     nmap      <silent><buffer> <Space>lb    <Plug>(go-build)
     nnoremap  <silent><buffer> <Space>lc    GoCoverageToggle<CR>

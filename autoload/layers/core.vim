@@ -250,8 +250,8 @@ function! s:open_plugins_dir(cmd) abort "{{{
   let temp = @a | let @a=''
   normal! mz"ayi'
   normal! `z
-  let selfp = g:is_vim8  ? g:My_Vim_plug_dir : g:spacevim_plugin_bundle_dir
-  let altp = !g:is_vim8 ? g:My_Vim_plug_dir : g:spacevim_plugin_bundle_dir
+  let selfp = g:is_vim8  ? g:MyVim_plug_dir : g:spacevim_plugin_bundle_dir
+  let altp = !g:is_vim8 ? g:MyVim_plug_dir : g:spacevim_plugin_bundle_dir
   if exists('#dein')
     if glob(selfp .'repos/github.com/'.@a) !=# ''
       exec a:cmd .selfp .'repos/github.com/' . @a
