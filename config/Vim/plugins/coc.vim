@@ -58,6 +58,7 @@ augroup END "}}}
 " \ 'coc-git'        ,
 " \ 'coc-github'     ,
 " \ 'coc-diagnostic' ,
+" \ 'coc-tabnine'    ,
 " \ 'coc-python'     ,
 " \ 'coc-java'       ,
 " \ 'coc-ccls'       ,
