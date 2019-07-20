@@ -23,14 +23,14 @@ let g:has_timer                    = has('timers')
 let g:has_display                  = empty($DISPLAY)
 let g:has_terminal                 = g:is_nvim || (has('patch-8.0.1108') && has('terminal'))
 let g:is_root                      = $USER ==# 'root' || $USERNAME ==# 'Administrator'
+
 " python provider {{{
 " neovim
 if g:is_unix || g:is_mac
   " linux
   let g:ruby_host_prog             = '/home/alanding/.rbenv/shims/neovim-ruby-host'
   let g:node_host_prog             = '/opt/lang-tools/nvm/versions/node/v11.9.0/bin/neovim-node-host'
-  let g:python_host_prog           = '/home/alanding/software/anaconda3/envs/py27/bin/python2.7'
-  let g:python3_host_prog          = '/home/alanding/software/anaconda3/envs/py36/bin/python3.6'
+  let g:python3_host_prog          = '/home/alanding/software/anaconda3/envs/py37/bin/python3.6'
 else
   " windows
   let g:ruby_host_prog             = exepath('neovim-ruby-host')

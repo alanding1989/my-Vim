@@ -25,6 +25,46 @@ let g:coc_filetype_map        = {
       \ 'sbt.scala': 'scala',
       \ }
 
+" extensions {{{
+let g:coc_global_extensions = [
+\ 'coc-git'        ,
+\ 'coc-github'     ,
+\ 'coc-diagnostic' ,
+\ 'coc-tabnine'    ,
+\ 'coc-python'     ,
+\ 'coc-java'       ,
+\ 'coc-ccls'       ,
+\ 'coc-vimlsp'     ,
+\ 'coc-sh'         ,
+\ 'coc-lua'        ,
+\ 'coc-docker'     ,
+\ 'coc-gocode'     ,
+\ 'coc-html'       ,
+\ 'coc-css'        ,
+\ 'coc-phpls'      ,
+\ 'coc-yaml'       ,
+\ 'coc-json'       ,
+\ 'coc-vimtex'     ,
+\ 'coc-emmet'      ,
+\ 'coc-snippets'   ,
+\ 'coc-neosnippet' ,
+\ 'coc-ultisnips'  ,
+\ 'coc-dictionary' ,
+\ 'coc-syntax'     ,
+\ 'coc-tag'        ,
+\ 'coc-word'       ,
+\ 'coc-emoji'      ,
+\ 'coc-omni'       ,
+\ 'coc-rls'        ,
+\ 'coc-prettier'   ,
+\ 'coc-import-cost',
+\ 'coc-vetur'      ,
+\ 'coc-pyls'       ,
+\ 'coc-lbdbq'      ,
+\ 'coc-calc'       ,
+\ 'https://github.com/andys8/vscode-jest-snippets.git#master' ,
+\ ] "}}}
+
 " autocmds {{{
 augroup my_coc_settings
   autocmd!
@@ -32,6 +72,7 @@ augroup my_coc_settings
   auto CursorHoldI,CursorMovedI * silent call CocActionAsync('showSignatureHelp')
   auto CursorHold               * if getline('.')[col('.')-1] =~? '\w' | silent call CocActionAsync('highlight') | endif
   auto VimEnter * call <sid>g_mappings()
+  " auto VimEnter * call <sid>g_mappings() | call coc#add_extension(g:coc_global_extensions)
   if (g:is_spacevim && !SpaceVim#layers#isLoaded('core#statusline')) || get(g:, 'statusline', '') =~# 'airline'
     auto User     CocDiagnosticChange  AirlineRefresh
   endif
@@ -53,45 +94,7 @@ augroup my_coc_settings
   endif
 augroup END "}}}
 
-" extensions {{{
-" let g:coc_global_extensions = [
-" \ 'coc-git'        ,
-" \ 'coc-github'     ,
-" \ 'coc-diagnostic' ,
-" \ 'coc-tabnine'    ,
-" \ 'coc-python'     ,
-" \ 'coc-java'       ,
-" \ 'coc-ccls'       ,
-" \ 'coc-vimlsp'     ,
-" \ 'coc-sh'         ,
-" \ 'coc-lua'        ,
-" \ 'coc-docker'     ,
-" \ 'coc-gocode'     ,
-" \ 'coc-html'       ,
-" \ 'coc-css'        ,
-" \ 'coc-phpls'      ,
-" \ 'coc-yaml'       ,
-" \ 'coc-json'       ,
-" \ 'coc-vimtex'     ,
-" \ 'coc-emmet'      ,
-" \ 'coc-snippets'   ,
-" \ 'coc-neosnippet' ,
-" \ 'coc-ultisnips'  ,
-" \ 'coc-dictionary' ,
-" \ 'coc-syntax'     ,
-" \ 'coc-tag'        ,
-" \ 'coc-word'       ,
-" \ 'coc-emoji'      ,
-" \ 'coc-omni'       ,
-" \ 'coc-rls'        ,
-" \ 'coc-prettier'   ,
-" \ 'coc-import-cost',
-" \ 'coc-vetur'      ,
-" \ 'coc-pyls'       ,
-" \ 'coc-lbdbq'      ,
-" \ 'coc-calc'       ,
-" \ 'https://github.com/andys8/vscode-jest-snippets.git#master' ,
-" \ ] "}}}
+
 
 " key mapping  {{{
   nmap  <silent>gd  <Plug>(coc-definition)
@@ -122,7 +125,7 @@ if g:is_spacevim
   let g:_spacevim_mappings.c.p   = {'name': '+CocUtil actions'}
   let g:_spacevim_mappings.c.p.i = ['call feedkeys(":CocInstall ")'  , 'coc install plugins' ]
   let g:_spacevim_mappings.c.p.u = ['call feedkeys(":CocUninstall ")', 'coc remove plugins'  ]
-  let g:_spacevim_mappings.c.p.b = ['call coc#util#build()'          , 'coc build source'    ]
+  let g:_spacevim_mappings.c.p.b = ['call coc#util#install({})'          , 'coc build source'    ]
   call SpaceVim#mapping#def('nnoremap', '<leader>cc', ':CocList commands<CR>', 'Coc Commands', '', 'Coc Commands')
   call SpaceVim#mapping#def('nnoremap', '<leader>ce', ':CocList snippets<CR>', 'Coc Snippets', '', 'Coc Snippets')
   call SpaceVim#mapping#def('nnoremap', '<leader>cl', ':CocList<CR>'         , 'Coc List'    , '', 'Coc List'    )

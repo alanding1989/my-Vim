@@ -77,8 +77,8 @@ let g:spacevim_guifont                       = g:guifont
 let g:spacevim_music_path                    = g:is_win ? 'E:\娱乐影音\音乐' : '/mnt/fun+downloads/娱乐影音/音乐'
 let g:spacevim_project_rooter_patterns       = uniq(sort(g:spacevim_project_rooter_patterns
       \ + deepcopy(g:project_root_marker)))
-let g:currentbranch                          = split(filter(systemlist('git -C ~/.SpaceVim branch'),
-      \ 'match(v:val, "*") > -1')[0], ' ')[1]
+" let g:currentbranch                          = split(filter(systemlist('git -C ~/.SpaceVim branch'),
+      " \ 'match(v:val, "*") > -1')[0], ' ')[1]
 
 let g:spacevim_layer_lang_java_formatter     = g:is_win 
       \ ? 'D:\devtools\scala\google-java-format.jar' 
