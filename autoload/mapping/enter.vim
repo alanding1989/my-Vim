@@ -117,6 +117,10 @@ endif
 "}}}
 
 
+
+"--------------------------------------------------------------------------------
+" mapping
+"--------------------------------------------------------------------------------
 " MatchCl('^$')
 if s:autocomplete_parens
   imap <Plug>(EolCR)  <Plug>delimitMateCR
@@ -127,8 +131,8 @@ else
         \ : "\<CR>"
 endif
 
-inoremap <expr><Plug>(SmartCR)  <sid>SmartCR()
 
+inoremap <expr><Plug>(SmartCR)  <sid>SmartCR()
 function! s:SmartCR() abort " {{{
   let ftwhitelist = [
         \ 'vim',

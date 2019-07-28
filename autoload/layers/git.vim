@@ -94,6 +94,7 @@ function! layers#git#config() abort
             \ '@ show cursor plugin`s commit log', 1) |
             \ call SpaceVim#mapping#space#def('nnoremap', ['g', 'i', 'd'], 'call util#CheckSPCMergeDiff()',
             \ '@ open github page of SpaceVim merge diff', 1)
+      auto FileType gitcommit set bufhidden=delete
     augroup END
     "}}}
   else
@@ -149,6 +150,7 @@ function! layers#git#config() abort
       autocmd!
       auto FileType diff      nnoremap <buffer><silent> q :bd!<CR>
       auto FileType gitcommit auto! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
+            \ | set bufhidden=delete
       auto FileType vim
             \ nnoremap <buffer><silent> <Space>ql   :call util#Show_curPlugin_log()<CR>|
             \ nnoremap <buffer><silent> <Space>gid  :call util#CheckSPCMergeDiff()<CR>

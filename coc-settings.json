@@ -27,27 +27,24 @@
 
   "codeLens.enable"                                 : true,
 
-
   // Snippets
-  // NOTE: UltiSnips dir must be contained, or it will not source it.
-  "snippets.shortcut" : "Snips",
-  "snippets.priority" : 99,
+  // NOTE: UltiSnips dir must be contained, or it will not load it.
+  "snippets.shortcut"                               : "Snips",
+  "snippets.trace"                                  : "verbose",
   "snippets.ultisnips.directories": [
     "/home/alanding/.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/snippets",
     "/home/alanding/.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/UltiSnips",
     "D:/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/snipeets",
     "D:/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/UltiSnips"
   ],
-  "snippets.trace"   : "verbose",
   "snippets.extends" : {
     "ipynb"      : ["python"],
     "sbt.scala"  : ["scala"],
     "typescript" : ["javascript"]
   },
-  "emmet.showSuggestionsAsSnippets" : true ,
+  "emmet.showSuggestionsAsSnippets"             : true,
 
-
-  // languageserver
+  // languageserver config
 
   "python.autoComplete.addBrackets"             : true,
   //"python.autoComplete.extraPaths              ": [],
@@ -109,17 +106,18 @@
 
   "tsserver.enable"                             : true,
   "tsserver.trace.server"                       : "verbose",
-  "tsserver.log": "normal",
-  "tsserver.npm": "/opt/lang-tools/nvm/versions/node/v10.16.0/bin/npm",
+  "tsserver.log"                                : "normal",
+  "tsserver.npm"                                : "/opt/lang-tools/nvm/versions/node/v10.16.0/bin/npm",
+  "npm.binPath"                                 : "/opt/lang-tools/nvm/versions/node/v10.16.0/bin/npm",
 
-  "tslint.enable": true,
-  "tslint.run": "onType",
-  "tslint.jsEnable": true,
+  "tslint.run"                                  : "onType",
+  "tslint.enable"                               : true,
+  "tslint.jsEnable"                             : true,
 
-  "typescript.preferences.quoteStyle": "single",
+  "typescript.preferences.quoteStyle"           : "single",
   "typescript.preferences.importModuleSpecifier": "relative",
-  "typescript.suggest.enabled": true,
-  "typescript.suggestionActions.enabled": true,
+  "typescript.suggest.enabled"                  : true,
+  "typescript.suggestionActions.enabled"        : true,
 
   "javascript.suggest.enabled"                  : true,
   "javascript.suggest.names"                    : true,
@@ -128,8 +126,8 @@
   "javascript.suggest.completeFunctionCalls"    : true,
   "javascript.suggest.paths"                    : true,
   "javascript.preferences.noSemicolons"         : false,
-  "javascript.preferences.importModuleSpecifier": "relative",
   "javascript.preferences.quoteStyle"           : "single",
+  "javascript.preferences.importModuleSpecifier": "relative",
   "javascript.showUnused"                       : true,
   "javascript.validate.enable"                  : true,
 
@@ -138,6 +136,9 @@
   "html.format.enable"                          : true,
   "html.validate.scripts"                       : true,
   "html.validate.styles"                        : true,
+
+  "lua.enable"                                  : true,
+  "lua.commandPath"                             : "/usr/local/bin/lua",
 
 
   "languageserver": {
@@ -157,7 +158,7 @@
       "filetypes": ["c", "cpp", "objc", "objcpp"]
     },
     "metals" : {
-     "command": "metals-vim",
+      "command": "metals-vim",
       "rootPatterns": ["build.sbt"],
       "filetypes": ["scala", "sbt"]
     },
@@ -167,7 +168,7 @@
       "filetypes": ["sh", "zsh"],
       "ignoredRootPaths": ["~"]
     },
-  "   vimls": {
+    "vimls": {
       "command": "vim-language-server",
       "args": ["--stdio"],
       "initializationOptions": {
@@ -250,6 +251,6 @@
   "git.topRemovedSign.hlGroup"   : "SignifySignDelete",
   "git.changedSign.hlGroup"      : "SignifySignChange",
   "git.changeRemovedSign.hlGroup": "SignifySignChange",
+  "git.virtualTextPrefix"        : "❯ ",
   "git.addGlameToVirtualText"    : true
-
 }

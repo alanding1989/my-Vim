@@ -24,24 +24,25 @@ let g:has_display                  = empty($DISPLAY)
 let g:has_terminal                 = g:is_nvim || (has('patch-8.0.1108') && has('terminal'))
 let g:is_root                      = $USER ==# 'root' || $USERNAME ==# 'Administrator'
 
-" python provider {{{
+" lang provider {{{
+set pyxversion=3
+
 " neovim
 if g:is_unix || g:is_mac
   " linux
   let g:ruby_host_prog             = '/home/alanding/.rbenv/shims/neovim-ruby-host'
-  let g:node_host_prog             = '/opt/lang-tools/nvm/versions/node/v11.9.0/bin/neovim-node-host'
+  let g:node_host_prog             = '/opt/lang-tools/nvm/versions/node/v10.16.0/bin/neovim-node-host'
+  let g:python_host_prog           = '/home/alanding/software/anaconda3/envs/py27/bin/python2.7'
   let g:python3_host_prog          = '/home/alanding/software/anaconda3/envs/py37/bin/python3.7'
 else
   " windows
   let g:ruby_host_prog             = exepath('neovim-ruby-host')
   let g:node_host_prog             = exepath('neovim-node-host')
-  let g:python_host_prog           = 'D:\devtools\python\Anaconda3\envs\py27\python.exe'
   let g:python3_host_prog          = 'D:\devtools\python\Anaconda3\envs\py36\python.exe'
 endif
 
-" vim only
+" vim 
 if !g:is_nvim
-  set pyxversion=3
   if g:is_unix || g:is_mac
     " linux
   else

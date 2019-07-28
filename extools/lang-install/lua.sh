@@ -8,32 +8,33 @@
 # Description  : 
 
 
-cd_mkdircd() {
-  if [ ! -e "$2" ]; then
-    sudo mkdir -p "$2"
-  fi
-  cd "$2" || return
-}
+# cd_mkdircd() {
+#   if [ ! -e "$2" ]; then
+#     sudo mkdir -p "$2"
+#   fi
+#   cd "$2" || return
+# }
+#
+# CheckRepo_Update() {
+#   # ""$2"": repodir
+#   # $2: git repo url
+#   if [ ! -e "$2" ]; then
+#     git clone "$2" && cd "$2" || return
+#   else
+#     cd "$2" && git pull
+#   fi
+# }
 
-cd_tmp_down() {
-  # $2: curl or git
+
+cd_tmp_down(){
+  # $1: curl or git
   # $2: url
   # $3: dir or file
   cd /tmp || return
-  if [ "$2" = "curl" ]; then
+  if [[ "$1" = "curl" ]]; then
     curl -R -O "$2" && tar -zxf "$3"
-  elif [ "$2" = "git" ]; then
+  elif [[ "$1" = "git" ]]; then
     git clone "$2" && cd "$3" || return
-  fi
-}
-
-CheckRepo_Update() {
-  # ""$2"": repodir
-  # $2: git repo url
-  if [ ! -e "$2" ]; then
-    git clone "$2" && cd "$2" || return
-  else
-    cd "$2" && git pull
   fi
 }
 

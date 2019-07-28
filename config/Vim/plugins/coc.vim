@@ -107,6 +107,7 @@ function! s:g_mappings() abort
   nmap  ge  <Plug>(coc-rename)
   nmap  gf  <Plug>(coc-format)
   vmap  gf  <Plug>(coc-format-selected)
+  nmap  gn  <Plug>(coc-refactor)
   nmap  gl  <Plug>(coc-diagnostic-info)
   nmap  [d  <Plug>(coc-diagnostic-prev)
   nmap  ]d  <Plug>(coc-diagnostic-next)

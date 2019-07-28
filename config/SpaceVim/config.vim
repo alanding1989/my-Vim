@@ -184,17 +184,17 @@ endfunction
 "      if has, then load the layers defined in project root `.SpaceVim.d/init.vim`.
 "   2, the latter will always been loaded.
 let g:MySpaceVim_layers = extend(get(g:, 'MySpaceVim_layers', {
-      \ 'lang#c'            : 1,
+      \ 'lang#c'            : 0,
       \ 'lang#go'           : 1,
-      \ 'lang#java'         : 1,
-      \ 'lang#scala'        : 1,
+      \ 'lang#java'         : 0,
+      \ 'lang#scala'        : 0,
       \ 'lang#python'       : 1,
-      \ 'lang#ipynb'        : 1,
+      \ 'lang#ipynb'        : 0,
       \ 'lang#lua'          : 1,
-      \ 'lang#lisp'         : 1,
+      \ 'lang#lisp'         : 0,
       \ 'lang#javascript'   : 1,
       \ 'lang#typescript'   : 1,
-      \ 'lang#latex'        : 1,
+      \ 'lang#latex'        : 0,
       \ }), {
       \ 'checkers'          : 1,
       \ 'colorscheme'       : 1,
