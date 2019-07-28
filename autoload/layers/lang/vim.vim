@@ -134,10 +134,6 @@ function! s:addParam() abort
 endfunction
 
 " function() wrapper "{{{
-function! util#valid(type, ...) abort
-  return util#{a:type}#valid(a:000)
-endfunction
-
 if v:version > 703 || v:version == 703 && has('patch1170')
   function! s:_function(fstr) abort
     return function(a:fstr)

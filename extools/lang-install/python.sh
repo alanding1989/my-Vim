@@ -31,3 +31,6 @@ if [ ! -e "/home/alanding/software/anaconda3/envs/py36" ]; then
   pip install -r "$dotfile/pip3-list.txt"
 fi
 
+jupyter-nbextension install rise --py --sys-prefix
+jupyter-nbextension enable rise --py --sys-prefix
+

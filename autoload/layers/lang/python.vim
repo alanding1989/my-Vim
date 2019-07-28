@@ -39,8 +39,10 @@ endfunction
 
 
 let s:format_on_save = 0
-if !g:is_spacevim
-  function! layers#lang#python#config() abort
+function! layers#lang#python#config() abort
+  if g:is_spacevim
+    call SpaceVim#custom#Reg_langSPC('python', function('s:language_specified_mappings'))
+  else
     " heavenshell/vim-pydocstring {{{
     " If you execute :Pydocstring at no `def`, `class` line.
     " g:pydocstring_enable_comment enable to put comment.txt value.
@@ -58,44 +60,60 @@ if !g:is_spacevim
         auto BufWritePost *.py Neoformat yapf
       endif
     augroup END
-  endfunction
-endif
-
-function! s:language_specified_mappings() abort
-  nnoremap <silent><buffer> gd         :call <sid>go_to_def()<CR>
-  nnoremap <silent><buffer><Space>lis  :Neoformat isort<CR>
-  nnoremap <silent><buffer><Space>lir  :Neoformat autoflake<CR>
-  nnoremap <silent><buffer><Space>lg   :Pydocstring<CR>
-  if layers#lsp#check_ft('python')
-    nnoremap <silent><buffer> K         :call layers#lsp#show_doc()<CR>
-    nnoremap <silent><buffer> <Space>ld :call layers#lsp#show_doc()<CR>
-    nnoremap <silent><buffer> <Space>le :call layers#lsp#rename()<CR>
-    nnoremap <silent><buffer> <Space>lr :call layers#lsp#references()<CR>
-  else
-    nnoremap <silent><buffer> K         :call jedi#show_documentation()<CR>
-    nnoremap <silent><buffer> <Space>ld :call jedi#show_documentation()<CR>
-    nnoremap <silent><buffer> <Space>le :call jedi#rename()<CR>
-    nnoremap <silent><buffer> <Space>lr :call jedi#usages()<CR>
   endif
-
-  nnoremap <silent><buffer> <Space>lcr  :Coveragepy report<CR>
-  nnoremap <silent><buffer> <Space>lcs  :Coveragepy show<CR>
-  nnoremap <silent><buffer> <Space>lce  :Coveragepy session<CR>
-  nnoremap <silent><buffer> <Space>lcf  :Coveragepy refresh<CR>
-  inoremap <silent><buffer> <c-;>       <Esc>:VimpyterInsertPythonBlock<CR>i
-  nnoremap <silent><buffer> <Space>lj   :VimpyterInsertPythonBlock<CR>
-  nnoremap <silent><buffer> <Space>ls   :VimpyterStartJupyter<CR>
-  nnoremap <silent><buffer> <Space>lu   :vimpyter#updateNotebook()<CR>
-  nnoremap <silent><buffer> <Space>lv   :vimpyter#createView()<CR>
-  nnoremap <silent><buffer> <Space>ln   :VimpyterStartNteract<CR>
-
-  nnoremap <silent><buffer> <Leader>jj  :VimpyterInsertPythonBlock<CR>
-  nnoremap <silent><buffer> <Leader>js  :VimpyterStartJupyter<CR>
-  nnoremap <silent><buffer> <Leader>ju  :vimpyter#updateNotebook<CR>
-  nnoremap <silent><buffer> <Leader>jv  :vimpyter#createView<CR>
-  nnoremap <silent><buffer> <Leader>jn  :VimpyterStartNteract<CR>
 endfunction
 
+function! s:language_specified_mappings() abort
+  if g:is_spacevim
+    call SpaceVim#mapping#space#langSPC('nnoremap', ['l', 'b'], 'call call('
+          \ . string(s:_function('s:set_trace')) . ', [])',
+          \ '@ set breakpoint', 1)
+  else
+    nnoremap <silent><buffer> gd         :call <sid>go_to_def()<CR>
+    nnoremap <silent><buffer><Space>lis  :Neoformat isort<CR>
+    nnoremap <silent><buffer><Space>lir  :Neoformat autoflake<CR>
+    nnoremap <silent><buffer><Space>lg   :Pydocstring<CR>
+    if layers#lsp#check_ft('python')
+      nnoremap <silent><buffer> K         :call layers#lsp#show_doc()<CR>
+      nnoremap <silent><buffer> <Space>ld :call layers#lsp#show_doc()<CR>
+      nnoremap <silent><buffer> <Space>le :call layers#lsp#rename()<CR>
+      nnoremap <silent><buffer> <Space>lr :call layers#lsp#references()<CR>
+    else
+      nnoremap <silent><buffer> K         :call jedi#show_documentation()<CR>
+      nnoremap <silent><buffer> <Space>ld :call jedi#show_documentation()<CR>
+      nnoremap <silent><buffer> <Space>le :call jedi#rename()<CR>
+      nnoremap <silent><buffer> <Space>lr :call jedi#usages()<CR>
+    endif
+
+    nnoremap <silent><buffer> <Space>lcr  :Coveragepy report<CR>
+    nnoremap <silent><buffer> <Space>lcs  :Coveragepy show<CR>
+    nnoremap <silent><buffer> <Space>lce  :Coveragepy session<CR>
+    nnoremap <silent><buffer> <Space>lcf  :Coveragepy refresh<CR>
+    inoremap <silent><buffer> <c-;>       <Esc>:VimpyterInsertPythonBlock<CR>i
+    nnoremap <silent><buffer> <Space>lj   :VimpyterInsertPythonBlock<CR>
+    nnoremap <silent><buffer> <Space>ls   :VimpyterStartJupyter<CR>
+    nnoremap <silent><buffer> <Space>lu   :vimpyter#updateNotebook()<CR>
+    nnoremap <silent><buffer> <Space>lv   :vimpyter#createView()<CR>
+    nnoremap <silent><buffer> <Space>ln   :VimpyterStartNteract<CR>
+
+    nnoremap <silent><buffer> <Leader>jj  :VimpyterInsertPythonBlock<CR>
+    nnoremap <silent><buffer> <Leader>js  :VimpyterStartJupyter<CR>
+    nnoremap <silent><buffer> <Leader>ju  :vimpyter#updateNotebook<CR>
+    nnoremap <silent><buffer> <Leader>jv  :vimpyter#createView<CR>
+    nnoremap <silent><buffer> <Leader>jn  :VimpyterStartNteract<CR>
+  endif
+endfunction
+
+function! s:set_trace() abort
+  let line = search('\%^\_.\{-}\zsipdb\.set')
+  if line
+    call setpos('.', [0, line, 1])
+    normal! dd
+  else
+    call append(line('.'), 'import ipdb; ipdb.set_trace()')
+    normal! j==k
+  endif
+endfunction
 
 function! s:go_to_def() abort
   if layers#lsp#check_ft('python')
@@ -104,3 +122,18 @@ function! s:go_to_def() abort
     call jedi#goto()
   endif
 endfunction
+
+" function() wrapper "{{{
+if v:version > 703 || v:version == 703 && has('patch1170')
+  function! s:_function(fstr) abort
+    return function(a:fstr)
+  endfunction
+else
+  function! s:_SID() abort
+    return matchstr(expand('<sfile>'), '<SNR>\zs\d\+\ze__SID$')
+  endfunction
+  let s:_s = '<SNR>' . s:_SID() . '_'
+  function! s:_function(fstr) abort
+    return function(substitute(a:fstr, 's:', s:_s, 'g'))
+  endfunction
+endif "}}}

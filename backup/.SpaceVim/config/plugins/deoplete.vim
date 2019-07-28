@@ -126,8 +126,8 @@ call deoplete#custom#source('file/include', 'matchers', ['matcher_head'])
 call deoplete#custom#source('ultisnips' , 'rank', 1000)
 call deoplete#custom#source('neosnippet', 'rank', 1000)
 
-" inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
-" inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
+" inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+" inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
 set isfname-==
 
 " vim:set et sw=2:

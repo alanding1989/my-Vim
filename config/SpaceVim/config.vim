@@ -145,6 +145,7 @@ function! MySpaceVim_layers_variable(layer) abort
         \         'python', 'ipynb' ,
         \         'vim'   ,
         \         'javascript',
+        \         'typescript',
         \         ], g:is_unix ? ['sh'] : []),
         \     'override_cmd' : {
         \         'java' : [
@@ -184,15 +185,16 @@ endfunction
 "   2, the latter will always been loaded.
 let g:MySpaceVim_layers = extend(get(g:, 'MySpaceVim_layers', {
       \ 'lang#c'            : 1,
-      \ 'lang#go'           : 0,
-      \ 'lang#java'         : 0,
-      \ 'lang#scala'        : 0,
+      \ 'lang#go'           : 1,
+      \ 'lang#java'         : 1,
+      \ 'lang#scala'        : 1,
       \ 'lang#python'       : 1,
-      \ 'lang#ipynb'        : 0,
-      \ 'lang#lua'          : 0,
-      \ 'lang#lisp'         : 0,
-      \ 'lang#javascript'   : 0,
-      \ 'lang#latex'        : 0,
+      \ 'lang#ipynb'        : 1,
+      \ 'lang#lua'          : 1,
+      \ 'lang#lisp'         : 1,
+      \ 'lang#javascript'   : 1,
+      \ 'lang#typescript'   : 1,
+      \ 'lang#latex'        : 1,
       \ }), {
       \ 'checkers'          : 1,
       \ 'colorscheme'       : 1,

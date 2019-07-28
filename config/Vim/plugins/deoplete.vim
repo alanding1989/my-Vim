@@ -161,6 +161,9 @@ call deoplete#custom#var('tabline', {
       \ })
 
 
+" inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+" inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
+
 set isfname-==
 
 " vim:set et sw=2:

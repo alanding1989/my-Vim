@@ -14,7 +14,7 @@
   "coc.preferences.previewAutoClose"                : false,
   "coc.preferences.currentFunctionSymbolAutoUpdate" : true,
   "coc.preferences.rootPatterns"                    : [ ".root","*.sbt",".vim",".git",".hg",".projections.json" ],
-  "coc.preferences.formatOnSaveFiletypes"           : ["css", "Markdown", "scala", "cpp", "java", "sh", "lua"],
+  "coc.preferences.formatOnSaveFiletypes"           : ["css", "Markdown", "scala", "cpp", "java", "sh", "lua", "js", "ts"],
   //"coc.preferences.formatOnSaveFiletypes"           : ["css", "Markdown", "python", "scala", "c", "cpp", "java", "vim", "sh", "lua"],
   
   "diagnostic.enable"                               : false,
@@ -107,13 +107,31 @@
   "java.contentProvider.preferred": "",
 
 
-  "tsserver.enable"                             : false,
+  "tsserver.enable"                             : true,
   "tsserver.trace.server"                       : "verbose",
+  "tsserver.log": "normal",
+  "tsserver.npm": "/opt/lang-tools/nvm/versions/node/v10.16.0/bin/npm",
+
+  "tslint.enable": true,
+  "tslint.run": "onType",
+  "tslint.jsEnable": true,
+
+  "typescript.preferences.quoteStyle": "single",
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.suggest.enabled": true,
+  "typescript.suggestionActions.enabled": true,
+
   "javascript.suggest.enabled"                  : true,
   "javascript.suggest.names"                    : true,
-  "javascript.validate.enable"                  : true,
   "javascript.suggest.autoImports"              : true,
   "javascript.suggestionActions.enabled"        : true,
+  "javascript.suggest.completeFunctionCalls"    : true,
+  "javascript.suggest.paths"                    : true,
+  "javascript.preferences.noSemicolons"         : false,
+  "javascript.preferences.importModuleSpecifier": "relative",
+  "javascript.preferences.quoteStyle"           : "single",
+  "javascript.showUnused"                       : true,
+  "javascript.validate.enable"                  : true,
 
   "html.enable"                                 : false,
   "html.filetypes"                              : ["html", "handlebars", "razor"],

@@ -26,7 +26,8 @@ yarn config set registry 'https://registry.npm.taobao.org'
 
 npm -g i --unsafe-perm bash-language-server
 npm -g i neovim import-js remark remark-cli remark-stringify remark-frontmatter \
-rimraf wcwidth prettier diagnostic-languageserver vim-language-server \
+rimraf wcwidth prettier js-beautify
+diagnostic-languageserver vim-language-server \
 javascript-typescript-langserver vscode-css-languageserver-bin \
 
 # npm -g i --save-dev @fortawesome/fontawesome-free
