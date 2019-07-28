@@ -65,8 +65,8 @@ function! mapping#basic#load() abort
   " command line mode
   cnoremap qw           <Esc>
   cnoremap <C-h>        <BS>
-  cnoremap <C-j>        <down>
-  cnoremap <C-k>        <up>
+  cnoremap <expr><C-j>  pumvisible() ? "\<C-n>" : "\<down>"
+  cnoremap <expr><C-k>  pumvisible() ? "\<C-p>" : "\<up>"
   cnoremap <C-b>        <left>
   cnoremap <C-f>        <right>
   cnoremap <C-l>        <right>

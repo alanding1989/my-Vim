@@ -12,7 +12,6 @@ if [ ! -e "$HOME/.rbenv" ]; then
   git clone https://github.com/rbenv/rbenv.git ~/.rbenv
   cd "$HOME/.rbenv" && src/configure && make -C src
   source "$HOME/.zshrc"
-  "$HOME/.rbenv/bin/rbenv" init
   git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
   # ruby-dependencies
   apt-get install autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm5 libgdbm-dev
