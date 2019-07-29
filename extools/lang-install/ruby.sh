@@ -14,7 +14,7 @@ if [ ! -e "$HOME/.rbenv" ]; then
   source "$HOME/.zshrc"
   git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
   # ruby-dependencies
-  apt-get install autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm5 libgdbm-dev
+  apt-get install bison libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libffi-dev libgdbm5 libgdbm-dev
   rbenv install 2.6.0
   rbenv global 2.6.0
   gem install neovim

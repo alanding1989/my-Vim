@@ -94,8 +94,6 @@ augroup my_coc_settings
   endif
 augroup END "}}}
 
-
-
 " key mapping  {{{
   nmap  <silent>gd  <Plug>(coc-definition)
 function! s:g_mappings() abort

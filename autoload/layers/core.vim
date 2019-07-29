@@ -163,7 +163,7 @@ endfunction
 " a:num = 7 open a new filetree buffer in current working dir
 let g:_my_vimrc_dir   = g:home
 let g:_my_dotfile_dir = g:is_win ? 'E:\my-Dotfile' : '/mnt/fun+downloads/my-Dotfile'
-let g:_my_dev_dir     = g:is_win?  'D:\devtools' : '/home/alanding/0_Dev/'
+let g:_my_dev_dir     = g:is_win?  'D:\devtools' : '/home/alanding/0_Dev/projects'
 if get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'vimfiler'
 
   function! s:open_filetree(num) abort "{{{

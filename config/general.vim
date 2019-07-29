@@ -25,8 +25,6 @@ let g:has_terminal                 = g:is_nvim || (has('patch-8.0.1108') && has(
 let g:is_root                      = $USER ==# 'root' || $USERNAME ==# 'Administrator'
 
 " lang provider {{{
-set pyxversion=3
-
 " neovim
 if g:is_unix || g:is_mac
   " linux
@@ -41,7 +39,7 @@ else
   let g:python3_host_prog          = 'D:\devtools\python\Anaconda3\envs\py36\python.exe'
 endif
 
-" vim 
+" vim
 if !g:is_nvim
   if g:is_unix || g:is_mac
     " linux

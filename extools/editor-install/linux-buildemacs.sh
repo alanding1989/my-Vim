@@ -8,18 +8,18 @@
 #================================================================================
 
 
-srcpath=/mnt/fun+downloads/linux系统安装/code-software/emacs-src
+srcpath=/mnt/fun+downloads/linux系统安装/code-software/emacs/emacs-src
 
 
-emacs --version
+[ -x emacs ] && emacs --version
 
 function src_update() {
   if [ ! -e $srcpath ]; then
-    git clone -b master git://git.sv.gnu.org/emacs.git
+    git clone -b master git://git.sv.gnu.org/emacs.git $srcpath
     cd $srcpath || return
     # dependencies
-    # sudo apt-get install build-essential automake texinfo libjpeg-dev libncurses5-dev
-    # sudo apt-get install libtiff5-dev libgif-dev libpng-dev libxpm-dev libgtk-3-dev libgnutls28-dev
+    sudo apt-get install libncurses5-dev libgtk-3-dev 
+    sudo apt-get install libjpeg-dev libtiff5-dev libgif-dev libpng-dev libxpm-dev libgnutls28-dev
   else
     cd $srcpath || return && git pull
   fi
@@ -36,14 +36,16 @@ function build_install() {
   cd $srcpath &&
     ./autogen.sh \
     ./configure \
-    --with-mailutils
-    --with-jpeg=ifavailable
-    --with-gif=ifavailable
-    --with-tiff=ifavailable
+    --without-x \
+    --with-mailutils \
+    --with-jpeg=ifavailable \
+    --with-gif=ifavailable \
+    --with-tiff=ifavailable \
     --prefix=/opt/emacs/emacs
 
   make && make install
-}
+ }
 
-emacs --version
+src_update && build_install
+[ -x emacs ] && emacs --version
 
