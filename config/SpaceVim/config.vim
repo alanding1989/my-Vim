@@ -192,8 +192,9 @@ let g:MySpaceVim_layers = extend(get(g:, 'MySpaceVim_layers', {
       \ 'lang#ipynb'        : 0,
       \ 'lang#lua'          : 1,
       \ 'lang#lisp'         : 0,
-      \ 'lang#javascript'   : 1,
-      \ 'lang#typescript'   : 1,
+      \ 'lang#javascript'   : 0,
+      \ 'lang#typescript'   : 0,
+      \ 'lang#perl'         : 1,
       \ 'lang#latex'        : 0,
       \ }), {
       \ 'checkers'          : 1,

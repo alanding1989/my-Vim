@@ -251,6 +251,6 @@
   "git.topRemovedSign.hlGroup"   : "SignifySignDelete",
   "git.changedSign.hlGroup"      : "SignifySignChange",
   "git.changeRemovedSign.hlGroup": "SignifySignChange",
-  "git.virtualTextPrefix"        : "❯ ",
+  "git.virtualTextPrefix"        : "     --❯ ",
   "git.addGlameToVirtualText"    : true
 }
