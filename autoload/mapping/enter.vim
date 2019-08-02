@@ -102,8 +102,8 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'coc'
     elseif !pumvisible()
       if CurChar(0, '\s') || CurChar(1, '\s') || CurChar(1, '\w') 
         return "\<CR>"
-      elseif !CurChar(1, ']') && !CurChar(1, '}') && !CurChar(1, '', 1)
-        return "\<Esc>o"
+      " elseif !CurChar(1, ']') && !CurChar(1, '}') && !CurChar(1, '', 1)
+        " return "\<Esc>o"
       elseif CurChar(0, '\d')
         return "\<Esc>o"
       elseif CurChar(1, '}') || CurChar(1, ']')

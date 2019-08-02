@@ -26,11 +26,11 @@ let g:coc_filetype_map        = {
       \ }
 
 " extensions {{{
+      " \ 'coc-tabnine'    ,
 let g:coc_global_extensions = [
       \ 'coc-git'        ,
       \ 'coc-github'     ,
       \ 'coc-diagnostic' ,
-      \ 'coc-tabnine'    ,
       \ 'coc-python'     ,
       \ 'coc-java'       ,
       \ 'coc-ccls'       ,

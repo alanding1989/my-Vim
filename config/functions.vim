@@ -244,7 +244,10 @@ endfunction " }}}
 " Utils 2{{{
 " check char before or after cursor {{{
 function! CurChar(pos, char, ...) abort 
-  " left 0, right 1, a:1 pos
+  " args: 
+  " char character under cursor
+  " pos  left 0, right 1, 
+  " a:1  pos offset
   let isregex = a:char[0] ==# '\'
   if a:pos ==# 0
     return !a:0 ? ( isregex

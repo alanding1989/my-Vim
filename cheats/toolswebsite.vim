@@ -10,6 +10,7 @@ scriptencoding utf-8
 
 " Customiezd Websites:
 let s:url = {
+      \ 'java' : 'https://docs.oracle.com/javase/8/docs/api/index.html?overview-summary.html',
       \ 'scala': 'https://www.scala-lang.org/api/current/index.html?search=',
       \ 'arec' : 'https://asciinema.org/~alanding',
       \ 'spc'  : 'https://spacevim.org/cn/layers',
@@ -38,6 +39,9 @@ function! s:defineKeyMapping() abort
       auto FileType python,ipynb call SpaceVim#mapping#def('nnoremap', '<leader>op',
             \ ':call feedkeys(":OpenBrowserSmartSearch -python ")<CR>',
             \ 'docs search /python', '',  'docs search /python')
+      auto FileType java         call SpaceVim#mapping#def('nnoremap', '<leader>oj',
+            \ ':call feedkeys(":OpenlinkOrSearch java ")<CR>',
+            \ 'docs search /java', '',  'docs search /java')
       auto FileType scala        call SpaceVim#mapping#def('nnoremap', '<leader>os',
             \ ':call feedkeys(":OpenlinkOrSearch scala ")<CR>',
             \ 'docs search /scala', '',  'docs search /scala')
@@ -56,6 +60,8 @@ function! s:defineKeyMapping() abort
       autocmd!
       auto FileType python,ipynb nnoremap <buffer><leader>op
             \ :call feedkeys(':OpenBrowserSmartSearch -python ')<CR>
+      auto FileType java        nnoremap <buffer><leader>oj
+            \ :call feedkeys(':OpenlinkOrSearch java ')<CR>
       auto FileType scala        nnoremap <buffer><leader>os
             \ :call feedkeys(':OpenlinkOrSearch scala ')<CR>
       auto FileType sh           nnoremap <buffer><leader>os

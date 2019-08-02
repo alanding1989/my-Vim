@@ -370,6 +370,7 @@ function! s:flygrep() abort " {{{
 endfunction " }}}
 
 function! s:open_browser() abort " {{{
+  " generic keymapping
   let g:openbrowser_default_search = 'baidu'
   vmap <leader>oo  <Plug>(openbrowser-smart-search)
   if g:is_spacevim
@@ -390,10 +391,14 @@ function! s:open_browser() abort " {{{
     nnoremap <leader>oh        :call feedkeys(':OpenBrowserSmartSearch -github ')<CR>
     nnoremap <leader>or        :call util#Open_curPlugin_repo()<CR>
   endif
+
   exec 'so '.g:home.'cheats/toolswebsite.vim'
   command! -nargs=+  OpenlinkOrSearch  call OpenlinkOrSearch(<f-args>)
 endfunction
 function! layers#core#OpenGithub(repo, ...) abort
+  " args:
+  " repo - github repo
+  " a:1  - git commit ID
   if exists(':OpenBrowser')
     exec 'OpenBrowser https://github.com/' . a:repo . (a:0 ? '/commit/'. a:1 : '')
   else

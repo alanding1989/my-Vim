@@ -14,13 +14,14 @@ set autoindent smartindent cindent
 set smarttab expandtab
 set shiftwidth=2 tabstop=2 softtabstop=2 textwidth=78
 
-set linebreak nowrap
+set linebreak 
 
 set foldlevel=0 foldmethod=syntax
 set foldtext=Foldtext()
-augroup my_fold
+augroup my_config
   auto!
   autocmd FileType vim,conf set foldmethod=marker foldlevel=0
+  autocmd FileType markdown set nowrap textwidth=120
 augroup END
 
 set backspace=indent,eol,start
