@@ -5,4 +5,4 @@
 ### 1.Env :       
 
     linux   (neovim/vim)  
-    windows (neovim/gvim)
+    windows (neovim-qt/gvim)
