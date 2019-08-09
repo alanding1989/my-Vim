@@ -19,7 +19,9 @@ function src_update() {
     cd $srcpath || return
     # dependencies
     sudo apt-get install libncurses5-dev libgtk-3-dev 
-    sudo apt-get install libjpeg-dev libtiff5-dev libgif-dev libpng-dev libxpm-dev libgnutls28-dev
+    sudo apt-get install libjpeg-dev libtiff5-dev libgif-dev libpng-dev libxpm-dev libgnutls28-dev \
+      libgnutls28-dev
+
   else
     cd $srcpath || return && git pull
   fi
@@ -36,16 +38,12 @@ function build_install() {
   cd $srcpath &&
     ./autogen.sh \
     ./configure \
-    --without-x \
-    --with-mailutils \
-    --with-jpeg=ifavailable \
-    --with-gif=ifavailable \
-    --with-tiff=ifavailable \
     --prefix=/opt/emacs/emacs
 
   make && make install
  }
 
-src_update && build_install
+# src_update
+build_install
 [ -x emacs ] && emacs --version
 

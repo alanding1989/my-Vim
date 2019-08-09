@@ -11,6 +11,6 @@ echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/
 sudo apt-get update
 sudo apt-get install -y mongodb-org
 # mongod --port 27017 --dbpath /home/alanding/software/database/mongodb/db
-cp /mnt/fun+downloads/my-Dotfile/linux/alan-root/etc/mongod.conf /etc
+cp -r /mnt/fun+downloads/my-Dotfile/linux/alan-root/etc/mongod.conf /etc
 
 

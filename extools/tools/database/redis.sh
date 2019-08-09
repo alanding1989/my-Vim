@@ -8,5 +8,5 @@
 
 
 sudo apt-get -y install redis-server
-cp /mnt/fun+downloads/my-Dotfile/linux/alan-root/etc/redis/redis.conf /etc/redis
+cp -r /mnt/fun+downloads/my-Dotfile/linux/alan-root/etc/redis/redis.conf /etc/redis
 sudo /etc/init.d/redis-server restart

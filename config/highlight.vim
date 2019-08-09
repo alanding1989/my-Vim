@@ -24,7 +24,7 @@ function! s:addColor(dict, lang) abort
   endfor
 endfunction " }}}
 
-let s:general_enable_light       = 0
+let s:general_enable_light      = 0
 let s:general_enable_darkstring = 0
 let g:_defhighlight_var.hlcolor.general = extend({
       \ 'Constant'    : ['#98c379', '#3b4048',  -1, -1, 1, 0],
@@ -335,6 +335,23 @@ let g:_defhighlight_var.hlcolor.typescript = extend({
 " endif
 " }}}
 
+" CSharp: {{{
+let g:_defhighlight_var.hlcolor.cs = {
+      \ 'csModifier'              : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ 'csClass'                 : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ 'csIsType'                : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ 'csStorage'               : ['#f92672',        -1,  -1, -1, 0, 0],
+      \
+      \ 'csClassType'             : ['#1aa3a1',        -1,  -1, -1, 0, 1],
+      \ 'csNewType'               : ['#1aa3a1',        -1,  -1, -1, 0, 1],
+      \ 
+      \ 'csConstant'              : ['#c678dd',        -1,  -1, -1, 1, 0],
+      \
+      \ 'javaVarArg'              : ['#ffaf00',        -1, 214, -1, 0, 0],
+      \
+      \ 'csGlobal'                : ['#c678dd',        -1,  -1, -1, 1, 0],
+      \ }
+" }}}
 " }}}
 
 

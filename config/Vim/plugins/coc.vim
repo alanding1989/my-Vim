@@ -60,10 +60,10 @@ let g:coc_global_extensions = [
       \ 'coc-import-cost',
       \ 'coc-vetur'      ,
       \ 'coc-pyls'       ,
-      \ 'coc-lbdbq'      ,
       \ 'coc-calc'       ,
-      \ 'https://github.com/andys8/vscode-jest-snippets.git#master' ,
       \ ] "}}}
+      " \ 'coc-lbdbq'      ,
+      " \ 'https://github.com/andys8/vscode-jest-snippets.git#master' ,
 
 " autocmds {{{
 augroup my_coc_settings
