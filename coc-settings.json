@@ -140,11 +140,9 @@
   "lua.enable"                                  : true,
   "lua.commandPath"                             : "/usr/local/bin/lua",
 
+
+  
   "omnisharp.useDotnet"                         : true,
-  "coc.source.OmniSharp.enable"                 : true,
-  "coc.source.OmniSharp.filetypes": [
-    "cs"
-  ],
 
 
   "languageserver": {
@@ -162,6 +160,11 @@
       "command": "clangd",
       "rootPatterns": [".clangd", "compile_commands.json", ".root", ".clang-format", ".git/", ".hg/"],
       "filetypes": ["c", "cpp", "objc", "objcpp"]
+    },
+    "rust": {
+      "command": "ra_lsp_server",
+      "filetypes": ["rust"],
+      "rootPatterns": ["Cargo.toml"]
     },
     "metals" : {
       "command": "metals-vim",
