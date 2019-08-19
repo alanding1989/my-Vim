@@ -51,12 +51,12 @@ let g:Lf_NormalMap = {
       \ }
 let g:Lf_RgConfig   = [
       \ '--max-columns=150',
-      \ '--type-add web:*.{html,css,js}*',
+      \ '--type-add web:*.{html,css,js,ts}*',
       \ '--glob=!git/*',
       \ '--hidden'
       \ ]
 let g:Lf_WildIgnore = {
-      \ 'dir' : ['.svn','.git','.hg','.vscode'],
+      \ 'dir' : ['.svn','.git','.hg','.vscode','.idea'],
       \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
       \}
 let g:Lf_MruFileExclude = [

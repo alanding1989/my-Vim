@@ -20,7 +20,7 @@ function! layers#chinese#plugins() abort
 endfunction
 
 function! layers#chinese#config() abort
-  let g:vtm_default_api     = 'youdao'
+  " let g:vtm_default_engines = ['youdao']
   let g:vtm_default_mapping = 0
   if g:is_spacevim
     let g:_spacevim_mappings_space.x.g = {'name' : '+Translate'}

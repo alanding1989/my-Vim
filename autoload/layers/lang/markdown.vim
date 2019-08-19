@@ -79,6 +79,7 @@ function! layers#lang#markdown#config() abort
 endfunction
 
 function! s:language_specified_mappings() abort
+  vnoremap <Space>lb  :<C-u>call <sid>v_addbold()<CR>
   if g:is_spacevim
     call SpaceVim#mapping#space#langSPC('nnoremap', ['l', 'g'], 'call call('
           \ . string(s:_function('s:genToc')) . ', [])',
@@ -169,6 +170,24 @@ function! s:run_code_in_block() abort
       let runner[0]['range'] = [cf['range'][0][0], cf['range'][1][0]]
       call SpaceVim#plugins#runner#open(runner)
     endif
+  endif
+endfunction
+
+function! s:v_addbold()
+  let p1 = getpos("'<")
+  let p2 = getpos("'>")
+  let [lnum1, col1] = p1[1:2]
+  let [lnum2, col2] = p2[1:2]
+  if lnum1 != lnum2
+    echohl warningmsg
+    echo '** must be in the same line!'
+    echohl NONE
+    return
+  else
+    call setpos('.', p1)
+    normal! i
+    call setpos('.', p2)
+    normal! a
   endif
 endfunction
 

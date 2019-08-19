@@ -9,14 +9,14 @@
 
 curl https://sh.rustup.rs -sSf | sh
 
-rustup toolchain install nightly
-rustup default nightly
+rustup toolchain install stable
+rustup default stable
 rustup component add rust-src
-# rustup run nightly rustc --version
+# rustup run stable rustc --version
 
 cargo install racer
 
-rustup component add rls --toolchain nightly
-rustup component add rust-analysis --toolchain nightly
-rustup component add rust-src --toolchain nightly
+rustup component add rls --toolchain stable
+rustup component add rust-analysis --toolchain stable
+rustup component add rust-src --toolchain stable
 

@@ -27,9 +27,9 @@ endfunction " }}}
 let s:general_enable_light      = 0
 let s:general_enable_darkstring = 0
 let g:_defhighlight_var.hlcolor.general = extend({
-      \ 'Constant'    : ['#98c379', '#3b4048',  -1, -1, 1, 0],
-      \ 'String'      : ['#98c379', '#3b4048',  -1, -1, 1, 0],
-      \ 'Character'   : ['#98c379', '#3b4048',  -1, -1, 1, 0],
+      \ 'Constant'    : ['#98c379',        -1,  -1, -1, 1, 0],
+      \ 'String'      : ['#98c379',        -1,  -1, -1, 1, 0],
+      \ 'Character'   : ['#98c379',        -1,  -1, -1, 1, 0],
       \
       \ 'Number'      : ['#d19a66',        -1,  -1, -1, 0, 0],
       \ 'Float'       : ['#d19a66',        -1,  -1, -1, 0, 0],
@@ -54,6 +54,9 @@ let g:_defhighlight_var.hlcolor.general = extend({
       \ 'Type'        : ['#e5c07b',        -1, 207, -1, 0, 0],
       \ } : {})
       " \ 'Type'        : ['#607fbf',        -1, 180, -1, 0, 0],
+      " \ 'Constant'    : ['#98c379', '#3b4048',  -1, -1, 1, 0],
+      " \ 'String'      : ['#98c379', '#3b4048',  -1, -1, 1, 0],
+      " \ 'Character'   : ['#98c379', '#3b4048',  -1, -1, 1, 0],
 " darker String background
 let s:general_darkstring = {
       \ 'Constant'    : ['#98c379', '#3c3836',  -1, -1, 1, 0],

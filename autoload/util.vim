@@ -17,6 +17,8 @@ function! util#maparg_wrapper(...) abort
   " }}}
 
   if a:0 == 2 " {{{
+    " pram: a:1 vi vn vv
+    "       a:2 specific mapping
     if a:1 =~# '^v\w'
       if a:2 =~? '.*space.*'
         exec 'verbose '.a:1[1].'map [SPC]'.matchstr(a:2, 'space\W\ze\w\+')
