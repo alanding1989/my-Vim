@@ -11,12 +11,11 @@ curl https://sh.rustup.rs -sSf | sh
 
 rustup toolchain install stable
 rustup default stable
+
 rustup component add rust-src
-# rustup run stable rustc --version
+rustup component add rls --toolchain stable
+rustup component add rust-analysis --toolchain stable
 
 cargo install racer
 
-rustup component add rls --toolchain stable
-rustup component add rust-analysis --toolchain stable
-rustup component add rust-src --toolchain stable
-
+# rustup run stable rustc --version
