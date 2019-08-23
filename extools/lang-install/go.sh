@@ -14,12 +14,12 @@
 
 xpath=$GOPATH/src/golang.org/x
 
+declare -A package
 package=(
   ["tour"]="golang.org/x/tour"
   ["dep"]="github.com/golang/dep/cmd/dep"
   ["go-langserver"]="github.com/sourcegraph/go-langserver"
   ["protoc-gen-go"]="github.com/golang/protobuf/protoc-gen-go"
-
   ["asmfmt"]="github.com/klauspost/asmfmt/cmd/asmfmt"
   ["dlv"]="github.com/go-delve/delve/cmd/dlv"
   ["errcheck"]="github.com/kisielk/errcheck"
@@ -65,10 +65,10 @@ function deps_download_or_update() {
 
 
 function install_app() {
-  cd "$GOPATH/bin" || return
-  for item in ${!package[*]}; do
-    if [ ! -x "./$item" ]; then
-      go install "${package[$item]}"
+  # cd "$GOPATH/bin" || return
+  for item in "${!package[@]}"; do
+    if [ ! -x "$item" ]; then
+      go install "${package[$item]}" || go get -u "${package[$item]}"
       printf "%s installed !\n" "$item"
     fi
   done
@@ -83,32 +83,32 @@ function install_app() {
 }
 
 
-deps_download_or_update
+# deps_download_or_update
 
 install_app
 
 
-  # go get -u github.com/golang/dep/cmd/dep
-  # go get -u github.com/sourcegraph/go-langserver
-  # go get -u github.com/golang/protobuf/protoc-gen-go
-  # go get -u github.com/klauspost/asmfmt/cmd/asmfmt
-  # go get -u github.com/go-delve/delve/cmd/dlv
-  # go get -u github.com/kisielk/errcheck
-  # go get -u github.com/davidrjenni/reftools/cmd/fillstruct
-  # go get -u github.com/mdempsky/gocod
-  # go get -u github.com/stamblerre/gocode
-  # go get -u github.com/rogpeppe/godef
-  # go get -u github.com/zmb3/gogetdoc
-  # go get -u golang.org/x/tools/cmd/goimports
-  # go get -u golang.org/x/lint/golint
-  # go get -u golang.org/x/tools/cmd/gopls
-  # go get -u github.com/alecthomas/gometalinter
-  # go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
-  # go get -u github.com/fatih/gomodifytags
-  # go get -u golang.org/x/tools/cmd/gorename
-  # go get -u github.com/jstemmer/gotags
-  # go get -u golang.org/x/tools/cmd/guru
-  # go get -u github.com/josharian/impl
-  # go get -u honnef.co/go/tools/cmd/keyify
-  # go get -u github.com/fatih/motion
-  # go get -u github.com/koron/iferr
+# go get -u github.com/golang/dep/cmd/dep
+# go get -u github.com/sourcegraph/go-langserver
+# go get -u github.com/golang/protobuf/protoc-gen-go
+# go get -u github.com/klauspost/asmfmt/cmd/asmfmt
+# go get -u github.com/go-delve/delve/cmd/dlv
+# go get -u github.com/kisielk/errcheck
+# go get -u github.com/davidrjenni/reftools/cmd/fillstruct
+# go get -u github.com/mdempsky/gocod
+# go get -u github.com/stamblerre/gocode
+# go get -u github.com/rogpeppe/godef
+# go get -u github.com/zmb3/gogetdoc
+# go get -u golang.org/x/tools/cmd/goimports
+# go get -u golang.org/x/lint/golint
+# go get -u golang.org/x/tools/cmd/gopls
+# go get -u github.com/alecthomas/gometalinter
+# go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
+# go get -u github.com/fatih/gomodifytags
+# go get -u golang.org/x/tools/cmd/gorename
+# go get -u github.com/jstemmer/gotags
+# go get -u golang.org/x/tools/cmd/guru
+# go get -u github.com/josharian/impl
+# go get -u honnef.co/go/tools/cmd/keyify
+# go get -u github.com/fatih/motion
+# go get -u github.com/koron/iferr
