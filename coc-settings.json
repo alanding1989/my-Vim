@@ -1,4 +1,3 @@
-
 {
   "suggest.enablePreview"                           : false,
   "suggest.noselect"                                : false,
@@ -44,6 +43,7 @@
   },
   "emmet.showSuggestionsAsSnippets"             : true,
 
+
   // languageserver config
 
   "python.autoComplete.addBrackets"             : true,
@@ -66,9 +66,9 @@
   "python.workspaceSymbols.ctagsPath"           : "/opt/vim/universal-ctags/bin/ctags",
   "python.workspaceSymbols.tagFilePath"         : "~/.cache/tags",
 
+
   "java.home"                                   : "/opt/lang-tools/java/jdk",
   "java.completion.enabled"                     : true,
-  "java.completion.overwrite"                   : true,
   "java.completion.guessMethodArguments"        : true,
   "java.completion.favoriteStaticMembers": [
     "org.junit.Assert.*",
@@ -83,17 +83,13 @@
   ],
   "java.codeGeneration.generateComments"        : true,
   "java.format.enabled"                         : true,
-  "java.format.comments.enabled"                : true,
-  "java.foldingRange.enabled"                   : true,
   "java.format.settings.url"                    : "/home/alanding/.config/coc/extensions/node_modules/redhat.java/eclipse-formatter.xml",
   "java.signatureHelp.enabled"                  : true,
   "java.referencesCodeLens.enabled"             : true,
-  "java.implementationsCodeLens.enabled"        : false,
+  "java.implementationsCodeLens.enabled"        : true,
   "java.import.maven.enabled"                   : true,
   "java.import.gradle.enabled"                  : true,
-  "java.autobuild.enabled"                      : true,
   "java.configuration.updateBuildConfiguration" : "interactive",
-  "java.configuration.maven.userSettings"       : "",
   "java.import.exclusions": [
     "**/node_modules/**",
     "**/.metadata/**",
@@ -137,12 +133,15 @@
   "html.validate.scripts"                       : true,
   "html.validate.styles"                        : true,
 
+
   "lua.enable"                                  : true,
   "lua.commandPath"                             : "/usr/local/bin/lua",
 
 
-  
   "omnisharp.useDotnet"                         : true,
+
+  
+
 
 
   "languageserver": {

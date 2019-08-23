@@ -1,121 +1,114 @@
 #! /usr/bin/env bash
 
-
 # File Name    : extools/lang-install/go.sh
 # Author       : AlanDing
 # Created Time : Wed 29 May 2019 06:16:22 AM CST
-# Description  : 
+# Description  : install go tools
 
-# lang install released binary
 
-# memo
+# @ for memo
 # replace (
-  # => github.com/golang/text latest
+#   => github.com/golang/text latest
 # )
 
 
-xpath="/home/alanding/go/src/golang.org/x"
-# golangrepo="git@github.com:golang"
+xpath=$GOPATH/src/golang.org/x
 
-# declare -A dic
-# dic=(
-  # ["lint"]="$golangrepo/lint.git"
-  # ["tools"]="$golangrepo/tools.git"
-  # ["crypto"]="$golangrepo/crypto.git"
-  # ["sys"]="$golangrepo/sys.git"
-  # ["net"]="$golangrepo/net.git"
-  # ["tour"]="$golangrepo/tour.git"
-  # ["perf"]="$golangrepo/perf.git"
-  # ["image"]="$golangrepo/image.git"
-  # ["review"]="$golangrepo/review.git"
-  # ["text"]="$golangrepo/text.git"
-  # ["time"]="$golangrepo/time.git"
-  # ["sync"]="$golangrepo/sync.git"
-  # ["vgo"]="$golangrepo/vgo.git"
-# )
+package=(
+  ["tour"]="golang.org/x/tour"
+  ["dep"]="github.com/golang/dep/cmd/dep"
+  ["go-langserver"]="github.com/sourcegraph/go-langserver"
+  ["protoc-gen-go"]="github.com/golang/protobuf/protoc-gen-go"
 
-# declare -a modname
-# modname=($(ls $xpath))
-
-# checkclone() {
-  # if [ ! -e "$1" ]; then
-    # git clone "$2" "$1" && cd "$1" || return
-  # else
-    # cd "$1" || return && git pull
-  # fi
-# }
-
-# function gomodtidy() {
-  # for item in ${modname[*]}; do
-    # cd "$xpath/$item" || return && go mod tidy -v
-  # done
-# }
-
-# gitsubmodadd() {
-  # git submodule add "$1" "$2"
-# }
-
-# function addsubmod() {
-  # for item in ${modname[*]}; do
-    # gitsubmodadd  "$golangrepo/$item.git"  "./$item"
-  # done
-# }
-
-# cd $xpath && addsubmod
-
-# gomodtidy
-
-
-if [ ! -e $xpath ]; then
-  git clone git@github.com:alanding1989/golang-x.git $xpath
-fi
-
-install=(
+  ["asmfmt"]="github.com/klauspost/asmfmt/cmd/asmfmt"
+  ["dlv"]="github.com/go-delve/delve/cmd/dlv"
+  ["errcheck"]="github.com/kisielk/errcheck"
+  ["fillstruct"]="github.com/davidrjenni/reftools/cmd/fillstruct"
+  ["gocode"]="github.com/mdempsky/gocod"
+  ["gocode-gomod"]="github.com/stamblerre/gocode"
+  ["godef"]="github.com/rogpeppe/godef"
+  ["gogetdoc"]="github.com/zmb3/gogetdoc"
   ["goimports"]="golang.org/x/tools/cmd/goimports"
   ["golint"]="golang.org/x/lint/golint"
   ["gopls"]="golang.org/x/tools/cmd/gopls"
+  ["gometalinter"]="github.com/alecthomas/gometalinter"
+  ["golangci-lint"]="github.com/golangci/golangci-lint/cmd/golangci-lint"
+  ["gomodifytags"]="github.com/fatih/gomodifytags"
   ["gorename"]="golang.org/x/tools/cmd/gorename"
+  ["gotags"]="github.com/jstemmer/gotags"
   ["guru"]="golang.org/x/tools/cmd/guru"
-  ["tour"]="golang.org/x/tour"
+  ["impl"]="github.com/josharian/impl"
+  ["keyify"]="honnef.co/go/tools/cmd/keyify"
+  ["motion"]="github.com/fatih/motion"
+  ["iferr"]="github.com/koron/iferr"
 )
 
-cd "$GOPATH/src" || return
-for item in ${!install[*]}; do
-  if [ ! -x "$item" ]; then
-    go install "${install[$item]}"
+
+# Install depends
+function deps_download_or_update() {
+  if [ ! -e "$xpath" ]; then
+    git clone git@github.com:alanding1989/golang-x.git "$xpath"
+    cd "$xpath" || exit 1
+  else
+    cd "$xpath" || exit 1
+    for file in $(ls) ; do
+      echo "$file"
+      if [ -d "$file" ]; then
+        cd "$file" || exit 1
+        git checkout master
+        git pull origin master:master
+        cd "$xpath" || exit 1
+      fi
+    done
   fi
-done
+}
 
-keyifypath=/home/alanding/go/src/honnef.co/go/tools
-keyifyrepo=git@github.com:dominikh/go-tools.git
 
-if [ ! -e $keyifypath ]; then
-  git clone $keyifyrepo $keyifypath
-fi
+function install_app() {
+  cd "$GOPATH/bin" || return
+  for item in ${!package[*]}; do
+    if [ ! -x "./$item" ]; then
+      go install "${package[$item]}"
+      printf "%s installed !\n" "$item"
+    fi
+  done
 
-if [ ! -x dep ]; then
-  # go dependency manager
-  go get -u github.com/golang/dep/cmd/dep
-fi
 
-if [ ! -x gocode ]; then
-  go get -u github.com/stamblerre/gocode
-  go get -u github.com/mdempsky/gocode
-fi
+  keyifypath=$GOPATH/src/honnef.co/go/tools
+  keyifyrepo="git@github.com:dominikh/go-tools.git"
 
-if [ ! -x errcheck ]; then
-  go get -u github.com/kisielk/errcheck
-fi
+  if [ ! -e "$keyifypath" ]; then
+    git clone $keyifyrepo "$keyifypath"
+  fi
+}
 
-if [ ! -x impl ]; then
-  go get - u github.com/josharian/impl
-fi
 
-if [ ! -x go-langserver ]; then
-  go get -u github.com/sourcegraph/go-langserver
-fi
+deps_download_or_update
 
-if [ ! -x vimlparser ]; then
-  go get -u github.com/haya14busa/go-vimlparser/cmd/vimlparser
-fi
+install_app
 
+
+  # go get -u github.com/golang/dep/cmd/dep
+  # go get -u github.com/sourcegraph/go-langserver
+  # go get -u github.com/golang/protobuf/protoc-gen-go
+  # go get -u github.com/klauspost/asmfmt/cmd/asmfmt
+  # go get -u github.com/go-delve/delve/cmd/dlv
+  # go get -u github.com/kisielk/errcheck
+  # go get -u github.com/davidrjenni/reftools/cmd/fillstruct
+  # go get -u github.com/mdempsky/gocod
+  # go get -u github.com/stamblerre/gocode
+  # go get -u github.com/rogpeppe/godef
+  # go get -u github.com/zmb3/gogetdoc
+  # go get -u golang.org/x/tools/cmd/goimports
+  # go get -u golang.org/x/lint/golint
+  # go get -u golang.org/x/tools/cmd/gopls
+  # go get -u github.com/alecthomas/gometalinter
+  # go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
+  # go get -u github.com/fatih/gomodifytags
+  # go get -u golang.org/x/tools/cmd/gorename
+  # go get -u github.com/jstemmer/gotags
+  # go get -u golang.org/x/tools/cmd/guru
+  # go get -u github.com/josharian/impl
+  # go get -u honnef.co/go/tools/cmd/keyify
+  # go get -u github.com/fatih/motion
+  # go get -u github.com/koron/iferr
