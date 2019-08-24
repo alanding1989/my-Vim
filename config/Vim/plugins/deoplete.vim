@@ -134,6 +134,8 @@ call deoplete#custom#source('python', 'mark', 'py')
 let g:deoplete#sources#jedi#python_path = g:python3_host_prog
 " let g:deoplete#sources#jedi#extra_path  = g:python_host_prog
 
+" c#
+call deoplete#custom#option('sources', {'cs': ['omnisharp']})
 
 
 " public settings

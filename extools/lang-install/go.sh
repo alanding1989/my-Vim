@@ -15,6 +15,8 @@
 xpath=$GOPATH/src/golang.org/x
 
 declare -A package
+# gocode-gomod`s repo name is the same as gocode, it need to be installed in
+# Vim-go
 package=(
   ["tour"]="golang.org/x/tour"
   ["dep"]="github.com/golang/dep/cmd/dep"
@@ -25,7 +27,6 @@ package=(
   ["errcheck"]="github.com/kisielk/errcheck"
   ["fillstruct"]="github.com/davidrjenni/reftools/cmd/fillstruct"
   ["gocode"]="github.com/mdempsky/gocod"
-  ["gocode-gomod"]="github.com/stamblerre/gocode"
   ["godef"]="github.com/rogpeppe/godef"
   ["gogetdoc"]="github.com/zmb3/gogetdoc"
   ["goimports"]="golang.org/x/tools/cmd/goimports"
@@ -87,7 +88,6 @@ function install_app() {
 
 install_app
 
-
 # go get -u github.com/golang/dep/cmd/dep
 # go get -u github.com/sourcegraph/go-langserver
 # go get -u github.com/golang/protobuf/protoc-gen-go
@@ -95,7 +95,7 @@ install_app
 # go get -u github.com/go-delve/delve/cmd/dlv
 # go get -u github.com/kisielk/errcheck
 # go get -u github.com/davidrjenni/reftools/cmd/fillstruct
-# go get -u github.com/mdempsky/gocod
+# go get -u github.com/mdempsky/gocode
 # go get -u github.com/stamblerre/gocode
 # go get -u github.com/rogpeppe/godef
 # go get -u github.com/zmb3/gogetdoc
@@ -112,3 +112,4 @@ install_app
 # go get -u honnef.co/go/tools/cmd/keyify
 # go get -u github.com/fatih/motion
 # go get -u github.com/koron/iferr
+# go get -u github.com/766b/go-outliner
