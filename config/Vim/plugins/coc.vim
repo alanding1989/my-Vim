@@ -76,6 +76,8 @@ augroup my_coc_settings
   if (g:is_spacevim && !SpaceVim#layers#isLoaded('core#statusline')) || get(g:, 'statusline', '') =~# 'airline'
     auto User     CocDiagnosticChange  AirlineRefresh
   endif
+
+  " auto copy coc-settings to .SpaceVim dir " {{{
   if findfile(expand($HOME.'/.SpaceVim/coc-settings.json')) ==# ''
     if g:is_unix
       auto User CocNvimInit
@@ -86,7 +88,8 @@ augroup my_coc_settings
             \ exec '!mklink /h "'.expand($HOME.'/.SpaceVim/coc-settings.json')
             \ .'" "'.expand($HOME.'/vimfiles/coc-settings.json').'"'
     endif
-  endif
+  endif " }}}
+
   if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) ==# 'neosnippet'
     auto VimEnter * call coc#config('snippets.ultisnips', {
           \ 'directories' : [ ]
@@ -94,6 +97,19 @@ augroup my_coc_settings
   endif
 augroup END "}}}
 
+
+" if !hasmapto('<Plug>(coc-funcobj-i)', 'v') && empty(maparg('if', 'x'))
+  " xmap if <Plug>(coc-funcobj-i)
+" endif
+" if !hasmapto('<Plug>(coc-funcobj-a)', 'v') && empty(maparg('af', 'x'))
+  " xmap af <Plug>(coc-funcobj-a)
+" endif
+" if !hasmapto('<Plug>(coc-funcobj-i)', 'o') && empty(maparg('if', 'o'))
+  " omap if <Plug>(coc-funcobj-i)
+" endif
+" if !hasmapto('<Plug>(coc-funcobj-a)', 'o') && empty(maparg('af', 'o'))
+  " omap af <Plug>(coc-funcobj-a)
+" endif
 " key mapping  {{{
   nmap  <silent>gd  <Plug>(coc-definition)
 function! s:g_mappings() abort
