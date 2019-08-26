@@ -42,10 +42,11 @@ build_install() {
     --enable-luainterp \
     --enable-perlinterp \
     --enable-pythoninterp --enable-python3interp \
-    --with-python3-config-dir=/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/
+    --with-python3-config-dir=/home/alanding/software/anaconda3/envs/py37/lib/python3.7/config-3.7m-x86_64-linux-gnu
 
-  sudo make && sudo make install
+  # sudo make && sudo make install
 }
+      # /usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/
 
 src_update && build_install
 vim --version
