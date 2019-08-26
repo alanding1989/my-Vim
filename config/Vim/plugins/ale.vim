@@ -39,6 +39,7 @@ let g:ale_linters = {
       \ 'cpp'        : ['gcc'      , 'cppcheck'],
       \ 'lua'        : ['luac']    ,
       \ 'go'         : ['golint'   , 'govet'   ],
+      \ 'rust'       : ['rustc'    , 'cargo-clippy'],
       \ 'java'       : ['javac']   ,
       \ 'javascript' : ['eslint']  ,
       \ 'python'     : ['flake8'   , 'pylint'   , 'mypy'],
