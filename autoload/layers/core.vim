@@ -161,9 +161,11 @@ endfunction
 " a:num = 5 open my plugins bundle dir
 " a:num = 6 open my dotfile dir
 " a:num = 7 open a new filetree buffer in current working dir
-let g:_my_vimrc_dir   = g:home[:-2]
-let g:_my_dotfile_dir = g:is_win ? 'E:\my-Dotfile' : '/mnt/fun+downloads/my-Dotfile'
-let g:_my_dev_dir     = g:is_win?  'D:\devtools' : '/home/alanding/0_Dev/projects'
+let g:_dirMap = {
+      \ 'vimrc'  : g:home[:-2],
+      \ 'dotfile': g:is_win ? 'E:\my-Dotfile' : '/mnt/fun+downloads/my-Dotfile',
+      \ 'dev'    : g:is_win?  'D:\devtools' : '/home/alanding/0_Dev/projects'
+      \ }
 if get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'vimfiler'
 
   function! s:open_filetree(num) abort "{{{
@@ -174,11 +176,7 @@ if get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'vimf
     elseif a:num == 2
       VimFiler -find
     elseif a:num == 3
-      if getcwd() != g:_my_vimrc_dir && s:check_win('vimfiler')
-        exec 'VimFiler -create '.expand(g:_my_vimrc_dir)
-      else
-        exec 'VimFiler '.expand(g:_my_vimrc_dir)
-      endif
+      call s:reOpenVimfilerVimrc()
     elseif a:num == 4
       let g:_spacevim_autoclose_filetree = 0
       VimFilerCurrentDir -no-toggle -no-split -explorer -explorer-columns=type:size:time
@@ -186,15 +184,11 @@ if get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'vimf
     elseif a:num == 5
       call <sid>open_plugins_dir('VimFiler ')
     elseif a:num == 6
-      if getcwd() != g:_my_dotfile_dir && s:check_win('vimfiler')
-        exec 'VimFiler -create '.expand(g:_my_dotfile_dir)
-      else
-        exec 'VimFiler '.expand(g:_my_dotfile_dir)
-      endif
+      call s:reOpenVimfilerDotfile()
     elseif a:num == 7
       exec 'VimFiler -create'.getcwd()
     elseif a:num == 8
-      exec 'VimFiler '.expand(g:_my_dev_dir)
+      exec 'VimFiler '.expand(g:_dirMap['dev'])
     endif
     doautocmd WinEnter
   endfunction "}}}
@@ -208,14 +202,9 @@ elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# '
     elseif a:num == 2
       let filen = expand('%:t')
       Defx `expand('%:p:h')`
-      call search(filen, 'c')
-      normal! hh
+      call search(filen, 'c') | normal! hh
     elseif a:num == 3
-      if getcwd() != g:_my_vimrc_dir && s:check_win('defx')
-        Defx -new `expand(g:_my_vimrc_dir)`
-      else
-        Defx `expand(g:_my_vimrc_dir)` | exec 'e'
-      endif
+      call s:reOpenDefxVimrc()
     elseif a:num == 4
       let g:_spacevim_autoclose_filetree = 0
       Defx -split=no -columns=git:mark:indent:filename:type:size:time `getcwd()`
@@ -223,15 +212,11 @@ elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# '
     elseif a:num == 5
       call s:open_plugins_dir('Defx ')
     elseif a:num == 6
-      if getcwd() != g:_my_dotfile_dir && s:check_win('defx')
-        Defx -new `expand(g:_my_dotfile_dir)`
-      else
-        Defx `expand(g:_my_dotfile_dir)` | exec 'e'
-      endif
+      call s:reOpenDefxDotfile()
     elseif a:num == 7
       Defx -new `getcwd()`
     elseif a:num == 8
-      Defx `expand(g:_my_dev_dir)`
+      Defx `expand(g:_dirMap['dev'])`
     endif
     if &ft ==# 'defx' | setl conceallevel=2 | endif
     doautocmd WinEnter
@@ -246,18 +231,18 @@ elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# '
     elseif a:num == 2
       NERDTreeFind
     elseif a:num == 3
-      exec 'NERDTree '.expand(g:_my_vimrc_dir)
+      exec 'NERDTree '.expand(g:_dirMap['vimrc'])
     elseif a:num == 4
       exec 'e '.getcwd()
     elseif a:num == 5
       call <sid>open_plugins_dir('NERDTree ')
     elseif a:num == 6
-      exec 'NERDTree '.expand(g:_my_dotfile_dir)
+      exec 'NERDTree '.expand(g:_dirMap['dotfile'])
     elseif a:num == 7
       " one tab can only open one tree
       tabe % | NERDTreeMirror
     elseif a:num == 8
-      exec 'NERDTree '.expand(g:_my_dev_dir)
+      exec 'NERDTree '.expand(g:_dirMap['dev'])
     endif
     doautocmd WinEnter
   endfunction "}}}
@@ -285,20 +270,45 @@ function! s:open_plugins_dir(cmd) abort "{{{
   let @a = temp
 endfunction "}}} }}} 
 
-function! s:reopen_defx(path) abort "{{{
-  if getcwd() != a:path && s:check_win('defx')
-    Defx -new `expand(a:path)`
+" Util for filemanager {{{
+function! s:reOpenDefxVimrc() abort
+  if getcwd() != g:_dirMap['vimrc'] && s:check_win('defx')
+    Defx -new `expand(g:_dirMap['vimrc'])`
   else
-    Defx `expand(a:path)`
+    Defx `expand(g:_dirMap['vimrc'])`
+    let winnr = winnr()
+    exec 'winc p | e |'.winnr.' winc w'
   endif
 endfunction
-function! s:reopen_vimfiler(path) abort
-  if getcwd() != a:path && s:check_win('vimfiler')
-    exec 'VimFiler -create '.expand(a:path)
+function! s:reOpenDefxDotfile() abort
+  if getcwd() != g:_dirMap['dotfile'] && s:check_win('defx')
+    Defx -new `expand(g:_dirMap['dotfile'])`
   else
-    exec 'VimFiler '.expand(a:path)
+    Defx `expand(g:_dirMap['dotfile'])`
+    let winnr = winnr()
+    exec 'winc p | e |'.winnr.' winc w'
   endif
 endfunction
+
+function! s:reOpenVimfilerVimrc() abort
+  if getcwd() != g:_dirMap['vimrc'] && s:check_win('vimfiler')
+    exec 'VimFiler -create '.expand(g:_dirMap['vimrc'])
+  else
+    exec 'VimFiler '.expand(g:_dirMap['vimrc'])
+    let winnr = winnr()
+    exec 'winc p | e |'.winnr.' winc w'
+  endif
+endfunction
+function! s:reOpenVimfilerDotfile() abort
+  if getcwd() != g:_dirMap['dotfile'] && s:check_win('vimfiler')
+    exec 'VimFiler -create '.expand(g:_dirMap['dotfile'])
+  else
+    exec 'VimFiler '.expand(g:_dirMap['dotfile'])
+    let winnr = winnr()
+    exec 'winc p | e |'.winnr.' winc w'
+  endif
+endfunction
+
 function! s:check_win(ft) abort
   for i in range(1, winnr('$'))
     if getwinvar(i, '&ft') ==# a:ft
