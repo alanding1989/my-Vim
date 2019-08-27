@@ -38,7 +38,7 @@
   ],
   "snippets.extends" : {
     "ipynb"      : ["python"],
-    "sbt.scala"  : ["scala"],
+    "sbt"        : ["scala"],
     "typescript" : ["javascript"]
   },
   "emmet.showSuggestionsAsSnippets"             : true,
@@ -50,18 +50,18 @@
   //"python.autoComplete.extraPaths              ": [],
   "python.jediEnabled"                          : false,
   //"python.condaPath"                            : "/home/alanding/software/anaconda3/etc/profile.d/conda.sh",
-  "python.pythonPath"                           : "/home/alanding/software/anaconda3/envs/py36/bin/python3.6",
-  "python.jediPath"                             : "/home/alanding/software/anaconda3/envs/py36/lib/python3.6/site-packages/jedi",
+  "python.pythonPath"                           : "/home/alanding/software/anaconda3/envs/py37/bin/python3.7",
+  "python.jediPath"                             : "/home/alanding/software/anaconda3/envs/py37/lib/python3.7/site-packages/jedi",
   "python.linting.enabled"                      : false,
   "python.linting.pylintEnabled"                : false,
-  "python.linting.pylintPath"                   : "/home/alanding/software/anaconda3/envs/py36/bin/pylint",
+  "python.linting.pylintPath"                   : "/home/alanding/software/anaconda3/envs/py37/bin/pylint",
   "python.linting.flake8Enabled"                : false,
-  "python.linting.flake8Path"                   : "/home/alanding/software/anaconda3/envs/py36/bin/flake8",
+  "python.linting.flake8Path"                   : "/home/alanding/software/anaconda3/envs/py37/bin/flake8",
   "python.linting.pydocstyleEnabled"            : false,
-  "python.linting.pydocstylePath"               : "/home/alanding/software/anaconda3/envs/py36/bin/pydocstyle",
-  "python.sortImports.path"                     : "/home/alanding/software/anaconda3/envs/py36/bin/isort",
+  "python.linting.pydocstylePath"               : "/home/alanding/software/anaconda3/envs/py37/bin/pydocstyle",
+  "python.sortImports.path"                     : "/home/alanding/software/anaconda3/envs/py37/bin/isort",
   "python.formatting.provider"                  : "yapf",
-  "python.formatting.yapfPath"                  : "/home/alanding/software/anaconda3/envs/py36/bin/yapf",
+  "python.formatting.yapfPath"                  : "/home/alanding/software/anaconda3/envs/py37/bin/yapf",
   "python.workspaceSymbols.enabled"             : true,
   "python.workspaceSymbols.ctagsPath"           : "/opt/vim/universal-ctags/bin/ctags",
   "python.workspaceSymbols.tagFilePath"         : "~/.cache/tags",
@@ -145,21 +145,21 @@
 
 
   "languageserver": {
-//    "ccls": {
-//      "command": "ccls",
-//      "filetypes": ["c", "cpp", "objc", "objcpp"],
-//      "rootPatterns": [".ccls", "compile_commands.json", ".root", ".git/", ".hg/"],
-//      "initializationOptions": {
-//        "cache": {
-//          "directory": "/tmp/ccls",
-//        }
-//      }
-//    },
-    "clangd": {
-      "command": "clangd",
-      "rootPatterns": [".clangd", "compile_commands.json", ".root", ".clang-format", ".git/", ".hg/"],
-      "filetypes": ["c", "cpp", "objc", "objcpp"]
+    "ccls": {
+      "command": "ccls",
+      "filetypes": ["c", "cpp", "objc", "objcpp"],
+      "rootPatterns": [".ccls", "compile_commands.json", ".root", ".git/", ".hg/"],
+      "initializationOptions": {
+        "cache": {
+          "directory": "/tmp/ccls"
+        }
+      }
     },
+//    "clangd": {
+//      "command": "clangd",
+//      "rootPatterns": [".clangd", "compile_commands.json", ".root", ".clang-format", ".git/", ".hg/"],
+//      "filetypes": ["c", "cpp", "objc", "objcpp"]
+//    },
     "rust": {
       "command": "ra_lsp_server",
       "filetypes": ["rust"],

@@ -92,7 +92,7 @@ let g:_defhighlight_var.hlcolor.python = extend({
       \ 'semshiParameter'      : ['#ffaf00',        -1, 214, -1, 0, 0],
       \ 'semshiGlobal'         : ['#e5c07b',        -1, 180, -1, 0, 0],
       \
-      \ 'pythonString'         : ['#98c379', '#3b4048',  -1, -1, 1, 0],
+      \ 'pythonString'         : ['#98c379',        -1,  -1, -1, 1, 0],
       \ 'pythonRawString'      : ['#b8bb26',        -1,  -1, -1, 1, 0],
       \ 'pythonDelimiter'      : ['#f92672',        -1,  -1, -1, 0, 0],
       \ 'pythonNumber'         : ['#d19a66',        -1,  -1, -1, 0, 0],
@@ -114,6 +114,7 @@ let s:python_lightParam  = {
 let s:python_brightClass = {
       \ 'semshiImported'       : ['#56b6c2',        -1,  -1, -1, 0, 1],
       \ }
+      " \ 'pythonString'         : ['#98c379', '#3b4048',  -1, -1, 1, 0],
 
 " Jupyter Notebook
 let g:_defhighlight_var.hlcolor.ipynb = g:_defhighlight_var.hlcolor.python
