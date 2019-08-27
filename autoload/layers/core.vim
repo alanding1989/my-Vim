@@ -272,40 +272,40 @@ endfunction "}}} }}}
 
 " Util for filemanager {{{
 function! s:reOpenDefxVimrc() abort
-  if getcwd() != g:_dirMap['vimrc'] && s:check_win('defx')
+  if !s:check_win('defx')
+    Defx `expand(g:_dirMap['vimrc'])`
+  elseif getcwd() != g:_dirMap['vimrc']
     Defx -new `expand(g:_dirMap['vimrc'])`
   else
-    Defx `expand(g:_dirMap['vimrc'])`
-    let winnr = winnr()
-    exec 'winc p | e |'.winnr.' winc w'
+    call util#echohl('Already have Defx-Win in Vimrc dir !')
   endif
 endfunction
 function! s:reOpenDefxDotfile() abort
-  if getcwd() != g:_dirMap['dotfile'] && s:check_win('defx')
+  if !s:check_win('defx')
+    Defx `expand(g:_dirMap['dotfile'])`
+  elseif getcwd() != g:_dirMap['dotfile']
     Defx -new `expand(g:_dirMap['dotfile'])`
   else
-    Defx `expand(g:_dirMap['dotfile'])`
-    let winnr = winnr()
-    exec 'winc p | e |'.winnr.' winc w'
+    call util#echohl('Already have Defx-Win in Dotfile dir !')
   endif
 endfunction
 
 function! s:reOpenVimfilerVimrc() abort
-  if getcwd() != g:_dirMap['vimrc'] && s:check_win('vimfiler')
+  if !s:check_win('vimfiler')
+    exec 'VimFiler '.expand(g:_dirMap['vimrc'])
+  elseif getcwd() != g:_dirMap['vimrc']
     exec 'VimFiler -create '.expand(g:_dirMap['vimrc'])
   else
-    exec 'VimFiler '.expand(g:_dirMap['vimrc'])
-    let winnr = winnr()
-    exec 'winc p | e |'.winnr.' winc w'
+    call util#echohl('Already have VimFiler-Win in Vimrc dir !')
   endif
 endfunction
 function! s:reOpenVimfilerDotfile() abort
-  if getcwd() != g:_dirMap['dotfile'] && s:check_win('vimfiler')
+  if !s:check_win('vimfiler')
+    exec 'VimFiler '.expand(g:_dirMap['dotfile'])
+  elseif getcwd() != g:_dirMap['dotfile']
     exec 'VimFiler -create '.expand(g:_dirMap['dotfile'])
   else
-    exec 'VimFiler '.expand(g:_dirMap['dotfile'])
-    let winnr = winnr()
-    exec 'winc p | e |'.winnr.' winc w'
+    call util#echohl('Already have VimFiler-Win in Dotfile dir !')
   endif
 endfunction
 
