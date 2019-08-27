@@ -61,10 +61,10 @@ values."
      shell-scripts
      markdown
      vimscript
-     ;; vim-powerline
+     vim-powerline
      vim-empty-lines
      ;; sql
-     windows-scripts
+     ;; windows-scripts
 
      tmux
      chinese
@@ -158,7 +158,7 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("SourceCodePro Nerd Font Mono:h11"
+   dotspacemacs-default-font '("SourceCodePro for Powerline"
                                :size 13
                                :weight normal
                                :width normal
@@ -337,7 +337,6 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (setq-default evil-escape-key-sequence "qw")
   (define-key evil-normal-state-map (kbd "C-e") (kbd "$"))
-  (define-key evil-normal-state-map (kbd "C-d") (kbd "C-dzz"))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
