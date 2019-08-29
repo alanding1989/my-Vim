@@ -37,16 +37,16 @@ let g:ale_linters_explicit = 1
 let g:ale_linters = {
       \ 'c'          : ['gcc'      , 'cppcheck'],
       \ 'cpp'        : ['gcc'      , 'cppcheck'],
-      \ 'lua'        : ['luac']    ,
       \ 'go'         : ['golint'   , 'govet'   ],
       \ 'rust'       : ['rustc'    , 'cargo-clippy'],
-      \ 'java'       : ['javac']   ,
-      \ 'javascript' : ['eslint']  ,
       \ 'python'     : ['flake8'   , 'pylint'   , 'mypy'],
+      \ 'java'       : ['javac']   ,
       \ 'scala'      : ['scalac']  ,
+      \ 'javascript' : ['eslint']  ,
       \ 'vim'        : ['vint']    ,
       \ 'sh'         : ['shell'    , 'shellcheck', ],
       \ 'zsh'        : ['shell'    , 'shellcheck', ],
+      \ 'lua'        : ['luac']    ,
       \ }
 let g:ale_linter_aliases = {
       \ 'ipynb': 'python',
