@@ -35,7 +35,7 @@ nnoremap <leader>el        :call layers#checkers#showlinter()<CR>
 " ================================================================================
 
 " help
-" nnoremap <space>hh  :EchoHelp 
+nnoremap <space>hh  :EchoHelp
 
 nnoremap <space>qu  :call util#update_plugin()<CR>
 

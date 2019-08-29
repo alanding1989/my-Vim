@@ -6,7 +6,7 @@
 # Created Time : Fri 09 Aug 2019 02:10:29 AM CST
 # Description  : 
 
-path=/mnt/fun+downloads/linux系统安装/code-software/lang/cpp/caffe
+path=/mnt/fun+downloads/linux系统安装/code-software/lang/cpp/deepL/caffe
 
 if [ -e $path ]; then
   cd $path && git pull

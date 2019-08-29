@@ -17,7 +17,7 @@ if g:filetree_direction ==# 'right'
 else
   let g:vista_sidebar_position = 'vertical botright'
 endif
-let g:vista_sidebar_width = 0 ? g:sidebar_width : 30
+let g:vista_sidebar_width = 1 ? g:sidebar_width : 30
 
 
 let g:vista_echo_strategy                 = 'floating_win'

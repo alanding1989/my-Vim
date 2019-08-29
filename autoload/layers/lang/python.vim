@@ -11,6 +11,7 @@ let s:autocomplete_method = get(g:, 'spacevim_autocomplete_method',
 
 function! layers#lang#python#plugins() abort
   let plugins = []
+    call add(plugins, ['Rykka/riv.vim'           , {'on_ft': 'rst', 'for': 'rst'}])
   if g:is_nvim
     call add(plugins, ['numirias/semshi'         , {'on_ft': 'python', 'for': 'python'}])
   else

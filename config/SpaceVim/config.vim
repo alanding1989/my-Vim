@@ -18,7 +18,7 @@ let g:spacevim_colorscheme = split([
       \ '7 nord'        ,
       \ '8 NeoSolarized',
       \ '9 default'     ,
-      \ ][1])[1]
+      \ ][3])[1]
 let g:spacevim_colorscheme_default = 'nord'
 let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 let g:spacevim_enable_guicolors    = 1
@@ -189,7 +189,7 @@ let g:MySpaceVim_layers = extend(get(g:, 'MySpaceVim_layers', {
       \ 'lang#go'           : 0,
       \ 'lang#java'         : 0,
       \ 'lang#scala'        : 0,
-      \ 'lang#rust'         : 0,
+      \ 'lang#rust'         : 1,
       \ 'lang#python'       : 1,
       \ 'lang#ipynb'        : 1,
       \ 'lang#lua'          : 0,

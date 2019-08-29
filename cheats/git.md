@@ -1,3 +1,6 @@
+主分支－热修复分支
+发布分支－开发分支－特性分支
+
 ###Everyday Git in twenty commands or so
 ```
 git help everyday

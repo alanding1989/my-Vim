@@ -213,7 +213,7 @@ function! mapping#basic#load() abort
   " Select
   noremap  vv                     V
   nnoremap <leader>aa             ggVG
-  nnoremap <leader>ae             VG
+  nnoremap <leader>af             VG
   " Easier search and replace
   xnoremap <C-r>                  :<C-u>call <sid>VSetSearch()<CR>:,$s/<C-R>=@/<CR>//gc<left><left><left>
   xnoremap <C-s>                  :s///g<left><left><left><CR>

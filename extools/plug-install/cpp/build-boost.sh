@@ -6,9 +6,9 @@
 # Created Time : Thu 08 Aug 2019 07:53:21 AM CST
 # Description  : 
 
-boostHome=/mnt/fun+downloads/linux系统安装/code-software/lang/cpp/boost_1_70_0
+boostHome=/mnt/fun+downloads/linux系统安装/code-software/lang/cpp/generic-pkgs/boost_1_70_0
 
-cd $boostHome || (echo "cd failed" && exit)
+cd $boostHome || (echo "cd failed" && exit 1)
 
 ## --with-libraries指定编译哪些boost库，all的话就是全部编译，只想编译部分库的话就把库的名称写上，之间用,号分隔即可。
 ## --with-toolset指定编译时使用哪种编译器，Linux下使用gcc即可。

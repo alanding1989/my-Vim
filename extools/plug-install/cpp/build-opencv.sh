@@ -7,23 +7,41 @@
 # Description  : 
 
 
-path="/mnt/fun+downloads/linux系统安装/code-software/lang/cpp/opencv"
 
+function install_Eigen() {
+  optEigen=/opt/lang-tools/cpp/eigen3
+  if [ ! -e "/usr/include/Eigen" ]; then
+    if [ -e "$optEigen" ]; then
+      sudo ln -s $optEigen/Eigen /usr/include/Eigen
+    else
+      sudo apt-get install libeigen3-dev && mv /usr/include/eigen3 /opt/lang-tools/cpp
+      sudo ln -s $optEigen/Eigen /usr/include/Eigen
+    fi
+  fi
+}
+
+install_Eigen
+
+
+
+# store path
+path=/mnt/fun+downloads/linux系统安装/code-software/lang/cpp/cv-pkgs/opencv
+
+# download deps
 sudo apt-get install pkg-config libavcodec-dev libavformat-dev libswscale-dev \
   libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libdc1394-22-dev
 
-[ -e "/usr/include/Eigen" ] || \
-  (sudo apt-get install libeigen3-dev && cp -r /usr/include/eigen3/Eigen /usr/include)
-
 [ -e $path ] || git clone https://github.com/Itseez/opencv.git $path
 [ -e $path/opencv_contrib ] || git clone https://github.com/Itseez/opencv_contrib.git "$path/opencv_contrib"
-[ -e $path/build ] || mkdir "$path/build"
 
-cd $path || (echo 'cd failed' && exit)
+
+# build
+[ -e $path/build ] || mkdir "$path/build"
+cd $path || (echo 'cd failed' && exit 1)
 
 cmake -DCMAKE_BUILD_TYPE=Release \
-  -D OPENCV_EXTRA_MODULES_PATH=../opencv_contrib/modules ..\
   -D CMAKE_INSTALL_PREFIX=/opt/lang-tools/cpp/opencv ..\
+  -D OPENCV_EXTRA_MODULES_PATH=../opencv_contrib/modules ..\
   -D OPENCV_DOC_INSTALL_PATH=/opt/lang-tools/cpp/opencv/docs ..\
   -D BUILD_EXAMPLES=ON \
   -D INSTALL_C_EXAMPLES=ON \
@@ -44,7 +62,7 @@ cmake -DCMAKE_BUILD_TYPE=Release \
   -D CUDA_FAST_MATH=1 \
   -D WITH_CUBLAS=1 \
   -D OPENCV_ENABLE_NONFREE=ON \
-  -D EIGEN_INCLUDE_PATH=/usr/include/eigen3
+  -D EIGEN_INCLUDE_PATH=/usr/include/Eigen
 
 make -j8
 sudo make install
