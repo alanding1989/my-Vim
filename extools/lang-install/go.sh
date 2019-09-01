@@ -113,3 +113,4 @@ install_app
 # go get -u github.com/fatih/motion
 # go get -u github.com/koron/iferr
 # go get -u github.com/766b/go-outliner
+go get github.com/TimothyYe/exchangerate/cmd/er

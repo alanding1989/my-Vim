@@ -129,13 +129,15 @@ endif
 
 " C Cpp: {{{
 let s:enable_cpp_dark_type = 0
-      " \ 'cInclude'                     : ['#f92672',   -1,  -1, -1, 0, 0],
 let g:_defhighlight_var.hlcolor.cpp = extend({
-      \ 'cIncluded'                    : ['#f92672',   -1,  -1, -1, 0, 0],
-      \ 'cStatement'                   : ['#f92672',   -1,  -1, -1, 0, 0],
-      \ 'chromaticaKeyword'            : ['#f92672',   -1,  -1, -1, 0, 0],
-      \ 'chromaticaException'          : ['#f92672',   -1,  -1, -1, 0, 0],
-      \ 'Type'                         : ['#f92672',   -1, 207, -1, 0, 0],
+      \ 'cInclude'                     : ['#f92672',   -1,  -1, -1, 0, 1],
+      \ 'cIncluded'                    : ['#f92672',   -1,  -1, -1, 0, 1],
+      \ 'cStatement'                   : ['#f92672',   -1,  -1, -1, 0, 1],
+      \ 'chromaticaKeyword'            : ['#f92672',   -1,  -1, -1, 0, 1],
+      \ 'chromaticaException'          : ['#f92672',   -1,  -1, -1, 0, 1],
+      \ 'Type'                         : ['#f92672',   -1, 207, -1, 0, 1],
+      \ 'Typedef'                      : ['#f92672',   -1, 207, -1, 0, 1],
+      \ 'AutoType'                     : ['#f92672',   -1, 207, -1, 0, 1],
       \
       \ 'chromaticaTypeRef'            : ['#e5c07b',   -1,  -1, -1, 0, 0],
       \ 'chromaticaCXXBaseSpecifier'   : ['#1aa3a1',   -1, 207, -1, 0, 1],
@@ -149,7 +151,7 @@ let g:_defhighlight_var.hlcolor.cpp = extend({
       \
       \ 'Member'                       : ['#c678dd',   -1,  -1, -1, 1, 0],
       \ 'Variable'                     : ['#fd971f',   -1, 214, -1, 0, 0],
-      \ 'Linkage'                      : ['#09AA08',   -1, 239, -1, 0, 1],
+      \ 'Linkage'                      : ['#82b1ff',   -1,  39, -1, 0, 0],
       \ 'OperatorOverload'             : ['#6c9f9d',   -1,  -1, -1, 1, 0],
       \ 'cStorageClass'                : ['#aab6e1',   -1,  -1, -1, 1, 0],
       \ }, !executable('clang') ? {
