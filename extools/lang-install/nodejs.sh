@@ -24,11 +24,29 @@ npm -g i nrm && nrm use taobao
 npm -g i yarn
 yarn config set registry 'https://registry.npm.taobao.org'
 
+# babel
+npm -g i --save-dev @babel/core
+npm -g i --save-dev @babel/preset-env
+npm -g i --save-dev @babel/preset-react
+
 npm -g i --unsafe-perm bash-language-server
-npm -g i neovim import-js remark remark-cli remark-stringify remark-frontmatter \
-rimraf wcwidth prettier js-beautify
-diagnostic-languageserver vim-language-server \
-javascript-typescript-langserver vscode-css-languageserver-bin \
+npm -g i \
+  es-checker \
+  neovim \
+  import-js \
+  remark \
+  remark-cli \
+  remark-stringify \
+  remark-frontmatter \
+  rimraf \
+  wcwidth \
+  prettier \
+  js-beautify \
+  diagnostic-languageserver \
+  vim-language-server \
+  javascript-typescript-langserver \
+  vscode-css-languageserver-bin \
+
 
 # npm -g i --save-dev @fortawesome/fontawesome-free
 # npm config set "@fortawesome:registry" https://npm.fontawesome.com/ && \
