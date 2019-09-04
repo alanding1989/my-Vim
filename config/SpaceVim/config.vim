@@ -186,8 +186,8 @@ endfunction
 "   2, the latter will always been loaded.
 let g:MySpaceVim_layers = extend(get(g:, 'MySpaceVim_layers', {
       \ 'lang#c'            : 1,
-      \ 'lang#go'           : 1,
-      \ 'lang#java'         : 0,
+      \ 'lang#go'           : 0,
+      \ 'lang#java'         : 1,
       \ 'lang#scala'        : 0,
       \ 'lang#rust'         : 1,
       \ 'lang#python'       : 1,

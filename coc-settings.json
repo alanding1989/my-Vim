@@ -145,21 +145,21 @@
 
 
   "languageserver": {
-    "ccls": {
-      "command": "ccls",
-      "filetypes": ["c", "cpp", "objc", "objcpp"],
-      "rootPatterns": [".ccls", "compile_commands.json", ".root", ".git/", ".hg/"],
-      "initializationOptions": {
-        "cache": {
-          "directory": "/tmp/ccls"
-        }
-      }
-    },
-//    "clangd": {
-//      "command": "clangd",
-//      "rootPatterns": [".clangd", "compile_commands.json", ".root", ".clang-format", ".git/", ".hg/"],
-//      "filetypes": ["c", "cpp", "objc", "objcpp"]
-//    },
+//  "ccls": {
+//    "command": "ccls",
+//    "filetypes": ["c", "cpp", "objc", "objcpp"],
+//    "rootPatterns": [".ccls", "compile_commands.json", ".root", ".git/", ".hg/"],
+//    "initializationOptions": {
+//      "cache": {
+//        "directory": "/tmp/ccls"
+//      }
+//    }
+//  },
+      "clangd": {
+        "command": "clangd",
+        "rootPatterns": [".clangd", "compile_commands.json", ".root", ".clang-format", ".git/", ".hg/"],
+        "filetypes": ["c", "cpp", "objc", "objcpp"]
+      },
     "rust": {
       "command": "ra_lsp_server",
       "filetypes": ["rust"],
@@ -247,8 +247,8 @@
     }
   },
 
+  
   "git.branchCharacter"          : "",
-  "git.enableGutters"            : false,
   "git.addedSign.text"           : "✚",
   "git.removedSign.text"         : "✖",
   "git.topRemovedSign.text"      : "▤",
@@ -260,5 +260,6 @@
   "git.changedSign.hlGroup"      : "SignifySignChange",
   "git.changeRemovedSign.hlGroup": "SignifySignChange",
   "git.virtualTextPrefix"        : "     ==❯ ",
-  "git.addGlameToVirtualText"    : true
+  "git.addGlameToVirtualText"    : true,
+  "git.enableGutters"            : false,
 }

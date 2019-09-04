@@ -20,7 +20,7 @@ branchname=$1
     git remote add origin   git@github.com:alanding1989/SpaceVim.git && \
     git remote add upstream git@github.com:SpaceVim/SpaceVim.git
 
-  if [ -z "$(git branch -a | grep "$branchname")" ]; then
+  if [[ -z "$(git branch -a | grep "$branchname")" ]]; then
     git checkout -b "$branchname" && git push -u origin "$branchname"
   else
     git checkout "$branchname"
