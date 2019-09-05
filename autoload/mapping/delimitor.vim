@@ -40,8 +40,10 @@ function! mapping#delimitor#init() abort " {{{
     autocmd  FileType c,cpp    let b:eol_marker = ';'
     autocmd  FileType vim
                  \ inoremap <buffer><expr> "  MatchCl('\v(^\_$)\|(^\s*\w*\s\_$)\|(^\s+\_$)') ? "\"\<Space>" : AutoClo('"')|
-                 \ inoremap <buffer><expr> :  MatchCl('\v\s(s)\|(g)\|(a)\|(l)\|(\S\W\s)$')
-                 \ ? ':' : Within('pair') ? ':' : CurChar(0, '\s') ? ': ' : ' : '
+    if s:extra
+      autocmd  FileType vim inoremap <buffer><expr> :  MatchCl('\v\s(s)\|(g)\|(a)\|(l)\|(\S\W\s)$')
+            \ ? ':' : Within('pair') ? ':' : CurChar(0, '\s') ? ': ' : ' : '
+    endif
     autocmd  FileType markdown  call <sid>AutoPairs({'《':'》'}, 2) | call <sid>AutoPairs('*', 1)
 
     if s:extra

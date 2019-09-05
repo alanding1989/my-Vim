@@ -20,8 +20,7 @@ set foldlevel=0 foldmethod=syntax
 set foldtext=Foldtext()
 augroup my_config
   auto!
-  autocmd FileType vim,conf set foldmethod=marker foldlevel=0
-  autocmd FileType markdown set nowrap textwidth=120
+  autocmd FileType vim,conf,zsh,sh setlocal foldmethod=marker foldlevel=0
 augroup END
 
 set backspace=indent,eol,start
