@@ -599,23 +599,23 @@ endfunction " }}}
 
 " Easy Edit {{{
 " insert nice box " {{{
+let s:cmsign = {
+      \ 'vim'    : '"',
+      \ 'sh'     : '#',
+      \ 'python' : '#',
+      \ 'ps1'    : '#',
+      \ 'cpp'    : '//',
+      \ 'c'      : '//',
+      \ 'java'   : '//',
+      \ 'scala'  : '//',
+      \ 'go'     : '//',
+      \ 'rust'   : '//',
+      \ }
 function! <sid>EqualBox() abort
-  if &ft ==# 'vim'
-    call s:inshbox('"', '=')
-  elseif &ft ==# 'sh' || &ft ==# 'python' || &ft ==# 'ps1'
-    call s:inshbox('#', '=')
-  elseif &ft ==# 'scala' || &ft ==# 'cpp' || &ft ==# 'c'
-    call s:inshbox('//', '=')
-  endif
+  call s:inshbox(s:cmsign[&ft], '=')
 endfunc
 function! <sid>MinusBox() abort
-  if &ft ==# 'vim'
-    call s:inshbox('"', '-')
-  elseif &ft ==# 'sh' || &ft ==# 'python' || &ft ==# 'ps1'
-    call s:inshbox('#', '-')
-  elseif &ft ==# 'scala' || &ft ==# 'cpp' || &ft ==# 'c'
-    call s:inshbox('//', '-')
-  endif
+  call s:inshbox(s:cmsign[&ft], '-')
 endfunc
 function! s:inshbox(cmsign, reptsign) abort
   let head = !MatchCl('^$') ? ['', ''] : []
@@ -632,34 +632,44 @@ endfun
 "}}}
 
 " insert file head {{{
+let s:dict = {
+      \ ''       : ['"', 'scriptencoding utf-8'                                 ],
+      \ 'vim'    : ['"', 'scriptencoding utf-8'                                 ],
+      \ 'sh'     : ['#', '#! /usr/bin/env bash'                                 ],
+      \ 'ps1'    : ['#', ''                                                     ],
+      \ 'python' : ['#', '#! /usr/bin/env python3', '# -*- coding: utf-8 -*-'   ],
+      \ 'ipynb'  : ['#', '#! /usr/bin/env python3', '# -*- coding: utf-8 -*-'   ],
+      \ 'scala'  : ['*', ''                       , '/*'                        ],
+      \ 'c'      : ['*', '#include <stdio.h>'     , '/*'                        ],
+      \ 'cpp'    : ['*', '#include <iostream>'    , 'using namespace std;', '/*'],
+      \ 'text'   : ['*', ''                       , '/*'                        ],
+      \ }
 function! <sid>SetFileHead(...) abort
+  " pram: info = ''     , no headinfo
+  "       info = 'info0', headinfo with no box surrounded
+  "       info = 'info1', headinfo with == box surrounded
   let info = a:0 ? a:1 : ''
-  let dict = {
-        \ ''       : ['"', 'scriptencoding utf-8', 'info1'],
-        \ 'vim'    : ['"', 'scriptencoding utf-8', 'info1'],
-        \ 'sh'     : ['#', '#! /usr/bin/env bash', info],
-        \ 'ps1'    : ['#', '', info],
-        \ 'python' : ['#', '#! /usr/bin/env python3', '# -*- coding: utf-8 -*-', info],
-        \ 'ipynb'  : ['#', '#! /usr/bin/env python3', '# -*- coding: utf-8 -*-', info],
-        \ 'scala'  : ['*', '', '/*', info],
-        \ 'c'      : ['*', '#include <stdio.h>', '/*', info],
-        \ 'cpp'    : ['*', '#include <iostream>', 'using namespace std;', '/*', info],
-        \ 'text'   : ['*', '', '/*', info],
-        \ }
-  call <sid>insfhead(dict[&ft][0], dict[&ft][1:])
+
+  let cmsign = s:dict[&ft][0]
+  let list = add(s:dict[&ft][1:], info)
+  call <sid>insfhead(cmsign, list)
 endfunction
 function! s:insfhead(cmsign, list) abort
   let head = []
-  if &filetype ==# 'vim'
-    let head += <sid>insinfo(a:cmsign, 1, a:list[-2])[:-2]
+  " file headinfo has box or not
+  let hasEqual = 1 
+  if &ft ==# 'vim'
+    let head += <sid>insinfo(a:cmsign, hasEqual, a:list[-2])[:-2]
     let head += a:list[:-2] + ['']
   else
     let head += a:list[-2] ==# '/*' ? a:list[0:-3] : a:list[0:-2]
     let head += len(a:list[-1]) && a:list[0] !=# '' ? [''] : []
-    let head += a:list[-1] ==# 'info0' ? <sid>insinfo(a:cmsign, 0, a:list[-2])
-          \ :   a:list[-1] ==# 'info1' ? <sid>insinfo(a:cmsign, 1, a:list[-2])
+
+    let head += a:list[-1] ==# 'info0' ? <sid>insinfo(a:cmsign, !hasEqual, a:list[-2])
+          \ :   a:list[-1] ==# 'info1' ? <sid>insinfo(a:cmsign, hasEqual , a:list[-2])
           \ :   ['', '']
   endif
+
   call append(0, head)
   call setpos('.', [0, len(head)+1, 1])
   startinsert
