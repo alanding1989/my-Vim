@@ -645,7 +645,7 @@ let s:dict = {
       \ 'text'   : ['*', ''                       , '/*'                        ],
       \ }
 function! <sid>SetFileHead(...) abort
-  " pram: info = ''     , no headinfo
+  " args: info = ''     , no headinfo
   "       info = 'info0', headinfo with no box surrounded
   "       info = 'info1', headinfo with == box surrounded
   let info = a:0 ? a:1 : ''
