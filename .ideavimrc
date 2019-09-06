@@ -1,15 +1,16 @@
 "================================================================================
-" File Name    : .ideavimrc
+" File Name    : /home/alanding/.ideavimrc
 " Author       : AlanDing
-" Created Time : Tue 03 Sep 2018 10:43:47 AM CST
-" Description  : IdeaVim Configuration
+" Created Time : Fri 06 Sep 2018 11:54:14 AM CST
+" Description  : Ideavim config
 "================================================================================
 scriptencoding utf-8
 
 
+
 "--------------------------------------------------------------------------------
 " Basic options
-"--------------------------------------------------------------------------------
+"----------------------------------------------------------------------------- {{{
 set number relativenumber
 set showmode
 set hlsearch incsearch gdefault
@@ -23,11 +24,13 @@ set sidescrolloff=5
 set visualbell
 set timeoutlen=350
 set ttimeoutlen=50
+" }}}
 
 
 "--------------------------------------------------------------------------------
 " Mappings
 "--------------------------------------------------------------------------------
+" Generic Mappings {{{
 let mapleader = ';'
 
 nnoremap <leader>r        :source ~/.ideavimrc<CR>
@@ -40,7 +43,6 @@ nnoremap q                :nohl<CR>
 nnoremap s                :nohl<CR>
 
 
-" Generic Mappings {{{
 " all mode init
 noremap <bs>              %
 noremap <C-a>             ^
@@ -93,11 +95,13 @@ nnoremap sm               :action Switcher<CR>
 " window management
 nnoremap qq               :close<CR>
 nnoremap qd               :close<CR>
-nnoremap qn               :winc w<CR>:close<CR>
+nnoremap qn               :action VimWindowPrev<CR>:close<CR>
+nnoremap qn               :action VimWindowNext<CR>:close<CR>
 nnoremap qe               ggdG
 nnoremap qh               :action Exit<CR>
 nnoremap qp               :action CloseProject<CR>
-nnoremap qo               :action CloseAllEditorsButActive<CR>
+nnoremap qo               :action VimWindowOnly<CR>:close<CR>
+" nnoremap qo               :action CloseAllEditorsButActive<CR>
 nnoremap qr               :action RenameFile<CR>
 nnoremap qf               :action FileChooser.Delete<CR>
 
@@ -206,8 +210,9 @@ nnoremap gd               :action GotoDeclaration<CR>
 nnoremap gi               :action GotoImplementation<CR>
 nnoremap gu               :action GotoSuperMethod<CR>
 nnoremap gt               :action GotoTypeDeclaration<CR>
-nnoremap gt               :action GotoTest<CR>
+nnoremap gT               :action GotoTest<CR>
 nnoremap gr               :action ShowUsages<CR>
+nnoremap gl               :action ShowUmlDiagramPopup<CR>
 nnoremap ghm              :action MethodHierarchy<CR>
 nnoremap ght              :action TypeHierarchy<CR>
 nnoremap ghc              :action CallHierarchy<CR>
