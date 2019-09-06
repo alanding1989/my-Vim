@@ -113,13 +113,13 @@ function! layers#edit#config() abort
           \ '@ empty === box', 0)
     call SpaceVim#mapping#space#def('nnoremap', ['i', 'h', 'n'],
           \ 'SetFileHead',
-          \ 'without info', 1)
+          \ 'without headInfo', 1)
     call SpaceVim#mapping#space#def('nnoremap', ['i', 'h', 'e'],
           \ 'SetFileHead info1',
-          \ 'with === box info', 1)
+          \ 'headInfo with === box surrounded', 1)
     call SpaceVim#mapping#space#def('nnoremap', ['i', 'h', 'h'],
           \ 'SetFileHead info0',
-          \ 'with no box info', 1)
+          \ 'headInfo with no box surrounded', 1)
     call SpaceVim#mapping#space#def('nnoremap', ['i', 'd'],
           \ 'call setline(line("."), strftime("%a %d %b %Y %H:%M"))', '@ datetime', 1)
     " }}}
