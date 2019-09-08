@@ -261,5 +261,5 @@
   "git.changeRemovedSign.hlGroup": "SignifySignChange",
   "git.virtualTextPrefix"        : "     ==❯ ",
   "git.addGlameToVirtualText"    : true,
-  "git.enableGutters"            : false,
+  "git.enableGutters"            : false
 }

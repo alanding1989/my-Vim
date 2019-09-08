@@ -31,6 +31,8 @@ npm -g i --save-dev @babel/preset-react
 npm -g i --save-dev @babel/cli
 npm -g i --save-dev @babel/node
 npm -g i --save-dev @babel/register
+npm -g i --save-dev webpack
+npm -g i --save-dev webpack-cli
 
 
 npm -g i --unsafe-perm bash-language-server
