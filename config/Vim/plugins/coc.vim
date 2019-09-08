@@ -26,7 +26,7 @@ let g:coc_filetype_map        = {
       \ }
 
 " extensions {{{
-      " \ 'coc-tabnine'    ,
+      " \ 'coc-tabnine'      ,
 let g:coc_global_extensions = [
       \ 'coc-git'          ,
       \ 'coc-github'       ,
