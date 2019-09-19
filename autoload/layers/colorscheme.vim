@@ -30,10 +30,11 @@ function! layers#colorscheme#config() abort
   if g:is_spacevim
     let g:_spacevim_mappings_space_custom += [
           \ [ 'nmap', ['t', 'o'], 'call call('
-          \ .string(s:_function('s:toggleTheme')).', [])',
+          \ .string(s:_function('s:toggle_transparent')).', [])',
           \ '@ toggle theme', 1 ],
           \ ]
   else
+    " MyVim
     set termguicolors
     set cursorline
     call layers#colorscheme#my_cs()
@@ -124,7 +125,7 @@ function! layers#colorscheme#my_cs() abort "{{{
   endif
 endfunction "}}}
 
-function! s:toggleTheme() abort "{{{
+function! s:toggle_transparent() abort "{{{
   if get(g:, 'colors_name') !=# 'default'
     let s:pre_cs = g:colors_name
     let s:pre_bg = &background
@@ -133,7 +134,6 @@ function! s:toggleTheme() abort "{{{
     " catch
     " endtry
     if g:is_spacevim
-      set nocursorline
       set showtabline=1
       set laststatus=0
       augroup alan_cs
@@ -152,7 +152,6 @@ function! s:toggleTheme() abort "{{{
     " catch
     " endtry
     if g:is_spacevim
-      set cursorline
       set showtabline=2
       set laststatus=2
       augroup alan_cs
@@ -168,8 +167,9 @@ function! s:toggleTheme() abort "{{{
   endif
 endfunction
 
+" deprecated
 let t:is_transparent = 0
-function! s:toggle_transparent() abort
+function! s:toggle_transparent_1() abort
     if t:is_transparent == 0
         hi Normal guibg=NONE ctermbg=NONE
         let t:is_transparent = 1
