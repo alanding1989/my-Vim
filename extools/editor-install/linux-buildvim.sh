@@ -7,7 +7,7 @@
 
 srcpath=/mnt/fun+downloads/linux系统安装/code-software/vim/vim8.1-src
 
-[ -x vim ] && vim --version
+# [ -x vim ] && vim --version
 
 [ -d /opt/vim ] || mkdir -p /opt/vim
 
@@ -36,18 +36,20 @@ build_install() {
   cd $srcpath && \
     ./configure \
     --prefix=/opt/vim/vim8.1 \
-    --with-features=huge --enable-multibyte \
-    --enable-cscope --enable-gui=gnome2 \
+    --with-features=huge \
+    --enable-multibyte \
+    --enable-cscope \
+    --enable-gui=gtk3 \
     --enable-rubyinterp \
     --enable-luainterp \
     --enable-perlinterp \
     --enable-python3interp \
-    --with-python3-config-dir=/home/alanding/software/anaconda3/envs/py37/lib/
-
+    --with-python3-config-dir=/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/
+ 
   sudo make && sudo make install
 }
       # /usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/
 
 src_update && build_install
-vim --version
+# vim --version
 
