@@ -54,8 +54,8 @@ function! MyVim_layers_variable(layer) abort
   return get({
         \ 'lang#scala' : {
         \     'format_on_save'            : 1,
-        \     'formatter_scalariform_path': g:is_win 
-        \         ? 'D:\devtools\scala\scalariform.jar' 
+        \     'formatter_scalariform_path': g:is_win
+        \         ? 'D:\devtools\scala\scalariform.jar'
         \         : '/opt/lang-tools/scala/scalariform.jar'
         \ },
         \ 'lsp' : { 'filetypes': extend([

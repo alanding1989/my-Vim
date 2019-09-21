@@ -42,6 +42,7 @@ endif
 " vim
 if !g:is_nvim
   if g:is_unix || g:is_mac
+    " set pythonthreedll=/home/alanding/software/anaconda3/envs/py37/lib/libpython3.7m.so
     " linux
   else
     " windows

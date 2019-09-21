@@ -58,7 +58,7 @@ function! layers#tools#config() abort
   endif
 endfunction
 
-function! s:vim_cheat() abort 
+function! s:vim_cheat() abort
   let g:Cheat_EnableDefaultMappings = 0
   if g:is_spacevim
     let g:_spacevim_mappings.C = {'name': '+@ CheatSheet'}
