@@ -7,9 +7,12 @@ scriptencoding utf-8
 
 " Help/Echo Related {{{
 " echo mapping rhs {{{
+" TODO: refactor
 function! util#maparg_wrapper(...) abort
   if a:0 == 1 " {{{
-    " n mode c-..., m-..., gd, gg ... mappings
+    " Normal Mode: <C-...>, <A-...>, gd, gg ... mappings
+    " Usage: :EchoMap so
+    "        :EchoMap C-j
     echo len( maparg('<'.a:1.'>'))
           \ ? maparg('<'.a:1.'>')
           \ : maparg(a:1)
@@ -17,38 +20,45 @@ function! util#maparg_wrapper(...) abort
   " }}}
 
   if a:0 == 2 " {{{
-    " pram: a:1 vi vn vv
-    "       a:2 specific mapping
     if a:1 =~# '^v\w'
-      if a:2 =~? '.*space.*'
-        exec 'verbose '.a:1[1].'map [SPC]'.matchstr(a:2, 'space\W\ze\w\+')
+      " Support Specific Mode:
+      " Param: a:1 vi vn vv, verbose + which mode
+      "        a:2 specific mapping
+      if a:2 =~? '.*spc.*'
+        " Usage: :EchoMap vn spc-so, will seach verbose nmap [SPC]so
+        exec 'verbose '.a:1[1].'map [SPC]'.matchstr(a:2, 'spc\W\ze\w\+')
       else
-        exec 'verbose '.a:1[1].'map '.a:2
+        " Usage: :EchoMap vn rhs, rhs must be the format of maparg()
+        "        :EchoMap vn <C-j>
+        exec 'verbose '.a:1[1].'map <'.a:2.'>'
       endif
-    elseif a:1 !=# 'leader' && a:2 !=# 'spc'
-      " support specified mode
-      " <c- >..., <m- >..., gd, gg ... mappings
+    elseif a:1 !=# 'leader' && a:1 !=# 'spc'
+      " Support Specific Mode:
+      " <C-...>, <A-...>, <space>..., gd, gg ... mappings
       if a:1 ==# 'space'
+        " Usage: :EchoMap space so
         exec "verbose nmap \<space>".a:2
         return
       elseif a:1 =~# '^g\|^z'
+        " Usage: :EchoMap i gg, will show rhs of gg in insert mode
         exec 'verbose '.a:2.'map '.a:1
       else
+        " Usage: :EchoMap leader so
         echo  len(maparg('<'.a:1.'>', a:2))
               \ ? maparg('<'.a:1.'>', a:2)
               \ : maparg(a:1, a:2)
       endif
     else
-      " n mode <leader>, [SPC] mappings
+      " Normal Mode: <leader>, [SPC] mappings
       echo    a:1 ==# 'leader' ? maparg('<'.a:1.'>'.a:2, 'n') : 
-            \ a:2 ==# 'spc'    ? maparg('[SPC]'.a:1, 'n') : ''
+            \ a:1 ==# 'spc'    ? maparg('[SPC]'.a:2, 'n') : ''
     endif
   endif
   " }}}
 
   if a:0 == 3 " {{{
-    " support specify mode
-    " <c- >.., <m- >.., <space>.., <leader>.. mappings
+    " Support Specific Mode:
+    " <c-..>, <m-..>, <space>.., <leader>..
     echo a:3 ==# 'spc' 
           \ ? maparg('[SPC]'.a:1, a:2)
           \ : maparg('<'.a:1.'>'.a:2, a:3)
