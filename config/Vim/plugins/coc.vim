@@ -26,22 +26,24 @@ let g:coc_filetype_map        = {
       \ }
 
 " extensions {{{
-      " \ 'coc-tabnine'      ,
 let g:coc_global_extensions = [
       \ 'coc-git'          ,
       \ 'coc-github'       ,
       \ 'coc-docker'       ,
       \ 'coc-diagnostic'   ,
       \ 'coc-sql'          ,
+      \ 'coc-post'         ,
+      \ 'coc-marketplace'  ,
       \
       \ 'coc-ccls'         ,
-      \ 'coc-rls'          ,
       \ 'coc-rust-analyzer',
       \ 'coc-java'         ,
       \ 'coc-gocode'       ,
-      \ 'coc-sh'           ,
       \ 'coc-python'       ,
+      \ 'coc-pyright'      ,
+      \ 'coc-sh'           ,
       \
+      \ 'coc-eslint'       ,
       \ 'coc-tsserver'     ,
       \ 'coc-tslint'       ,
       \ 'coc-tslint-plugin',
@@ -52,12 +54,13 @@ let g:coc_global_extensions = [
       \ 'coc-emmet'        ,
       \ 'coc-prettier'     ,
       \ 'coc-import-cost'  ,
+      \ 'coc-webpack'      ,
       \
       \ 'coc-vimlsp'       ,
       \ 'coc-vimtex'       ,
-      \ 'coc-lua'          ,
       \ 'coc-yaml'         ,
       \ 'coc-omnisharp'    ,
+      \ 'coc-lua'          ,
       \
       \ 'coc-snippets'     ,
       \ 'coc-neosnippet'   ,
@@ -72,8 +75,9 @@ let g:coc_global_extensions = [
       \ 'coc-pyls'         ,
       \ 'coc-calc'         ,
       \ ] "}}}
+      " \ 'coc-tabnine'    ,
+      " \ 'coc-rls'        ,
       " \ 'coc-lbdbq'      ,
-      " \ 'https://github.com/andys8/vscode-jest-snippets.git#master' ,
 
 " autocmds {{{
 augroup my_coc_settings
@@ -120,6 +124,7 @@ augroup END "}}}
 " if !hasmapto('<Plug>(coc-funcobj-a)', 'o') && empty(maparg('af', 'o'))
   " omap af <Plug>(coc-funcobj-a)
 " endif
+
 " key mapping  {{{
   nmap  <silent>gd  <Plug>(coc-definition)
 function! s:g_mappings() abort

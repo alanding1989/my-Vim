@@ -67,6 +67,10 @@
   "python.workspaceSymbols.tagFilePath"                 : "~/.cache/tags",
 
 
+  "rust-analyzer.raLspServerPath"                       : "/home/alanding/software/lang-tools/cargo/bin/ra_lsp_server",
+  "rust-analyzer.enableCargoWatchOnStartup"             : "enabled",
+  
+
   "java.home"                                           : "/opt/lang-tools/java/jdk",
   "java.completion.enabled"                             : true,
   "java.completion.guessMethodArguments"                : true,
@@ -108,9 +112,18 @@
   "tsserver.npm"                                                      : "/opt/lang-tools/nvm/versions/node/v10.16.0/bin/npm",
   "npm.binPath"                                                       : "/opt/lang-tools/nvm/versions/node/v10.16.0/bin/npm",
 
-  "tslint.run"                                                        : "onType",
+  "tslint.run"                                                        : "onSave",
   "tslint.enable"                                                     : true,
   "tslint.jsEnable"                                                   : true,
+
+  "eslint.packageManager"                                             : "npm",
+  "eslint.run"                                                        : "onSave",
+  "eslint.autoFixOnSave"                                              : true,
+  "eslint.filetypes": [
+    "javascript",
+    "javascriptreact",
+    "typescript"
+  ],
 
   "typescript.preferences.quoteStyle"                                 : "single",
   "typescript.preferences.importModuleSpecifier"                      : "relative",
@@ -141,9 +154,6 @@
 
   "omnisharp.useDotnet"                                               : true,
 
-  
-
-
 
   "languageserver": {
 //  "ccls": {
@@ -161,11 +171,11 @@
         "rootPatterns": [".clangd", "compile_commands.json", ".root", ".clang-format", ".git/", ".hg/"],
         "filetypes": ["c", "cpp", "objc", "objcpp"]
       },
-    "rust": {
-      "command": "ra_lsp_server",
-      "filetypes": ["rust"],
-      "rootPatterns": ["Cargo.toml"]
-    },
+//    "rust": {
+//      "command": "ra_lsp_server",
+//      "filetypes": ["rust"],
+//      "rootPatterns": ["Cargo.toml"]
+//    },
     "metals" : {
       "command": "metals-vim",
       "rootPatterns": ["build.sbt"],
@@ -193,7 +203,7 @@
     },
     "golang": {
       "command": "gopls",
-      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "rootPatterns": ["go.mod", ".git/", ".hg/"],
       "filetypes": ["go"]
     },
     "javascript" : {
@@ -263,4 +273,5 @@
   "git.virtualTextPrefix"        : "     ==❯ ",
   "git.addGlameToVirtualText"    : true,
   "git.enableGutters"            : false
+
 }
