@@ -126,7 +126,7 @@ function! mapping#basic#load() abort
   nnoremap <silent>s0       :vert rightb new<CR>
   " last edit buffer
   nnoremap <silent><leader><tab>  :b#<CR>
-  nnoremap <silent><M-tab>  :b#<CR>
+  nnoremap <silent><M-tab>  :res\|vert res<CR>zz
 
   " hotkey for buf and tab selection, no need plugins {{{
   " select window

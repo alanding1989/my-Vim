@@ -212,7 +212,8 @@ nnoremap gu               :action GotoSuperMethod<CR>
 nnoremap gt               :action GotoTypeDeclaration<CR>
 nnoremap gT               :action GotoTest<CR>
 nnoremap gr               :action ShowUsages<CR>
-nnoremap gl               :action ShowUmlDiagramPopup<CR>
+nnoremap gl               :action ShowUmlDiagram<CR>
+nnoremap gL               :action ShowUmlDiagramPopup<CR>
 nnoremap ghm              :action MethodHierarchy<CR>
 nnoremap ght              :action TypeHierarchy<CR>
 nnoremap ghc              :action CallHierarchy<CR>
@@ -258,6 +259,7 @@ nnoremap go               :action OptimizeImports<CR>
 
 
 " run
+nnoremap <tab><tab>       :action RunAnything<CR>
 nnoremap <Space>rr        :action Run<CR>
 nnoremap <Space>lr        :action Run<CR>
 nnoremap <Space>re        :action RunConfiguration<CR>
@@ -338,4 +340,3 @@ nnoremap <Space>jj             :action KJumpAction<CR>
 nnoremap <Space>jl             :action KJumpAction.Line<CR>
 nnoremap <Space>jw             :action KJumpAction.Word0<CR>
 " }}}
-

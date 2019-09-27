@@ -163,8 +163,12 @@ call deoplete#custom#var('tabline', {
       \ })
 
 
-" inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
-" inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
+if empty(maparg('<C-h>', 'i'))
+  inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+endif
+if empty(maparg('<BS>', 'i'))
+  inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
+endif
 
 set isfname-==
 
