@@ -12,13 +12,14 @@ let s:extra = 0
 function! mapping#delimitor#init() abort " {{{
   call s:AutoPairs()
 
+    inoremap <expr> =   MatchDel('=', '\v(\=+)\|(\>+)\|(\<+)\|(\++)\|(-+)\|(!+)\s$', 1, 11)
+
   if s:extra
     call s:Numfix()
     " -= += != =~ == <= >= -> => ==# ==? || &&
     " match del space before
 
     " inoremap <expr> =   MatchDel('=', '\(=\+\)\\|\(>\+\)\\|\(<\+\)\\|\(+\+\)\\|\(-\+\)\\|\(!\+\)\s$')
-    inoremap <expr> =   MatchDel('=', '\v(\=+)\|(\>+)\|(\<+)\|(\++)\|(-+)\|(!+)\s$', 1, 11)
     inoremap <expr> \|  MatchDel('\|', '\|\+\s$', 1, 11)
     inoremap <expr> &   MatchDel('&', '&\+\s$', 0, 00)
     inoremap <expr> #   MatchDel('#', '\v(\={2}\s)\|(\=\~\s)\|(!\=\s)\|(!\~\s)', 0, 00)
@@ -47,7 +48,7 @@ function! mapping#delimitor#init() abort " {{{
     autocmd  FileType markdown  call <sid>AutoPairs({'《':'》'}, 2) | call <sid>AutoPairs('*', 1)
 
     if s:extra
-      autocmd  FileType sh       call <sid>Bash()
+      autocmd  FileType sh      call <sid>Bash()
     endif
   augroup END
 endfunction

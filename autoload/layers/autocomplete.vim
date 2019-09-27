@@ -8,8 +8,10 @@ scriptencoding utf-8
 
 let s:snippet_engine      = get(g:, 'spacevim_snippet_engine',
       \ get(g:, 'snippet_engine', 'neosnippet'))
+
 let s:autocomplete_method = get(g:, 'spacevim_autocomplete_method',
       \ get(g:, 'autocomplete_method', 'deoplete'))
+
 let s:autocomplete_parens = get(g:, 'spacevim_autocomplete_parens',
       \ get(g:, 'autocomplete_parens', 0))
 
@@ -130,14 +132,14 @@ function! layers#autocomplete#config() abort
   call mapping#space#C_Space()
   if !s:autocomplete_parens
     inoremap <expr><Space>         ExpandEmptyPair()
-    inoremap <silent><expr><C-h>   pumvisible() 
-          \ ? "\<C-e>\<C-r>=DelEmptyPair()\<CR>" 
-          \ : DelEmptyPair()
+    " inoremap <silent><expr><C-h>   pumvisible()
+          " \ ? "\<C-e>\<C-r>=DelEmptyPair()\<CR>"
+          " \ : DelEmptyPair()
   endif
 
-  " inoremap <silent><expr><C-h>   pumvisible() ? "\<C-e>\<C-r>=DelEmptyPair()\<CR>" :
-        " \ CurChar(0, '\s') && CurChar(0, '\S', -3) && CurChar(0, '\s', -4)
-        " \ ? "\<BS>\<left>\<BS>\<right>" : DelEmptyPair()
+  inoremap <silent><expr><C-h>   pumvisible() ? "\<C-e>\<C-r>=DelEmptyPair()\<CR>" :
+        \ CurChar(0, '\s') && CurChar(0, '\S', -3) && CurChar(0, '\s', -4)
+        \ ? "\<BS>\<left>\<BS>\<right>" : DelEmptyPair()
   call s:editsnippet()
   augroup layer_autocmplete
     autocmd!

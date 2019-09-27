@@ -18,6 +18,7 @@ let g:spacevim_colorscheme = split([
       \ '7 nord'        ,
       \ '8 NeoSolarized',
       \ '9 default'     ,
+      \ '10 equinusocio_material',
       \ ][1])[1]
 let g:spacevim_colorscheme_default = 'nord'
 let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
@@ -159,11 +160,11 @@ function! MySpaceVim_layers_variable(layer) abort
         \             "-noverify",
         \             "-Xmx1G",
         \             "-jar",
-        \             "/home/alanding/.config/coc/extensions/coc-java-data/server/plugins/org.eclipse.equinox.launcher_1.5.400.v20190515-0925.jar",
+        \             $HOME."/.config/coc/extensions/coc-java-data/server/plugins/org.eclipse.equinox.launcher_1.5.400.v20190515-0925.jar",
         \             "-configuration",
-        \             "/home/alanding/.config/coc/extensions/coc-java-data/server/config_win",
+        \             $HOME."/.config/coc/extensions/coc-java-data/server/config_win",
         \             "-data",
-        \             "/home/alanding/.config/coc/extensions/coc-java-data"
+        \             $HOME."/.config/coc/extensions/coc-java-data"
         \         ]}
         \ },
         \ 'defhighlight' : {

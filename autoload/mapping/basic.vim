@@ -600,16 +600,17 @@ endfunction " }}}
 " Easy Edit {{{
 " insert nice box " {{{
 let s:cmsign = {
-      \ 'vim'    : '"',
-      \ 'sh'     : '#',
-      \ 'python' : '#',
-      \ 'ps1'    : '#',
-      \ 'cpp'    : '//',
-      \ 'c'      : '//',
-      \ 'java'   : '//',
-      \ 'scala'  : '//',
-      \ 'go'     : '//',
-      \ 'rust'   : '//',
+      \ 'vim'      : '"',
+      \ 'sh'       : '#',
+      \ 'python'   : '#',
+      \ 'ps1'      : '#',
+      \ 'cpp'      : '//',
+      \ 'c'        : '//',
+      \ 'java'     : '//',
+      \ 'scala'    : '//',
+      \ 'go'       : '//',
+      \ 'rust'     : '//',
+      \ 'markdown' : '',
       \ }
 function! <sid>EqualBox() abort
   call s:inshbox(s:cmsign[&ft], '=')
@@ -674,9 +675,10 @@ function! s:insfhead(cmsign, list) abort
   call setpos('.', [0, len(head)+1, 1])
   startinsert
 endfunction
+
 function! s:insinfo(cmsign, hasEqual, ...) abort
   if a:0 && a:1 ==# '/*'
-    let head = a:hasEqual ? [
+    let HEAD = a:hasEqual ? [
           \ '/*'. repeat('=', 80),
           \ ' ' . a:cmsign . ' File Name    : '. expand('%')    ,
           \ ' ' . a:cmsign . ' Author       : AlanDing'         ,
@@ -689,12 +691,12 @@ function! s:insinfo(cmsign, hasEqual, ...) abort
           \ ' ' . a:cmsign . ' Created Time : '. strftime('%c'),
           \ ' ' . a:cmsign . ' Description  : '                ,
           \ ]
-    let head += [
+    let HEAD += [
           \ (a:hasEqual ? repeat('=', 80).'*/': ' */'),
           \ ''
           \ ]
   else
-    let head = [
+    let HEAD = [
           \ a:hasEqual ? a:cmsign. repeat('=', 80) : ''  ,
           \ a:cmsign . ' File Name    : '. expand('%')   ,
           \ a:cmsign . ' Author       : AlanDing'        ,
@@ -704,7 +706,7 @@ function! s:insinfo(cmsign, hasEqual, ...) abort
           \ ''
           \ ]
   endif
-  return head
+  return HEAD
 endfunction "}}}
 
 " format {{{

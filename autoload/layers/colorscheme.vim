@@ -8,9 +8,10 @@ scriptencoding utf-8
 
 function! layers#colorscheme#plugins() abort
   let plugins = [
-        \ [ 'KeitaNakamura/neodark.vim'    , {'merged': 0 }],
-        \ [ 'mhartington/oceanic-next'     , {'merged': 0 }],
-        \ [ 'NLKNguyen/papercolor-theme'   , {'merged': 0 }],
+        \ [ 'KeitaNakamura/neodark.vim'       , {'merged': 0 }],
+        \ [ 'mhartington/oceanic-next'        , {'merged': 0 }],
+        \ [ 'NLKNguyen/papercolor-theme'      , {'merged': 0 }],
+        \ [ 'chuling/vim_equinusocio_material', {'merged': 0 }],
         \ ]
   if !g:is_spacevim
     let plugins += [

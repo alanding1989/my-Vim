@@ -33,7 +33,7 @@ build_install() {
     sudo mv -i /opt/vim/vim8.1 /opt/vim/vim8.1-old
   fi
 
-  # 必须用系统的python作为可执行python，要不字节码有冲突
+  # 必须用系统的python作为可执行python进行编译，要不字节码有冲突，具体底层哪有问题还不清楚
   cd $srcpath && \
     ./configure \
     --prefix=/opt/vim/vim8.1 \

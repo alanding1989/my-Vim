@@ -110,6 +110,7 @@ set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android
 set noswapfile
 if !g:is_spacevim
   " set nowritebackup
+  " must be /home/alanding, not root
   let s:undofile  = g:is_win ? 'D:/.cache/Vim/undofile' :
         \ '/home/alanding/.cache/MyVim'.(g:is_root ? '-root' : '-alan').'/undofile'
   let s:backupdir = g:is_win ? 'D:/.cache/Vim/backup' :
