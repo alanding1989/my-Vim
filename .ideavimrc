@@ -71,6 +71,8 @@ inoremap <C-n>            <C-right>
 inoremap <C-i>            <Esc>:action InsertLiveTemplate<CR>a
 inoremap <C-o>            <Esc>:action PreviousTemplateVariable<CR>i
 inoremap <A-j>            <CR>
+inoremap <A-k>            :action EditorDeleteToLineEnd<CR>
+
 
 " faster command mode
 cnoremap qw               <Esc>
@@ -115,9 +117,6 @@ nnoremap su               :nohl<CR>
 
 
 " tabn tabp
-nnoremap <leader><tab>    gt
-nnoremap <leader>q        gT
-
 nnoremap <A-1>            :action GoToTab1<CR>
 nnoremap <A-2>            :action GoToTab2<CR>
 nnoremap <A-3>            :action GoToTab3<CR>
@@ -185,9 +184,10 @@ noremap  vv               V
 nnoremap <leader>aa       ggVG
 nnoremap <leader>af       VG
 
-xnoremap <leader>y        "*y
-noremap  <leader>p        "*p
-noremap  <leader>P        "*P
+" no need
+" xnoremap <leader>y        "*y
+" noremap  <leader>p        "*p
+" noremap  <leader>P        "*P
 
 " Select blocks after indenting
 xnoremap <                <gv
@@ -201,17 +201,27 @@ nnoremap <                <<_
 " options
 nnoremap <Space>ts        :action EditorToggleUseSoftWraps<CR>
 nnoremap <Space>tw        :action EditorToggleShowWhitespaces<CR>
+
+" delete trailing space, no need to invoke this, idea will trim space when saving
+nnoremap d<Space>         :action osmedile.intellij.stringmanip.TrimAllSpacesAction<CR>
 " }}}
 
 
 " Engineering Tools {{{
+" activate command line
+nnoremap <leader>ee       :action SearchEverywhere<CR><C-w>
+vnoremap <leader>ee       :action SearchEverywhere<CR>
+
+
 " code navigation
 nnoremap gd               :action GotoDeclaration<CR>
 nnoremap gi               :action GotoImplementation<CR>
 nnoremap gu               :action GotoSuperMethod<CR>
 nnoremap gt               :action GotoTypeDeclaration<CR>
 nnoremap gT               :action GotoTest<CR>
+nnoremap gs               :action GotoRelated<CR>
 nnoremap gr               :action ShowUsages<CR>
+nnoremap gb               :action ByteCodeViewer<CR>
 nnoremap gl               :action ShowUmlDiagram<CR>
 nnoremap gL               :action ShowUmlDiagramPopup<CR>
 nnoremap ghm              :action MethodHierarchy<CR>
@@ -224,25 +234,28 @@ nnoremap ghi              :action CIDR.Lang.ImportsHierarchy<CR>
 nnoremap g0               g*
 nnoremap <Space>sh        :action HighlightUsagesInFile<CR>
 
-nnoremap <Space>so        :action ShowUsages<CR>
-nnoremap <Space>sm        :action ReplaceInPath<CR>
-nnoremap <leader>og       :action SearchWithGoogle<CR>
+nnoremap <Space>so        viw:action FindInPath<CR>
+vnoremap <Space>so        :action FindInPath<CR>
+nnoremap <Space>sm        viw:action ReplaceInPath<CR>
+vnoremap <Space>sm        :action ReplaceInPath<CR>
+nnoremap <leader>oo       viw:action OnlineSearch.EditorActions.ShowSearchEnginesAction<CR>
+vnoremap <leader>oo       :action OnlineSearch.EditorActions.ShowSearchEnginesAction<CR>
 
-nnoremap <Space>sa        :action SearchEverywhere<CR>
-nnoremap <Space>sc        :action GotoClass<CR>
-nnoremap <Space>ss        :action GotoSymbol<CR>
+nnoremap <Space>sa        viw:action SearchEverywhere<CR>
+vnoremap <Space>sa        :action SearchEverywhere<CR>
+nnoremap <Space>sc        viw:action GotoClass<CR>
+vnoremap <Space>sc        :action GotoClass<CR>
+nnoremap <Space>ss        viw:action GotoSymbol<CR>
+vnoremap <Space>ss        :action GotoSymbol<CR>
 nnoremap <Space>sk        :action GotoAction<CR>
 
 nnoremap ]]               :action MethodDown<CR>
 nnoremap [[               :action MethodUp<CR>
 
 
-" generate
+" generate getter, setter ...
 nnoremap gj               :action Generate<CR>
-" nnoremap <Space>lgk       :action Generate<CR>
-" nnoremap <Space>lgg       :action GenerateGetter<CR>
-" nnoremap <Space>lgs       :action GenerateSetter<CR>
-" nnoremap <Space>lga       :action GenerateGetterAndSetter<CR>
+inoremap gj               <ESC>:action Generate<CR>
 
 " code refactoring
 nnoremap gn               :action Refactorings.QuickListPopupAction<CR>
@@ -254,15 +267,13 @@ nnoremap ge               :action RenameElement<CR>
 nnoremap g=               ggVG=``
 nnoremap gf               :action ReformatCode<CR>
 nnoremap go               :action OptimizeImports<CR>
-" nnoremap <Space>bf        :action ReformatCode<CR>
-" nnoremap <Space>lo        :action OptimizeImports<CR>
 
 
 " run
 nnoremap <tab><tab>       :action RunAnything<CR>
 nnoremap <Space>rr        :action Run<CR>
 nnoremap <Space>lr        :action Run<CR>
-nnoremap <Space>re        :action RunConfiguration<CR>
+nnoremap <Space>re        :action ChooseRunConfiguration<CR>
 nnoremap <Space>ra        :action Rerun<CR>
 nnoremap <Space>dk        :action Resume<CR>
 nnoremap <Space>rq        :action Stop<CR>
@@ -297,11 +308,11 @@ nnoremap <Space>df        :action FindBugs.CurrentFileAction<CR>
 
 
 " jump to n/p error
+nnoremap <Space>eh        :action ShowErrorDescription<CR>
 nnoremap <Space>en        :action GotoNextError<CR>
 nnoremap <Space>ep        :action GotoPreviousError<CR>
 nnoremap ]e               :action GotoNextError<CR>
 nnoremap [e               :action GotoPreviousError<CR>
-nnoremap <Space>eh        :action ShowErrorDescription<CR>
 
 
 " git
@@ -316,14 +327,29 @@ nnoremap <Space>gjb       :action Git.Branches<CR>
 nnoremap <Space>gjn       :action Git.CreateNewBranch<CR>
 nnoremap <Space>gjt       :action Git.CreateNewTag<CR>
 nnoremap <Space>gd        :action Git.CompareWithBranch<CR>
-nnoremap <Space>gow       :action Github.Open.In.Browser<CR>
+nnoremap <Space>gio       :action Github.Open.In.Browser<CR>
+nnoremap <Space>gip       :action Github.PullRequest.ToolWindow.List.Popup<CR>
 
+nnoremap gp               :action GitToolBox.BlameDetails<CR> 
+nnoremap gp               :action GitToolBox.ShowInlineBlame<CR> 
+
+" vcs
 nnoremap <Space>gg        :action Vcs.QuickListPopupAction<CR>
 nnoremap <Space>gk        :action VcsShowPrevChangeMarker<CR>
 nnoremap <Space>gj        :action VcsShowNextChangeMarker<CR>
 nnoremap [g               :action VcsShowPrevChangeMarker<CR>
 nnoremap ]g               :action VcsShowNextChangeMarker<CR>
+" }}}
 
+
+" Plugins and Small Handy Functionalities {{{
+" @ some info-functionalities need to be invoked in insertmode, VimMapping cant fullfill this
+" nnoremap <leader>q        :action EditorContextInfo<CR>
+" nnoremap <leader>t        :action ExpressionTypeInfo<CR>
+" nnoremap <leader>p        :action ParameterInfo<CR>
+
+" @ string manipulation
+nnoremap <space>xx            :action osmedile.intellij.stringmanip.SwitchCasePopup<CR>
 
 " plugins
 set surround
@@ -340,3 +366,5 @@ nnoremap <Space>jj             :action KJumpAction<CR>
 nnoremap <Space>jl             :action KJumpAction.Line<CR>
 nnoremap <Space>jw             :action KJumpAction.Word0<CR>
 " }}}
+
+

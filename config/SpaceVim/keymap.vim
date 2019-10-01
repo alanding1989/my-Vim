@@ -107,8 +107,8 @@ let g:_spacevim_mappings_g['r'] = ['call feedkeys("'.escape(maparg('gr', 'n'), '
 let g:_spacevim_mappings_g['e'] = ['call feedkeys("'.escape(maparg('ge', 'n'), '<').'")', 'rename Symbol'            ]
 let g:_spacevim_mappings_g['f'] = ['call feedkeys("'.escape(maparg('gf', 'n'), '<').'")', 'format Code'              ]
 let g:_spacevim_mappings_g['h'] = ['call feedkeys("'.escape(maparg('gh', 'n'), '<').'")', 'show Documentation'       ]
-let g:_spacevim_mappings_g['s'] = ['call feedkeys("'.escape(maparg('gs', 'n'), '<').'")', 'get Symbols of Document'  ]
-let g:_spacevim_mappings_g['S'] = ['call feedkeys("'.escape(maparg('gS', 'n'), '<').'")', 'get Symbols of WorkSpace' ]
+let g:_spacevim_mappings_g['s'] = ['call feedkeys("'.escape(maparg('gS', 'n'), '<').'")', 'get Symbols of WorkSpace' ]
+let g:_spacevim_mappings_g['S'] = ['call feedkeys("'.escape(maparg('gs', 'n'), '<').'")', 'get Symbols of Document'  ]
 let g:_spacevim_mappings_g['p'] = ['call feedkeys("'.escape(maparg('gp', 'n'), '<').'")', 'show GitHunk Info'        ]
 let g:_spacevim_mappings_g['l'] = ['call feedkeys("'.escape(maparg('gl', 'n'), '<').'")', 'show Diagnostic Info'     ]
 
