@@ -42,6 +42,8 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
               \ "\<left>,\<Space>": [1 ,')'],
               \ })
         return "\<plug>(neosnippet_jump)"
+      elseif CurChar(0, '\w') && (CurChar(1, ';') || col('.') == col('$'))
+        return "\<Space>"
       elseif CurChar(0, '\w')
         return    s:md ==# 'coc'          ? coc#refresh()
               \ : s:md ==# 'deoplete'     ? deoplete#manual_complete()
@@ -105,6 +107,8 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
       return "\<right>"
     elseif g:ulti_expand_or_jump_res == 2
       return sni
+    elseif CurChar(0, '\w') && (CurChar(1, ';') || col('.') == col('$'))
+      return "\<Space>"
     elseif CurChar(0, '\w')
       return    s:md ==# 'coc'          ? coc#refresh()
             \ : s:md ==# 'deoplete'     ? deoplete#manual_complete()
@@ -139,6 +143,8 @@ elseif s:md ==# 'coc'
         return "\<Plug>(coc-snippets-expand-jump)"
       elseif RightPair() && !empty(v:completed_item)
         return "\<right>"
+      elseif col('.') == col('$') || CurChar(1, ';')
+        return "\<C-y>\<Space>"
       else
         return "\<C-y>"
       endif
@@ -149,6 +155,8 @@ elseif s:md ==# 'coc'
         return "\<right>"
       elseif coc#jumpable()
         return "\<Plug>(coc-snippets-expand-jump)"
+      elseif CurChar(0, '\w') && (CurChar(1, ';') || col('.') == col('$'))
+        return "\<Space>"
       elseif CurChar(0, '\w')
         return coc#refresh()
       else

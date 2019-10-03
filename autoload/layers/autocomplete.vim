@@ -180,14 +180,14 @@ function! layers#autocomplete#coc_editsnips(...) abort
   let ultisnips_dirpath = (g:is_win ?
         \ expand('D:/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/UltiSnips/') :
         \ expand('~/.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/UltiSnips/'))
-  let ft  = a:0 > 0 ? a:1 : expand('%:e')
+  let g:ft  = a:0 > 0 ? a:1 : &filetype
   let ext = '.snippets'
-  let onelooppath = ultisnips_dirpath. ft. ext
+  let onelooppath = ultisnips_dirpath. g:ft. ext
   if glob(onelooppath) !=# ''
     exec 'topleft vsplit '. onelooppath
     return
   else
-    let seclooppath = ultisnips_dirpath. ext.'/'. ft. ext
+    let seclooppath = ultisnips_dirpath. ext.'/'. g:ft. ext
     if glob(seclooppath) !=# ''
       exec 'topleft vsplit '. seclooppath
       return

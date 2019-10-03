@@ -50,6 +50,7 @@ let g:coc_global_extensions = [
       \ 'coc-html'         ,
       \ 'coc-css'          ,
       \ 'coc-vetur'        ,
+      \ 'coc-angular'      ,
       \ 'coc-json'         ,
       \ 'coc-emmet'        ,
       \ 'coc-prettier'     ,

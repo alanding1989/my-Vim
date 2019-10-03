@@ -108,12 +108,13 @@ function! s:filetree() abort " {{{
     " a:num = 0 open root dir
     " a:num = 1 open last opened dir
     " a:num = 2 open buffer dir/root dir(VimEnter)
-    " a:num = 3 open my src layout dir
-    " a:num = 4 open current dir in fullscreen with more infor
+    " a:num = 3 open my vimrc dir
+    " a:num = 4 open current dir in fullscreen with more info
     " a:num = 5 open my plugins bundle dir
     " a:num = 6 open my dotfile dir
     " a:num = 7 open a new defx buffer in current working dir
     " a:num = 8 open my dev dir
+    " a:num = 9 open my conf dir
     nnoremap <silent><F3>         :call <SID>open_filetree(0)<CR>
     call SpaceVim#mapping#space#def('nnoremap', ['f','o'], 'call call('
           \ . string(function('s:open_filetree'))
@@ -139,6 +140,9 @@ function! s:filetree() abort " {{{
     call SpaceVim#mapping#space#def('nnoremap', ['f','d'], 'call call('
           \ . string(function('s:open_filetree'))
           \ . ', [8])', '@ open my dev dir', 1)
+    call SpaceVim#mapping#space#def('nnoremap', ['f','c'], 'call call('
+          \ . string(function('s:open_filetree'))
+          \ . ', [9])', '@ open my conf dir', 1)
   else
     nnoremap <silent><F3>         :call <SID>open_filetree(0)<CR>
     nnoremap <silent><Space>fo    :call <SID>open_filetree(1)<CR>
@@ -163,6 +167,7 @@ endfunction
 " a:num = 7 open a new filetree buffer in current working dir
 let g:_dirMap = {
       \ 'vimrc'  : g:home[:-2],
+      \ 'conf'   : g:home.'extools/conf',
       \ 'dotfile': g:is_win ? 'E:\my-Dotfile' : '/mnt/fun+downloads/my-Dotfile',
       \ 'dev'    : g:is_win?  'D:\devtools' : '/home/alanding/0_Dev/projects'
       \ }
@@ -189,6 +194,8 @@ if get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'vimf
       exec 'VimFiler -create'.getcwd()
     elseif a:num == 8
       exec 'VimFiler '.expand(g:_dirMap['dev'])
+    elseif a:num == 9
+      call s:reOpenVimfilerConf()
     endif
     doautocmd WinEnter
   endfunction "}}}
@@ -217,6 +224,8 @@ elseif get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# '
       Defx -new `getcwd()`
     elseif a:num == 8
       Defx `expand(g:_dirMap['dev'])`
+    elseif a:num == 9
+      call s:reOpenDefxConf()
     endif
     if &ft ==# 'defx' | setl conceallevel=2 | endif
     doautocmd WinEnter
@@ -289,6 +298,15 @@ function! s:reOpenDefxDotfile() abort
     call util#echohl('Already have Defx-Win in Dotfile dir !')
   endif
 endfunction
+function! s:reOpenDefxConf() abort
+  if !s:check_win('defx')
+    Defx `expand(g:_dirMap['conf'])`
+  elseif getcwd() != g:_dirMap['conf']
+    Defx -new `expand(g:_dirMap['conf'])`
+  else
+    call util#echohl('Already have Defx-Win in Vimrc dir !')
+  endif
+endfunction
 
 function! s:reOpenVimfilerVimrc() abort
   if !s:check_win('vimfiler')
@@ -306,6 +324,15 @@ function! s:reOpenVimfilerDotfile() abort
     exec 'VimFiler -create '.expand(g:_dirMap['dotfile'])
   else
     call util#echohl('Already have VimFiler-Win in Dotfile dir !')
+  endif
+endfunction
+function! s:reOpenVimfilerConf() abort
+  if !s:check_win('vimfiler')
+    exec 'VimFiler '.expand(g:_dirMap['conf'])
+  elseif getcwd() != g:_dirMap['conf']
+    exec 'VimFiler -create '.expand(g:_dirMap['conf'])
+  else
+    call util#echohl('Already have VimFiler-Win in Vimrc dir !')
   endif
 endfunction
 

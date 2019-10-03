@@ -1,0 +1,6 @@
+
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP
+      ON TUTORIALS.*
+      TO 'zara'@'localhost'
+      IDENTIFIED BY 'zara123';
+

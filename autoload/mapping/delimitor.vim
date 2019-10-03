@@ -32,8 +32,8 @@ function! mapping#delimitor#init() abort " {{{
     inoremap <expr> !   MatchDel('!', '\v^\s*((if\|el\|wh\|let\|val\|var).*\S$)\|((if\|el\|wh)$)', 0, 01)
     inoremap <expr> :   (CurChar(0, '\s') \|\| CurChar(0, '\w') \|\| Curchar(0, '\d')) ? ': ' : Within('pair') ? ':' : ' : '
     inoremap <expr> ,   CurChar(0, '\s') ? "\<BS>,\<Space>" : (CurChar(1, '\s') ? "," : ",\<Space>")
+    inoremap <expr> >   MatchDel('>', '\v(\>+)\|(\=)\|(-)\|(\<\w*)\s$', 1, 11)
   endif
-  inoremap <expr> >   MatchDel('>', '\v(\>+)\|(\=)\|(-)\|(\<\w*)\s$', 1, 11)
   inoremap <expr> <   MatchDel('<', '\v^\s*(if\|el\|wh\|let).*\S$', '>')
 
   augroup Delimitor_init

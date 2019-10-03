@@ -36,7 +36,7 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
         return "\<Esc>o"
       elseif CurChar(0, '\d')
         return "\<Esc>o"
-      elseif CurChar(1, '}') || CurChar(1, ']')
+      elseif CurChar(1, '}') || CurChar(1, ']') || (CurChar(0, '>') && CurChar(1, '<'))
         return <sid>SmartCR()
       else
         return "\<Plug>(EolCR)"
@@ -78,7 +78,7 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
       return "\<Esc>o"
     elseif CurChar(0, '\d')
       return "\<Esc>o"
-    elseif CurChar(1, '}') || CurChar(1, ']')
+    elseif CurChar(1, '}') || CurChar(1, ']') || (CurChar(0, '>') && CurChar(1, '<'))
       return <sid>SmartCR()
     else
       return "\<CR>"
@@ -106,7 +106,7 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'coc'
         " return "\<Esc>o"
       elseif CurChar(0, '\d')
         return "\<Esc>o"
-      elseif CurChar(1, '}') || CurChar(1, ']')
+      elseif CurChar(1, '}') || CurChar(1, ']') || (CurChar(0, '>') && CurChar(1, '<'))
         return <sid>SmartCR()
       else
         return "\<Plug>(EolCR)"

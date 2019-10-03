@@ -21,6 +21,7 @@ src=$HOME/$(ls -a $HOME | grep IntelliJIdea)
 # Specific Setting
 keyMap=config/keymaps/Alanding-perfect.xml
 codeStyle="config/codestyles/AlanDing prefer-Code Style.xml"
+colors="config/colors"
 
 stringManipulation="config/options/stringManipulation.xml"
 stringManipulationPopupMenu="config/options/customization.xml"
@@ -29,11 +30,12 @@ stringManipulationPopupMenu="config/options/customization.xml"
 for item in "${ides[@]}"; do
   dist_name=$HOME/$(ls -a "$HOME" | grep "$item")
   if [ -e "$dist_name" ]; then
-    cp -f "$src"/"$keyMap"                        "$dist_name"/"$keyMap"
-    cp -f "$src"/"$codeStyle"                     "$dist_name"/"$codeStyle"
+    cp -f  "$src/$keyMap"                        "$dist_name/$keyMap"
+    cp -f  "$src/$codeStyle"                     "$dist_name/$codeStyle"
+    cp -rf "$src/$colors"                        "$dist_name/config"
 
-    cp -f "$src"/"$stringManipulation"            "$dist_name"/"$stringManipulation"
-    cp -f "$src"/"$stringManipulationPopupMenu"   "$dist_name"/"$stringManipulationPopupMenu"
+    cp -f  "$src/$stringManipulation"            "$dist_name/$stringManipulation"
+    cp -f  "$src/$stringManipulationPopupMenu"   "$dist_name/$stringManipulationPopupMenu"
 
   else
     print "file [ $dist_name ] does not exit, or the file has changed, please checked!!!"

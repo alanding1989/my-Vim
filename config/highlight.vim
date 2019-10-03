@@ -292,35 +292,25 @@ let g:_defhighlight_var.hlcolor.typescript = extend({
       \ 'typescriptExceptions'     : ['#f92672',        -1,  -1, -1, 0, 0],
       \ 'typescriptReserved'       : ['#f92672',        -1,  -1, -1, 0, 0],
       \ 'typescriptLogicSymbols'   : ['#f92672',        -1,  -1, -1, 0, 0],
-      \ 'pythonStatement'      : ['#f92672',        -1,  -1, -1, 0, 0],
-      \ 'pythonOperator'       : ['#f92672',        -1,  -1, -1, 0, 0],
       \
-      \ 'pythonKeyword'        : ['#e5c07b',        -1,  -1, -1, 1, 0],
+      \ 'pythonKeyword'            : ['#e5c07b',        -1,  -1, -1, 1, 0],
       \
-      \ 'semshiImported'       : ['#1aa3a1',        -1,  -1, -1, 0, 1],
-      \ 'semshiBuiltin'        : ['#5fafff',        -1, 180, -1, 1, 0],
-      \ 'semshiSelf'           : ['#b2b2b2',        -1, 249, -1, 0, 0],
-      \ 'semshiAttribute'      : ['#c678dd',        -1,  -1, -1, 1, 0],
+      \ 'semshiImported'           : ['#1aa3a1',        -1,  -1, -1, 0, 1],
+      \ 'semshiBuiltin'            : ['#5fafff',        -1, 180, -1, 1, 0],
+      \ 'semshiSelf'               : ['#b2b2b2',        -1, 249, -1, 0, 0],
+      \ 'semshiAttribute'          : ['#c678dd',        -1,  -1, -1, 1, 0],
       \
-      \ 'pythonFunction'       : ['#a3e234',        -1,  -1, -1, 0, 0],
-      \ 'pythonDecoratorName'  : ['#a3e234',        -1,  -1, -1, 1, 0],
+      \ 'pythonFunction'           : ['#a3e234',        -1,  -1, -1, 0, 0],
+      \ 'pythonDecoratorName'      : ['#a3e234',        -1,  -1, -1, 1, 0],
       \
-      \ 'typescriptParameters'    : ['#ffaf00',        -1, 214, -1, 0, 0],
-      \ 'semshiGlobal'         : ['#e5c07b',        -1, 180, -1, 0, 0],
+      \ 'typescriptParameters'        : ['#ffaf00',        -1, 214, -1, 0, 0],
+      \ 'semshiGlobal'             : ['#e5c07b',        -1, 180, -1, 0, 0],
       \
-      \ 'pythonString'         : ['#98c379', '#3b4048',  -1, -1, 1, 0],
-      \ 'pythonRawString'      : ['#b8bb26',        -1,  -1, -1, 1, 0],
-      \ 'pythonDelimiter'      : ['#f92672',        -1,  -1, -1, 0, 0],
-      \ 'pythonNumber'         : ['#d19a66',        -1,  -1, -1, 0, 0],
+      \ 'pythonString'             : ['#98c379', '#3b4048',  -1, -1, 1, 0],
+      \ 'pythonRawString'          : ['#b8bb26',        -1,  -1, -1, 1, 0],
+      \ 'pythonDelimiter'          : ['#f92672',        -1,  -1, -1, 0, 0],
+      \ 'pythonNumber'             : ['#d19a66',        -1,  -1, -1, 0, 0],
       \ }, 0 || g:is_vim8 ? {
-      \ 'pythonConditional'    : ['#f92672',        -1,  -1, -1, 0, 0],
-      \ 'pythonImport'         : ['#f92672',        -1,  -1, -1, 0, 0],
-      \ 'pythonException'      : ['#f92672',        -1,  -1, -1, 0, 0],
-      \ 'pythonRepeat'         : ['#f92672',        -1,  -1, -1, 0, 0],
-      \
-      \ 'pythonBuiltinObj'     : ['#c678dd',        -1,  -1, -1, 1, 0],
-      \ 'pythonBuiltinType'    : ['#5fafff',        -1,  -1, -1, 1, 0],
-      \ 'pythonClassVar'       : ['#c678dd',        -1,  -1, -1, 0, 0],
       \ } : {})
 " let s:python_lightParam  = {
       " \ 'semshiBuiltin'        : ['#607fbf',        -1, 180, -1, 0, 1],

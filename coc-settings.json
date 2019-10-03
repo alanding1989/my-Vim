@@ -66,9 +66,8 @@
   "python.workspaceSymbols.ctagsPath"                   : "/opt/vim/universal-ctags/bin/ctags",
   "python.workspaceSymbols.tagFilePath"                 : "~/.cache/tags",
 
-  "pyright.disableLanguageServices"                     : true,
-
-
+  "pyright.disableLanguageServices"                     : true, 
+  
 
   "rust-analyzer.raLspServerPath"                       : "/home/alanding/software/lang-tools/cargo/bin/ra_lsp_server",
   "rust-analyzer.enableCargoWatchOnStartup"             : "enabled",
@@ -109,19 +108,23 @@
   "java.errors.incompleteClasspath.severity"                          : "ignore",
 
 
-  "tsserver.enable"                                                   : true,
-  "tsserver.trace.server"                                             : "verbose",
-  "tsserver.log"                                                      : "normal",
+
   "tsserver.npm"                                                      : "/opt/lang-tools/nvm/versions/node/v10.16.0/bin/npm",
   "npm.binPath"                                                       : "/opt/lang-tools/nvm/versions/node/v10.16.0/bin/npm",
+  "tsserver.trace.server"                                             : "off",
+  "tsserver.reportStyleChecksAsWarnings"                              : false,
 
-  "tslint.run"                                                        : "onSave",
-  "tslint.enable"                                                     : true,
-  "tslint.jsEnable"                                                   : true,
+  //"tslint.run"                                                        : "onSave",
+  //"tslint.enable"                                                     : true,
+  //"tslint.jsEnable"                                                   : true,
 
+  "eslint.trace.server"                                               : "off",
   "eslint.packageManager"                                             : "npm",
+  "eslint.nodePath"                                                   : "/opt/lang-tools/nvm/versions/node/v10.16.0/bin/npm",
   "eslint.run"                                                        : "onSave",
+  "eslint.quiet"                                                      : true,
   "eslint.autoFixOnSave"                                              : true,
+  "prettier.eslintIntegration"                                        : true,
   "eslint.filetypes": [
     "javascript",
     "javascriptreact",
@@ -133,22 +136,17 @@
   "typescript.suggest.enabled"                                        : true,
   "typescript.suggestionActions.enabled"                              : true,
 
-  "javascript.suggest.enabled"                                        : true,
-  "javascript.suggest.names"                                          : true,
-  "javascript.suggest.autoImports"                                    : true,
-  "javascript.suggestionActions.enabled"                              : true,
-  "javascript.suggest.completeFunctionCalls"                          : true,
-  "javascript.suggest.paths"                                          : true,
   "javascript.preferences.quoteStyle"                                 : "single",
   "javascript.preferences.importModuleSpecifier"                      : "relative",
-  "javascript.showUnused"                                             : true,
+  "javascript.showUnused"                                             : true,  
   "javascript.validate.enable"                                        : true,
 
-  "html.enable"                                                       : false,
+  "html.enable"                                                       : true,
+  "html.trace.server"                                                 : "off",
   "html.filetypes"                                                    : ["html", "handlebars", "razor"],
-  "html.format.enable"                                                : true,
   "html.validate.scripts"                                             : true,
   "html.validate.styles"                                              : true,
+  "html.format.indentInnerHtml"                                       : false,
 
 
   "lua.enable"                                                        : true,
