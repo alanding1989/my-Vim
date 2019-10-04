@@ -7,7 +7,7 @@
 let g:home = fnamemodify(resolve(expand('<sfile>:p')), ':h').'/'
 
 
-
+" The same configurations for SpaceVim and My Vim 
 call default#load()
 
 if g:is_spacevim

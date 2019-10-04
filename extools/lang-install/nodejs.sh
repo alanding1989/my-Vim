@@ -26,12 +26,17 @@ npm -g i nrm && nrm use taobao
 npm -g i yarn
 yarn config set registry 'https://registry.npm.taobao.org'
 
+# editor
 npm -g i --unsafe-perm bash-language-server
 npm -g i diagnostic-languageserver
 npm -g i vim-language-server
 npm -g i javascript-typescript-langserver
 npm -g i vscode-css-languageserver-bin
 npm -g i neovim
+
+# blog and web generator
+npm -g i hexo-cli
+npm -g i gitbook-cli
 
 
 npm -g i \
@@ -46,6 +51,7 @@ npm -g i \
   typescript \
   jest \
   ts-jest \
+
 
 # @Devtools
 # 检测es6的支持情况

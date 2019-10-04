@@ -182,8 +182,8 @@ function! util#filereadable(path) abort
 endfunction "}}}
 
 " globpath "{{{
+" return: a list of files under the `path` match `pattern`
 function! util#globpath(path, pattern) abort
-  " return a list
   return globpath(a:path, a:pattern, 1, 1)
 endfunction "}}}
 

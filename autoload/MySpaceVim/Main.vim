@@ -9,11 +9,12 @@ scriptencoding utf-8
 let s:define_my_layers  = ['tags', 'langtools', 'tools#clock', 'defhighlight']
 
 " SpaceVim embedded layers
-let s:add_plugin_layers = [
+let s:added_plugin_layers = [
       \ 'autocomplete' , 'colorscheme', 'checkers'  , 'core'       , 'edit'    ,
       \ 'git'          , 'langtools'  , 'lang#latex', 'lang#python', 'lang#vim',
       \ 'lang#markdown', 'lang#ps1'   , 'lang#ipynb', 'leaderf'    , 'ui'      ,
       \ ]
+" Customize plugin configuration to override SpaceVim`s
 let s:modified_conf_layers = [
       \ 'autocomplete', 'chinese' , 'colorscheme'   , 'core'       , 'checkers',
       \ 'denite'      , 'edit'    , 'git'           , 'leaderf'    , 'tools'   ,
@@ -32,11 +33,11 @@ let s:is_fallback = 0
 function! MySpaceVim#Main#init() abort
   " NOTE: the order shouldn`t be changed
   call   s:SpaceVim_config_load()
-  " try
+  try
     call s:Mainbegin()
-  " catch
-    " call s:Mainfallback()
-  " endtry
+  catch
+    call s:Mainfallback()
+  endtry
 endfunction
 
 
@@ -45,12 +46,13 @@ function! s:Mainbegin() abort
   " add custom plugins list
   call s:SpaceVim_add_plugins()
 
-  " My addon config
+  " My own layers config
   " load befoere SpaceVim source plugins
   call s:Mylayers_config_load()
-  call s:VimEnter_layers_GlobalVar_load()
+  " load plugin`s global-config-vars that hasn`t been defined by SpaceVim
+  call s:Lazyload_plugin_globalVar_load()
 
-  " VimEnter config to override SpaceVim`s
+  " lazyload plugins-config to override SpaceVim`s
   auto VimEnter * call s:VimEnter_config()
 endfunction
 
@@ -107,7 +109,7 @@ function! s:SpaceVim_add_plugins() abort
       endif
     endfor
   endif
-  for layer in s:add_plugin_layers
+  for layer in s:added_plugin_layers
     if SpaceVim#layers#isLoaded(layer)
       let g:spacevim_custom_plugins += layers#{layer}#plugins()
     endif
@@ -155,13 +157,13 @@ endfunction
 
 " NOTE:
 " 1. Plugin config which need to amend SpaceVim`s, lazyload ones can be defined after VimEnter
-"    to override. Non-lazyload ones only take effect before sourcing plugins( before VimEnter),
+"    to override. Non-lazyload ones only take effect before sourcing plugins (before VimEnter),
 "    ( SpaceVim defines these var after sourcing custom config, before VimEnter),
 "    these can`t-changed var`s source code has been amended and copied in '/.SpaceVim.d/backup'.
 " 2. Plugins which has global var must be defined before VimEnter to take effect. Due to reason 1,
 "    for layers which need to amend SpaceVim`s, if there has global var that SpaceVim hasn`t defined,
 "    i.e these global var must be set by myself, put these files in '/.SpaceVim.d/config/plugins_before'.
-function! s:VimEnter_layers_GlobalVar_load() abort
+function! s:Lazyload_plugin_globalVar_load() abort
   for layer in g:enabled_layers
     let layer = substitute(layer, '#', '_', 'g')
     let p = expand(g:home.'config/SpaceVim/plugins_before/'.layer.'.vim')

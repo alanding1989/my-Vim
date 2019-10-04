@@ -109,10 +109,11 @@
 
 
 
+  "tsserver.enable"                                                   : false, 
+  "tsserver.reportStyleChecksAsWarnings"                              : false,
+  "tsserver.trace.server"                                             : "off",
   "tsserver.npm"                                                      : "/opt/lang-tools/nvm/versions/node/v10.16.0/bin/npm",
   "npm.binPath"                                                       : "/opt/lang-tools/nvm/versions/node/v10.16.0/bin/npm",
-  "tsserver.trace.server"                                             : "off",
-  "tsserver.reportStyleChecksAsWarnings"                              : false,
 
   //"tslint.run"                                                        : "onSave",
   //"tslint.enable"                                                     : true,
@@ -124,13 +125,22 @@
   "eslint.run"                                                        : "onSave",
   "eslint.quiet"                                                      : true,
   "eslint.autoFixOnSave"                                              : true,
-  "prettier.eslintIntegration"                                        : true,
   "eslint.filetypes": [
     "javascript",
     "javascriptreact",
     "typescript"
   ],
 
+  "prettier.eslintIntegration"                                        : true,
+  "prettier.useTabs"                                                  : true,
+  "prettier.tabWidth"                                                 : 4,
+  "prettier.proseWrap"                                                : "preserve",
+  "prettier.endOfLine"                                                : "auto",
+  "prettier.arrowParens"                                              : "avoid",
+  "prettier.disableLanguages"                                         : ["vue"] ,
+  "prettier.stylelintIntegration"                                     : true,
+  "prettier.htmlWhitespaceSensitivity"                                : "css",
+  
   "typescript.preferences.quoteStyle"                                 : "single",
   "typescript.preferences.importModuleSpecifier"                      : "relative",
   "typescript.suggest.enabled"                                        : true,
