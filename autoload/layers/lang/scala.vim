@@ -163,7 +163,7 @@ function! s:language_specified_mappings() abort
     inoremap <silent><buffer> <F4>        <esc>:EnSuggestImport<CR>
     inoremap <silent><buffer> <C-;>i      <Esc>:EnAddImport<CR>
     inoremap <silent><buffer> <C-;>o      <Esc>:EnOrganizeImports<CR>
-    inoremap <silent><buffer> <c-j>s      <esc>:SortScalaImports<CR>
+    " inoremap <silent><buffer> <c-j>s      <esc>:SortScalaImports<CR>
     nnoremap <silent><buffer> K           :EnDocBrowse<CR>
 
     nnoremap <silent><buffer> <space>lis  :SortScalaImports<cr>

@@ -1,0 +1,37 @@
+{
+  "name": "execise",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./build/bundle.js",
+  "scripts": {
+    "link": "sh ./npm-linkdev.sh",
+    "serve": "webpack-dev-server --open",
+    "build": "webpack -p",
+    "postbuild": "npm run package",
+    "clean": "rimraf lib build",
+    "test": "node --trace-warnings node_modules/.bin/jest --runInBand --detectOpenHandles --forceExit",
+    "test-build": "node --trace-warnings node_modules/.bin/jest --runInBand --coverage --forceExit"
+  },
+  "author": "AlanDing <dw39577197@163.com>",
+  "license": "MIT",
+  "jest": {
+    "globals": {
+      "__TEST__": true
+    },
+    "watchman": false,
+    "clearMocks": true,
+    "globalSetup": "./jest.js",
+    "testEnvironment": "node",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "json",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "src/__tests__/.*\\.(test|spec)\\.ts$",
+    "coverageDirectory": "./coverage/"
+  }
+}

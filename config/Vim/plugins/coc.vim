@@ -43,23 +43,27 @@ let g:coc_global_extensions = [
       \ 'coc-pyright'      ,
       \ 'coc-sh'           ,
       \
-      \ 'coc-eslint'       ,
       \ 'coc-tsserver'     ,
-      \ 'coc-tslint'       ,
-      \ 'coc-tslint-plugin',
+      \ 'coc-eslint'       ,
+      \ 'coc-prettier'     ,
+      \ 'coc-stylelint'    ,
+      \ 'coc-stylelintplus',
       \ 'coc-html'         ,
       \ 'coc-css'          ,
+      \ 'coc-emmet'        ,
       \ 'coc-vetur'        ,
       \ 'coc-angular'      ,
-      \ 'coc-json'         ,
-      \ 'coc-emmet'        ,
-      \ 'coc-prettier'     ,
-      \ 'coc-import-cost'  ,
+      \ 'coc-jest'         ,
       \ 'coc-webpack'      ,
+      \ 'coc-import-cost'  ,
+      \ 'coc-tslint'       ,
+      \ 'coc-tslint-plugin',
       \
+      \ 'coc-json'         ,
+      \ 'coc-svg'          ,
+      \ 'coc-yaml'         ,
       \ 'coc-vimlsp'       ,
       \ 'coc-vimtex'       ,
-      \ 'coc-yaml'         ,
       \ 'coc-omnisharp'    ,
       \ 'coc-lua'          ,
       \
@@ -86,8 +90,10 @@ augroup my_coc_settings
   " show func signature after jump code placehold
   auto CursorHoldI,CursorMovedI * silent call CocActionAsync('showSignatureHelp')
   auto CursorHold               * if getline('.')[col('.')-1] =~? '\w' | silent call CocActionAsync('highlight') | endif
-  auto VimEnter * call <sid>g_mappings()
-  " auto VimEnter * call <sid>g_mappings() | call coc#add_extension(g:coc_global_extensions)
+
+  auto VimEnter                 * call <sid>g_mappings()
+  " auto VimEnter               * call <sid>g_mappings() | call coc#add_extension(g:coc_global_extensions)
+  "
   if (g:is_spacevim && !SpaceVim#layers#isLoaded('core#statusline')) || get(g:, 'statusline', '') =~# 'airline'
     auto User     CocDiagnosticChange  AirlineRefresh
   endif

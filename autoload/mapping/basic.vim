@@ -94,14 +94,17 @@ function! mapping#basic#load() abort
   "}}}
 
   " window and buffer management {{{
-  nnoremap <silent>qq       :call <sid>close_window()<CR>
+  nnoremap <silent>qq       :call <sid>close_current_window()<CR>
   nnoremap <silent>qk       :call <sid>choose_close_win()<CR>
-  nnoremap <silent>qn       :clo<C-r>=winnr()+1<CR><CR>
-  nnoremap <silent>qp       :clo<C-r>=winnr()-1<CR><CR>
+  " nnoremap <silent>qn       :clo<C-r>=winnr()+1<CR><CR>
+  " nnoremap <silent>qp       :clo<C-r>=winnr()-1<CR><CR>
+  nnoremap <silent>qn       :call <sid>close_win_or_kill_buffer('next')<CR>
+  nnoremap <silent>qp       :call <sid>close_win_or_kill_buffer('prev')<CR>
   nnoremap <silent>qo       :only<CR>
   nnoremap <silent>qh       :q<CR>
   nnoremap <silent>qkk      :q!<CR>
   nnoremap <silent>qd       :try\|bd\|catch\|endtry<CR>
+  " nnoremap <silent>qd       :close<CR>
   nnoremap <silent>qb       :call <sid>killotherBuffers()<CR>
   nnoremap <silent>qf       :call <sid>delete_current_buffer_file()<CR>
   nnoremap <silent>qe       :call <sid>safe_erase_buffer()<CR>
@@ -349,22 +352,61 @@ function! mapping#basic#load() abort
 endfunction
 
 
-" Define Plugin Mappings  {{{
-function! s:DefinePlug() abort
-  " use in core layer
-  nnoremap <Plug>(EasyCopy-inPairs)     :call <sid>EasyCopy_inPairs()<CR>
-  nnoremap <Plug>(Toggle-ZZMode)        :call <sid>Toggle_ZZMode()<cr>
-  nnoremap <Plug>(Safe-Erase-Buffer)    :call <sid>safe_erase_buffer()<cr>
-  nnoremap <Plug>(Safe-Revert-Buffer)   :call <sid>safe_revert_buffer()<cr>
-  " use in edit layer
-  nnoremap <Plug>(Insert-EqualBox)      :call <sid>EqualBox()<CR>
-  nnoremap <Plug>(Insert-MinusBox)      :call <sid>MinusBox()<CR>
-  nnoremap <Plug>(CopyCursorCodeUrl)    :call <sid>CopyToClipboard(2)<CR>
-  xnoremap <Plug>(CopySelectCodeUrls)   :<C-u>call <sid>CopyToClipboard(3)<CR>
-  command! -nargs=?   SetFileHead       call  <sid>SetFileHead(<f-args>)
-endfunction " }}}
+" Window Manipulate {{{
+" Kill next or previous window or buffer {{{
+function! s:close_win_or_kill_buffer(num) abort
+  if winnr('$') > 1
+    if a:num ==# 'next'
+      exec 'close ' . (winnr() + 1)
+    elseif a:num ==# 'prev'
+      exec 'close ' . (winnr() - 1)
+    endif
+  else
+    call s:kill_buffer(a:num)
+  endif
+endfunction
 
-" Window and Buffer Manipulate {{{
+" Kill next or previous buffer {{{
+function! s:kill_buffer(num) abort
+  " collect all buffers
+  let ls = split(execute(':ls'), "\n")
+  let buffers = []
+  for b in ls
+    let nr = str2nr(matchstr(b, '\d\+'))
+    call add(buffers, nr)
+  endfor
+
+  let c_bufnr = bufnr('%')
+  let c_bufidx = index(buffers, c_bufnr)
+
+  if a:num ==# 'next'
+    let handle_bufidx = c_bufidx + 1
+  elseif a:num ==# 'prev'
+    let handle_bufidx = c_bufidx - 1
+  endif
+
+  if len(buffers) == 1 
+    call util#echohl(' Only one buffer exists!') 
+    return
+  endif
+
+  try
+    " throw : out of index 
+    let handle_bufnr = buffers[handle_bufidx]
+
+    if getbufvar(handle_bufnr, '&modified', 0)
+      call util#echohl(' Buffer has been modified, please check by yourself!')
+      exec 'buffer ' . handle_bufnr
+      return 
+    endif
+    
+    exec 'bdelete ' . handle_bufnr | redraw
+  catch
+    call util#echohl(' No ' . a:num . ' buffer !')
+  endtry
+endfunction
+" }}}
+
 " Open fold or goto line middle {{{
 function! s:OpenFoldOrGotoMiddle(mode) abort
   if &ft ==# 'qf'
@@ -382,7 +424,9 @@ function! s:OpenFoldOrGotoMiddle(mode) abort
 endfunction " }}}
 
 " Close Window {{{
-function! s:close_window() abort
+" close current window or popup window
+" mapping qq
+function! s:close_current_window() abort
   let winnr = 0
   for i in range(1, winnr('$'))
     if getwinvar(i, '&ft') ==# 'diff'
@@ -416,6 +460,8 @@ endfunction  " }}}
 
 " Window Scroll {{{
 function! s:win_scroll(forward, mode)
+  " args: forward : 1, 0
+  "       mode    : f half screen, d several lines
   let winnr = 0
   for i in range(1, winnr('$'))
     if getwinvar(i, 'float') || getwinvar(i, '$previewwindow')
@@ -424,7 +470,7 @@ function! s:win_scroll(forward, mode)
       let winnr = i
     endif
   endfor
-  " f half screen, d several lines
+
   if a:forward && a:mode ==# 'f'
     let key = max([winheight(0) - 2, 1]) ."\<C-d>".(line('w$') >= line('$') ? 'L' : 'M')
   elseif !a:forward && a:mode ==# 'f'
@@ -458,23 +504,9 @@ function! s:Toggle_ZZMode() abort
   endif
 endfunction
 " }}}
-
-" Kill other Buffers {{{
-function! s:killotherBuffers() abort
-  if confirm('Kill all other buffers?', "&Yes\n&No\n&Cancel") == 1
-    let blisted = filter(range(1, bufnr('$')), 'buflisted(v:val)')
-    for i in blisted
-      if i != bufnr('%')
-        try
-          exe 'bw ' . i
-        catch
-        endtry
-      endif
-    endfor
-  endif
-endfunction
 " }}}
 
+" Buffer Manipulate {{{ 
 " Rename File {{{
 function! s:rename_file() abort
   let save_cursor = getpos('.')
@@ -504,25 +536,6 @@ function! s:rename_file() abort
   exec 'e ' newn
   exec 'bd' curbufnr
   call setpos('.', save_cursor)
-endfunction " }}}
-
-" Safe Erase Buffer {{{
-let s:MESSAGE = SpaceVim#api#import('vim#message')
-let s:BUFFER  = SpaceVim#api#import('vim#buffer')
-function! s:safe_erase_buffer() abort
-  if s:MESSAGE.confirm('Erase content of buffer ' . expand('%:t'))
-    normal! ggtdG
-  else
-    echo 'canceled!'
-  endif
-endfunction " }}}
-
-" Safe Reload Buffer File from Disk {{{
-function! <sid>safe_revert_buffer() abort
-  if s:MESSAGE.confirm('Revert buffer form ' . expand('%:p'))
-    edit!
-  endif
-  redraw!
 endfunction " }}}
 
 " Delete Current Buffer File {{{
@@ -595,6 +608,41 @@ function! s:close_current_buffer(...) abort " {{{
   endif
 endfunction " }}}
 " }}}
+
+" Kill other Buffers {{{
+function! s:killotherBuffers() abort
+  if confirm('Kill all other buffers?', "&Yes\n&No\n&Cancel") == 1
+    let blisted = filter(range(1, bufnr('$')), 'buflisted(v:val)')
+    for i in blisted
+      if i != bufnr('%')
+        try
+          exe 'bw ' . i
+        catch
+        endtry
+      endif
+    endfor
+  endif
+endfunction
+" }}}
+
+" Safe Erase Buffer {{{
+let s:MESSAGE = SpaceVim#api#import('vim#message')
+let s:BUFFER  = SpaceVim#api#import('vim#buffer')
+function! s:safe_erase_buffer() abort
+  if s:MESSAGE.confirm('Erase content of buffer ' . expand('%:t'))
+    normal! ggtdG
+  else
+    echo 'canceled!'
+  endif
+endfunction " }}}
+
+" Safe Reload Buffer File from Disk {{{
+function! <sid>safe_revert_buffer() abort
+  if s:MESSAGE.confirm('Revert buffer form ' . expand('%:p'))
+    edit!
+  endif
+  redraw!
+endfunction " }}}
 "}}}
 
 " Easy Edit {{{
@@ -816,6 +864,22 @@ function! s:VSetSearch() abort " {{{
   let @s = temp
 endfunction " }}}
 " }}}
+
+
+" Define Plugin Mappings  {{{
+function! s:DefinePlug() abort
+  " use in core layer
+  nnoremap <Plug>(EasyCopy-inPairs)     :call <sid>EasyCopy_inPairs()<CR>
+  nnoremap <Plug>(Toggle-ZZMode)        :call <sid>Toggle_ZZMode()<cr>
+  nnoremap <Plug>(Safe-Erase-Buffer)    :call <sid>safe_erase_buffer()<cr>
+  nnoremap <Plug>(Safe-Revert-Buffer)   :call <sid>safe_revert_buffer()<cr>
+  " use in edit layer
+  nnoremap <Plug>(Insert-EqualBox)      :call <sid>EqualBox()<CR>
+  nnoremap <Plug>(Insert-MinusBox)      :call <sid>MinusBox()<CR>
+  nnoremap <Plug>(CopyCursorCodeUrl)    :call <sid>CopyToClipboard(2)<CR>
+  xnoremap <Plug>(CopySelectCodeUrls)   :<C-u>call <sid>CopyToClipboard(3)<CR>
+  command! -nargs=?   SetFileHead       call  <sid>SetFileHead(<f-args>)
+endfunction " }}}
 
 " Unmap SpaceVim mappings {{{
 function! s:unmap_SPC() abort

@@ -143,8 +143,6 @@ elseif s:md ==# 'coc'
         return "\<Plug>(coc-snippets-expand-jump)"
       elseif RightPair() && !empty(v:completed_item)
         return "\<right>"
-      elseif col('.') == col('$') || CurChar(1, ';')
-        return "\<C-y>\<Space>"
       else
         return "\<C-y>"
       endif

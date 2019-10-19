@@ -9,11 +9,16 @@
 # Make sure to use coursier v1.1.0-M9 or newer.
 scalahome=/opt/lang-tools/scala
 
-cd $scalahome || return
-rm coursier && rm $scalahome/coc/metals-vim && rm $scalahome/languageclient/metals-vim \
-&& curl -L -o coursier https://git.io/coursier && chmod +x coursier
+cd $scalahome || exit 1
 
-./coursier bootstrap \
+if [ ! -x $scalahome/coursier ]; then
+  sudo rm -f coursier && rm -f $scalahome/coc/metals-vim && rm -f $scalahome/languageclient/metals-vim
+
+  sudo curl -L -o coursier https://git.io/coursier && chmod +x coursier
+fi
+
+
+sudo $scalahome/coursier bootstrap \
   --java-opt -Xss4m \
   --java-opt -Xms100m \
   --java-opt -Dmetals.client=coc.nvim \
@@ -25,12 +30,12 @@ rm coursier && rm $scalahome/coc/metals-vim && rm $scalahome/languageclient/meta
   --java-opt -Dmetals.input-box=on \
   --java-opt -Dmetals.icons=unicode \
   --java-opt -Dmetals.http=true \
-  org.scalameta:metals_2.12:0.5.1 \
+  org.scalameta:metals_2.12:0.7.6 \
   -r bintray:scalacenter/releases \
   -r sonatype:snapshots \
   -o /opt/lang-tools/scala/coc/metals-vim -f
 
-./coursier bootstrap \
+sudo $scalahome/coursier bootstrap \
   --java-opt -Xss4m \
   --java-opt -Xms100m \
   --java-opt -Dmetals.client=LanguageClient-neovim \
@@ -42,7 +47,8 @@ rm coursier && rm $scalahome/coc/metals-vim && rm $scalahome/languageclient/meta
   --java-opt -Dmetals.input-box=on \
   --java-opt -Dmetals.icons=unicode \
   --java-opt -Dmetals.http=true \
-  org.scalameta:metals_2.12:0.5.2 \
+  org.scalameta:metals_2.12:0.7.6 \
   -r bintray:scalacenter/releases \
   -r sonatype:snapshots \
   -o /opt/lang-tools/scala/languageclient/metals-vim -f
+

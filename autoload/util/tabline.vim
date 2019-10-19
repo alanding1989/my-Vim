@@ -19,7 +19,7 @@ endfunction
 " tabline jump {{{
 let s:_altmoveignoreft = ['Tagbar', 'vimfiler', 'defx', 'vista_kind']
 function! util#tabline#tabjump(num) abort
-  if index(get(s:,'_altmoveignoreft',[]), &filetype) == -1
+  if index(get(s:, '_altmoveignoreft' ,[]), &filetype) == -1
     if a:num ==# 'next'
       if tabpagenr('$') > 1
         tabnext

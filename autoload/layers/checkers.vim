@@ -28,7 +28,7 @@ endfunction
 function! layers#checkers#config() abort
   if g:is_spacevim
     call SpaceVim#mapping#def('nnoremap', '<leader>lz', ':call feedkeys(":GrammarousCheck --lang=")<CR>',
-          \ 'Check language gramma', '', 'Check language grammar')
+          \ 'Check language grammar', '', 'Check language grammar')
     call SpaceVim#mapping#space#def('nnoremap', ['e', 'n'], 'call call('
           \ . string(s:_function('s:jump_to_next_error')) . ', [])',
           \ 'next-error', 1)

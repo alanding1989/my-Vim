@@ -1,0 +1,18 @@
+env:
+  es6: true
+  browser: true
+  webextensions: true
+extends:
+  - plugin:vue/base
+  - '@cnwangjie/eslint-config'
+parserOptions:
+  parser: babel-eslint
+  ecmaVersion: 8
+  sourceType: module
+rules:
+  no-console: 0
+globals:
+  DEBUG: true
+  PRODUCTION: true
+  MOZ: true
+  ga: true

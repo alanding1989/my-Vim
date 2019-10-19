@@ -12,7 +12,6 @@ let s:extra = 0
 function! mapping#delimitor#init() abort " {{{
   call s:AutoPairs()
 
-    inoremap <expr> =   MatchDel('=', '\v(\=+)\|(\>+)\|(\<+)\|(\++)\|(-+)\|(!+)\s$', 1, 11)
 
   if s:extra
     call s:Numfix()
@@ -25,6 +24,7 @@ function! mapping#delimitor#init() abort " {{{
     inoremap <expr> #   MatchDel('#', '\v(\={2}\s)\|(\=\~\s)\|(!\=\s)\|(!\~\s)', 0, 00)
     inoremap <expr> ?   MatchDel('?', '\v^\s*(let)\|(:\s).*\S\_$', 1, 01)
     inoremap <expr> ~   MatchDel('~', '\v(\=+)\|(!)\s', 1, 11)
+    inoremap <expr> =   MatchDel('=', '\v(\=+)\|(\>+)\|(\<+)\|(\++)\|(-+)\|(!+)\s$', 1, 11)
 
     " match add space before
     inoremap <expr> -   MatchDel('-', '\v^\s*(if\|el\|wh\|let\|val\|var).*\S$', 1, 00)
