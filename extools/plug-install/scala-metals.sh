@@ -18,7 +18,7 @@ if [ ! -x $scalahome/coursier ]; then
 fi
 
 
-sudo $scalahome/coursier bootstrap \
+$scalahome/coursier bootstrap \
   --java-opt -Xss4m \
   --java-opt -Xms100m \
   --java-opt -Dmetals.client=coc.nvim \
@@ -35,7 +35,7 @@ sudo $scalahome/coursier bootstrap \
   -r sonatype:snapshots \
   -o /opt/lang-tools/scala/coc/metals-vim -f
 
-sudo $scalahome/coursier bootstrap \
+$scalahome/coursier bootstrap \
   --java-opt -Xss4m \
   --java-opt -Xms100m \
   --java-opt -Dmetals.client=LanguageClient-neovim \
