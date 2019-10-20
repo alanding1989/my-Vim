@@ -227,7 +227,7 @@ let g:MySpaceVim_layers = extend(get(g:, 'MySpaceVim_layers', {
 if g:spacevim_fuzzyfinder ==# 'leaderf' " {{{
       \ && g:MySpaceVim_layers['leaderf']
   let g:MySpaceVim_layers['leaderf'] = 1
-  let g:MySpaceVim_layers['denite']  = 1
+  let g:MySpaceVim_layers['denite']  = 0
   let g:MySpaceVim_layers['fzf']     = 0
 elseif g:spacevim_fuzzyfinder ==# 'denite'
   let g:MySpaceVim_layers['denite']  = 1
@@ -278,7 +278,7 @@ endif
 let g:spacevim_disabled_plugins = [
       \ 'molokai'              ,
       \ 'jellybeans.vim'       ,
-      \ 'vim=hybrid'           ,
+      \ 'vim-hybrid'           ,
       \ 'vim-material'         ,
       \ 'srcery-vim'           ,
       \ 'vim-grepper'          ,

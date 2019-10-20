@@ -15,89 +15,86 @@ function! mapping#basic#load() abort
   auto VimEnter * call s:unmap_SPC()
 
   " mode mapping {{{
-  noremap  <C-a>        ^
-  noremap  <C-e>        $
-  noremap  <C-q>        :
+  noremap  <C-a>            ^
+  noremap  <C-e>            $
+  noremap  <C-q>            :
 
-  nnoremap  -           q
-  nnoremap  --          @a
-  nnoremap  s           <nop>
-  nnoremap  q           <nop>
-  nnoremap  ,           <Space>l
-  nnoremap <silent>\    :nohl<CR>:redraw<CR>
+  nnoremap  -               q
+  nnoremap  --              @a
+  nnoremap  s               <nop>
+  nnoremap  q               <nop>
+  nnoremap  ,               <Space>l
+  nnoremap <silent>\        :nohl<CR>:redraw<CR>
   " NOTE: below 4 used in edgemotion, tmux-navigate
-  nnoremap <C-k>        <C-w>k
-  nnoremap <C-j>        <C-w>j
-  nnoremap <C-h>        <C-w>h
-  nnoremap <C-l>        <C-w>l
+  nnoremap <C-k>            <C-w>k
+  nnoremap <C-j>            <C-w>j
+  nnoremap <C-h>            <C-w>h
+  nnoremap <C-l>            <C-w>l
 
   " insert mode
-  inoremap <nowait>\    \
-  inoremap <expr><C-j>  pumvisible() ? "\<C-n>" : "\<down>"
-  inoremap <expr><C-k>  pumvisible() ? "\<C-p>" : "\<up>"
-  inoremap <expr><C-e>  pumvisible() ? (!g:has_py ?
-        \ asyncomplete#cancel_popup() : "\<C-e>") : "\<End>"
-  inoremap <C-a>        <Esc>^i
-  inoremap <C-b>        <left>
-  inoremap <C-f>        <right>
-  inoremap <C-l>        <right>
-  inoremap <C-p>        <C-left>
-  inoremap <C-n>        <C-right>
-  inoremap <expr><C-h>  pumvisible() ? "\<C-e><BS>" : DelEmptyPair()
-  inoremap <C-d>        <Del>
-  inoremap <C-q>        <Esc>lC
-  inoremap <C-u>        <C-g>u<C-u>
-  inoremap <C-z>        <Esc>ua
-  inoremap <C-v>        <Esc><C-r>a
-  inoremap <C-_>        <C-k>
-  inoremap <M-j>        <CR>
-  inoremap <expr><M-k>  col('.') <= col('$') ? "\<Esc>lc$"  : "\<Esc>lce"
-  inoremap <M-d>        <Esc>lce
-  inoremap <M-b>        <C-left>
-  inoremap <M-f>        <C-right>
+  inoremap <nowait>\        \
+  inoremap <expr><C-j>      pumvisible() ? "\<C-n>" : "\<down>"
+  inoremap <expr><C-k>      pumvisible() ? "\<C-p>" : "\<up>"
+  inoremap <expr><C-e>      pumvisible() ? (!g:has_py ? asyncomplete#cancel_popup() : "\<C-e>") : "\<End>"
+  inoremap <C-a>            <Esc>^i
+  inoremap <C-b>            <left>
+  inoremap <C-f>            <right>
+  inoremap <C-l>            <right>
+  inoremap <C-p>            <C-left>
+  inoremap <C-n>            <C-right>
+  inoremap <expr><C-h>      pumvisible() ? "\<C-e><BS>" : DelEmptyPair()
+  inoremap <C-d>            <Del>
+  inoremap <C-q>            <Esc>lC
+  inoremap <C-u>            <C-g>u<C-u>
+  inoremap <C-z>            <Esc>ua
+  inoremap <C-v>            <Esc><C-r>a
+  inoremap <C-_>            <C-k>
+  inoremap <M-j>            <CR>
+  inoremap <expr><M-k>      col('.') <= col('$') ? "\<Esc>lc$"  : "\<Esc>lce"
+  inoremap <M-d>            <Esc>lce
+  inoremap <M-b>            <C-left>
+  inoremap <M-f>            <C-right>
 
-  map  <expr> <BS>      exists('loaded_matchup') ? "\<Plug>(matchup-%)"  : "\<BS>"
-  xmap <expr>i<BS>      exists('loaded_matchup') ? "\<Plug>(matchup-i%)" : "\<BS>"
-  omap <expr>i<BS>      exists('loaded_matchup') ? "\<Plug>(matchup-i%)" : "\<BS>"
-  xmap <expr>a<BS>      exists('loaded_matchup') ? "\<Plug>(matchup-a%)" : "\<BS>"
-  omap <expr>a<BS>      exists('loaded_matchup') ? "\<Plug>(matchup-a%)" : "\<BS>"
+  map  <expr> <BS>          exists('loaded_matchup') ? "\<Plug>(matchup-%)"  : "\<BS>"
+  xmap <expr>i<BS>          exists('loaded_matchup') ? "\<Plug>(matchup-i%)" : "\<BS>"
+  omap <expr>i<BS>          exists('loaded_matchup') ? "\<Plug>(matchup-i%)" : "\<BS>"
+  xmap <expr>a<BS>          exists('loaded_matchup') ? "\<Plug>(matchup-a%)" : "\<BS>"
+  omap <expr>a<BS>          exists('loaded_matchup') ? "\<Plug>(matchup-a%)" : "\<BS>"
 
   " command line mode
-  cnoremap qw           <Esc>
-  cnoremap <C-h>        <BS>
-  cnoremap <expr><C-j>  pumvisible() ? "\<C-n>" : "\<down>"
-  cnoremap <expr><C-k>  pumvisible() ? "\<C-p>" : "\<up>"
-  cnoremap <C-b>        <left>
-  cnoremap <C-f>        <right>
-  cnoremap <C-l>        <right>
-  cnoremap <M-b>        <C-left>
-  cnoremap <M-f>        <C-right>
-  cnoremap <C-a>        <Home>
-  cnoremap <C-e>        <End>
-  cnoremap <C-d>        <Del>
-  cnoremap <C-_>        <C-k>
-  cnoremap <C-v>        <C-r>=expand('%:p:h') <CR>
+  cnoremap qw               <Esc>
+  cnoremap <C-h>            <BS>
+  cnoremap <expr><C-j>      pumvisible() ? "\<C-n>" : "\<down>"
+  cnoremap <expr><C-k>      pumvisible() ? "\<C-p>" : "\<up>"
+  cnoremap <C-b>            <left>
+  cnoremap <C-f>            <right>
+  cnoremap <C-l>            <right>
+  cnoremap <M-b>            <C-left>
+  cnoremap <M-f>            <C-right>
+  cnoremap <C-a>            <Home>
+  cnoremap <C-e>            <End>
+  cnoremap <C-d>            <Del>
+  cnoremap <C-_>            <C-k>
+  cnoremap <C-v>            <C-r>=expand('%:p:h') <CR>
 
   " terminal mode
-  tnoremap <Esc>        <C-\><C-n>
-  tnoremap <M-tab>      <C-\><C-n>:b#<CR>
+  tnoremap <Esc>            <C-\><C-n>
+  tnoremap <M-tab>          <C-\><C-n>:b#<CR>
 
   " fast save
-  inoremap qw           <Esc>:w<CR>
-  nnoremap qw           :w<CR>
-  nnoremap <C-s>        :w<CR>
-  inoremap <C-s>        <C-o>:w<CR>
-  nnoremap qwe          :wall<CR>
-  nnoremap qww          :w !sudo tee % >/dev/null<CR>
-  nnoremap qld          :call feedkeys(':saveas '.expand(expand('%:p:h').'/'))<CR>
-  nnoremap qla          :call feedkeys(':saveas ')<CR>
+  inoremap qw               <Esc>:w<CR>
+  nnoremap qw               :w<CR>
+  nnoremap <C-s>            :w<CR>
+  inoremap <C-s>            <C-o>:w<CR>
+  nnoremap qwe              :wall<CR>
+  nnoremap qww              :w !sudo tee % >/dev/null<CR>
+  nnoremap qld              :call feedkeys(':saveas '.expand(expand('%:p:h').'/'))<CR>
+  nnoremap qla              :call feedkeys(':saveas ')<CR>
   "}}}
 
   " window and buffer management {{{
   nnoremap <silent>qq       :call <sid>close_current_window()<CR>
   nnoremap <silent>qk       :call <sid>choose_close_win()<CR>
-  " nnoremap <silent>qn       :clo<C-r>=winnr()+1<CR><CR>
-  " nnoremap <silent>qp       :clo<C-r>=winnr()-1<CR><CR>
   nnoremap <silent>qn       :call <sid>close_win_or_kill_buffer('next')<CR>
   nnoremap <silent>qp       :call <sid>close_win_or_kill_buffer('prev')<CR>
   nnoremap <silent>qo       :only<CR>

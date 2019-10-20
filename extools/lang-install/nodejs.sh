@@ -36,6 +36,7 @@ npm -g i vim-language-server
 npm -g i javascript-typescript-langserver
 npm -g i vscode-css-languageserver-bin
 npm -g i vue-language-server
+npm -g i dockerfile-language-server-nodejs
 npm -g i neovim
 
 # blog and web generator

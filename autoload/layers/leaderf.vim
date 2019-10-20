@@ -27,23 +27,19 @@ function! layers#leaderf#config() abort
 
     " space mapping
     let g:_spacevim_mappings_space_custom += [
-          \ ['nnoremap', ['h', 'i'], 'LeaderfHelpCword'  , '@ get help with cursor word/fuzzy find', 1],
-          \ ['nnoremap', ['b', 'b'], 'LeaderfBuffer'     , 'buffer list'                           , 1],
-          \ ['nnoremap', ['f', 'f'], 'LeaderfFile'       , 'find files in current working dir'     , 1],
-          \ ['nnoremap', ['f', 'r'], 'LeaderfMru'        , 'open-recent-file'                      , 1],
-          \ ['nnoremap', ['T', 'c'], 'LeaderfColorscheme', 'fuzzy find colorschemes'               , 1],
-          \ ['nnoremap', ['j', 'i'], 'LeaderfFunction'   , 'jump to a definition in buffer'        , 1],
-          \ ['nnoremap', ['f', 'b'], 'LeaderfMarks'      , 'check bookmarks'                       , 1],
+          \ ['nnoremap', ['f', 'r'], 'LeaderfMru'                      , 'open-recent-file'                    , 1],
+          \ ['nnoremap', ['f', 'b'], 'LeaderfMarks'                    , 'check bookmarks'                     , 1],
+          \ ['nnoremap', ['q', 'p'], 'Leaderf menu --name AddedPlugins', '@ list all installed plugins'        , 1],
           \ ]
-    " leader mapping
-    " NOTE: jump location quickfix register message use Denite/Unite
-    let g:_spacevim_mappings.f     = get(g:_spacevim_mappings, 'f', {'name': '+@ Fuzzy Finder'})
-    let g:_spacevim_mappings.f.h   = {'name' : '+Fuzzy find history'}
-    let g:_spacevim_mappings.f.h.c = ['LeaderfHistoryCmd'   , 'fuzzy find cmd history'   ]
-    let g:_spacevim_mappings.f.h.s = ['LeaderfHistorySearch', 'fuzzy find search history']
+          " \ ['nnoremap', ['h', 'i'], 'LeaderfHelpCword'                , 'get help with cursor word/fuzzy find', 1],
+          " \ ['nnoremap', ['b', 'b'], 'LeaderfBuffer'                   , 'buffer list'                         , 1],
+          " \ ['nnoremap', ['f', 'f'], 'LeaderfFile'                     , 'find files in current working dir'   , 1],
+          " \ ['nnoremap', ['T', 'c'], 'LeaderfColorscheme'              , 'fuzzy find colorschemes'             , 1],
+          " \ ['nnoremap', ['j', 'i'], 'LeaderfFunction'                 , 'jump to a definition in buffer'      , 1],
 
-    noremap <silent><leader>fhc   :LeaderfHistoryCmd<cr>
-    noremap <silent><leader>fhs   :LeaderfHistorySearch<cr>
+    " leader mapping
+    let g:_spacevim_mappings.f = get(g:_spacevim_mappings, 'f', {'name': '+@ Fuzzy Finder'})
+
     call SpaceVim#mapping#def('nnoremap', '<leader>fa', ':call feedkeys(":Leaderf ")<CR>',
           \ 'fuzzy finder prefix/Leaderf', '', 'fuzzy finder prefix/Leaderf')
     call SpaceVim#mapping#def('nnoremap', '<leader>fr', ':LeaderfMru<cr>',
@@ -60,39 +56,41 @@ function! layers#leaderf#config() abort
           \ 'fuzzy find function list in current buffer', '', 'fuzzy find function list in current buffer')
     call SpaceVim#mapping#def('nnoremap', '<leader>fO', ':LeaderfFunctionAll<cr>',
           \ 'fuzzy find function list in all buffer'    , '', 'fuzzy find function list in all buffer'    )
-    call SpaceVim#mapping#def('nnoremap', '<leader>ft', ':LeaderfTag<cr>',
-          \ 'fuzzy find tags'           , '', 'fuzzy find tags')
-    call SpaceVim#mapping#def('nnoremap', '<leader>fT', ':LeaderfTagCword<cr>',
-          \ 'fuzzy find tag cursor word in all buffer'  , '', 'fuzzy find tag cursor word in all buffer'  )
     call SpaceVim#mapping#def('nnoremap', '<leader>fi', ':Leaderf self<cr>',
           \ 'fuzzy finder interactive'  , '', 'fuzzy finder interactive')
     call SpaceVim#mapping#def('nnoremap', '<leader>fg', ':Leaderf gtags<cr>',
           \ 'fuzzy find gtags'          , '', 'fuzzy find gtags')
+    " call SpaceVim#mapping#def('nnoremap', '<leader>ft', ':LeaderfTag<cr>',
+          " \ 'fuzzy find tags'           , '', 'fuzzy find tags')
+    " call SpaceVim#mapping#def('nnoremap', '<leader>fT', ':LeaderfTagCword<cr>',
+          " \ 'fuzzy find tag cursor word in all buffer'  , '', 'fuzzy find tag cursor word in all buffer'  )
 
   else
-    nnoremap <silent><c-p>       :call feedkeys(':LeaderfFile ')<CR>
-    nnoremap <silent><c-y>       :LeaderfBufTagAllCword<cr>
+    nnoremap <silent><space>qp     :Leaderf menu --name AddedPlugins<CR>
+
+    nnoremap <silent><c-p>         :call feedkeys(':LeaderfFile ')<CR>
+    nnoremap <silent><c-y>         :LeaderfBufTagAllCword<cr>
     " space mapping
-    nnoremap <silent><space>ff   :LeaderfFile<cr>
-    nnoremap <silent><space>bb   :LeaderfBuffer<cr>
-    nnoremap <silent><space>fr   :LeaderfMru<cr>
-    nnoremap <silent><space>ji   :LeaderfFunction<cr>
-    nnoremap <silent><space>hi   :LeaderfHelp<cr>
-    nnoremap <silent><space>fb   :LeaderfMarks<cr>
+    nnoremap <silent><space>ff     :LeaderfFile<cr>
+    nnoremap <silent><space>bb     :LeaderfBuffer<cr>
+    nnoremap <silent><space>fr     :LeaderfMru<cr>
+    nnoremap <silent><space>ji     :LeaderfFunction<cr>
+    nnoremap <silent><space>hi     :LeaderfHelp<cr>
+    nnoremap <silent><space>fb     :LeaderfMarks<cr>
     " leader mapping
-    nnoremap <silent><leader>fa  :call feedkeys(':Leaderf ')<CR>
-    nnoremap <silent><leader>fr  :LeaderfMru<cr>
-    nnoremap <silent><leader>fb  :LeaderfBuffer<cr>
-    nnoremap <silent><leader>ff  :LeaderfFile<cr>
-    nnoremap <silent><leader>fs  :Leaderf rg --cword<cr>
-    nnoremap <silent><leader>fc  :LeaderfColorscheme<cr>
-    nnoremap <silent><leader>fo  :LeaderfFunction<cr>
-    nnoremap <silent><leader>fO  :LeaderfFunctionAll<cr>
-    nnoremap <silent><leader>ft  :LeaderfTag<cr>
-    nnoremap <silent><leader>fT  :LeaderfTagCword<cr>
-    nnoremap <silent><leader>fhc :LeaderfHistoryCmd<cr>
-    nnoremap <silent><leader>fhs :LeaderfHistorySearch<cr>
-    nnoremap <silent><leader>fg  :Leaderf gtags<cr>
-    nnoremap <silent><leader>fi  :Leaderf self<cr>
+    nnoremap <silent><leader>fa    :call feedkeys(':Leaderf ')<CR>
+    nnoremap <silent><leader>fr    :LeaderfMru<cr>
+    nnoremap <silent><leader>fb    :LeaderfBuffer<cr>
+    nnoremap <silent><leader>ff    :LeaderfFile<cr>
+    nnoremap <silent><leader>fs    :Leaderf rg --cword<cr>
+    nnoremap <silent><leader>fc    :LeaderfColorscheme<cr>
+    nnoremap <silent><leader>fo    :LeaderfFunction<cr>
+    nnoremap <silent><leader>fO    :LeaderfFunctionAll<cr>
+    " nnoremap <silent><leader>ft  :LeaderfTag<cr>
+    " nnoremap <silent><leader>fT  :LeaderfTagCword<cr>
+    nnoremap <silent><leader>fhc   :LeaderfHistoryCmd<cr>
+    nnoremap <silent><leader>fhs   :LeaderfHistorySearch<cr>
+    nnoremap <silent><leader>fg    :Leaderf gtags<cr>
+    nnoremap <silent><leader>fi    :Leaderf self<cr>
   endif
 endfunction

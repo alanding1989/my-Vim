@@ -71,6 +71,9 @@
 
   "rust-analyzer.raLspServerPath"                               : "/home/alanding/software/lang-tools/cargo/bin/ra_lsp_server",
   "rust-analyzer.enableCargoWatchOnStartup"                     : "enabled",
+  "rust-analyzer.excludeGlobs"                                  : ["target"],
+  "rust-analyzer.cargo-watch.command"                           : "clippy",
+  "rust-analyzer.cargo-watch.ignore"                            : ["target"],
   
 
   "java.home"                                                   : "/opt/lang-tools/java/jdk",
