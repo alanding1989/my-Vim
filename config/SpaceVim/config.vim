@@ -117,6 +117,9 @@ function! MySpaceVim_layers_variable(layer) abort
         \     'scala_formatter_scalafmt_config_path'   : g:home.'extools/conf/.scalafmt.conf', 
         \     'scala_formatter_scalariform_config_path': g:home.'extools/conf/scalariform.properties'
         \ },
+        \ 'lang#rust' : {
+        \     'racer_cmd': '/home/alanding/software/lang-tools/cargo/bin/racer'
+        \ },
         \ 'lang#lua' : {
         \     'repl_command': '/opt/lang-tools/lua/luarocks/bin/rep.lua'
         \ },

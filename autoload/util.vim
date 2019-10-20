@@ -365,17 +365,19 @@ function! util#SPC_PR(branch) abort
   " a:1 git branch name
   let cmd = 'sh '. g:home.'extools/SpaceVim/new-SPC-pr.sh ' . a:branch
   let id = s:JOB.start(cmd , {
-        \ 'on_stdout' : function('s:grep_stdout')
+        \ 'on_stdout' : function('s:show_result'),
+        \ 'on_stderr' : function('s:show_result'),
+        \ 'on_exit' : function('s:show_result'),
         \ })
-  if id
-    call util#echohl('PR preparation ready')
-  else
-    call util#echohl(v:shell_error)
-  endif
 endfunction 
 
-function! s:grep_stdout(id, data, event) abort
+function! s:show_result(id, data, event) abort
+  if a:event ==# 'stderr'
+    call util#echohl(a:data)
+    return
+  endif
 
+  call util#echohl('PR preparation ready')
 endfunction
 "}}}
 "}}}
