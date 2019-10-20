@@ -27,10 +27,10 @@ function! layers#leaderf#config() abort
 
     " space mapping
     let g:_spacevim_mappings_space_custom += [
-          \ ['nnoremap', ['f', 'r'], 'LeaderfMru'                      , 'open-recent-file'                    , 1],
           \ ['nnoremap', ['f', 'b'], 'LeaderfMarks'                    , 'check bookmarks'                     , 1],
           \ ['nnoremap', ['q', 'p'], 'Leaderf menu --name AddedPlugins', '@ list all installed plugins'        , 1],
           \ ]
+          " \ ['nnoremap', ['f', 'r'], 'LeaderfMru'                      , 'open-recent-file'                    , 1],
           " \ ['nnoremap', ['h', 'i'], 'LeaderfHelpCword'                , 'get help with cursor word/fuzzy find', 1],
           " \ ['nnoremap', ['b', 'b'], 'LeaderfBuffer'                   , 'buffer list'                         , 1],
           " \ ['nnoremap', ['f', 'f'], 'LeaderfFile'                     , 'find files in current working dir'   , 1],
