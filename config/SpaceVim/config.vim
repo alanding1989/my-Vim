@@ -216,6 +216,7 @@ let g:MySpaceVim_layers = extend(get(g:, 'MySpaceVim_layers', {
       \ 'shell'             : 1,
       \ 'tools'             : 1,
       \ 'lang#vim'          : 1,
+      \ 'lang#toml'         : 1,
       \ 'lang#markdown'     : 1,
       \ 'lang#sh'           : g:is_unix,
       \ 'lang#ps1'          : g:is_win,
