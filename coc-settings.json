@@ -7,8 +7,11 @@
   "suggest.snippetIndicator"                            : "~►"   ,
 
   "coc.source.tag.shortcut"                             : "Tag",
-  "coc.source.tag.enable"                               : false,
-  "coc.source.emoji.shortcut"                           : "Emj",
+  "coc.source.tag.enable"                               : true,
+  "coc.source.emoji.shortcut"                           : "Emoj",
+
+  "signature.enable"                                    : true,
+  "signature.target"                                    : "echo",
 
   "coc.preferences.previewAutoClose"                    : false,
   "coc.preferences.currentFunctionSymbolAutoUpdate"     : true,
@@ -16,15 +19,13 @@
   "coc.preferences.formatOnSaveFiletypes"               : ["rust", "Markdown", "scala", "java", "sh", "js", "ts", "css"],
   //"coc.preferences.formatOnSaveFiletypes"               : ["css", "Markdown", "python", "scala", "c", "cpp", "java", "vim", "sh", "lua"],
   
-  "diagnostic.enable"                                   : false,
-  "diagnostic.virtualText"                              : true,
+  "diagnostic.enable"                                   : true,
+  "diagnostic.virtualText"                              : false,
   "diagnostic.virtualTextPrefix"                        : "❯ ",
   "diagnostic.displayByAle"                             : true,
 
-  "signature.enable"                                    : true,
-  "signature.target"                                    : "echo",
-
   "codeLens.enable"                                     : true,
+
 
   // Snippets
   // NOTE: UltiSnips dir must be contained, or it will not load it.
@@ -116,7 +117,6 @@
   "xml.java.home"                                               : "/opt/lang-tools/java/jdk",
 
 
-
   "tsserver.enable"                                             : false, 
   "tsserver.reportStyleChecksAsWarnings"                        : false,
   "tsserver.trace.server"                                       : "off",
@@ -191,6 +191,10 @@
   "vetur.format.defaultFormatter.postcss"                       : "prettier",
   "vetur.experimental.templateInterpolationService"             : true,
 
+  "markdownlint.onOpen"                                         : false,
+  "markdownlint.onChange"                                       : false,
+  "markdownlint.onSave"                                         : true,
+  "markdownlint.config"                                         : {"MD033" : false, "MD012": false},
 
   "lua.enable"                                                  : true,
   "lua.commandPath"                                             : "/usr/local/bin/lua",
@@ -317,5 +321,4 @@
   "git.virtualTextPrefix"        : "     ==❯ ",
   "git.addGlameToVirtualText"    : true,
   "git.enableGutters"            : false
-
 }

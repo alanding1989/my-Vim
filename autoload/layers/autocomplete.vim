@@ -90,10 +90,11 @@ function! layers#autocomplete#plugins() abort
 
   if !g:is_spacevim " {{{
     let plugins += [
-          \ ['Shougo/neco-syntax'              , {'on_event': 'InsertEnter'}],
-          \ ['Shougo/neoinclude.vim'           , {'on_event': 'InsertEnter'}],
-          \ ['Shougo/context_filetype.vim'     , {'on_event': 'InsertEnter'}],
-          \ ['Shougo/echodoc.vim', {'on_event' : 'CompleteDone'}]
+          \ ['Shougo/neco-syntax'                  , {'on_event': 'InsertEnter'}]  ,
+          \ ['Shougo/neoinclude.vim'               , {'on_event': 'InsertEnter'}]  ,
+          \ ['Shougo/context_filetype.vim'         , {'on_event': 'InsertEnter'}]  ,
+          \ ['Shougo/echodoc.vim'                  , {'on_event': 'CompleteDone'}] ,
+          \ ['deoplete-plugins/deoplete-dictionary', {'merged'  : 0}]              ,
           \ ]
     if s:autocomplete_parens
       call add(plugins, ['Raimondi/delimitMate' ,  { 'merged' : 0}])
@@ -111,7 +112,7 @@ function! layers#autocomplete#plugins() abort
             \ 'do': { -> coc#util#install() }}])
     elseif g:autocomplete_method ==# 'deoplete'
       call add(plugins, ['Shougo/deoplete.nvim'          , {'merged'  : 0}])
-      call add(plugins, ['ujihisa/neco-look'             , {'on_event': 'InsertEnter'}])
+      " call add(plugins, ['ujihisa/neco-look'             , {'on_event': 'InsertEnter'}])
       call add(plugins, ['SevereOverfl0w/deoplete-github', {'on_event': 'InsertEnter', 'for_ft': 'gitcommit'}])
     elseif g:autocomplete_method ==# 'ycm'
       call add(plugins, ['Valloric/YouCompleteMe', {'merged': 0, 'build': './install.py --clang-completer'}])

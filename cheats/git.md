@@ -1,6 +1,12 @@
 主分支－热修复分支
 发布分支－开发分支－特性分支
 
+###Delete remote branch
+```
+git push origin --delete <remote_branchname>
+```
+
+
 ###Everyday Git in twenty commands or so
 ```
 git help everyday
@@ -99,11 +105,6 @@ git branch -u origin/mybranch
 ###Delete local branch
 ```
 git branch -d <local_branchname>
-```
-
-###Delete remote branch
-```
-git push origin --delete <remote_branchname>
 ```
 
 ###Delete local tag

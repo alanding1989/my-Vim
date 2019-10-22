@@ -353,11 +353,15 @@ endfunction
 " Kill next or previous window or buffer {{{
 function! s:close_win_or_kill_buffer(num) abort
   if winnr('$') > 1
-    if a:num ==# 'next'
-      exec 'close ' . (winnr() + 1)
-    elseif a:num ==# 'prev'
-      exec 'close ' . (winnr() - 1)
-    endif
+    try
+      if a:num ==# 'next'
+        exec 'close ' . (winnr() + 1)
+      elseif a:num ==# 'prev'
+        exec 'close ' . (winnr() - 1)
+      endif
+    catch  /^Vim\%((\a\+)\)\=:E939/
+      return
+    endtry
   else
     call s:kill_buffer(a:num)
   endif

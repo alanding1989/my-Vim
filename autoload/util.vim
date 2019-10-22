@@ -362,23 +362,10 @@ endfunction "}}}
 let s:JOB = SpaceVim#api#import('job')
 
 function! util#SPC_PR(branch) abort
-  " a:1 git branch name
+  " a:branch: creat new git branch name
   let cmd = 'sh '. g:home.'extools/SpaceVim/new-SPC-pr.sh ' . a:branch
-  let id = s:JOB.start(cmd , {
-        \ 'on_stdout' : function('s:show_result'),
-        \ 'on_stderr' : function('s:show_result'),
-        \ 'on_exit' : function('s:show_result'),
-        \ })
+  call util#simple_job(cmd, 'PR preparation ready!')
 endfunction 
-
-function! s:show_result(id, data, event) abort
-  if a:event ==# 'stderr'
-    call util#echohl(a:data)
-    return
-  endif
-
-  call util#echohl('PR preparation ready')
-endfunction
 "}}}
 "}}}
 
@@ -386,6 +373,28 @@ endfunction
 " function() wrapper "{{{
 function! util#valid(type, ...) abort
   return util#{a:type}#valid(a:000)
+endfunction
+
+let s:msg = {"default": "Run success!"}
+function! util#simple_job(cmd, ...) abort
+  if a:0 > 0 && type(a:1) ==# type('')
+    let s:msg.on_success = a:1
+  endif
+  let job_id = s:JOB.start(a:cmd, { 
+        \ 'on_stdout' : function('s:show_result'),
+        \ 'on_stderr' : function('s:show_result'),
+        \ 'on_exit' : function('s:show_result')
+        \ })
+endfunction
+function! s:show_result(job_id, data, event) abort
+  if a:event ==# 'stderr'
+    call util#echohl(a:data)
+    return
+  endif
+  if len(s:msg) > 1
+    call util#echohl(s:msg['on_success'])
+    call remove(s:msg, 'on_success')
+  endif
 endfunction
 
 if v:version > 703 || v:version == 703 && has('patch1170')

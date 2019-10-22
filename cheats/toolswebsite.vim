@@ -12,9 +12,10 @@ scriptencoding utf-8
 let s:url = {
       \ 'java' : 'https://docs.oracle.com/javase/8/docs/api/index.html?overview-summary.html',
       \ 'scala': 'https://www.scala-lang.org/api/current/index.html?search=',
-      \ 'arec' : 'https://asciinema.org/~alanding',
-      \ 'spc'  : 'https://spacevim.org/cn/layers',
+      \ 'npm'  : 'https://www.npmjs.com/search?q=',
       \ 'sh'   : 'https://www.explainshell.com/',
+      \ 'spc'  : 'https://spacevim.org/cn/layers',
+      \ 'arec' : 'https://asciinema.org/~alanding',
       \ }
 
 
@@ -36,18 +37,21 @@ function! s:defineKeyMapping() abort
     " language docs
     augroup layer_core_openbrowser
       autocmd!
-      auto FileType python,ipynb call SpaceVim#mapping#def('nnoremap', '<leader>op',
-            \ ':call feedkeys(":OpenBrowserSmartSearch -python ")<CR>',
-            \ 'docs search /python', '',  'docs search /python')
-      auto FileType java         call SpaceVim#mapping#def('nnoremap', '<leader>oj',
-            \ ':call feedkeys(":OpenlinkOrSearch java ")<CR>',
-            \ 'docs search /java', '',  'docs search /java')
-      auto FileType scala        call SpaceVim#mapping#def('nnoremap', '<leader>os',
-            \ ':call feedkeys(":OpenlinkOrSearch scala ")<CR>',
-            \ 'docs search /scala', '',  'docs search /scala')
-      auto FileType sh           call SpaceVim#mapping#def('nnoremap', '<leader>os',
-            \ ':call feedkeys(":OpenlinkOrSearch sh ")<CR>',
+      auto FileType python,ipynb            
+            \ call SpaceVim#mapping#def('nnoremap', '<leader>op', ':call feedkeys(":OpenBrowserSmartSearch -python ")<CR>',
+            \ 'docs search @Python', '',  'docs search @Python')
+      auto FileType java
+            \ call SpaceVim#mapping#def('nnoremap', '<leader>oj', ':call feedkeys(":OpenlinkOrSearch java ")<CR>',
+            \ 'docs search @Java', '',  'docs search @Java')
+      auto FileType scala
+            \ call SpaceVim#mapping#def('nnoremap', '<leader>os', ':call feedkeys(":OpenlinkOrSearch scala ")<CR>',
+            \ 'docs search @Scala', '',  'docs search @Scala')
+      auto FileType sh
+            \ call SpaceVim#mapping#def('nnoremap', '<leader>os', ':call feedkeys(":OpenlinkOrSearch sh ")<CR>',
             \ 'explainshell.com', '',  'explainshell.com')
+      auto FileType javascript,typescript
+            \ call SpaceVim#mapping#def('nnoremap', '<leader>on', ':call feedkeys(":OpenlinkOrSearch npm ")<CR>',
+            \ 'Node pkgs search', '',  'Node pkgs search')
     augroup END
      " }}}
 

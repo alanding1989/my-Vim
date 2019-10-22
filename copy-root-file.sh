@@ -14,6 +14,7 @@ declare files=(
 .conda
 .condarc
 .config
+.docker
 .gitconfig
 .globalrc
 .gradle

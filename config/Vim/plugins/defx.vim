@@ -5,6 +5,7 @@ scriptencoding utf-8
 
 
 let s:SYS = SpaceVim#api#import('system')
+let s:JOB = SpaceVim#api#import('job')
 
 if g:filetree_direction ==# 'right'
   let s:direction = 'rightbelow'
@@ -256,36 +257,30 @@ function! DefxYarkSrcLayout(_) abort "{{{
         \ ])]
   " inputlist() by default return 0 if no input or press <ESC>
   if srcname =~# 0 | return | endif
-  let dname = input('Input DestinationDirname/Cancel(n) : ')
-  if dname ==# 'n' | return | endif
-  let srcp = expand(g:home.'extools/src-template/'.srcname)
-  let tarp = expand(dirpath.'/'.dname)
-  silent exec '!cp -rf '.srcp.' '.tarp
-  echohl WarningMsg 
-  echo ' yarked: '.srcp.' => '.tarp 
-  echohl NONE
+  let dst_name = input('Input DestinationDirname/Cancel(n) : ')
+  if dst_name ==# 'n' | return | endif
+
+  let srcp = expand(g:home.'extools/template/'.srcname)
+  let tarp = expand(dirpath.'/'.dst_name)
+  call util#simple_job('cp -rf '.srcp.' '.tarp)
+  call util#echohl(' yarked: '.srcp.' => '.tarp )
 endfunction
 "}}}
 
 function! DefxExeShell(_) abort "{{{
   if defx#is_directory()
-    echohl WarningMsg
-    echo ' Candidate is not a shell script'
-    echohl NONE
+    call util#echohl(' Candidate is not a shell script!')
   else
     let filepath = defx#get_candidate()['action__path']
     let ext = fnamemodify(filepath, ':e')
+    let success_msg = 'Successfully run stript'
+
     if ext ==# 'sh' && g:is_unix
-      let job = jobstart('sh '.filepath)
+      call util#simple_job('bash '.filepath, success_msg)
     elseif (ext ==# 'bat' || ext ==# 'ps1') && g:is_win
-      let job = jobstart('powershell '.filepath)
+      call util#simple_job('powershell '.filepath, success_msg)
     else
-      echohl WarningMsg
-      echo ' Candidate is not a shell script'
-      echohl NONE
-    endif
-    if job
-      echo 'Successfully run stript'
+      call util#echohl(' Candidate is not a shell script!')
     endif
   end
 endfunction

@@ -7,9 +7,9 @@
 # Description  : 
 
 
-declare -a ides
+declare -a ideas
 
-ides=("CLion"
+ideas=("CLion"
       "GoLand"
       "PyCharm"
       "Rider"
@@ -27,7 +27,7 @@ stringManipulation="config/options/stringManipulation.xml"
 stringManipulationPopupMenu="config/options/customization.xml"
 
 
-for item in "${ides[@]}"; do
+for item in "${ideas[@]}"; do
   dist_name=$HOME/$(ls -a "$HOME" | grep "$item")
   if [ -e "$dist_name" ]; then
     cp -f  "$src/$keyMap"                        "$dist_name/$keyMap"
@@ -41,3 +41,5 @@ for item in "${ides[@]}"; do
     print "file [ $dist_name ] does not exit, or the file has changed, please checked!!!"
   fi
 done
+
+cp -rf $HOME/.ideavimrc $HOME/.SpaceVim.d/

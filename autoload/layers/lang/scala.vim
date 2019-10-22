@@ -116,7 +116,7 @@ function! layers#lang#scala#plugins() abort
   let plugins = []
   if !g:is_spacevim
     let plugins += [ 
-          \ ['derekwyatt/vim-scala', {'on_ft' : 'scala'}],
+          \ ['alanding/vim-scala', {'on_ft' : 'scala'}],
           \ ['derekwyatt/vim-sbt'  , {'merged': 0}],
           \ ['todesking/current_project.vim'],
           \ ['todesking/qf_sbt.vim']

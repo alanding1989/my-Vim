@@ -191,7 +191,7 @@ endfunction
 let g:MySpaceVim_layers = extend(get(g:, 'MySpaceVim_layers', {
       \ 'lang#c'            : 0,
       \ 'lang#java'         : 1,
-      \ 'lang#scala'        : 0,
+      \ 'lang#scala'        : 1,
       \ 'lang#rust'         : 1,
       \ 'lang#go'           : 0,
       \ 'lang#python'       : 1,
@@ -218,6 +218,7 @@ let g:MySpaceVim_layers = extend(get(g:, 'MySpaceVim_layers', {
       \ 'lang#vim'          : 1,
       \ 'lang#toml'         : 1,
       \ 'lang#markdown'     : 1,
+      \ 'lang#plantuml'     : 1,
       \ 'lang#sh'           : g:is_unix,
       \ 'lang#ps1'          : g:is_win,
       \
