@@ -14,8 +14,9 @@ let s:url = {
       \ 'scala': 'https://www.scala-lang.org/api/current/index.html?search=',
       \ 'npm'  : 'https://www.npmjs.com/search?q=',
       \ 'sh'   : 'https://www.explainshell.com/',
-      \ 'spc'  : 'https://spacevim.org/cn/layers',
       \ 'arec' : 'https://asciinema.org/~alanding',
+      \ 'spc'  : 'https://spacevim.org/cn/layers',
+      \ 'myspc': 'https://github.com/alanding1989/SpaceVim',
       \ }
 
 
@@ -37,6 +38,9 @@ function! s:defineKeyMapping() abort
     " language docs
     augroup layer_core_openbrowser
       autocmd!
+      auto FileType vim,startify
+            \ call SpaceVim#mapping#def('nnoremap', '<leader>om', ':OpenlinkOrSearch myspc<CR>',
+            \ 'open MySpaceVim github repo', '',  'open MySpaceVim github repo')
       auto FileType python,ipynb            
             \ call SpaceVim#mapping#def('nnoremap', '<leader>op', ':call feedkeys(":OpenBrowserSmartSearch -python ")<CR>',
             \ 'docs search @Python', '',  'docs search @Python')
@@ -62,14 +66,17 @@ function! s:defineKeyMapping() abort
     " language docs
     augroup layer_core_openbrowser
       autocmd!
-      auto FileType python,ipynb nnoremap <buffer><leader>op
-            \ :call feedkeys(':OpenBrowserSmartSearch -python ')<CR>
-      auto FileType java        nnoremap <buffer><leader>oj
-            \ :call feedkeys(':OpenlinkOrSearch java ')<CR>
-      auto FileType scala        nnoremap <buffer><leader>os
-            \ :call feedkeys(':OpenlinkOrSearch scala ')<CR>
-      auto FileType sh           nnoremap <buffer><leader>os
-            \ :call feedkeys(':OpenlinkOrSearch sh ')<CR>
+      auto FileType vim,startify            :OpenlinkOrSearch myspc<CR>
+      auto FileType python,ipynb 
+            \ nnoremap <buffer><leader>op   :call feedkeys(':OpenBrowserSmartSearch -python ')<CR>
+      auto FileType java
+            \ nnoremap <buffer><leader>oj   :call feedkeys(':OpenlinkOrSearch java ')<CR>
+      auto FileType scala
+            \ nnoremap <buffer><leader>os   :call feedkeys(':OpenlinkOrSearch scala ')<CR>
+      auto FileType sh
+            \ nnoremap <buffer><leader>os   :call feedkeys(':OpenlinkOrSearch sh ')<CR>
+      auto FileType javascript,typescript
+            \ nnoremap <buffer><leader>on   :call feedkeys(":OpenlinkOrSearch npm ")<CR>
     augroup END
   endif  " }}}
 endfunction
