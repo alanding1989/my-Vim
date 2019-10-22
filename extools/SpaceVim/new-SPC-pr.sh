@@ -8,28 +8,17 @@
 
 #! /usr/bin/env bash
 branchname=$1
+path="$HOME/0_Dev/SpaceVim-PR/SpaceVim-$branchname"
 
+  rm -rf $path && git clone git@github.com:SpaceVim/SpaceVim.git $path
 
-# creat pr temp branch
-# if [ ! -d "/tmp/SpaceVim" ] && [ ! -d "$HOME/.SpaceVim_origin" ]; then
-  rm -rf /tmp/SpaceVim && \
-    git clone git@github.com:SpaceVim/SpaceVim.git /tmp/SpaceVim
-
-  cd /tmp/SpaceVim && \
+  cd $path && \
     git remote remove origin && \
     git remote add origin   git@github.com:alanding1989/SpaceVim.git && \
     git remote add upstream git@github.com:SpaceVim/SpaceVim.git
 
-  if [[ -z "$(git branch -a | grep "$branchname")" ]]; then
-    git checkout -b "$branchname" && git push -u origin "$branchname"
+  if ! (git branch -a | grep -q "$branchname") ; then
+    git checkout -b "$branchname" && git push -uf origin "$branchname"
   else
     git checkout "$branchname"
   fi
-
-# elif [ -d "/tmp/SpaceVim" ] && [ ! -d "$HOME/.SpaceVim_origin" ]; then
-  # mv "$HOME/.SpaceVim" "$HOME/.SpaceVim_origin" && cp -r "/tmp/SpaceVim" "$HOME/.SpaceVim"
-#
-# elif [ -d "/tmp/SpaceVim" ] && [ -d "$HOME/.SpaceVim_origin" ]; then
-  # rm -rf "$HOME/.SpaceVim" && mv "$HOME/.SpaceVim_origin" "$HOME/.SpaceVim"
-  # rm -rf "/tmp/SpaceVim"
-# fi

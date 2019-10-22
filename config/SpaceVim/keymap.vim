@@ -71,7 +71,7 @@ let g:_spacevim_mappings_space.8    =  ['call Winjump(8)', 'Window 8']
 
 let g:_spacevim_mappings_space.h    =  get(g:_spacevim_mappings_space,'h', {'name' : '+Help'})
 let g:_spacevim_mappings_space.h.t  =  ['call util#test_SPC()'           , '@ toggle test env of SpaceVim'       ]
-let g:_spacevim_mappings_space.h.p  =  ['call feedkeys(":SpcPR ")'       , '@ SPC PR environment preparation'    ]
+let g:_spacevim_mappings_space.h.p  =  ['call feedkeys(":SpcPRBranch ")' , '@ SPC PR environment preparation'    ]
 let g:_spacevim_mappings_space.h.h  =  ['call feedkeys(":EchoHelp ")'    , '@ get help docs of input/cursor word']
 let g:_spacevim_mappings_space.q.n  =  ['call dein#recache_runtimepath()', '@ recache runtime path for plugins'  ]
 let g:_spacevim_mappings_space.q.u  =  ['call util#update_plugin()'      , '@ update all/input plugins'          ]

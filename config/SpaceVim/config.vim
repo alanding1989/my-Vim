@@ -124,14 +124,17 @@ function! MySpaceVim_layers_variable(layer) abort
         \     'repl_command': '/opt/lang-tools/lua/luarocks/bin/rep.lua'
         \ },
         \ 'lang#markdown' : {
-        \     'enableWcwidth'  : 1,
-        \     'listItemIndent' : 1,
+        \     'enableWcwidth'   : 1,
+        \     'listItemIndent'  : 1,
         \ },
         \ 'lang#python' : {
-        \     'format_on_save' : 1,
+        \     'format_on_save'  : 1,
         \ },
         \ 'lang#ipynb'  : {
-        \     'format_on_save' : 1,
+        \     'format_on_save'  : 1,
+        \ },
+        \ 'lang#plantuml' : {
+        \     'plantuml_jar_path': '/opt/lang-tools/java/plantuml.jar'
         \ },
         \ 'shell' : {
         \     'default_height'   : 35,

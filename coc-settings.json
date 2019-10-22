@@ -37,6 +37,7 @@
     "D:/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/snipeets",
     "D:/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/UltiSnips"
   ],
+  "snippets.textmateSnippetsRoots": ["/home/alanding/.config/Code/User/snippets"],
   "snippets.extends" : {
     "ipynb"      : ["python"],
     "sbt"        : ["scala"],

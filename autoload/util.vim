@@ -138,7 +138,11 @@ function! util#echohl(str, ...) abort
   elseif a:0 && a:1 ==# 'map'
     call feedkeys('":'.escape(a:str, '<').'"')
   else
-    echo ' '.a:str
+    if type(a:str) ==# type('')
+      echo ' '.a:str
+    elseif type(a:str) ==# type([])
+      echo join(a:str, ' ')
+    endif
   endif
   echohl NONE
 endfunction " }}}
@@ -375,27 +379,30 @@ function! util#valid(type, ...) abort
   return util#{a:type}#valid(a:000)
 endfunction
 
-let s:msg = {"default": "Run success!"}
+let s:self = {}
+let s:self.message = {"default": "Run success!"}
 function! util#simple_job(cmd, ...) abort
   if a:0 > 0 && type(a:1) ==# type('')
-    let s:msg.on_success = a:1
-  endif
-  let job_id = s:JOB.start(a:cmd, { 
-        \ 'on_stdout' : function('s:show_result'),
-        \ 'on_stderr' : function('s:show_result'),
-        \ 'on_exit' : function('s:show_result')
-        \ })
-endfunction
-function! s:show_result(job_id, data, event) abort
-  if a:event ==# 'stderr'
-    call util#echohl(a:data)
+    let s:self.message.on_success = a:1
+  else
+    call util#echohl(' Message should be string!')
     return
   endif
-  if len(s:msg) > 1
-    call util#echohl(s:msg['on_success'])
-    call remove(s:msg, 'on_success')
+  let job_id = s:JOB.start(a:cmd, { 
+        \ 'on_stderr' : function('s:on_stderr'),
+        \ 'on_exit' : function('s:on_exit')
+        \ })
+endfunction
+function! s:self.on_exit(job_id, data, event) abort
+  if len(s:self.message) > 1
+    call util#echohl(s:self.message['on_success'])
+    call remove(s:self.message, 'on_success')
   endif
 endfunction
+function! s:self.on_stderr(job_id, data, event) abort
+    call util#echohl(a:data)
+endfunction
+
 
 if v:version > 703 || v:version == 703 && has('patch1170')
   function! s:_function(fstr) abort

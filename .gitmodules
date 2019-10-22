@@ -1,0 +1,6 @@
+[submodule "extools/worktools/translator"]
+	path = extools/worktools/translator
+	url = git@github.com:skywind3000/translator.git
+[submodule "extools/worktools/C4-PlantUML"]
+	path = extools/worktools/C4-PlantUML
+	url = git@github.com:RicardoNiepel/C4-PlantUML.git

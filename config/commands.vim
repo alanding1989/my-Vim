@@ -7,7 +7,7 @@ scriptencoding utf-8
 
 command! -nargs=*  EchoMap          call util#maparg_wrapper(<f-args>)
 
-command! -nargs=1  SpcPR            call util#SPC_PR(<f-args>)
+command! -nargs=1  SpcPRBranch      call util#SPC_PR(<f-args>)
 
 command! -nargs=?  -complete=filetype
                  \ MyCocSnipsEdit   call layers#autocomplete#coc_editsnips()(<f-args>)
