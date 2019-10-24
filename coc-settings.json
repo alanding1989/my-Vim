@@ -16,7 +16,7 @@
   "coc.preferences.previewAutoClose"                    : false,
   "coc.preferences.currentFunctionSymbolAutoUpdate"     : true,
   "coc.preferences.rootPatterns"                        : [ ".root",".vim",".git",".hg",".projections.json" ],
-  "coc.preferences.formatOnSaveFiletypes"               : ["rust", "Markdown", "scala", "java", "sh", "js", "ts", "css"],
+  "coc.preferences.formatOnSaveFiletypes"               : ["rust", "Markdown", "java", "sh", "js", "ts", "css"],
   //"coc.preferences.formatOnSaveFiletypes"               : ["css", "Markdown", "python", "scala", "c", "cpp", "java", "vim", "sh", "lua"],
   
   "diagnostic.enable"                                   : true,
@@ -192,10 +192,10 @@
   "vetur.format.defaultFormatter.postcss"                       : "prettier",
   "vetur.experimental.templateInterpolationService"             : true,
 
-  "markdownlint.onOpen"                                         : false,
-  "markdownlint.onChange"                                       : false,
-  "markdownlint.onSave"                                         : true,
-  "markdownlint.config"                                         : {"MD033" : false, "MD012": false},
+  //"markdownlint.onOpen"                                         : false,
+  //"markdownlint.onChange"                                       : false,
+  //"markdownlint.onSave"                                         : true,
+  //"markdownlint.config"                                         : {"MD033" : false, "MD012": false},
 
   "lua.enable"                                                  : true,
   "lua.commandPath"                                             : "/usr/local/bin/lua",
@@ -205,16 +205,16 @@
 
 
   "languageserver": {
-//  "ccls": {
-//    "command": "ccls",
-//    "filetypes": ["c", "cpp", "objc", "objcpp"],
-//    "rootPatterns": [".ccls", "compile_commands.json", ".root", ".git/", ".hg/"],
-//    "initializationOptions": {
-//      "cache": {
-//        "directory": "/tmp/ccls"
-//      }
-//    }
-//  },
+      "ccls": {
+        "command": "ccls",
+        "filetypes": ["c", "cpp", "objc", "objcpp"],
+        "rootPatterns": [".ccls", "compile_commands.json", ".root", ".git/", ".hg/"],
+        "initializationOptions": {
+          "cache": {
+            "directory": "/tmp/ccls"
+          }
+        }
+      },
       "clangd": {
         "command": "clangd",
         "rootPatterns": [".clangd", "compile_commands.json", ".root", ".clang-format", ".git/", ".hg/"],

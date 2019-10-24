@@ -30,9 +30,9 @@ declare files=(
 .rustup
 .sbt
 .shellcheckrc
-software
 .tmux
 .tmux.conf
+software/lang-tools/cargo/config
 user-dirs.dirs
 user-dirs.locale
 .warprc
@@ -42,6 +42,6 @@ user-dirs.locale
 .zshrc
 )
 
-for file in ${files[@]}; do
-  cp -rf ~/$file /mnt/fun+downloads/my-Dotfile/linux/alan-home
+for file in "${files[@]}"; do
+  cp -rf $HOME/$file /mnt/fun+downloads/my-Dotfile/linux/alan-home
 done

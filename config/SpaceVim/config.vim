@@ -146,7 +146,7 @@ function! MySpaceVim_layers_variable(layer) abort
         \ 'lsp' : { 
         \     'filetypes' : extend([
         \         'c'     , 'cpp'   ,
-        \         'java'  ,
+        \         'java'  , 'scala' ,
         \         'go'    ,
         \         'rust'  ,
         \         'python', 'ipynb' ,
