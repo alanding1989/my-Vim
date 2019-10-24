@@ -6,6 +6,6 @@
 # Created Time : Mon 21 Oct 2019 11:12:54 AM CST
 # Description  : 
 
-path="$HOME/.SpaceVim.d/extools/tools"
+path="$HOME/.SpaceVim.d/extools"
 
 [ ! -d $path ] && git clone	git@github.com:skywind3000/translator.git $path

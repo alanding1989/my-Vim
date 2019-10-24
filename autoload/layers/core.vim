@@ -167,7 +167,7 @@ endfunction
 " a:num = 7 open a new filetree buffer in current working dir
 let g:_dirMap = {
       \ 'vimrc'  : g:home[:-2],
-      \ 'conf'   : g:home.'extools/conf',
+      \ 'conf'   : g:home.'etc/conf',
       \ 'dotfile': g:is_win ? 'E:\my-Dotfile' : '/mnt/fun+downloads/my-Dotfile',
       \ 'dev'    : g:is_win?  'D:\devtools' : '/home/alanding/0_Dev/Projects'
       \ }

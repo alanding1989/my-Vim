@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 
-# File Name    : extools/editor-install/copy-keymap.sh
+# File Name    : lib/editor-install/copy-keymap.sh
 # Author       : AlanDing
 # Created Time : Fri 27 Sep 2019 11:33:47 PM CST
 # Description  : 

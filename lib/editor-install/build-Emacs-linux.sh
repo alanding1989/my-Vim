@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 #================================================================================
-# File Name    : extools/editor-install/linux-buildemacs.sh
+# File Name    : lib/editor-install/linux-buildemacs.sh
 # Author       : AlanDing
 # Created Time : Mon 03 Jun 2019 09:52:07 AM CST
 # Description  : build and install latest emacs

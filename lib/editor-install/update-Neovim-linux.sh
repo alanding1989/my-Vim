@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 #================================================================================
-# File Name    : extools/plugin-in-up/update-neovim.sh
+# File Name    : lib/plugin-in-up/update-neovim.sh
 # Author       : AlanDing
 # Created Time : Sat 25 May 2019 08:52:21 PM CST
 # Description  : 

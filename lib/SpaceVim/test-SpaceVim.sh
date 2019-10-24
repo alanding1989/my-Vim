@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 #================================================================================
-# File Name    : extools/spacevim/test-SpaceVim.sh
+# File Name    : lib/spacevim/test-SpaceVim.sh
 # Author       : AlanDing
 # mail         :
 # Created Time : Sat 11 May 2019 11:44:02 PM CST

@@ -58,7 +58,7 @@ let g:ale_linters.text   = ['textlint', 'write-good', 'languagetool']
 
 " access pylint, flake8 config file
 function s:lintcfg(name)
-  let p = g:home . 'extools/conf/' . a:name
+  let p = g:home . 'etc/conf/' . a:name
   if util#filereadable(p)
     return shellescape(p)
   endif

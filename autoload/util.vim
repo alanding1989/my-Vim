@@ -351,7 +351,7 @@ endfunction " }}}
 
 " SpaceVim test mode {{{
 function! util#test_SPC() abort
-  let cmd = 'sh '.g:home.'extools/SpaceVim/test-SpaceVim.sh'
+  let cmd = 'sh '.g:home.'lib/SpaceVim/test-SpaceVim.sh'
   call system(cmd)
   if !v:shell_error && len(glob(g:home.'init.toml'))
     call util#echohl('Test environment is on')
@@ -367,7 +367,7 @@ let s:JOB = SpaceVim#api#import('job')
 
 function! util#SPC_PR(branch) abort
   " a:branch: creat new git branch name
-  let cmd = 'sh '. g:home.'extools/SpaceVim/new-SPC-pr.sh ' . a:branch
+  let cmd = 'sh '. g:home.'lib/SpaceVim/new-SPC-pr.sh ' . a:branch
   call util#simple_job(cmd, 'PR preparation ready!')
 endfunction 
 "}}}

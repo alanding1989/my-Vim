@@ -260,7 +260,7 @@ function! DefxYarkSrcLayout(_) abort "{{{
   let dst_name = input('Input DestinationDirname/Cancel(n) : ')
   if dst_name ==# 'n' | return | endif
 
-  let srcp = expand(g:home.'extools/template/'.srcname)
+  let srcp = expand(g:home.'backup/template/'.srcname)
   let tarp = expand(dirpath.'/'.dst_name)
   call util#simple_job('cp -rf '.srcp.' '.tarp)
   call util#echohl(' yarked: '.srcp.' => '.tarp )

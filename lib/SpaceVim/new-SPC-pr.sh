@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 #================================================================================
-# File Name    : extools/plugin-in-up/pr-SPC.sh
+# File Name    : lib/plugin-in-up/pr-SPC.sh
 # Author       : AlanDing
 # mail         : 
 # Created Time : Sat 11 May 2019 10:16:21 PM CST

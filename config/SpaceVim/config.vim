@@ -114,8 +114,8 @@ function! MySpaceVim_layers_variable(layer) abort
         \     'scala_formatter_path': g:is_win 
         \         ? 'D:\devtools\scala\scalariform.jar' 
         \         : '/opt/lang-tools/scala/scalariform.jar',
-        \     'scala_formatter_scalafmt_config_path'   : g:home.'extools/conf/.scalafmt.conf', 
-        \     'scala_formatter_scalariform_config_path': g:home.'extools/conf/scalariform.properties'
+        \     'scala_formatter_scalafmt_config_path'   : g:home.'etc/conf/.scalafmt.conf', 
+        \     'scala_formatter_scalariform_config_path': g:home.'etc/conf/scalariform.properties'
         \ },
         \ 'lang#rust' : {
         \     'racer_cmd': '/home/alanding/software/lang-tools/cargo/bin/racer'
