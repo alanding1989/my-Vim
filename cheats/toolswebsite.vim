@@ -2,7 +2,7 @@
 " File Name    : cheat/toolswebsite.vim
 " Author       : AlanDing
 " Created Time : Mon 03 Jun 2019 01:21:16 PM CST
-" Description  : 
+" Description  :
 "================================================================================
 scriptencoding utf-8
 
@@ -41,7 +41,7 @@ function! s:defineKeyMapping() abort
       auto FileType vim,startify
             \ call SpaceVim#mapping#def('nnoremap', '<leader>om', ':OpenlinkOrSearch myspc<CR>',
             \ 'open MySpaceVim github repo', '',  'open MySpaceVim github repo')
-      auto FileType python,ipynb            
+      auto FileType python,ipynb
             \ call SpaceVim#mapping#def('nnoremap', '<leader>op', ':call feedkeys(":OpenBrowserSmartSearch -python ")<CR>',
             \ 'docs search @Python', '',  'docs search @Python')
       auto FileType java
@@ -66,8 +66,9 @@ function! s:defineKeyMapping() abort
     " language docs
     augroup layer_core_openbrowser
       autocmd!
-      auto FileType vim,startify            :OpenlinkOrSearch myspc<CR>
-      auto FileType python,ipynb 
+      auto FileType vim,startify
+            \ nnoremap <buffer><leader>om   :OpenlinkOrSearch myspc<CR>
+      auto FileType python,ipynb
             \ nnoremap <buffer><leader>op   :call feedkeys(':OpenBrowserSmartSearch -python ')<CR>
       auto FileType java
             \ nnoremap <buffer><leader>oj   :call feedkeys(':OpenlinkOrSearch java ')<CR>

@@ -315,7 +315,7 @@ function! mapping#basic#load() abort
   if !g:has_py
     nnoremap <leader>acm          :exec 'Unite file_rec/'.(has('nvim') ? 'neovim' : 'async').' -path=~/.SpaceVim.d'<CR>
     nnoremap <leader>ac<Space>    :exec 'Unite file_rec/'.(has('nvim') ? 'neovim' : 'async').' -path=~/.SpaceVim'<CR>
-  elseif len(glob(g:home.'init.toml')) || 0
+  elseif len(glob(g:home.'init.toml')) && 0
     nnoremap <leader>acm          :Denite file/rec -path=~/.SpaceVim.d<CR>
     nnoremap <leader>ac<Space>    :Denite file/rec -path=~/.SpaceVim<CR>
   else
