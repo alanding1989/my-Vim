@@ -10,7 +10,7 @@ scriptencoding utf-8
 
 augroup my_filetype_detection
   autocmd!
-  autocmd BufNewFile,BufRead *.ps1               setlocal filetype=ps1
+  " autocmd BufNewFile,BufRead *.ps1               setlocal filetype=powershell
   autocmd BufNewFile,BufRead *.spacemacs         setlocal filetype=lisp
 
 
@@ -19,6 +19,10 @@ augroup my_filetype_detection
   autocmd FileType qf                            setlocal nonumber
   autocmd FileType java,rust,html,css,styl,vue,xml
         \ setlocal tabstop=4 softtabstop=4 shiftwidth=4
+
+  " plantuml
+  autocmd BufRead,BufNewFile * if !did_filetype() && getline(1) =~# '@startuml\>'| setfiletype plantuml | endif
+  autocmd BufRead,BufNewFile *.pu,*.uml,*.plantuml,*.puml,*.iuml set filetype=plantuml
 augroup END
 
 

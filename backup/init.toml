@@ -90,14 +90,14 @@ filetypes = [
   'sh',
 ]
 
-[[layers]]
-name = 'lang#c'
-enable_clang_syntax_highlight = 1
-clang_executable = '/opt/lang-tools/cpp/clang/bin/clang'
-libclang_path    = '/opt/lang-tools/cpp/clang/lib/libclang.so'
-  [layer.clang_std]
-    c   = 'c11'
-    cpp = 'c++1z'
+#[[layers]]
+#name = 'lang#c'
+#enable_clang_syntax_highlight = 1
+#clang_executable = '/opt/lang-tools/cpp/clang/bin/clang'
+#libclang_path    = '/opt/lang-tools/cpp/clang/lib/libclang.so'
+#  [layer.clang_std]
+#    c   = 'c11'
+#    cpp = 'c++1z'
 
 # [[layers]]
 # name = 'lang#java'
@@ -125,9 +125,9 @@ name = 'lang#vim'
 [[layers]]
 name = 'incsearch'
 
-[[layers]]
-name = 'VersionControl'
-enable_gtm_status = 0
+#[[layers]]
+#name = 'VersionControl'
+#enable_gtm_status = 0
 
 [[layers]]
 name = 'denite'
@@ -140,6 +140,6 @@ name = 'shell'
 default_position = 'bottom'
 default_height = 30
 
-[[layers]]
-name = 'tmux'
+#[[layers]]
+#name = 'tmux'
 #}}}
