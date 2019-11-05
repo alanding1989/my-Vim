@@ -1,0 +1,15 @@
+
+1. 最近遇到了 java.sql.SQLException: Unable to load authentication plugin 'caching_sha2_password'.这个报错。
+   主要原因8.x版本的验证模块和之前版本不同：
+
+   5.x版本是：default_authentication_plugin=mysql_native_password
+
+   8.x版本就是：default_authentication_plugin=caching_sha2_password
+
+   网上的主要解决方案是：
+
+   1 修改mysql的配置文件为旧的模块
+
+   2 运行命令将某个用户的验证模块改为旧版的模块
+
+   但是我更建议用另外一种方案，更新mysql驱动的jar版本，可以修改为8.0.11版本

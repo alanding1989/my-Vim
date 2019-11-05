@@ -61,7 +61,6 @@ software/lang-tools/cargo/config
 .npmrc
 .nvidia-settings-rc
 .shellcheckrc
-.spacemacs
 .tmux.conf
 .vintrc.yaml
 .vuerc
@@ -72,6 +71,14 @@ software/lang-tools/cargo/config
 .zshrc
 )
 
+dstbase=/mnt/fun+downloads/my-Dotfile/linux/alan-home
+
 for file in "${files[@]}"; do
-  cp -rf $HOME/$file /mnt/fun+downloads/my-Dotfile/linux/alan-home
+  dir="$(dirname $file)"
+  if [ $dir == '.' ]; then
+    cp -rf $HOME/$file /mnt/fun+downloads/my-Dotfile/linux/alan-home
+  else
+    [ ! -e $dstbase/$dir ] && mkdir -p $dstbase/$dir
+    cp -rf $HOME/$file /mnt/fun+downloads/my-Dotfile/linux/alan-home/$dir
+  fi
 done
