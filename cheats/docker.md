@@ -1,29 +1,28 @@
 
 
 ### demo  
-docker run -dit -rm --privileged -p21:21 -p80:80 -p8080:8080 -p30000-30010:30000-30010 
-    \ --restart=always
-    \ -v /opt/snnu_docker_ui/dist/:/usr/share/nginx/snnu_ui/
-    \ --name someproject someproject/hello:latest /usr/sbin/init
+```sh
+docker run -dit -rm --privileged -p21:21 -p80:80 -p8080:8080 -p30000-30010:30000-30010 \
+  --restart=always \ 
+  -v /opt/snnu_docker_ui/dist/:/usr/share/nginx/snnu_ui/ \
+  --name how2jtmall how2jtmall/hello:latest /usr/sbin/init
+```
   
 - docker run 表示运行一个镜像
 
 - -dit 是 -d -i -t 的缩写。 
-    -d ，表示 detach，即在后台运行。 
-    -i 表示提供交互接口，这样才可以通过 docker 和 跑起来的操作系统交互。 
-    -t 表示提供一个 tty (伪终端)，与 -i 配合就可以通过 ssh 工具连接到 这个容器里面去了
+    -d 表示 detach，在后台运行。 
+    -i 表示提供交互接口，可以通过 docker 和 操作系统交互。 
+    -t 表示提供 tty 伪终端，与 -i 配合就可以通过 ssh 工具连接到 这个容器里
 
 - rm 表示如果容器已经存在，自动删除容器
 
 - --privileged 启动容器的时候，把权限带进去。 这样才可以在容器里进行完整的操作
 
-- -p21:21 
+- -p 21:21 
+  - -p 表示port
   - 第一个21，表示在CentOS 上开放21端口。 
   - 第二个21 表示在容器里开放21端口。 这样当访问CentOS 的21端口的时候，就会间接地访问到容器里了
-
-- -p8080:8080 和21 一个道理。
-  - 在本例里，访问的地址是 http://192.168.84.128:8080/hello/， 这个 192.168.84.128 是CentOS 的ip地址，
-    8080是 CentOS 的端口，但是通过-p8080:8080 这么一映射，就访问到容器里的8080端口上的 tomcat了
 
 - -p30000-30010 和21也是一个道理，这个是ftp用来传输数据的
 
@@ -36,9 +35,9 @@ docker run -dit -rm --privileged -p21:21 -p80:80 -p8080:8080 -p30000-30010:30000
 
 - --name how2jtmall 给容器取了个名字，叫做 how2jtmall，方便后续管理
 
-- somebody/hello:latest somebody/hello就是镜像的名称， latest是版本号，即最新版本
+- how2jtmall/hello:latest somebody/hello就是镜像的名称， latest是版本号，即最新版本
 
-- /usr/sbin/init: 表示启动后运行的程序，即通过这个命令做初始化
+- /usr/sbin/init: 容器启动后需要运行的程序，即通过这个命令做初始化
 
 
 ### 容器管理
@@ -77,3 +76,4 @@ docker run -dit -rm --privileged -p21:21 -p80:80 -p8080:8080 -p30000-30010:30000
 6. push , 把镜像提交到仓库
 
 7. 删除所有镜像 docker rmi $(docker images -q)
+

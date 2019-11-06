@@ -72,6 +72,7 @@ software/lang-tools/cargo/config
 )
 
 dstbase=/mnt/fun+downloads/my-Dotfile/linux/alan-home
+rm -rf $dstbase
 
 for file in "${files[@]}"; do
   dir="$(dirname $file)"

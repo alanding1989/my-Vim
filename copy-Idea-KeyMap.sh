@@ -43,3 +43,4 @@ for item in "${ideas[@]}"; do
 done
 
 cp -rf $HOME/.ideavimrc $HOME/.SpaceVim.d/
+cp -rf $HOME/.spacemacs $HOME/.SpaceVim.d/
