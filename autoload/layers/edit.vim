@@ -14,7 +14,6 @@ function! layers#edit#plugins() abort "{{{
         \ ['coderifous/textobj-word-column.vim',                              ],
         \ ['mg979/vim-visual-multi'            ,      {'on_event': 'BufEnter'}],
         \ ['haya14busa/vim-edgemotion'         ,    {'on_map': '<Plug>(edge'}],
-        \ ['t9md/vim-quickhl'                  , {'on_map': '<plug>(quickhl-'}],
         \ ]
   if get(g:, 'enable_cursorword', 0)
     call add(plugins, ['itchyny/vim-cursorword',  {'on_event': 'BufEnter'}])
@@ -49,10 +48,8 @@ endfunction " }}}
 " mappings
 function! layers#edit#config() abort
   call s:vim_edgemotion()
-  call s:tabularize()
   call s:vim_table_mode()
   call s:better_whitespace()
-  call s:vim_quickhl()
 
   if g:is_spacevim " {{{
     let g:_spacevim_mappings[';'] = ['', 'MultiVisul prefix']
@@ -125,6 +122,8 @@ function! layers#edit#config() abort
     " }}}
 
   else " {{{
+    call s:tabularize()
+
     " emmet {{{
     let g:user_emmet_install_global = 0
     let g:user_emmet_mode='a'
@@ -195,78 +194,30 @@ endfunction
 
 
 function! s:tabularize() abort "{{{
-  if g:is_spacevim
-    " align
-    call SpaceVim#mapping#space#def('nnoremap', ['x', 'a', '&'], 'Tabularize /&', 'align-region-at-&', 1, 1)
-    call SpaceVim#mapping#space#def('nnoremap', ['x', 'a', '('], 'Tabularize /(', 'align-region-at-(', 1, 1)
-    call SpaceVim#mapping#space#def('nnoremap', ['x', 'a', ')'], 'Tabularize /)/l1l0', 'align-region-at-)', 1, 1)
-    call SpaceVim#mapping#space#def('nnoremap', ['x', 'a', '['], 'Tabularize /[', 'align-region-at-[', 1, 1)
-    call SpaceVim#mapping#space#def('nnoremap', ['x', 'a', ']'], 'Tabularize /]/l1l0', 'align-region-at-]', 1, 1)
-    call SpaceVim#mapping#space#def('nnoremap', ['x', 'a', '{'], 'Tabularize /{', 'align-region-at-{', 1, 1)
-    call SpaceVim#mapping#space#def('nnoremap', ['x', 'a', '}'], 'Tabularize /}/l1l0', 'align-region-at-}', 1, 1)
-    call SpaceVim#mapping#space#def('nnoremap', ['x', 'a', '.'], 'Tabularize /.', 'align-region-at-.', 1, 1)
-    call SpaceVim#mapping#space#def('nnoremap', ['x', 'a', ':'], 'Tabularize /:', 'align-region-at-:', 1, 1)
-    call SpaceVim#mapping#space#def('nnoremap', ['x', 'a', ','], 'Tabularize /,/l0l1', 'align-region-at-,', 1, 1)
-    call SpaceVim#mapping#space#def('nnoremap', ['x', 'a', ';'], 'Tabularize /;/l0l1', 'align-region-at-;', 1, 1)
-    call SpaceVim#mapping#space#def('nnoremap', ['x', 'a', '='], 'Tabularize /===\|<=>\|\(&&\|||\|<<\|>>\|\/\/\)=\|=\~[#?]\?\|=>\|[:+/*!%^=><&|.?-]\?=[#?]\?/l1r1', 'align-region-at-=', 1, 1)
-    call SpaceVim#mapping#space#def('nnoremap', ['x', 'a', 'o'], 'Tabularize /&&\|||\|\.\.\|\*\*\|<<\|>>\|\/\/\|[-+*/.%^><&|?]/l1r1', 'align-region-at-operator, such as +,-,*,/,%,^,etc', 1, 1)
-    call SpaceVim#mapping#space#def('nnoremap', ['x', 'a', '¦'], 'Tabularize /¦', 'align-region-at-¦', 1, 1)
-    call SpaceVim#mapping#space#def('nnoremap', ['x', 'a', '<Bar>'], 'Tabularize /|', 'align-region-at-|', 1, 1)
-    call SpaceVim#mapping#space#def('nnoremap', ['x', 'a', '[SPC]'], 'Tabularize /\s\ze\S/l0', 'align-region-at-space', 1, 1)
-    call SpaceVim#mapping#space#def('nnoremap', ['x', 'a', 'r'], 'call call('
-          \ . string(s:_function('s:align_at_regular_expression')) . ', [])',
-          \ 'align-region-at-user-specified-regexp', 1)
-  else
-    " align
-    noremap <silent><space>xa&       :Tabularize /&<CR>
-    noremap <silent><space>xa(       :Tabularize /(<CR>
-    noremap <silent><space>xa)       :Tabularize /)/l1l0<CR>
-    noremap <silent><space>xa[       :Tabularize /[<CR>
-    noremap <silent><space>xa]       :Tabularize /]/l1l0<CR>
-    noremap <silent><space>xa{       :Tabularize /{<CR>
-    noremap <silent><space>xa}       :Tabularize /}/l1l0<CR>
-    noremap <silent><space>xa.       :Tabularize /.<CR>
-    noremap <silent><space>xa:       :Tabularize /:<CR>
-    noremap <silent><space>xa,       :Tabularize /,/l0l1<CR>
-    noremap <silent><space>xa;       :Tabularize /;/l0l1<CR>
-    noremap <silent><space>xa¦       :Tabularize /¦<CR>
-    noremap <silent><space>xa\       :Tabularize /\<CR>
-    noremap <silent><space>xa=       :Tabularize /=/l1r1<CR>
-    noremap <silent><space>xa<Bar>   :Tabularize /\|<CR>
-    noremap <silent><space>xa<space> :Tabularize /\s\ze\S/l0<CR>
-    noremap <silent><space>xar       :call <sid>align_at_regular_expression<CR>
-  endif
+  " align
+  noremap <silent><space>xa&       :Tabularize /&<CR>
+  noremap <silent><space>xa(       :Tabularize /(<CR>
+  noremap <silent><space>xa)       :Tabularize /)/l1l0<CR>
+  noremap <silent><space>xa[       :Tabularize /[<CR>
+  noremap <silent><space>xa]       :Tabularize /]/l1l0<CR>
+  noremap <silent><space>xa{       :Tabularize /{<CR>
+  noremap <silent><space>xa}       :Tabularize /}/l1l0<CR>
+  noremap <silent><space>xa.       :Tabularize /.<CR>
+  noremap <silent><space>xa:       :Tabularize /:<CR>
+  noremap <silent><space>xa,       :Tabularize /,/l0l1<CR>
+  noremap <silent><space>xa;       :Tabularize /;/l0l1<CR>
+  noremap <silent><space>xa¦       :Tabularize /¦<CR>
+  noremap <silent><space>xa\       :Tabularize /\<CR>
+  noremap <silent><space>xa=       :Tabularize /=/l1r1<CR>
+  noremap <silent><space>xa<Bar>   :Tabularize /\|<CR>
+  noremap <silent><space>xa<space> :Tabularize /\s\ze\S/l0<CR>
+  noremap <silent><space>xar       :call <sid>align_at_regular_expression<CR>
 endfunction
 
 
 function! s:vim_edgemotion() abort
   nmap <c-j> <Plug>(edgemotion-j)zz
   nmap <c-k> <Plug>(edgemotion-k)zz
-endfunction " }}}
-
-function! s:vim_quickhl() abort "{{{
-  if g:is_spacevim
-    let g:_spacevim_mappings_space.x.h = {'name': '+@ quick highlight'}
-    let g:_spacevim_mappings_space_custom += [
-          \ ['nmap' , ['x' , 'h' , 'h'] , '<plug>(quickhl-manual-this)'   , 'toggle highlight cursor word ' , 0],
-          \ ['xmap' , ['x' , 'h' , 'h'] , '<plug>(quickhl-manual-this)'   , 'toggle hightight cursor word ' , 0],
-          \ ['nmap' , ['x' , 'h' , 'r'] , '<plug>(quickhl-manual-reset)'  , 'clear all highlight'           , 0],
-          \ ['xmap' , ['x' , 'h' , 'r'] , '<plug>(quickhl-manual-reset)'  , 'clear all highlight'           , 0],
-          \ ['nmap' , ['x' , 'h' , 'c'] , '<plug>(quickhl-manual-clear)'  , 'clear hightight of cursor word', 0],
-          \ ['xmap' , ['x' , 'h' , 'c'] , '<plug>(quickhl-manual-clear)'  , 'clear hightight of cursor word', 0],
-          \ ['nmap' , ['x' , 'h' , 't'] , '<plug>(quickhl-manual-toggle)' , 'toggle quichk highlight'       , 0],
-          \ ['xmap' , ['x' , 'h' , 't'] , '<plug>(quickhl-manual-toggle)' , 'toggle quichk highlight'       , 0],
-          \ ]
-  else
-    nmap <space>xhh <Plug>(quickhl-manual-this)
-    xmap <space>xhh <Plug>(quickhl-manual-this)
-    nmap <space>xhr <Plug>(quickhl-manual-reset)
-    xmap <space>xhr <Plug>(quickhl-manual-reset)
-    nmap <space>xhc <Plug>(quickhl-manual-clear)
-    xmap <space>xhc <Plug>(quickhl-manual-clear)
-    nmap <space>xht <Plug>(quickhl-manual-toggle)
-    xmap <space>xht <Plug>(quickhl-manual-toggle)
-  endif
 endfunction " }}}
 
 function! s:vim_table_mode() abort "{{{

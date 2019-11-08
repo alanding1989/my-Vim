@@ -137,4 +137,3 @@ function! s:go_to_def() abort
   endif
 endfunction
 
-

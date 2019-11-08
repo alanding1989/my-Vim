@@ -113,6 +113,7 @@ nnoremap so               :action OpenFile<CR>
 nnoremap sv               :vs<CR>
 nnoremap ss               :sp<CR>
 nnoremap su               :nohl<CR>
+nnoremap s-               :action ChangeSplitOrientation<CR>
 
 
 " tabn tabp
@@ -281,22 +282,16 @@ nnoremap go               :action OptimizeImports<CR>
 
 " run
 nnoremap <tab><tab>       :action RunAnything<CR>
-nnoremap <Space>rr        :action Run<CR>
-nnoremap <Space>lr        :action Run<CR>
 nnoremap <Space>re        :action ChooseRunConfiguration<CR>
-nnoremap <Space>ra        :action Rerun<CR>
+nnoremap <Space>rr        :action Rerun<CR>
 nnoremap <Space>rt        :action RerunTests<CR>
 nnoremap <Space>dk        :action Resume<CR>
 nnoremap <Space>rq        :action Stop<CR>
-nnoremap <Space>rc        :action RunClass<CR>
 
-nnoremap <Space>rb        :action Build<CR>
-nnoremap <Space>lb        :action Build<CR>
-nnoremap <Space>rc        :action Clean<CR>
-nnoremap <Space>lc        :action Clean<CR>
-nnoremap <Space>rbb       :action RebuildProject<CR>
-nnoremap <Space>lbb       :action RebuildProject<CR>
+" maven
+nnoremap <Space>rm        :action MavenHelper.QuickRunMavenGoal<CR>
 
+" c++
 nnoremap <Space>xj        :action XMake.QuickStart<CR>
 nnoremap <Space>xx        :action XMake.Run<CR>
 nnoremap <Space>xb        :action XMake.Build<CR>
@@ -326,28 +321,36 @@ nnoremap ]e               :action GotoNextError<CR>
 nnoremap [e               :action GotoPreviousError<CR>
 
 
-" git
-nnoremap <Space>gi        :action Git.Init<CR>
-nnoremap <Space>gl        :action Git.Pull<CR>
-nnoremap <Space>gm        :action Git.Merge<CR>
-nnoremap <Space>gr        :action Git.Rebase<CR>
-nnoremap <Space>gl        :action Git.log<CR>
-nnoremap <Space>gj        :action Git.Branches<CR>
-nnoremap <Space>gt        :action Git.CreateNewTag<CR>
-nnoremap <Space>gd        :action Git.CompareWithBranch<CR>
-
-nnoremap <Space>gio       :action Github.Open.In.Browser<CR>
-nnoremap <Space>gip       :action Github.PullRequest.ToolWindow.List.Popup<CR>
-
-" nnoremap gp               :action GitToolBox.BlameDetails<CR>
-nnoremap gp               :action GitToolBox.ShowInlineBlame<CR> 
-
 " vcs
+nnoremap <Space>gi        :action Start.Use.Vcs<CR>
 nnoremap <Space>gg        :action Vcs.QuickListPopupAction<CR>
-" nnoremap <Space>gk        :action VcsShowPrevChangeMarker<CR>
-" nnoremap <Space>gj        :action VcsShowNextChangeMarker<CR>
+
+" ShowInlineBlame 只是开关
+nnoremap <Space>gb        :action GitToolBox.ShowInlineBlame<CR> 
+nnoremap gh               :action GitToolBox.BlameDetails<CR>
+
+" hunk actions
+nnoremap gp               :action VcsShowCurrentChangeMarker<CR>
 nnoremap [g               :action VcsShowPrevChangeMarker<CR>
 nnoremap ]g               :action VcsShowNextChangeMarker<CR>
+nnoremap <Space>ghu       :action Vcs.RollbackChangedLines<CR>
+
+" git
+" nnoremap <Space>ga        :action Git.Add<CR>
+nnoremap <Space>gd        :action Compare.SameVersion<CR>
+nnoremap <Space>gs        :action Git.Squash.Into.Commit<CR>
+
+nnoremap <Space>gj        :action Git.Branches<CR>
+nnoremap <Space>gp        :action Vcs.Push<CR>
+nnoremap <Space>gl        :action Git.Pull<CR>
+nnoremap <Space>gf        :action Git.Fetch<CR>
+nnoremap <Space>gm        :action Git.Merge<CR>
+nnoremap <Space>gr        :action Git.Rebase<CR>
+nnoremap <Space>gv        :action Git.Log<CR>
+nnoremap <Space>gt        :action Git.CreateNewTag<CR>
+
+nnoremap <Space>gif       :action Github.Open.In.Browser<CR>
+nnoremap <Space>gip       :action Github.PullRequest.ToolWindow.List.Popup<CR>
 " }}}
 
 

@@ -1,10 +1,53 @@
 主分支－热修复分支
 发布分支－开发分支－特性分支
 
-###Delete remote branch
+###Delete local branch
+```
+git branch -d <local_branchname>
+```
+
+### 删除远端仓库分支
 ```
 git push origin --delete <remote_branchname>
 ```
+
+###Change previous two commits with an interactive rebase.
+```
+git rebase --interactive HEAD~2
+```
+
+###Update all the submodules
+忽略错误继续执行下面的命令
+```
+git submodule foreach 'git pull upstream master || git pull upstream sbt ||:'
+```
+
+###修改跟踪哪个远程分支
+```
+git branch -u origin/mybranch
+```
+
+###What changed since two weeks?
+```
+git log --no-merges --raw --since='2 weeks ago'
+```
+
+###Add everything, but whitespace changes
+```
+git diff --ignore-all-space | git apply --cached
+```
+
+###List all branches that are already merged into master
+```
+git branch --merged master
+```
+
+###Rename a branch
+```
+git branch -m <new-branch-name>
+```
+
+--------
 
 
 ###Everyday Git in twenty commands or so
@@ -77,11 +120,6 @@ git diff --cached
 git diff HEAD
 ```
 
-###List all branches that are already merged into master
-```
-git branch --merged master
-```
-
 ###Quickly switch to the previous branch
 ```
 git checkout -
@@ -95,16 +133,6 @@ git branch --merged master | grep -v '^\*' | xargs -n 1 git branch -d
 ###List all branches and their upstreams, as well as last commit on branch
 ```
 git branch -vv
-```
-
-###Track upstream branch
-```
-git branch -u origin/mybranch
-```
-
-###Delete local branch
-```
-git branch -d <local_branchname>
 ```
 
 ###Delete local tag
@@ -180,11 +208,6 @@ git add -p
 ###Get git bash completion
 ```
 curl -L http://git.io/vfhol > ~/.git-completion.bash && echo '[ -f ~/.git-completion.bash ] && . ~/.git-completion.bash' >> ~/.bashrc
-```
-
-###What changed since two weeks?
-```
-git log --no-merges --raw --since='2 weeks ago'
 ```
 
 ###See all commits made since forking from master
@@ -303,19 +326,10 @@ git clean -f
 git clean -f -d
 ```
 
-###Update all the submodules
-```
-git submodule foreach git pull
-```
 
 ###Show all commits in the current branch yet to be merged to master
 ```
 git cherry -v master
-```
-
-###Rename a branch
-```
-git branch -m <new-branch-name>
 ```
 
 ###Rebases 'feature' to 'master' and merges it in to master 
@@ -563,10 +577,6 @@ git show <branch_name>:<file_name>
 git log --first-parent
 ```
 
-###Change previous two commits with an interactive rebase.
-```
-git rebase --interactive HEAD~2
-```
 
 ###List all branch is WIP
 ```
@@ -728,11 +738,6 @@ git merge-base <branch-name> <other-branch-name>
 ###List unpushed git commits
 ```
 git log --branches --not --remotes
-```
-
-###Add everything, but whitespace changes
-```
-git diff --ignore-all-space | git apply --cached
 ```
 
 ###Edit [local/global] git config
