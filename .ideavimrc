@@ -52,8 +52,8 @@ noremap <C-e>             $
 " normal mode
 nnoremap <C-h>            <Left>
 nnoremap <C-l>            <Right>
-nnoremap <C-j>            <Down>
-nnoremap <C-k>            <Up>
+nnoremap <C-j>            :action JumpToLastWindow<CR>
+nnoremap <C-k>            :action JumpToLastWindow<CR>
 
 " insert mode
 inoremap <C-b>            <Left>
@@ -220,7 +220,7 @@ nnoremap gu               :action GotoSuperMethod<CR>
 nnoremap gt               :action GotoTypeDeclaration<CR>
 nnoremap gT               :action GotoTest<CR>
 nnoremap gs               :action GotoRelated<CR>
-nnoremap gr               :action ShowUsages<CR>
+nnoremap gr               :action FindUsages<CR>
 nnoremap gb               :action ByteCodeViewer<CR>
 nnoremap gl               :action ShowUmlDiagram<CR>
 nnoremap gL               :action ShowUmlDiagramPopup<CR>

@@ -22,6 +22,8 @@ src=$HOME/$(ls -a $HOME | grep IntelliJIdea)
 keyMap=config/keymaps/Alanding-perfect.xml
 codeStyle="config/codestyles/AlanDing prefer-Code Style.xml"
 colors="config/colors"
+vmoptions="config/idea64.vmoptions"
+properties="config/idea.properties"
 
 stringManipulation="config/options/stringManipulation.xml"
 stringManipulationPopupMenu="config/options/customization.xml"
@@ -33,6 +35,8 @@ for item in "${ideas[@]}"; do
     cp -f  "$src/$keyMap"                        "$dist_name/$keyMap"
     cp -f  "$src/$codeStyle"                     "$dist_name/$codeStyle"
     cp -rf "$src/$colors"                        "$dist_name/config"
+    cp -rf "$src/$vmoptions"                     "$dist_name/config"
+    cp -rf "$src/$properties"                    "$dist_name/config"
 
     cp -f  "$src/$stringManipulation"            "$dist_name/$stringManipulation"
     cp -f  "$src/$stringManipulationPopupMenu"   "$dist_name/$stringManipulationPopupMenu"
@@ -42,5 +46,10 @@ for item in "${ideas[@]}"; do
   fi
 done
 
-cp -rf $HOME/.ideavimrc $HOME/.SpaceVim.d/
-cp -rf $HOME/.spacemacs $HOME/.SpaceVim.d/
+
+cp -rf "$src/$vmoptions"      "$HOME/.SpaceVim.d/etc/conf/idea"
+cp -rf "$src/$properties"     "$HOME/.SpaceVim.d/etc/conf/idea"
+
+cp -rf "$HOME/.ideavimrc"     "$HOME/.SpaceVim.d/"
+cp -rf "$HOME/.spacemacs"     "$HOME/.SpaceVim.d/"
+
