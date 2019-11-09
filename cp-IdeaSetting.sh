@@ -16,7 +16,8 @@ ideas=("CLion"
       "WebStorm"
       )
 
-src=$HOME/$(ls -a $HOME | grep IntelliJIdea)
+src="$HOME/$(ls -a $HOME | grep IntelliJIdea)"
+SPC_path="$HOME/.SpaceVim.d"
 
 # Specific Setting
 keyMap=config/keymaps/Alanding-perfect.xml
@@ -51,9 +52,8 @@ for item in "${ideas[@]}"; do
 done
 
 
-cp -rf "$src/$vmoptions"      "$HOME/.SpaceVim.d/etc/conf/idea"
-cp -rf "$src/$properties"     "$HOME/.SpaceVim.d/etc/conf/idea"
+cp -rf "$src/$vmoptions"      "$SPC_path/etc/conf/idea"
+cp -rf "$src/$properties"     "$SPC_path/etc/conf/idea"
 
-cp -rf "$HOME/.ideavimrc"     "$HOME/.SpaceVim.d/"
-cp -rf "$HOME/.spacemacs"     "$HOME/.SpaceVim.d/"
-
+cp -rf "$HOME/.ideavimrc"     "$SPC_path"
+cp -rf "$HOME/.spacemacs"     "$SPC_path"
