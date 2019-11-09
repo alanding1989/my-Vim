@@ -65,8 +65,8 @@ let g:Lf_RgConfig   = [
       \ ]
       " \ '--type-add web:*.{html,css,js,ts}*',
 let g:Lf_WildIgnore = {
-      \ 'dir' : ['.svn','.git','.hg','.vscode','.idea'],
-      \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
+      \ 'dir' : ['.svn', '.git', '.hg', '.vscode', '.idea', 'build', 'target'],
+      \ 'file': ['*.sw?', '~$*', '*.bak', '*.exe', '*.o', '*.so', '*.py[co]']
       \}
 let g:Lf_MruFileExclude = [
       \ '*.so', '*.exe', '*.py[co]', '*.sw?',

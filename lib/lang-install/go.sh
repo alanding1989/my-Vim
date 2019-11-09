@@ -52,7 +52,7 @@ function deps_download_or_update() {
     cd "$xpath" || exit 1
   else
     cd "$xpath" || exit 1
-    for file in $(ls); do
+    for file in $(ls -a); do
       echo "$file"
       if [ -d "$file" ]; then
         cd "$file" || exit 1

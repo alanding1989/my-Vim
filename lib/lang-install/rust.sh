@@ -19,5 +19,6 @@ rustup component add rust-analysis --toolchain stable
 cargo install racer
 
 ([ -x cargo ] && [ -x rg ]) || cargo install ripgrep
+([ -x cargo ] && [ -x fd ]) || cargo install fd-find
 
 # rustup run stable rustc --version

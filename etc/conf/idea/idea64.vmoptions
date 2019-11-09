@@ -1,10 +1,9 @@
--Xms1024m
+-Xms1536m
 -Xmx1536m
 -XX:MetaspaceSize=256m
--XX:MaxMetaspaceSize=512m
+-XX:MaxMetaspaceSize=256m
 -XX:ReservedCodeCacheSize=480m
--XX:+UseParallelGC
--server
+-XX:+UseG1GC
 
 -XX:SoftRefLRUPolicyMSPerMB=50
 -ea
