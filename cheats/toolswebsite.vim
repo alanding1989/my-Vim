@@ -13,7 +13,7 @@ let s:url = {
       \ 'java' : 'https://docs.oracle.com/javase/8/docs/api/index.html?overview-summary.html',
       \ 'scala': 'https://www.scala-lang.org/api/current/index.html?search=',
       \ 'npm'  : 'https://www.npmjs.com/search?q=',
-      \ 'sh'   : 'https://www.explainshell.com/',
+      \ 'sh'   : 'https://www.explainshell.com/explain?cmd=',
       \ 'arec' : 'https://asciinema.org/~alanding',
       \ 'spc'  : 'https://spacevim.org/cn/layers',
       \ 'myspc': 'https://github.com/alanding1989/SpaceVim',

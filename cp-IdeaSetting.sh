@@ -35,8 +35,12 @@ for item in "${ideas[@]}"; do
     cp -f  "$src/$keyMap"                        "$dist_name/$keyMap"
     cp -f  "$src/$codeStyle"                     "$dist_name/$codeStyle"
     cp -rf "$src/$colors"                        "$dist_name/config"
-    cp -rf "$src/$vmoptions"                     "$dist_name/config"
-    cp -rf "$src/$properties"                    "$dist_name/config"
+
+    # 将变量全转小写
+    typeset -l idea=$item
+    cp -rf "$src/$vmoptions"                     "$dist_name/config/${idea}64.vmoptions"
+    cp -rf "$src/$properties"                    "$dist_name/config/"
+
 
     cp -f  "$src/$stringManipulation"            "$dist_name/$stringManipulation"
     cp -f  "$src/$stringManipulationPopupMenu"   "$dist_name/$stringManipulationPopupMenu"
