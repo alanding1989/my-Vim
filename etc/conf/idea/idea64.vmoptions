@@ -1,7 +1,7 @@
 -Xms1536m
 -Xmx1536m
 -XX:MetaspaceSize=256m
--XX:MaxMetaspaceSize=256m
+-XX:MaxMetaspaceSize=512m
 -XX:ReservedCodeCacheSize=480m
 -XX:+UseG1GC
 

@@ -31,6 +31,10 @@ software/lang-tools/cargo/config
 .config/xm1
 .config/albert.conf
 .config/mimeapps.list
+.config/kuriikwsfilterrc
+.config/mybatisCodeHelperPro.data
+.config/okularpartrc
+.config/okularrc
 .config/user-dirs.dirs
 .config/user-dirs.locale
 .docker/

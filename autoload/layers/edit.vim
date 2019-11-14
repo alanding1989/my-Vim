@@ -129,11 +129,11 @@ function! layers#edit#config() abort
     let g:user_emmet_mode='a'
     let g:user_emmet_settings = {
           \ 'javascript': {
-          \ 'extends': 'jsx',
-          \ },
+          \   'extends': 'jsx',
+          \   },
           \ 'jsp' : {
-          \ 'extends': 'html',
-          \ },
+          \   'extends': 'html',
+          \   },
           \ }
 
     let g:wildfire_objects = ["i'", 'i"', 'i)', 'i]', 'i}', 'ip', 'it']

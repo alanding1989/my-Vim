@@ -43,7 +43,11 @@
     "sbt"        : ["scala"],
     "typescript" : ["javascript"]
   },
-  "emmet.showSuggestionsAsSnippets"                             : true,
+
+  "emmet.showSuggestionsAsSnippets"   : true,
+  "emmet.showAbbreviationSuggestions" : true,
+  "emmet.showExpandedAbbreviation"    : "always",
+  
 
 
   // languageserver config
@@ -100,7 +104,9 @@
   "java.codeGeneration.hashCodeEquals.useJava7Objects"          : true,
   "java.format.enabled"                                         : true,
   "java.format.settings.url"                                    : "/home/alanding/.config/coc/extensions/node_modules/redhat.java/eclipse-formatter.xml",
-  "java.format.onType.enabled": false,
+  "java.format.onType.enabled"                                  : false,
+  "java.format.comments.enabled"                                : false,
+  "java.codeGeneration.hashCodeEquals.useInstanceof"            : true,
   "java.signatureHelp.enabled"                                  : true,
   "java.referencesCodeLens.enabled"                             : true,
   "java.implementationsCodeLens.enabled"                        : true,

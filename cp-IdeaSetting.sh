@@ -12,9 +12,9 @@ declare -a ideas
 ideas=("CLion"
       "GoLand"
       "PyCharm"
-      "Rider"
-      "WebStorm"
+      "IdeaIC"
       )
+      # "WebStorm"
 
 src="$HOME/$(ls -a $HOME | grep IntelliJIdea)"
 SPC_path="$HOME/.SpaceVim.d"
@@ -39,7 +39,11 @@ for item in "${ideas[@]}"; do
 
     # 将变量全转小写
     typeset -l idea=$item
-    cp -rf "$src/$vmoptions"                     "$dist_name/config/${idea}64.vmoptions"
+    if [ $idea == 'ideaic' ]; then
+      cp -rf "$src/$vmoptions"                   "$dist_name/config/idea64.vmoptions"
+    else
+      cp -rf "$src/$vmoptions"                   "$dist_name/config/${idea}64.vmoptions"
+    fi 
     cp -rf "$src/$properties"                    "$dist_name/config/"
 
 
