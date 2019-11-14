@@ -16,12 +16,12 @@ let s:loaded = 1
 "--------------------------------------------------------------------------------
 let g:gutentags_project_root = deepcopy(g:project_root_marker)
 let g:gutentags_add_default_project_roots = 0
-let g:gutentags_exclude_project_root = ['/home/alanding']
+let g:gutentags_exclude_project_root = [g:linux_home]
 
 " 所生成的数据文件的名称
 let g:gutentags_ctags_tagfile = '.tags'
 let g:gutentags_cache_dir     = expand(g:is_win ? 'D:\.cache\tags' 
-      \ : '/home/alanding/.cache/tags'.(g:is_root ? '-root' : '-alan'))
+      \ : g:linux_home. '.cache/tags'.(g:is_root ? '-root' : '-alan'))
 
 " 同时开启 ctags 和 gtags 支持：
 let g:gutentags_modules = []

@@ -21,8 +21,8 @@ if get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine', 'neosnippet')) =
         \ expand('D:/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/snippets'),
         \ expand('D:/.cache/vimfiles/repos/github.com/alanding1989/my-neosnippet-snippets/neosnippets'),
         \ ] : [
-        \ expand('/home/alanding/.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/snippets'),
-        \ expand('/home/alanding/.cache/vimfiles-alan/repos/github.com/alanding1989/my-neosnippet-snippets/neosnippets'),
+        \ expand(g:linux_home. '.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/snippets'),
+        \ expand(g:linux_home. '.cache/vimfiles-alan/repos/github.com/alanding1989/my-neosnippet-snippets/neosnippets'),
         \ ]
   let g:neosnippet#scope_aliases            = {
         \ 'ipynb' : 'python',
@@ -42,11 +42,11 @@ elseif get(g:, 'spacevim_snippet_engine', get(g:, 'snippet_engine')) ==# 'ultisn
   " then the 2nd dir, if none create new '&ft.snippets'
   let g:UltiSnipsSnippetsDir                     = g:is_win ?
         \ expand('D:/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/UltiSnips') :
-        \ expand('/home/alanding/.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/UltiSnips')
+        \ expand(g:linux_home. '.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/UltiSnips')
   let g:UltiSnipsSnippetDirectories              = g:is_win ? [
         \ expand('D:/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/UltiSnips')
         \ ] : [
-        \ expand('/home/alanding/.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/UltiSnips')
+        \ expand(g:linux_home. '.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/UltiSnips')
         \ ]
   let g:UltiSnipsUsePythonVersion                = 3
   let g:complete_parameter_use_ultisnips_mapping = 1

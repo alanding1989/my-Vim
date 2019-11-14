@@ -60,6 +60,7 @@ let g:spacevim_sidebar_width                 = g:sidebar_width
 let g:spacevim_filetree_direction            = g:filetree_direction
 let g:spacevim_enable_vimfiler_welcome       = 0
 let g:spacevim_home_files_number             = 4
+let g:spacevim_default_indent                = 4
 
 let g:spacevim_error_symbol                  = g:linter_error_symbol
 let g:spacevim_warning_symbol                = g:linter_warning_symbol
@@ -118,7 +119,7 @@ function! MySpaceVim_layers_variable(layer) abort
         \     'scala_formatter_scalariform_config_path': g:home.'etc/conf/scalariform.properties'
         \ },
         \ 'lang#rust' : {
-        \     'racer_cmd': '/home/alanding/software/lang-tools/cargo/bin/racer'
+        \     'racer_cmd': g:linux_home. 'software/lang-tools/cargo/bin/racer'
         \ },
         \ 'lang#lua' : {
         \     'repl_command': '/opt/lang-tools/lua/luarocks/bin/rep.lua'

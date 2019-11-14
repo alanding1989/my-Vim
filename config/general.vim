@@ -23,15 +23,16 @@ let g:has_timer                    = has('timers')
 let g:has_display                  = empty($DISPLAY)
 let g:has_terminal                 = g:is_nvim || (has('patch-8.0.1108') && has('terminal'))
 let g:is_root                      = $USER ==# 'root' || $USERNAME ==# 'Administrator'
+let g:linux_home                    = '/home/alanding/'
 
 " lang provider {{{
 " neovim
 if g:is_unix || g:is_mac
   " linux
-  let g:ruby_host_prog             = '/home/alanding/.rbenv/shims/neovim-ruby-host'
+  let g:ruby_host_prog             = g:linux_home. '.rbenv/shims/neovim-ruby-host'
   let g:node_host_prog             = '/opt/lang-tools/nvm/versions/node/v10.16.0/bin/neovim-node-host'
-  let g:python_host_prog           = '/home/alanding/software/anaconda3/envs/py27/bin/python2.7'
-  let g:python3_host_prog          = '/home/alanding/software/anaconda3/envs/py37/bin/python3.7'
+  let g:python_host_prog           = g:linux_home. 'software/anaconda3/envs/py27/bin/python2.7'
+  let g:python3_host_prog          = g:linux_home. 'software/anaconda3/envs/py37/bin/python3.7'
 else
   " windows
   let g:ruby_host_prog             = exepath('neovim-ruby-host')
@@ -74,11 +75,11 @@ let g:cheats_dir                   = g:home.'cheats/'
 let g:github_username              = 'alanding1989'
 let g:vim_plugindir                = expand(g:home.'config/Vim/plugins/')
 let g:project_root_marker          = ['.root', '.project', '.idea', '.vscode', '.editorconfig', '.git', '.svn']
-let g:plugmanager                  = g:is_vim8 ? 'dein' : 'dein'
+let g:plugmanager                  = 'dein'
 " if use init.toml, it will not source <g:home.'config/SpaceVim/config.vim'>
 " must be /home/alanding, not root
 let g:spacevim_plugin_bundle_dir   = g:is_win ? 'D:\.cache\vimfiles\'
-      \ : '/home/alanding/.cache/vimfiles'. (g:is_root ? '-root/' : '-alan/')
-let g:MyVim_plug_dir              = g:is_win ? 'D:\.cache\MyVim\'. g:plugmanager .'\'
-      \ : '/home/alanding/.cache/MyVim'. (g:is_root ? '-root/' : '-alan/'). g:plugmanager .'/'
+      \ : g:linux_home. '.cache/vimfiles'. (g:is_root ? '-root/' : '-alan/')
+let g:MyVim_plug_dir               = g:is_win ? 'D:\.cache\MyVim\'. g:plugmanager .'\'
+      \ : g:linux_home. '.cache/MyVim'. (g:is_root ? '-root/' : '-alan/'). g:plugmanager .'/'
 "}}}

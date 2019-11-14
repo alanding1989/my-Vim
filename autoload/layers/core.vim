@@ -169,7 +169,7 @@ let g:_dirMap = {
       \ 'vimrc'  : g:home[:-2],
       \ 'conf'   : g:home.'etc/conf',
       \ 'dotfile': g:is_win ? 'E:\my-Dotfile' : '/mnt/fun+downloads/my-Dotfile',
-      \ 'dev'    : g:is_win?  'D:\devtools' : '/home/alanding/0_Dev/Projects'
+      \ 'dev'    : g:is_win?  'D:\devtools' : g:linux_home. '0_Dev/Projects'
       \ }
 if get(g:, 'spacevim_filemanager', get(g:, 'filemanager', 'vimfiler')) ==# 'vimfiler'
 

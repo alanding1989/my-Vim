@@ -12,7 +12,7 @@ set number relativenumber
 set autoindent smartindent cindent
 
 set smarttab expandtab
-set shiftwidth=2 tabstop=2 softtabstop=2 textwidth=78
+set shiftwidth=4 tabstop=4 softtabstop=4 textwidth=78
 
 set linebreak 
 
@@ -112,11 +112,11 @@ if !g:is_spacevim
   " set nowritebackup
   " must be /home/alanding, not root
   let s:undofile  = g:is_win ? 'D:/.cache/Vim/undofile' :
-        \ '/home/alanding/.cache/MyVim'.(g:is_root ? '-root' : '-alan').'/undofile'
+        \ g:linux_home. '.cache/MyVim'.(g:is_root ? '-root' : '-alan').'/undofile'
   let s:backupdir = g:is_win ? 'D:/.cache/Vim/backup' :
-        \ '/home/alanding/.cache/MyVim'.(g:is_root ? '-root' : '-alan').'/backup'
+        \ g:linux_home. '.cache/MyVim'.(g:is_root ? '-root' : '-alan').'/backup'
   let s:swapdir   = g:is_win ? 'D:/.cache/Vim/swap' :
-        \ '/home/alanding/.cache/MyVim'.(g:is_root ? '-root' : '-alan').'/swap'
+        \ g:linux_home. '.cache/MyVim'.(g:is_root ? '-root' : '-alan').'/swap'
   if glob(s:undofile) ==# ''
     call mkdir(expand(s:undofile), 'p', 0700)
   endif
