@@ -16,7 +16,7 @@ let s:loaded = 1
 "--------------------------------------------------------------------------------
 let g:gutentags_project_root = deepcopy(g:project_root_marker)
 let g:gutentags_add_default_project_roots = 0
-let g:gutentags_exclude_project_root = [g:linux_home]
+" let g:gutentags_exclude_project_root = [g:linux_home]
 
 " 所生成的数据文件的名称
 let g:gutentags_ctags_tagfile = '.tags'

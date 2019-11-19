@@ -28,6 +28,7 @@ cscope.out
 cscope.in.out
 cscope.po.out
 build/
+targe/
 .coverage.covimerage
 *.swp
 .gtm/
@@ -39,3 +40,4 @@ jdt.ls-java-project/
 .ensime
 .ensime_cache/
 .mypy_cache/
+todolist.txt

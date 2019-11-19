@@ -45,6 +45,9 @@ software/lang-tools/cargo/config
 .local/share/applications
 .jupyter/
 .m2/settings.xml
+.oh-my-zsh/custom/plugins/ninja-completion
+.oh-my-zsh/custom/plugins/rust-completion
+.oh-my-zsh/themes/lambda-mod.zsh-theme
 .pip/
 .rustup/
 .sbt/1.0/plugins/ensime.sbt
