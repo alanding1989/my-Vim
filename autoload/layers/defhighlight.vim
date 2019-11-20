@@ -34,10 +34,11 @@ function! layers#defhighlight#config() abort
   endif
 endfunction
 
-let s:ftblacklist = [ 
-      \ "vim", "qf", "help", "denite", "unite",
-      \ "defx", "vimfiler", "vista_kind", "startify", 
+let s:ftblacklist = [
+      \ "qf", "help", "denite", "unite",
+      \ "defx", "vimfiler", "vista_kind", "startify",
       \ "SpaceVimPlugManager",
+      \ "vim", "xml"
       \ ]
 function! s:checkft() abort
   if empty(&ft)
@@ -75,7 +76,7 @@ let s:attrs = [
       \ 'ctermfg',
       \ 'ctermbg',
       \ 'italic' ,
-      \ 'bold'   , 
+      \ 'bold'   ,
       \ ]
 function! s:hl_one(group, attr_val) abort
   " a:group       highlight group
@@ -86,7 +87,7 @@ function! s:hl_one(group, attr_val) abort
     call add(strlist, cmd)
   endfor
   let cmdi = a:attr_val[4] ? 'gui=italic cterm=italic' : ''
-  call add(strlist, cmdi) 
+  call add(strlist, cmdi)
   let cmdb = a:attr_val[5] ? 'gui=bold cterm=bold'     : ''
   call add(strlist, cmdb)
 

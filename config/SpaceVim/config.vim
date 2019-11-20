@@ -19,7 +19,7 @@ let g:spacevim_colorscheme = split([
       \ '8 NeoSolarized',
       \ '9 default'     ,
       \ '10 equinusocio_material',
-      \ ][1])[1]
+      \ ][4])[1]
 let g:spacevim_colorscheme_default = 'nord'
 let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 let g:spacevim_enable_guicolors    = 1
@@ -41,6 +41,7 @@ let g:spacevim_autocomplete_parens  = 0
 let g:enable_deotabline             = 0
 let g:enable_googlesuggest          = 0
 let s:enable_myhl                   = 1
+
 " Choose minimal setting
 let g:pure_viml = 0
 
@@ -303,6 +304,7 @@ let g:spacevim_disabled_plugins = [
       \ 'vim-scriptease'       ,
       \ 'vim-textobj-line'     ,
       \ 'vim-textobj-entire'   ,
+      \ 'vim-fish'             ,
       \ ]
 
 if g:spacevim_autocomplete_method !=# 'deoplete'

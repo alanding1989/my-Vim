@@ -180,22 +180,26 @@ if get(g:, 'statusline', 'airline') ==# 'airline'
   " let g:airline#extensions#coc#stl_format_err  = '%E{[%e(#%fe)]}'
   " let g:airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
   if get(g:, 'spacevim_autocomplete_method', get(g:, 'autocomplete_method')) ==# 'coc'
+
     if get(g:, 'spacevim_enable_ale', 0) == 1 || get(g:, 'checker', '') ==# 'ale'
       let g:airline_section_error   =
             \ '%{airline#util#wrap(airline#extensions#ale#get_error(), 0)
             \ .  airline#util#wrap(airline#extensions#coc#get_error(), 0)}'
+
       let g:airline_section_warning =
             \ '%{airline#util#wrap(airline#extensions#ale#get_warning(),  0)
             \ .  airline#util#wrap(airline#extensions#coc#get_warning(),  0)}'
-      \.'%{airline#util#wrap(airline#extensions#whitespace#check(), 0)}'
+            \.'%{airline#util#wrap(airline#extensions#whitespace#check(), 0)}'
+
     elseif get(g:, 'spacevim_enable_ale') == 0 || get(g:, 'checker', '') ==# 'neomake'
       let g:airline_section_error   =
             \ '%{airline#util#wrap(airline#extensions#neomake#get_errors(), 0)
             \ .  airline#util#wrap(airline#extensions#coc#get_error(), 0)}'
+
       let g:airline_section_warning =
             \ '%{airline#util#wrap(airline#extensions#neomake#get_warnings(),  0)
             \ .  airline#util#wrap(airline#extensions#coc#get_warning(),  0)}'
-      \.'%{airline#util#wrap(airline#extensions#whitespace#check(), 0)}'
+            \.'%{airline#util#wrap(airline#extensions#whitespace#check(), 0)}'
     endif
   endif
 

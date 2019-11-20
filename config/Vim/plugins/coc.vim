@@ -96,7 +96,7 @@ augroup my_coc_settings
 
   auto VimEnter                 * call <sid>g_mappings()
   " auto VimEnter               * call <sid>g_mappings() | call coc#add_extension(g:coc_global_extensions)
-  "
+
   if (g:is_spacevim && !SpaceVim#layers#isLoaded('core#statusline')) || get(g:, 'statusline', '') =~# 'airline'
     auto User     CocDiagnosticChange  AirlineRefresh
   endif
@@ -173,6 +173,14 @@ if g:is_spacevim
   call SpaceVim#mapping#def('nnoremap', '<leader>cs', ':CocConfig<CR>'       , 'Coc Settings', '', 'Coc Settings')
   call SpaceVim#mapping#def('nnoremap', '<leader>ci', ':CocInfo<CR>'         , 'Coc Info'    , '', 'Coc Info'    )
   call SpaceVim#mapping#def('nnoremap', '<leader>cr', ':CocRestart<CR>'      , 'Coc Restart' , '', 'Coc Restart' )
+
+  " coc-post
+  let g:_spacevim_mappings.w     = {'name': '+@ Web ...'}
+  call SpaceVim#mapping#def('nnoremap', '<leader>wn', ':CocCommand post.new<CR>',
+        \ 'create a post file' , '', 'create a post file' )
+  call SpaceVim#mapping#def('nnoremap', '<leader>wp', ':CocCommand post.do<CR>',
+        \ 'do request for current file' , '', 'do request for current file' )
+
 else
   nnoremap <leader>cpi :call feedkeys(':CocInstall ')<CR>
   nnoremap <leader>cpu :call feedkeys(':CocUninstall ')<CR>

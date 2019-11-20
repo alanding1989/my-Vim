@@ -83,10 +83,15 @@ rm -rf $dstbase
 
 for file in "${files[@]}"; do
   dir="$(dirname $file)"
+
   if [ $dir == '.' ]; then
-    cp -rf $HOME/$file /mnt/fun+downloads/my-Dotfile/linux/alan-home
+    cp -rf $HOME/$file      $dstbase 
   else
     [ ! -e $dstbase/$dir ] && mkdir -p $dstbase/$dir
-    cp -rf $HOME/$file /mnt/fun+downloads/my-Dotfile/linux/alan-home/$dir
+    cp -rf $HOME/$file      $dstbase/$dir
+  fi
+
+  if [[ $file == ".zshrc" ]]; then
+      cp -rf $HOME/$file    "$(dirname $dstbase)/alan-root"
   fi
 done

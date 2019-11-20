@@ -61,14 +61,14 @@ endfunction
 function! s:vim_cheat() abort
   let g:Cheat_EnableDefaultMappings = 0
   if g:is_spacevim
-    let g:_spacevim_mappings.C = {'name': '+@ CheatSheet'}
-    call SpaceVim#mapping#def('nnoremap', '<leader>Co', ':Cheat<CR>',
+    let g:_spacevim_mappings.s = {'name': '+@ CheatSheet'}
+    call SpaceVim#mapping#def('nnoremap', '<leader>so', ':Cheat<CR>',
           \ 'open CheatSheet'           , '', 'open CheatSheet')
-    call SpaceVim#mapping#def('nnoremap', '<leader>Ca', ':Cheat -add ',
+    call SpaceVim#mapping#def('nnoremap', '<leader>sa', ':Cheat -add ',
           \ 'add new CheatSheet'        , '', 'add new CheatSheet')
-    call SpaceVim#mapping#def('nnoremap', '<leader>Cu', ':Cheat -update ',
+    call SpaceVim#mapping#def('nnoremap', '<leader>su', ':Cheat -update ',
           \ 'update specific CheatSheet', '', 'update specific CheatSheet')
-    call SpaceVim#mapping#def('nnoremap', '<leader>Cc', ':CheatCurrent<CR>',
+    call SpaceVim#mapping#def('nnoremap', '<leader>sc', ':CheatCurrent<CR>',
           \ 'open cursor CheatSheet'    , '', 'open cursor CheatSheet')
   else
     nnoremap <silent><leader>Co   :Cheat<CR>

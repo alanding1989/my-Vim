@@ -1,0 +1,7 @@
+
+set -o nounset    # error when referencing undefined variable
+set -o errexit    # exit when command fails
+
+$# 参数个数
+$@ 全部参数
+$0 文件名字
