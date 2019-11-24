@@ -56,6 +56,8 @@ nnoremap <C-j>            :action JumpToLastWindow<CR>
 nnoremap <C-k>            :action JumpToLastWindow<CR>
 
 " insert mode
+inoremap <C-j>            <down>
+inoremap <C-k>            <up>
 inoremap <C-b>            <Left>
 inoremap <C-f>            <Right>
 inoremap <C-l>            <Right>
@@ -217,8 +219,8 @@ vnoremap <leader>ee       :action SearchEverywhere<CR>
 nnoremap gd               :action GotoDeclaration<CR>
 nnoremap gi               :action GotoImplementation<CR>
 nnoremap gu               :action GotoSuperMethod<CR>
-nnoremap gt               :action GotoTypeDeclaration<CR>
-nnoremap gT               :action GotoTest<CR>
+nnoremap gT               :action GotoTypeDeclaration<CR>
+nnoremap gt               :action GotoTest<CR>
 nnoremap gs               :action GotoRelated<CR>
 nnoremap gr               :action FindUsages<CR>
 nnoremap gb               :action ByteCodeViewer<CR>
@@ -277,16 +279,18 @@ nnoremap ge               :action RenameElement<CR>
 " code format
 nnoremap g=               ggVG=``
 nnoremap gf               :action ReformatCode<CR>
+inoremap gf               <ESC>:action ReformatCode<CR>A
 nnoremap go               :action OptimizeImports<CR>
 
 
 " run
 nnoremap <tab><tab>       :action RunAnything<CR>
+
 nnoremap <Space>re        :action ChooseRunConfiguration<CR>
 nnoremap <Space>rr        :action Rerun<CR>
 nnoremap <Space>rt        :action RerunTests<CR>
-nnoremap <Space>dk        :action Resume<CR>
 nnoremap <Space>rq        :action Stop<CR>
+nnoremap <Space>dk        :action Resume<CR>
 
 " maven
 nnoremap <Space>rm        :action MavenHelper.QuickRunMavenGoal<CR>
@@ -300,16 +304,17 @@ nnoremap <Space>xc        :action XMake.Clean<CR>
 
 
 " debug
-nnoremap <Space>dd        :action Debug<CR>
+nnoremap <Space>dd        :action ChooseDebugConfiguration<CR>
 nnoremap <Space>dl        :action Debug<CR>
 nnoremap <Space>dc        :action DebugClass<CR>
-nnoremap <Space>dk        :action ChooseDebugConfiguration<CR>
 nnoremap <Space>di        :action StepInto<CR>
 nnoremap <Space>do        :action StepOver<CR>
+
 nnoremap <Space>de        :action EvaluateExpression<CR>
 nnoremap <Space>dv        :action ViewBreakpoints<CR>
 nnoremap <Space>db        :action ToggleLineBreakpoint<CR>
 nnoremap <Space>dm        :action XDebugger.MuteBreakpoints<CR>
+
 nnoremap <Space>df        :action FindBugs.CurrentFileAction<CR>
 
 

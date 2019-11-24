@@ -676,7 +676,7 @@ function! s:inshbox(cmsign, reptsign) abort
         \ '',
         \ ]
   call append(line('.'), head)
-  call setpos('.', [0, line('.')+len(head)-2, 1])
+  call setpos('.', [0, line('.')+len(head)-2, 2])
   call feedkeys("a\<Space>")
 endfun
 "}}}
@@ -689,6 +689,7 @@ let s:dict = {
       \ 'ps1'    : ['#', ''                                                     ],
       \ 'python' : ['#', '#! /usr/bin/env python3', '# -*- coding: utf-8 -*-'   ],
       \ 'ipynb'  : ['#', '#! /usr/bin/env python3', '# -*- coding: utf-8 -*-'   ],
+      \ 'java'   : ['*', ''                       , '/*'                        ],
       \ 'scala'  : ['*', ''                       , '/*'                        ],
       \ 'c'      : ['*', '#include <stdio.h>'     , '/*'                        ],
       \ 'cpp'    : ['*', '#include <iostream>'    , 'using namespace std;', '/*'],

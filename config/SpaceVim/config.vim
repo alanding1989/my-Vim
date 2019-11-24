@@ -19,7 +19,7 @@ let g:spacevim_colorscheme = split([
       \ '8 NeoSolarized',
       \ '9 default'     ,
       \ '10 equinusocio_material',
-      \ ][4])[1]
+      \ ][1])[1]
 let g:spacevim_colorscheme_default = 'nord'
 let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 let g:spacevim_enable_guicolors    = 1

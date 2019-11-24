@@ -5,3 +5,6 @@ set -o errexit    # exit when command fails
 $# 参数个数
 $@ 全部参数
 $0 文件名字
+
+# 重定向标准输出及错误
+(echo 1 && asdf) >& /dev/null
