@@ -3,7 +3,7 @@
 -XX:MetaspaceSize=800m
 -XX:MaxMetaspaceSize=800m
 -XX:ReservedCodeCacheSize=480m
--XX:+UseConcMarkSweepGC
+-XX:+UseG1GC
 
 -XX:SoftRefLRUPolicyMSPerMB=50
 -ea

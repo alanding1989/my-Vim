@@ -65,12 +65,12 @@ inoremap <C-a>            <Esc>^i
 inoremap <C-e>            <End>
 inoremap <C-h>            <BS>
 inoremap <C-d>            <Del>
-inoremap <C-u>            <Esc>l:action EditorDeleteToLineStart<CR>a
+inoremap <C-u>            <Esc>:action EditorDeleteToLineStart<CR>a
 inoremap <C-q>            <Esc>lC
 inoremap <C-_>            <C-k>
 inoremap <C-p>            <C-left>
 inoremap <C-n>            <C-right>
-inoremap <C-i>            <Esc>:action InsertLiveTemplate<CR>a
+inoremap <C-i>            <Esc>:action SurroundWith<CR>
 inoremap <C-o>            <Esc>:action PreviousTemplateVariable<CR>i
 inoremap <A-j>            <CR>
 inoremap <A-k>            <ESC>l:action EditorDeleteToLineEnd<CR>i
@@ -78,6 +78,8 @@ inoremap <A-k>            <ESC>l:action EditorDeleteToLineEnd<CR>i
 
 " faster command mode
 cnoremap qw               <Esc>
+cnoremap <C-j>            <down>
+cnoremap <C-k>            <up>
 cnoremap <C-h>            <BS>
 cnoremap <C-b>            <Left>
 cnoremap <C-l>            <Right>
@@ -140,6 +142,10 @@ nnoremap <C-d>            3<C-e>
 nnoremap <C-u>            3<C-y>
 
 
+" project management
+nnoremap <Space>pr        :action ManageRecentProjects<CR>
+
+
 " file management
 nnoremap <Space>ff        :action GotoFile<CR>
 nnoremap <Space>fo        :action OpenFile<CR>
@@ -149,8 +155,8 @@ nnoremap <Space>fc        :action ReopenClosedTab<CR>
 " creat new file
 nnoremap <Space>fn        :action NewElement<CR>
 nnoremap <Space>fd        :action NewDir<CR>
-nnoremap <Space>ft        :action GotoTest<CR>
 nnoremap <Space>fb        :action OpenInBrowser<CR>
+
 " open file in current project dir
 nnoremap <Space><tab>     :action SelectInProjectView<CR>
 nnoremap <Space>0         :action ActivateTerminalToolWindow<CR>
@@ -176,7 +182,7 @@ nnoremap zk               zkzz
 
 " fast save
 nnoremap qw               <ESC>:action SaveAll<CR>
-inoremap qw               <ESC>:action SaveAll<CR>
+" inoremap qw               <ESC>:action SaveAll<CR>
 
 nnoremap <tab>o           o<ESC>
 nnoremap <tab>p           O<ESC>j
@@ -267,7 +273,7 @@ nnoremap [[               :action MethodUp<CR>
 
 " generate getter, setter ...
 nnoremap gj               :action Generate<CR>
-inoremap gj               <ESC>:action Generate<CR>
+" inoremap gj               <ESC>:action Generate<CR>
 
 " code refactoring
 nnoremap gn               :action Refactorings.QuickListPopupAction<CR>
@@ -279,7 +285,7 @@ nnoremap ge               :action RenameElement<CR>
 " code format
 nnoremap g=               ggVG=``
 nnoremap gf               :action ReformatCode<CR>
-inoremap gf               <ESC>:action ReformatCode<CR>A
+" inoremap gf               <ESC>:action ReformatCode<CR>
 nnoremap go               :action OptimizeImports<CR>
 
 
@@ -309,6 +315,7 @@ nnoremap <Space>dl        :action Debug<CR>
 nnoremap <Space>dc        :action DebugClass<CR>
 nnoremap <Space>di        :action StepInto<CR>
 nnoremap <Space>do        :action StepOver<CR>
+nnoremap <Space>dj        :action RunToCursor<CR>
 
 nnoremap <Space>de        :action EvaluateExpression<CR>
 nnoremap <Space>dv        :action ViewBreakpoints<CR>

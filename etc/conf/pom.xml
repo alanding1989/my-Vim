@@ -24,8 +24,8 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<!--		<spring.boot.version>2.2.1.RELEASE</spring.boot.version>-->
 		<!--		<spring.cloud.version>Hoxton.RC2</spring.cloud.version>-->
-		<spring.boot.version>1.5.9.RELEASE</spring.boot.version>
-		<spring.cloud.version>Dalston.SR1</spring.cloud.version>
+		<!-- <spring.boot.version>1.5.9.RELEASE</spring.boot.version> -->
+		<!-- <spring.cloud.version>Dalston.SR1</spring.cloud.version> -->
 <!--		<mysql.version>8.0.12</mysql.version>-->
 <!--		<hutool.version>5.0.0</hutool.version>-->
 <!--		<guava.version>28.1-jre</guava.version>-->
