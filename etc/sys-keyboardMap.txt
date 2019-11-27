@@ -1,0 +1,15 @@
+
+CapsLock behavior
+   最后一个 Swap ESC and CapsLock 
+
+1、普通键盘
+Ctrl position
+    倒数第三个 Swap Left Alt with Left Ctrl
+
+
+2、迷你键盘
+Ctrl position
+    倒数第二个 Swap Left Win with Left Ctrl
+
+Alt/Win key behavior
+    第四个 Alt is mapped to Right Win, Super to Menu
