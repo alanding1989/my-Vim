@@ -151,7 +151,7 @@ nnoremap <Space>ff        :action GotoFile<CR>
 nnoremap <Space>fo        :action OpenFile<CR>
 nnoremap <Space>fr        :action RecentFiles<CR>
 nnoremap <Space>fp        :action ShowFilePath<CR>
-nnoremap <Space>fc        :action ReopenClosedTab<CR>
+nnoremap <Space>fj        :action GotoClass<CR>
 " creat new file
 nnoremap <Space>fn        :action NewElement<CR>
 nnoremap <Space>fd        :action NewDir<CR>
@@ -248,8 +248,7 @@ nnoremap <Space>so        :action FindInPath<CR>
 nnoremap <Space>sO        viw:action FindInPath<CR>
 vnoremap <Space>so        :action FindInPath<CR>
 
-nnoremap <Space>sm        :action ReplaceInPath<CR>
-nnoremap <Space>sM        viw:action ReplaceInPath<CR>
+nnoremap <Space>sm        viw:action ReplaceInPath<CR>
 vnoremap <Space>sm        :action ReplaceInPath<CR>
 
 nnoremap <leader>oo       :action OnlineSearch.EditorActions.ShowSearchEnginesAction<CR>
@@ -378,6 +377,7 @@ nnoremap <space>xx            :action osmedile.intellij.stringmanip.SwitchCasePo
 " plugins
 set surround
 set multiple-cursors
+set keep-english-in-normal[-and-restore-in-insert]
 vmap q     <A-x>
 xmap q     <A-x>
 map <C-n>  <A-n>

@@ -1,8 +1,8 @@
--Xms1036m
--Xmx1036m
--XX:MetaspaceSize=800m
--XX:MaxMetaspaceSize=800m
--XX:ReservedCodeCacheSize=480m
+-Xms800m
+-Xmx800m
+-XX:MetaspaceSize=700m
+-XX:MaxMetaspaceSize=700m
+-XX:ReservedCodeCacheSize=400m
 -XX:+UseG1GC
 
 -XX:SoftRefLRUPolicyMSPerMB=50

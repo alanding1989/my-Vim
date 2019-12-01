@@ -27,7 +27,7 @@ let g:spacevim_enable_guicolors    = 1
 
 
 "================================================================================
-" Preferences: 
+" Preferences:
 "================================================================================
 let g:spacevim_autocomplete_method  = get(['coc'       , 'deoplete' , 'ncm2', 'ycm'], 0)
 let g:spacevim_snippet_engine       = get(['neosnippet', 'ultisnips', 'coc' ], 0)
@@ -49,7 +49,7 @@ let g:pure_viml = 0
 " Ui: {{{
 let g:enable_fat_statusline                  = 1
 let g:statusline_separator                   = get(['fire', 'arrow', 'curve', 'slant'], 1)
-let g:spacevim_statusline_left_sections      =  ['winnr', 'filename', 'syntax checking', 'minor mode lighters']
+let g:spacevim_statusline_left_sections      = ['winnr', 'filename', 'syntax checking', 'minor mode lighters', 'whitespace']
 let g:spacevim_statusline_right_sections     += g:enable_smart_clock_startup ? ['date'] : ['time', 'date']
 let g:spacevim_enable_statusline_mode        = 1
 let g:spacevim_enable_statusline_bfpath      = 1
@@ -83,8 +83,8 @@ let g:spacevim_project_rooter_patterns       = uniq(sort(g:spacevim_project_root
 " let g:currentbranch                          = split(filter(systemlist('git -C ~/.SpaceVim branch'),
       " \ 'match(v:val, "*") > -1')[0], ' ')[1]
 
-let g:spacevim_layer_lang_java_formatter     = g:is_win 
-      \ ? 'D:\devtools\scala\google-java-format.jar' 
+let g:spacevim_layer_lang_java_formatter     = g:is_win
+      \ ? 'D:\devtools\scala\google-java-format.jar'
       \ : '/opt/lang-tools/java/google-java-format.jar'
 "}}}
 
@@ -113,10 +113,10 @@ function! MySpaceVim_layers_variable(layer) abort
         \ },
         \ 'lang#scala' : {
         \     'format_on_save'      : 0,
-        \     'scala_formatter_path': g:is_win 
-        \         ? 'D:\devtools\scala\scalariform.jar' 
+        \     'scala_formatter_path': g:is_win
+        \         ? 'D:\devtools\scala\scalariform.jar'
         \         : '/opt/lang-tools/scala/scalariform.jar',
-        \     'scala_formatter_scalafmt_config_path'   : g:home.'etc/conf/.scalafmt.conf', 
+        \     'scala_formatter_scalafmt_config_path'   : g:home.'etc/conf/.scalafmt.conf',
         \     'scala_formatter_scalariform_config_path': g:home.'etc/conf/scalariform.properties'
         \ },
         \ 'lang#rust' : {
@@ -145,7 +145,7 @@ function! MySpaceVim_layers_variable(layer) abort
         \ 'VersionControl' : {
         \     'enable_gtm_status' : 0,
         \ },
-        \ 'lsp' : { 
+        \ 'lsp' : {
         \     'filetypes' : extend([
         \         'c'     , 'cpp'   ,
         \         'java'  , 'scala' ,
@@ -189,7 +189,7 @@ endfunction
 "     DefaultLayers:
 "     autocomplete, checkers, core, edit, format, ui,
 "============================================================================= {{{
-" NOTE: 
+" NOTE:
 "   1, if project root dir doesnt have `.SpaceVim.d/init.vim`, load the former.
 "      if has, then load the layers defined in project root `.SpaceVim.d/init.vim`.
 "   2, the latter will always been loaded.

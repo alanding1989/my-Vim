@@ -35,20 +35,20 @@ $scalahome/coursier bootstrap \
   -r sonatype:snapshots \
   -o /opt/lang-tools/scala/coc/metals-vim -f
 
-$scalahome/coursier bootstrap \
-  --java-opt -Xss4m \
-  --java-opt -Xms100m \
-  --java-opt -Dmetals.client=LanguageClient-neovim \
-  --java-opt -Dmetals.java-home=/opt/lang-tools/java/jdk \
-  --java-opt -Dmetals.sbt-script=/opt/lang-tools/scala/sbt/bin/sbt \
-  --java-opt -Dmetals.extensions=true \
-  --java-opt -Dmetals.status-bar=on \
-  --java-opt -Dmetals.slow-task=on \
-  --java-opt -Dmetals.input-box=on \
-  --java-opt -Dmetals.icons=unicode \
-  --java-opt -Dmetals.http=true \
-  org.scalameta:metals_2.12:0.7.6 \
-  -r bintray:scalacenter/releases \
-  -r sonatype:snapshots \
-  -o /opt/lang-tools/scala/languageclient/metals-vim -f
+# $scalahome/coursier bootstrap \
+  # --java-opt -Xss4m \
+  # --java-opt -Xms100m \
+  # --java-opt -Dmetals.client=LanguageClient-neovim \
+  # --java-opt -Dmetals.java-home=/opt/lang-tools/java/jdk \
+  # --java-opt -Dmetals.sbt-script=/opt/lang-tools/scala/sbt/bin/sbt \
+  # --java-opt -Dmetals.extensions=true \
+  # --java-opt -Dmetals.status-bar=on \
+  # --java-opt -Dmetals.slow-task=on \
+  # --java-opt -Dmetals.input-box=on \
+  # --java-opt -Dmetals.icons=unicode \
+  # --java-opt -Dmetals.http=true \
+  # org.scalameta:metals_2.12:0.7.6 \
+  # -r bintray:scalacenter/releases \
+  # -r sonatype:snapshots \
+  # -o /opt/lang-tools/scala/languageclient/metals-vim -f
 
