@@ -55,7 +55,7 @@
   "python.autoComplete.addBrackets"                             : true,
   //"python.autoComplete.extraPaths                              ": [],
   "python.jediEnabled"                                          : false,
-  "python.condaPath"                                            : "/home/alanding/software/anaconda3/bin/conda",
+  "python.condaPath"                                            : "/home/alanding/software/lang-tools/python/anaconda3/bin/conda",
   "python.pythonPath"                                           : "/home/alanding/software/anaconda3/envs/py37/bin/python3.7",
   "python.jediPath"                                             : "/home/alanding/software/anaconda3/envs/py37/lib/python3.7/site-packages/jedi",
   "python.linting.enabled"                                      : false,

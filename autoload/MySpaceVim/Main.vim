@@ -6,13 +6,14 @@ scriptencoding utf-8
 
 
 " My Own layers
-let s:define_my_layers  = ['tags', 'langtools', 'tools#clock', 'defhighlight']
+" let s:define_my_layers  = ['tags', 'langtools', 'tools#clock', 'defhighlight']
+let s:define_my_layers  = ['langtools', 'tools#clock', 'defhighlight']
 
 " SpaceVim embedded layers
 let s:added_plugin_layers = [
       \ 'autocomplete' , 'colorscheme', 'checkers'  , 'core'       , 'edit'    ,
       \ 'git'          , 'langtools'  , 'lang#latex', 'lang#python', 'lang#vim',
-      \ 'lang#markdown', 'lang#ps1'   , 'lang#ipynb', 'leaderf'    , 'ui'      ,
+      \ 'lang#markdown', 'lang#ipynb' , 'leaderf'   , 'ui'      ,
       \ ]
 " Customize plugin configuration to override SpaceVim`s
 let s:modified_conf_layers = [
