@@ -31,8 +31,8 @@ if g:is_unix || g:is_mac
   " linux
   let g:ruby_host_prog             = g:linux_home. '.rbenv/shims/neovim-ruby-host'
   let g:node_host_prog             = '/opt/lang-tools/nvm/versions/node/v10.16.0/bin/neovim-node-host'
-  let g:python_host_prog           = g:linux_home. 'software/lang-tools/python/anaconda3/envs/py27/bin/python2.7'
-  let g:python3_host_prog          = g:linux_home. 'software/lang-tools/python/anaconda3/envs/py37/bin/python3.7'
+  let g:python_host_prog           = g:linux_home. 'software/anaconda3/envs/py27/bin/python2.7'
+  let g:python3_host_prog          = g:linux_home. 'software/anaconda3/envs/py37/bin/python3.7'
 else
   " windows
   let g:ruby_host_prog             = exepath('neovim-ruby-host')
@@ -43,7 +43,7 @@ endif
 " vim
 if !g:is_nvim
   if g:is_unix || g:is_mac
-    set pythonthreedll=$HOME/software/lang-tools/python/anaconda3/envs/py37/lib/libpython3.7m.so
+    set pythonthreedll=$HOME/software/anaconda3/envs/py37/lib/libpython3.7m.so
     " linux
   else
     " windows

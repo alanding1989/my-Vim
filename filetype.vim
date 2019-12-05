@@ -14,9 +14,11 @@ augroup my_filetype_detection
   autocmd BufNewFile,BufRead *.spacemacs         setlocal filetype=lisp
 
 
-  autocmd FileType c,cpp                         setlocal commentstring=//\ %s
+  autocmd FileType c,cpp                         setlocal commentstring=//\ %s tabstop=4 softtabstop=4 shiftwidth=4
   autocmd FileType markdown                      setlocal nowrap textwidth=120
-  " autocmd FileType qf                            setlocal nonumber
+  autocmd FileType qf                            setlocal nonumber
+  autocmd FileType java,rust,html,css,styl,vue,xml
+        \ setlocal tabstop=4 softtabstop=4 shiftwidth=4
 
   " plantuml
   " autocmd BufRead,BufNewFile * if !did_filetype() && getline(1) =~# '@startuml\>'| setfiletype plantuml | endif

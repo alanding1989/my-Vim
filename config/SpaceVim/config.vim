@@ -19,7 +19,7 @@ let g:spacevim_colorscheme = split([
       \ '8 NeoSolarized',
       \ '9 default'     ,
       \ '10 equinusocio_material',
-      \ ][1])[1]
+      \ ][4])[1]
 let g:spacevim_colorscheme_default = 'nord'
 let g:spacevim_colorscheme_bg      = 1 ? 'dark' : 'light'
 let g:spacevim_enable_guicolors    = 1
@@ -61,7 +61,7 @@ let g:spacevim_sidebar_width                 = g:sidebar_width
 let g:spacevim_filetree_direction            = g:filetree_direction
 let g:spacevim_enable_vimfiler_welcome       = 0
 let g:spacevim_home_files_number             = 4
-let g:spacevim_default_indent                = 4
+" let g:spacevim_default_indent                = 2
 
 let g:spacevim_error_symbol                  = g:linter_error_symbol
 let g:spacevim_warning_symbol                = g:linter_warning_symbol

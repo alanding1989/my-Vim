@@ -1,43 +1,60 @@
 
+<!-- vim-markdown-toc GFM -->
+
+- [demo](#demo)
+- [容器管理](#容器管理)
+- [镜像管理：](#镜像管理)
+
+<!-- vim-markdown-toc -->
+
+
 
 ### demo  
-```sh
-docker run -dit -rm --privileged -p21:21 -p80:80 -p8080:8080 -p30000-30010:30000-30010 \
-  --restart=always \ 
-  -v /opt/snnu_docker_ui/dist/:/usr/share/nginx/snnu_ui/ \
-  --name how2jtmall how2jtmall/hello:latest /usr/sbin/init
-```
-  
-- docker run 表示运行一个镜像
+1. 运行一个容器
 
-- -dit 是 -d -i -t 的缩写。 
-    -d 表示 detach，在后台运行。 
-    -i 表示提供交互接口，可以通过 docker 和 操作系统交互。 
-    -t 表示提供 tty 伪终端，与 -i 配合就可以通过 ssh 工具连接到 这个容器里
+  ``` sh
+  docker run -dit -rm --privileged -p21:21 -p80:80 -p8080:8080 -p30000-30010:30000-30010 \
+    --restart=always \ 
+    -v /opt/snnu_docker_ui/dist/:/usr/share/nginx/snnu_ui/ \
+    --name how2jtmall how2jtmall/hello:latest /usr/sbin/init
+  ```
+    
+  - docker run 表示运行一个镜像
 
-- rm 表示如果容器已经存在，自动删除容器
+  - -dit 是 -d -i -t 的缩写。 
+      -d 表示 detach，在后台运行。 
+      -i 表示提供交互接口，可以通过 docker 和 操作系统交互。 
+      -t 表示提供 tty 伪终端，与 -i 配合就可以通过 ssh 工具连接到 这个容器里
 
-- --privileged 启动容器的时候，把权限带进去。 这样才可以在容器里进行完整的操作
+  - rm 表示如果容器已经存在，自动删除容器
 
-- -p 21:21 
-  - -p 表示port
-  - 第一个21，表示在CentOS 上开放21端口。 
-  - 第二个21 表示在容器里开放21端口。 这样当访问CentOS 的21端口的时候，就会间接地访问到容器里了
+  - --privileged 启动容器的时候，把权限带进去。 这样才可以在容器里进行完整的操作
 
-- -p30000-30010 和21也是一个道理，这个是ftp用来传输数据的
+  - -p 21:21 
+    - -p 表示port
+    - 第一个21，表示在CentOS 上开放21端口。 
+    - 第二个21 表示在容器里开放21端口。 这样当访问CentOS 的21端口的时候，就会间接地访问到容器里了
 
-- --restart=always 表示当Docker 重启时，容器能够自动启动
+  - -p30000-30010 和21也是一个道理，这个是ftp用来传输数据的
 
-- -v 将Docker内部目录映射到宿主机的目录，就可以共享宿主机的文件目录，冒号左边是宿主机的目录
-    这里是为了灵活配置项目部署，如果这里加了就可以不用在Dockerfile文件中COPY dist/ /usr/share/nginx/snnu_ui/，
-    只需要每次将打成的包放到宿主机的对应目录下，容器会自动识别，可以不必每次更新包都需要重新生成镜像。
-    如果不加的话，就需要在Dockerfile文件中COPY dist/ /usr/share/nginx/snnu_ui/，每次重新打包都需要重新生成镜像。
+  - --restart=always 表示当Docker 重启时，容器能够自动启动
 
-- --name how2jtmall 给容器取了个名字，叫做 how2jtmall，方便后续管理
+  - -v 将Docker内部目录映射到宿主机的目录，就可以共享宿主机的文件目录，冒号左边是宿主机的目录
+      这里是为了灵活配置项目部署，如果这里加了就可以不用在Dockerfile文件中COPY dist/ /usr/share/nginx/snnu_ui/，
+      只需要每次将打成的包放到宿主机的对应目录下，容器会自动识别，可以不必每次更新包都需要重新生成镜像。
+      如果不加的话，就需要在Dockerfile文件中COPY dist/ /usr/share/nginx/snnu_ui/，每次重新打包都需要重新生成镜像。
 
-- how2jtmall/hello:latest somebody/hello就是镜像的名称， latest是版本号，即最新版本
+  - --name how2jtmall 给容器取了个名字，叫做 how2jtmall，方便后续管理
 
-- /usr/sbin/init: 容器启动后需要运行的程序，即通过这个命令做初始化
+  - how2jtmall/hello:latest somebody/hello就是镜像的名称， latest是版本号，即最新版本
+
+  - /usr/sbin/init: 容器启动后需要运行的程序，即通过这个命令做初始化
+
+
+- 更新一个容器参数
+  ``` sh
+  docker container update --restart=no $容器名字
+  ```
 
 
 ### 容器管理
