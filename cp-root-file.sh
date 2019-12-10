@@ -84,10 +84,10 @@ rm -rf $dstbase
 for file in "${files[@]}"; do
   dir="$(dirname $file)"
 
-  if [ $dir == '.' ]; then
+  if [[ $dir == '.' ]]; then
     cp -rf $HOME/$file      $dstbase 
   else
-    [ ! -e $dstbase/$dir ] && mkdir -p $dstbase/$dir
+    [[ ! -e $dstbase/$dir ]] && mkdir -p $dstbase/$dir
     cp -rf $HOME/$file      $dstbase/$dir
   fi
 
