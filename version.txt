@@ -1,4 +1,0 @@
-
-hadoop 2.9.2
-hbase  1.5.x or 2.2.x
-hive   

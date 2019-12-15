@@ -6,7 +6,7 @@
 # Created Time : Sat 11 May 2019 10:16:21 PM CST
 #================================================================================
 
-#! /usr/bin/env bash
+
 branchname=$1
 path="$HOME/0_Dev/SpaceVim-PR/SpaceVim-$branchname"
 
