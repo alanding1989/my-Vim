@@ -51,10 +51,16 @@
   - /usr/sbin/init: 容器启动后需要运行的程序，即通过这个命令做初始化
 
 
-- 更新一个容器参数
+2. 更新一个容器参数
   ``` sh
   docker container update --restart=no $容器名字
   ```
+
+3. 容器启动之后查看容器输出
+  ```
+  docker container logs 容器名字
+  ```
+
 
 
 ### 容器管理

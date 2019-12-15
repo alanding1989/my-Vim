@@ -6,11 +6,13 @@ scriptencoding utf-8
 
 
 
-if has('patch-8.0.0027') || has('nvim')
-  let s:git_plugin = 'gina'
-else
-  let s:git_plugin = 'gita'
-endif
+" if has('patch-8.0.0027') || has('nvim')
+  " let s:git_plugin = 'gina'
+" else
+  " let s:git_plugin = 'gita'
+" endif
+
+let s:git_plugin = 'git'
 
 let s:gitgutter_plugin = get(g:, 'spacevim_gitgutter_plugin',
       \ get(g:, 'gitgutter_plugin', 'vim-gitgutter'))
@@ -22,23 +24,29 @@ function! layers#git#plugins() abort
   call add(plugins, ['sodapopcan/vim-twiggy', {'on_cmd': 'Twiggy', 'on': 'Twiggy'}])
   if g:is_spacevim && s:gitgutter_plugin ==# 'coc'
     auto VimEnter * call coc#config('git', {"enableGutters": "true"})
+
   elseif !g:is_spacevim
     "{{{
     call add(plugins, ['junegunn/gv.vim'       , {'on_cmd': 'GV', 'on': 'GV'}])
     call add(plugins, ['tpope/vim-fugitive'    , {'merged': 0}])
+
     if !MyVim#layer#isLoaded('VersionControl') && s:gitgutter_plugin ==# 'vim-gitgutter'
       " show vcs info in sign column, only support git
       call add(plugins, ['airblade/vim-gitgutter', {'merged': 0}])
     elseif s:gitgutter_plugin ==# 'coc'
       auto VimEnter * call coc#config('git', {"enableGutters": "true"})
     endif
+
     if s:git_plugin ==# 'gina'
       call add(plugins, ['lambdalisue/gina.vim', {'on_cmd': 'Gina'}])
     elseif s:git_plugin ==# 'gita'
       call add(plugins, ['lambdalisue/vim-gita', {'on_cmd': 'Gita'}])
     elseif s:git_plugin ==# 'fugitive'
       call add(plugins, ['tpope/vim-dispatch'  , { 'merged' : 0}])
+    else
+      call add(plugins, ['wsdjeg/git.vim', { 'on_cmd' : 'Git'}])
     endif
+
     if g:filemanager ==# 'nerdtree'
       call add(plugins, ['Xuyuanp/nerdtree-git-plugin', {'merged': 0}])
     endif
@@ -51,21 +59,25 @@ endfunction
 function! layers#git#config() abort
   if g:is_spacevim "{{{
     if s:git_plugin ==# 'gina'
+      " nvim
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'a'], 'Gina add %'     , 'stage current file'  , 1)
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'u'], 'Gina reset -q %', 'unstage current file', 1)
     elseif s:git_plugin ==# 'fugitive'
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'a'], 'Git add %'      , 'stage current file'  , 1)
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'u'], 'Git reset -q %' , 'unstage current file', 1)
-    else
+    elseif s:git_plugin ==# 'gita'
+      " vim
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'a'], 'Gita add %'     , 'stage current file'  , 1)
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'u'], 'Gita reset %'   , 'unstage current file', 1)
+    else
+      call SpaceVim#mapping#space#def('nnoremap', ['g', 'a'], 'Git add %'      , 'stage-current-file'  , 1)
+      call SpaceVim#mapping#space#def('nnoremap', ['g', 'u'], 'Git reset %'    , 'unstage-current-file', 1)
     endif
-    " call SpaceVim#mapping#space#def('nnoremap'  , ['g', 'L'], 'GV!', 'View git log of current file', 1)
-    " call SpaceVim#mapping#space#def('nnoremap'  , ['g', 'l'], 'GV' , 'View git log of current repo', 1)
+
     if s:gitgutter_plugin ==# 'vim-gitgutter'
-      call SpaceVim#mapping#space#def('nnoremap', ['g', 'f'], 'GitGutterFold', '@ toggle folding unchanged lines', 1)
-      call SpaceVim#mapping#space#def('nmap'    , ['g', 'h', 'u'], '<Plug>GitGutterUndoHunk'     , 'undo cursor hunk'   , 0)
-      call SpaceVim#mapping#space#def('nmap'    , ['g', 'h', 'p'], '<Plug>GitGutterPreviewHunk'  , 'preview cursor hunk', 0)
+      call SpaceVim#mapping#space#def('nnoremap', ['g', 'f'],      'GitGutterFold'               , '@ toggle folding unchanged lines', 1)
+      call SpaceVim#mapping#space#def('nmap'    , ['g', 'h', 'u'], '<Plug>GitGutterUndoHunk'     , 'undo cursor hunk'                , 0)
+      call SpaceVim#mapping#space#def('nmap'    , ['g', 'h', 'p'], '<Plug>GitGutterPreviewHunk'  , 'preview cursor hunk'             , 0)
     elseif s:gitgutter_plugin ==# 'coc'
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'f'],      'CocCommand git.foldUnchanged', '@ toggle folding unchanged lines', 1)
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'h', 'a'], 'CocCommand git.chunkStage'   , 'stage current hunk'              , 1)
@@ -77,16 +89,20 @@ function! layers#git#config() abort
       call SpaceVim#mapping#space#def('nnoremap', ['g', 'f'], 'SignifyFold', '@ toggle folding unchanged lines', 1)
       unlet g:_spacevim_mappings_space.g.h | nunmap [SPC]gh
     endif
+
     try
       unlet g:_spacevim_mappings_space.g.h.r | nunmap [SPC]ghr
       unlet g:_spacevim_mappings_space.g.h.v | nunmap [SPC]ghv
     catch
     endtry
+
     call SpaceVim#mapping#space#def('nnoremap'  , ['g', 'j'], 'Twiggy', 'open git branch manager', 1)
+
     let g:_spacevim_mappings_space.g.i = get(g:_spacevim_mappings_space.g, 'i', {'name': '+GitHub'})
     call SpaceVim#mapping#space#def('nmap'      , ['g', 'i', 'y'], '<Plug>(CopyCursorCodeUrl)',
           \ 'Copy current/selected line of github url to clipboard', 0)
     xmap [SPC]giy  <Plug>(CopySelectCodeUrls)
+
     augroup layer_git
       autocmd!
       auto FileType vim

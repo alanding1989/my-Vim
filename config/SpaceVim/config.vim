@@ -178,7 +178,7 @@ function! MySpaceVim_layers_variable(layer) abort
         \ 'defhighlight' : {
         \     'enable_vim_highlight' : 0,
         \     'hlcolor'  : s:enable_myhl ? g:_defhighlight_var.hlcolor : {}
-        \ }
+        \   }
         \ }, a:layer, {})
 endfunction
 " }}}
