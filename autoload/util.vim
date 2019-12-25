@@ -163,6 +163,7 @@ function! util#so_file(path, ...) abort
   let SPC_p  = glob(g:home.'config/SpaceVim/'.a:path)
   let Vim_p  = glob(g:home.'config/Vim/'.a:path)
   let arbi_p = glob(g:home.a:path)
+  " regenerate the g:home path
   let g:home = glob(g:home)
   if a:1 ==# 'g' && util#filereadable(gen_p)
     exec 'so ' gen_p
@@ -180,8 +181,7 @@ function! util#filereadable(path) abort
   if filereadable(expand(a:path))
     return 1
   else
-    call util#echohl(' invalid file name, please check !')
-    return 0
+    throw 'invalid file name, please check '. a:path. '!'
   endif
 endfunction "}}}
 

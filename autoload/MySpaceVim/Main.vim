@@ -27,6 +27,7 @@ let s:spacevim_default_cs = [
       \ 'gruvbox' , 'molokai' , 'onedark'      , 'jellybeans' , 'one'   ,
       \ 'nord'    , 'hybrid'  , 'NeoSolarized' , 'material'   , 'srcery', 'palenight'
       \ ]
+
 let s:is_fallback = 0
 
 
@@ -81,7 +82,7 @@ endfunction
 
 
 "--------------------------------------------------------------------------------
-" Load SpaceVim layers and plugins 
+" Load SpaceVim layers and plugins
 "----------------------------------------------------------------------------- {{{
 function! s:SpaceVim_config_load() abort
   call util#so_file('config.vim', 'SPC')

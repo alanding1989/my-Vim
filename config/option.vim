@@ -14,7 +14,7 @@ set autoindent smartindent cindent
 set smarttab expandtab
 set shiftwidth=4 tabstop=4 softtabstop=4 textwidth=78
 
-set linebreak 
+set linebreak
 
 set foldlevel=0 foldmethod=syntax
 set foldtext=Foldtext()
@@ -37,7 +37,7 @@ set signcolumn=yes
 set showtabline=2
 set display+=lastline laststatus=2
 set noshowmode showcmd wildmenu ruler shortmess+=c
-set statusline=\%<\ \ %F\ [%1*%m%*%n%R%H]%=\ %Y.\ \ \ %0(%{&ff}\|%{&fenc}\ \ %l:%c\ -\ %p%%\/%L%)\ \  
+set statusline=\%<\ \ %F\ [%1*%m%*%n%R%H]%=\ %Y.\ \ \ %0(%{&ff}\|%{&fenc}\ \ %l:%c\ -\ %p%%\/%L%)\ \ 
 
 " search
 set hlsearch incsearch ignorecase smartcase

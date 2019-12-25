@@ -39,6 +39,7 @@ let g:Lf_Gtagslabel           = 'native-pygments'
 let g:Lf_CacheDirectory       = expand('~/.cache')
 let g:Lf_RootMarkers          = deepcopy(g:project_root_marker)
 let g:Lf_WorkingDirectoryMode = 'Ac'
+
 " <C-X> : open in horizontal split window.
 let g:Lf_CommandMap           = {
       \ '<Del>'  : ['<C-d>'],
@@ -49,6 +50,7 @@ let g:Lf_CommandMap           = {
       \ '<C-]>'  : ['<C-i>'],
       \ '<TAB>'  : ['<C-o>'],
       \ }
+
 " ESC directly quit leaderf normal mode
 let g:Lf_NormalMap = {
       \ 'File'    : [['<ESC>', ':exec g:Lf_py "fileExplManager.quit()"<CR>'    ]],

@@ -5,7 +5,7 @@ scriptencoding utf-8
 
 
 
-" The same configurations for SpaceVim and My Vim 
+" The same configurations for SpaceVim and My Vim
 function! default#load() abort
   call util#so_file('general.vim'       , 'g')
   call util#so_file('option.vim'        , 'g')
