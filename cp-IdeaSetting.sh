@@ -4,7 +4,7 @@
 # File Name    : lib/editor-install/copy-keymap.sh
 # Author       : AlanDing
 # Created Time : Fri 27 Sep 2019 11:33:47 PM CST
-# Description  : 
+# Description  :
 
 
 declare -a ideas
@@ -22,7 +22,7 @@ SPC_path="$HOME/.SpaceVim.d"
 # Specific Setting
 keyMap=config/keymaps/Alanding-perfect.xml
 codeStyle="config/codestyles/AlanDing prefer-Code Style.xml"
-colors="config/colors"
+# colors="config/colors"
 vmoptions="config/idea64.vmoptions"
 properties="config/idea.properties"
 
@@ -35,7 +35,7 @@ for item in "${ideas[@]}"; do
   if [ -e "$dist_name" ]; then
     cp -f  "$src/$keyMap"                        "$dist_name/$keyMap"
     cp -f  "$src/$codeStyle"                     "$dist_name/$codeStyle"
-    cp -rf "$src/$colors"                        "$dist_name/config"
+    # cp -rf "$src/$colors"                        "$dist_name/config"
 
     # 将变量全转小写
     typeset -l idea=$item
@@ -43,7 +43,7 @@ for item in "${ideas[@]}"; do
       cp -rf "$src/$vmoptions"                   "$dist_name/config/idea64.vmoptions"
     else
       cp -rf "$src/$vmoptions"                   "$dist_name/config/${idea}64.vmoptions"
-    fi 
+    fi
     cp -rf "$src/$properties"                    "$dist_name/config/"
 
 

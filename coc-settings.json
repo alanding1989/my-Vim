@@ -53,7 +53,7 @@
   // languageserver config
 
   "python.autoComplete.addBrackets"                             : true,
-  //"python.autoComplete.extraPaths                              ": [],
+  // "python.autoComplete.extraPaths                              ": [],
   "python.jediEnabled"                                          : false,
   "python.condaPath"                                            : "/home/alanding/software/lang-tools/python/anaconda3/bin/conda",
   "python.pythonPath"                                           : "/home/alanding/software/anaconda3/envs/py37/bin/python3.7",
@@ -76,10 +76,8 @@
   
 
   "rust-analyzer.raLspServerPath"                               : "/home/alanding/software/lang-tools/cargo/bin/ra_lsp_server",
-  "rust-analyzer.enableCargoWatchOnStartup"                     : "enabled",
   "rust-analyzer.excludeGlobs"                                  : ["target"],
   "rust-analyzer.cargo-watch.command"                           : "clippy",
-  "rust-analyzer.cargo-watch.ignore"                            : ["target"],
   
 
   "java.home"                                                   : "/opt/lang-tools/java/jdk",
