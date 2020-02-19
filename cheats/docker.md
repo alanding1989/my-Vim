@@ -4,6 +4,7 @@
 - [demo](#demo)
 - [容器管理](#容器管理)
 - [镜像管理：](#镜像管理)
+- [修改docker的文件保存位置，防止丢失](#修改docker的文件保存位置防止丢失)
 
 <!-- vim-markdown-toc -->
 
@@ -99,4 +100,8 @@
 6. push , 把镜像提交到仓库
 
 7. 删除所有镜像 docker rmi $(docker images -q)
+
+
+### 修改docker的文件保存位置，防止丢失
+将 /var/lib/docker 移到自己想要的位置，再在/var/lib/docker 建个软链到它
 
