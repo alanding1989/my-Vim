@@ -101,6 +101,8 @@
 
 7. 删除所有镜像 docker rmi $(docker images -q)
 
+8. 复制容器内文件到本文件系统，docker cp mysql-latest:/var/lib/mysql ./data
+
 
 ### 修改docker的文件保存位置，防止丢失
 将 /var/lib/docker 移到自己想要的位置，再在/var/lib/docker 建个软链到它
