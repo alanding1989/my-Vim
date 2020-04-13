@@ -38,7 +38,7 @@ function! layers#autocomplete#plugins() abort
     else
       call add(plugins, ['tbodt/deoplete-tabnine', {'on_event': 'InsertEnter',
             \ 'build': './install.sh', 'do': './install.sh'}])
-    endif 
+    endif
     "}}}
 
   " ncm2 {{{
@@ -177,7 +177,7 @@ endif
 "}}}
 
 " Plug functionality enhancement {{{
-function! layers#autocomplete#coc_editsnips(...) abort 
+function! layers#autocomplete#coc_editsnips(...) abort
   let ultisnips_dirpath = (g:is_win ?
         \ expand('D:/.cache/vimfiles/repos/github.com/alanding1989/my-vim-snippets/UltiSnips/') :
         \ expand('~/.cache/vimfiles-alan/repos/github.com/alanding1989/my-vim-snippets/UltiSnips/'))
